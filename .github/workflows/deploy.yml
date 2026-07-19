@@ -2,7 +2,7 @@ name: Deploy sites to Cloudflare
 
 on:
   push:
-    branches: [main, master]
+    branches: [main, master, "claude/sales-website-research-plan-7i7rc2"]
     paths: ["sites/**", ".github/workflows/deploy.yml"]
   workflow_dispatch:
 
