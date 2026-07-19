@@ -29,7 +29,7 @@ jobs:
         run: |
           set -e
           for site in agentready selltoagents closecalc; do
-            url="https://${site}.tuoqiantu.workers.dev"
+            url="https://${site}.agiscorecard.com"
             code=$(curl -s -o /dev/null -w "%{http_code}" "$url/")
             llms=$(curl -s -o /dev/null -w "%{http_code}" "$url/llms.txt")
             smap=$(curl -s -o /dev/null -w "%{http_code}" "$url/sitemap.xml")
@@ -39,6 +39,6 @@ jobs:
       - name: Verify scanner API end-to-end
         run: |
           set -e
-          out=$(curl -s --max-time 60 "https://agentready.tuoqiantu.workers.dev/api/scan?url=https%3A%2F%2Fwww.cloudflare.com")
+          out=$(curl -s --max-time 60 "https://agentready.agiscorecard.com/api/scan?url=https%3A%2F%2Fwww.cloudflare.com")
           echo "$out" | head -c 600; echo
           echo "$out" | python3 -c "import json,sys; d=json.load(sys.stdin); assert isinstance(d.get('score'), int) and d.get('checks'), d; print('scan OK: score', d['score'], 'grade', d['grade'], len(d['checks']), 'checks')"

@@ -16,4 +16,4 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
-Sitemap: https://selltoagents.tuoqiantu.workers.dev/sitemap.xml
+Sitemap: https://selltoagents.agiscorecard.com/sitemap.xml

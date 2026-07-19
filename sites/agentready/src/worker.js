@@ -6,7 +6,7 @@
  */
 
 const FETCH_TIMEOUT_MS = 8000;
-const UA = "AgentReadyBot/1.0 (+https://agentready.tuoqiantu.workers.dev; agentic-commerce readiness scanner)";
+const UA = "AgentReadyBot/1.0 (+https://agentready.agiscorecard.com; agentic-commerce readiness scanner)";
 
 // AI crawlers that decide whether your products appear in AI shopping answers.
 const AI_CRAWLERS = [
@@ -254,7 +254,7 @@ function checkLlmsTxt(llms) {
       : "No llms.txt. It's an emerging convention — cheap to add, gives agents a curated summary of what you sell. Shopify stores get one natively.",
     fix: found
       ? null
-      : "Add /llms.txt: a short markdown file listing what you sell, key product pages, pricing, and shipping/return policies (free generator: agentready.tuoqiantu.workers.dev/llms-txt-generator).",
+      : "Add /llms.txt: a short markdown file listing what you sell, key product pages, pricing, and shipping/return policies (free generator: agentready.agiscorecard.com/llms-txt-generator).",
   };
 }
 
