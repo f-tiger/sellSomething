@@ -1,0 +1,50 @@
+# One-off migration (2026-07-19): move agentfront.agiscorecard.com from the
+# retired createjob Worker to the agentfront Worker managed by this repo,
+# drop the duplicate lens.agiscorecard.com, then delete the old Workers.
+# Safe to delete this file after a successful run.
+name: Migrate domains and decommission createjob
+
+on: workflow_dispatch
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Move domains and delete retired workers
+        env:
+          CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -euo pipefail
+          api() { m="$1"; p="$2"; shift 2; curl -sS -X "$m" "https://api.cloudflare.com/client/v4$p" -H "Authorization: Bearer $CF_API_TOKEN" -H "Content-Type: application/json" "$@"; }
+
+          ZONE_ID=$(api GET "/zones?name=agiscorecard.com" | jq -r '.result[0].id')
+          echo "zone: $ZONE_ID"; test "$ZONE_ID" != "null"
+
+          echo "== domains before =="
+          api GET "/accounts/$CF_ACCOUNT_ID/workers/domains" | jq -r '.result[] | "\(.hostname) -> \(.service)"'
+
+          echo "== move agentfront.agiscorecard.com -> agentfront worker =="
+          api PUT "/accounts/$CF_ACCOUNT_ID/workers/domains" \
+            --data "{\"zone_id\":\"$ZONE_ID\",\"hostname\":\"agentfront.agiscorecard.com\",\"service\":\"agentfront\",\"environment\":\"production\"}" \
+            | jq -e '.success'
+
+          echo "== verify =="
+          api GET "/accounts/$CF_ACCOUNT_ID/workers/domains?hostname=agentfront.agiscorecard.com" \
+            | jq -e '.result[0].service == "agentfront"'
+
+          echo "== delete lens.agiscorecard.com =="
+          LENS_ID=$(api GET "/accounts/$CF_ACCOUNT_ID/workers/domains?hostname=lens.agiscorecard.com" | jq -r '.result[0].id // empty')
+          if [ -n "$LENS_ID" ]; then
+            api DELETE "/accounts/$CF_ACCOUNT_ID/workers/domains/$LENS_ID" | jq '{success, errors}'
+          else
+            echo "lens domain not found (already gone)"
+          fi
+
+          echo "== delete retired workers =="
+          for w in createjob llmstxt-builder; do
+            api DELETE "/accounts/$CF_ACCOUNT_ID/workers/scripts/$w?force=true" | jq "{worker: \"$w\", success, errors}"
+          done
+
+          echo "== domains after =="
+          api GET "/accounts/$CF_ACCOUNT_ID/workers/domains" | jq -r '.result[] | "\(.hostname) -> \(.service)"'
