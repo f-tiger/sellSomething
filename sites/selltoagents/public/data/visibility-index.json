@@ -1,1 +1,356 @@
-{"updatedAt":"pending","brandCount":0,"averageScore":0,"results":[]}
+{
+  "updatedAt": "2026-07-19",
+  "brandCount": 37,
+  "averageScore": 74,
+  "results": [
+    {
+      "name": "Casper",
+      "domain": "casper.com",
+      "score": 84,
+      "grade": "B",
+      "failing": [
+        "Product / Offer schema"
+      ]
+    },
+    {
+      "name": "Away",
+      "domain": "awaytravel.com",
+      "score": 84,
+      "grade": "B",
+      "failing": [
+        "Product / Offer schema"
+      ]
+    },
+    {
+      "name": "Outdoor Voices",
+      "domain": "outdoorvoices.com",
+      "score": 84,
+      "grade": "B",
+      "failing": [
+        "Product / Offer schema"
+      ]
+    },
+    {
+      "name": "Rothy's",
+      "domain": "rothys.com",
+      "score": 84,
+      "grade": "B",
+      "failing": [
+        "Product / Offer schema"
+      ]
+    },
+    {
+      "name": "Fenty Beauty",
+      "domain": "fentybeauty.com",
+      "score": 84,
+      "grade": "B",
+      "failing": [
+        "Product / Offer schema"
+      ]
+    },
+    {
+      "name": "HexClad",
+      "domain": "hexclad.com",
+      "score": 84,
+      "grade": "B",
+      "failing": [
+        "Product / Offer schema"
+      ]
+    },
+    {
+      "name": "Our Place",
+      "domain": "fromourplace.com",
+      "score": 84,
+      "grade": "B",
+      "failing": [
+        "Product / Offer schema"
+      ]
+    },
+    {
+      "name": "Stanley",
+      "domain": "stanley1913.com",
+      "score": 84,
+      "grade": "B",
+      "failing": [
+        "Product / Offer schema"
+      ]
+    },
+    {
+      "name": "Cotopaxi",
+      "domain": "cotopaxi.com",
+      "score": 84,
+      "grade": "B",
+      "failing": [
+        "Product / Offer schema"
+      ]
+    },
+    {
+      "name": "Tecovas",
+      "domain": "tecovas.com",
+      "score": 84,
+      "grade": "B",
+      "failing": [
+        "Product / Offer schema"
+      ]
+    },
+    {
+      "name": "True Classic",
+      "domain": "trueclassictees.com",
+      "score": 84,
+      "grade": "B",
+      "failing": [
+        "Product / Offer schema"
+      ]
+    },
+    {
+      "name": "Jones Road",
+      "domain": "jonesroadbeauty.com",
+      "score": 84,
+      "grade": "B",
+      "failing": [
+        "Product / Offer schema"
+      ]
+    },
+    {
+      "name": "Olipop",
+      "domain": "drinkolipop.com",
+      "score": 84,
+      "grade": "B",
+      "failing": [
+        "Product / Offer schema"
+      ]
+    },
+    {
+      "name": "Graza",
+      "domain": "graza.co",
+      "score": 84,
+      "grade": "B",
+      "failing": [
+        "Product / Offer schema"
+      ]
+    },
+    {
+      "name": "Fly By Jing",
+      "domain": "flybyjing.com",
+      "score": 84,
+      "grade": "B",
+      "failing": [
+        "Product / Offer schema"
+      ]
+    },
+    {
+      "name": "Magic Spoon",
+      "domain": "magicspoon.com",
+      "score": 84,
+      "grade": "B",
+      "failing": [
+        "Product / Offer schema"
+      ]
+    },
+    {
+      "name": "Warby Parker",
+      "domain": "warbyparker.com",
+      "score": 80,
+      "grade": "B",
+      "failing": [
+        "Product / Offer schema"
+      ]
+    },
+    {
+      "name": "Vuori",
+      "domain": "vuoriclothing.com",
+      "score": 80,
+      "grade": "B",
+      "failing": [
+        "Product / Offer schema"
+      ]
+    },
+    {
+      "name": "Glossier",
+      "domain": "glossier.com",
+      "score": 74,
+      "grade": "C",
+      "failing": [
+        "Product / Offer schema",
+        "Descriptive <title>"
+      ]
+    },
+    {
+      "name": "Chubbies",
+      "domain": "chubbiesshorts.com",
+      "score": 72,
+      "grade": "C",
+      "failing": [
+        "Product / Offer schema"
+      ]
+    },
+    {
+      "name": "Mejuri",
+      "domain": "mejuri.com",
+      "score": 72,
+      "grade": "C",
+      "failing": [
+        "Product / Offer schema"
+      ]
+    },
+    {
+      "name": "Ruggable",
+      "domain": "ruggable.com",
+      "score": 72,
+      "grade": "C",
+      "failing": [
+        "Product / Offer schema"
+      ]
+    },
+    {
+      "name": "Quince",
+      "domain": "quince.com",
+      "score": 72,
+      "grade": "C",
+      "failing": [
+        "Product / Offer schema"
+      ]
+    },
+    {
+      "name": "Skims",
+      "domain": "skims.com",
+      "score": 72,
+      "grade": "C",
+      "failing": [
+        "Product / Offer schema"
+      ]
+    },
+    {
+      "name": "Cuts",
+      "domain": "cutsclothing.com",
+      "score": 72,
+      "grade": "C",
+      "failing": [
+        "Product / Offer schema"
+      ]
+    },
+    {
+      "name": "Allbirds",
+      "domain": "allbirds.com",
+      "score": 69,
+      "grade": "C",
+      "failing": [
+        "JSON-LD present",
+        "Product / Offer schema"
+      ]
+    },
+    {
+      "name": "Brooklinen",
+      "domain": "brooklinen.com",
+      "score": 69,
+      "grade": "C",
+      "failing": [
+        "JSON-LD present",
+        "Product / Offer schema"
+      ]
+    },
+    {
+      "name": "Parachute",
+      "domain": "parachutehome.com",
+      "score": 69,
+      "grade": "C",
+      "failing": [
+        "JSON-LD present",
+        "Product / Offer schema"
+      ]
+    },
+    {
+      "name": "Liquid Death",
+      "domain": "liquiddeath.com",
+      "score": 69,
+      "grade": "C",
+      "failing": [
+        "JSON-LD present",
+        "Product / Offer schema"
+      ]
+    },
+    {
+      "name": "Everlane",
+      "domain": "everlane.com",
+      "score": 64,
+      "grade": "C",
+      "failing": [
+        "JSON-LD present",
+        "Product / Offer schema",
+        "Descriptive <title>"
+      ]
+    },
+    {
+      "name": "Gymshark",
+      "domain": "gymshark.com",
+      "score": 60,
+      "grade": "C",
+      "failing": [
+        "JSON-LD present",
+        "Product / Offer schema",
+        "Descriptive <title>"
+      ]
+    },
+    {
+      "name": "Nuggets of Wisdom",
+      "domain": "solostove.com",
+      "score": 57,
+      "grade": "C",
+      "failing": [
+        "JSON-LD present",
+        "Product / Offer schema"
+      ]
+    },
+    {
+      "name": "Yeti",
+      "domain": "yeti.com",
+      "score": 57,
+      "grade": "C",
+      "failing": [
+        "JSON-LD present",
+        "Product / Offer schema"
+      ]
+    },
+    {
+      "name": "Owala",
+      "domain": "owalalife.com",
+      "score": 57,
+      "grade": "C",
+      "failing": [
+        "JSON-LD present",
+        "Product / Offer schema"
+      ]
+    },
+    {
+      "name": "Bombas",
+      "domain": "bombas.com",
+      "score": 54,
+      "grade": "D",
+      "failing": [
+        "JSON-LD present",
+        "Product / Offer schema"
+      ]
+    },
+    {
+      "name": "Buck Mason",
+      "domain": "buckmason.com",
+      "score": 53,
+      "grade": "D",
+      "failing": [
+        "JSON-LD present",
+        "Product / Offer schema",
+        "Descriptive <title>"
+      ]
+    },
+    {
+      "name": "MVMT",
+      "domain": "mvmt.com",
+      "score": 51,
+      "grade": "D",
+      "failing": [
+        "JSON-LD present",
+        "Product / Offer schema"
+      ]
+    }
+  ]
+}
