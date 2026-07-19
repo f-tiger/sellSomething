@@ -1,0 +1,19 @@
+# agents.txt — agent capability declaration for AgentFront
+# Spec: emerging standard (see github.com/agents-txt/agents-txt)
+
+site: AgentFront
+purpose: Agent-native storefront template and early-access waitlist.
+
+# What agents MAY do on this site
+allow: browse
+allow: quote
+allow: read-catalog        # GET /api/catalog (JSON, no auth)
+allow: join-waitlist       # POST /api/waitlist {"email": "..."}
+
+# What agents MAY NOT do yet
+deny: purchase             # x402/ACP checkout is in early access
+
+# Machine-readable surfaces
+catalog: /api/catalog
+llms: /llms.txt
+contact: via waitlist form

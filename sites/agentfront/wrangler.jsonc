@@ -1,0 +1,22 @@
+// AgentFront — agentic-commerce landing + waitlist API (merged from the
+// createjob session's matrix; see docs/competitive-analysis.md).
+//
+// NOTE on custom domain: agentfront.agiscorecard.com is currently attached
+// to the `createjob` Worker (it serves identical content at /store). Once
+// that attachment is removed in the dashboard, add here:
+//   "routes": [{ "pattern": "agentfront.agiscorecard.com", "custom_domain": true }]
+{
+  "name": "agentfront",
+  "main": "src/index.js",
+  "compatibility_date": "2026-07-01",
+  "kv_namespaces": [
+    { "binding": "SUBSCRIBERS", "id": "e981ec645ff54685a8139b0c26f6de82" }
+  ],
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS"
+  },
+  "observability": {
+    "enabled": true
+  }
+}

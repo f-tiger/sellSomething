@@ -1,0 +1,20 @@
+# AgentFront
+
+> Agent-native storefront infrastructure. Makes online stores discoverable, quotable and transactable by AI agents: llms.txt + JSON-LD for discovery, agents.txt capability declarations, a machine-readable catalog API, and x402/ACP-compatible checkout (early access).
+
+Early-access product. Free for the first 100 stores on the waitlist.
+
+## Pages
+
+- [Home](/): What agentic commerce is, the market data, and the four layers of an agent-native storefront.
+- [Waitlist](/#waitlist): Join early access for the storefront template.
+
+## Machine-readable endpoints
+
+- [Catalog API](/api/catalog): JSON product catalog — the format agents consume. Open, no auth.
+- [agents.txt](/agents.txt): Declared agent capabilities for this site.
+
+## Sister sites
+
+- [AgentReady](https://agentready.agiscorecard.com/): Free AI sales-visibility scanner for any website.
+- [SellToAgents](https://selltoagents.agiscorecard.com/): Merchant guides for ACP, UCP, MCP and llms.txt.

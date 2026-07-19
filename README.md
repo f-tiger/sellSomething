@@ -7,6 +7,7 @@
 | **AgentReady** | [`sites/agentready`](sites/agentready) | 核心工具:免费扫描任意网站的"AI 销售可见性"(AI 爬虫许可、Product schema、llms.txt、sitemap、answer-readiness),0-100 评分 + 修复建议;Pro 等候名单捕获邮箱 |
 | **SellToAgents** | [`sites/selltoagents`](sites/selltoagents) | 内容站:ACP / UCP / MCP / llms.txt 商家指南 + 10 步就绪清单,GEO 优化,向主站导流 |
 | **CloseCalc** | [`sites/closecalc`](sites/closecalc) | 长尾工具站:佣金、pipeline 覆盖率、冷邮件 ROI、折扣保本 4 个计算器,向矩阵导流 |
+| **AgentFront** | [`sites/agentfront`](sites/agentfront) | 产品站(2026-07-19 自 createjob 会话合并入):agentic-commerce 接入模板等待名单 + agents.txt + `/api/catalog` 机器可读目录——主力验证方向,依据 [docs/competitive-analysis.md](docs/competitive-analysis.md) |
 
 ## 技术
 
