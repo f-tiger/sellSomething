@@ -28,13 +28,19 @@ jobs:
       - name: Verify all three sites are live
         run: |
           set -e
+          # Custom-domain DNS may take a couple of minutes right after first attach — retry.
           for site in agentready selltoagents closecalc; do
             url="https://${site}.agiscorecard.com"
-            code=$(curl -s -o /dev/null -w "%{http_code}" "$url/")
-            llms=$(curl -s -o /dev/null -w "%{http_code}" "$url/llms.txt")
-            smap=$(curl -s -o /dev/null -w "%{http_code}" "$url/sitemap.xml")
-            echo "$site: / -> $code, /llms.txt -> $llms, /sitemap.xml -> $smap"
-            [ "$code" = "200" ] && [ "$llms" = "200" ] && [ "$smap" = "200" ] || { echo "::error::$site is not healthy"; exit 1; }
+            ok=""
+            for attempt in $(seq 1 12); do
+              code=$(curl -s -o /dev/null -w "%{http_code}" "$url/" || true)
+              llms=$(curl -s -o /dev/null -w "%{http_code}" "$url/llms.txt" || true)
+              smap=$(curl -s -o /dev/null -w "%{http_code}" "$url/sitemap.xml" || true)
+              echo "$site attempt $attempt: / -> $code, /llms.txt -> $llms, /sitemap.xml -> $smap"
+              if [ "$code" = "200" ] && [ "$llms" = "200" ] && [ "$smap" = "200" ]; then ok=1; break; fi
+              sleep 20
+            done
+            [ -n "$ok" ] || { echo "::error::$site is not healthy after retries"; exit 1; }
           done
       - name: Verify scanner API end-to-end
         run: |
