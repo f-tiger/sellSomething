@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pipeline Coverage Calculator — how much pipeline do you need? (free)</title>
+<meta name="description" content="Free pipeline coverage calculator: enter quota, win rate and average deal size to get required pipeline value, deal count, and your coverage ratio.">
+<link rel="canonical" href="https://closecalc.dev/pipeline-coverage">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"WebApplication","name":"Pipeline Coverage Calculator","applicationCategory":"BusinessApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is a good pipeline coverage ratio?","acceptedAnswer":{"@type":"Answer","text":"The classic rule of thumb is 3–4× coverage: your open pipeline should be 3 to 4 times your quota. The honest ratio is 1 ÷ win rate — a 25% win rate implies 4× coverage; a 20% win rate implies 5×."}},
+{"@type":"Question","name":"How do I calculate required pipeline?","acceptedAnswer":{"@type":"Answer","text":"Required pipeline = quota ÷ win rate. If quota is $300,000 and your win rate is 25%, you need $1.2M in pipeline. Divide by average deal size to get the number of opportunities required."}}
+]}]}
+</script>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="/">Close<span>Calc</span></a>
+  <nav><a href="/commission">Commission</a><a href="/cold-email-roi">Email ROI</a><a href="/discount-impact">Discounts</a></nav>
+</header>
+
+<p class="meta">Free calculator · No signup</p>
+<h1>Pipeline coverage calculator</h1>
+<p class="lead">"3× pipeline" is folklore. Your real coverage ratio is 1 ÷ win rate. Compute what you actually need.</p>
+
+<div class="calc">
+  <div class="row2">
+    <div class="field"><label>Quota for the period ($)</label><input type="number" id="quota" value="300000" min="0"></div>
+    <div class="field"><label>Win rate (%)</label><input type="number" id="win" value="25" min="1" max="100" step="0.5"></div>
+  </div>
+  <div class="row2">
+    <div class="field"><label>Average deal size ($)</label><input type="number" id="deal" value="25000" min="1"></div>
+    <div class="field"><label>Current open pipeline ($)</label><input type="number" id="current" value="800000" min="0"></div>
+  </div>
+  <div class="result" id="out"></div>
+</div>
+
+<h2>How the math works</h2>
+<p>Required pipeline = quota ÷ win rate. Required deals = required pipeline ÷ average deal size. Your coverage ratio = current pipeline ÷ quota; the target ratio = 1 ÷ win rate. A 25% win rate means every $1 of quota needs $4 of pipeline — before slippage.</p>
+<div class="note">Sandbagging warning: if your CRM win rate includes disqualified junk, your effective win rate is lower and your real coverage need is higher. Recompute with won ÷ (won + lost), excluding no-decisions, for the honest number.</div>
+
+<footer>
+  <div class="links"><a href="/">All calculators</a><a href="https://agentready.dev">AgentReady</a><a href="https://selltoagents.dev">SellToAgents</a></div>
+  <div>© 2026 CloseCalc</div>
+</footer>
+</div>
+<script>
+const $ = id => document.getElementById(id);
+const fmt = n => n.toLocaleString('en-US', {style:'currency', currency:'USD', maximumFractionDigits:0});
+function calc(){
+  const quota = +$('quota').value || 0, win = Math.max(+$('win').value || 1, 0.1)/100;
+  const deal = Math.max(+$('deal').value || 1, 1), current = +$('current').value || 0;
+  const needed = quota / win;
+  const deals = Math.ceil(needed / deal);
+  const targetRatio = (1/win).toFixed(1);
+  const ratio = quota > 0 ? (current/quota).toFixed(1) : '0';
+  const gap = needed - current;
+  $('out').innerHTML = '<div class="big">' + fmt(needed) + '</div><div class="sub">pipeline required · ' + deals + ' opportunities at ' + fmt(deal) + ' each</div>' +
+    '<table><tr><td>Target coverage ratio (1 ÷ win rate)</td><td>' + targetRatio + '×</td></tr>' +
+    '<tr><td>Your current coverage ratio</td><td>' + ratio + '×</td></tr>' +
+    '<tr><td>' + (gap > 0 ? 'Pipeline gap to fill' : 'Pipeline surplus') + '</td><td>' + fmt(Math.abs(gap)) + '</td></tr></table>';
+}
+document.querySelectorAll('input').forEach(i => i.addEventListener('input', calc));
+calc();
+</script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What is agentic commerce? A merchant's plain-English guide (2026)</title>
+<meta name="description" content="Agentic commerce is AI agents discovering, comparing and buying products on behalf of consumers. Here's what changed, who the players are, and what merchants must do.">
+<link rel="canonical" href="https://selltoagents.dev/what-is-agentic-commerce">
+<meta property="og:title" content="What is agentic commerce? A merchant's plain-English guide">
+<meta property="og:type" content="article">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "What is agentic commerce? A merchant's plain-English guide (2026)",
+      "datePublished": "2026-07-19",
+      "author": { "@type": "Organization", "name": "SellToAgents" }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "What is agentic commerce?", "acceptedAnswer": { "@type": "Answer", "text": "Agentic commerce is delegated shopping: a customer states intent and constraints, and an AI agent searches, compares, and completes part or all of the purchase on their behalf. Unlike a chatbot, an agent transacts — it produces an order." } },
+        { "@type": "Question", "name": "How big is agentic commerce?", "acceptedAnswer": { "@type": "Answer", "text": "45% of consumers already use AI in parts of their buying journey (IBM IBV, Jan 2026), and McKinsey projects $3–5 trillion in agent-orchestrated retail spend by 2030. Over 1 million Shopify merchants are auto-enrolled in ChatGPT Shopping and Google AI Mode." } },
+        { "@type": "Question", "name": "What should merchants do first?", "acceptedAnswer": { "@type": "Answer", "text": "First verify AI crawlers aren't blocked in robots.txt, then add schema.org Product and Offer structured data, publish llms.txt, and keep a clean product feed. Structured data is what agents actually parse." } }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="/">Sell<span>To</span>Agents</a>
+  <nav><a href="/merchant-checklist">Checklist</a><a href="/acp-guide">ACP</a><a href="/llms-txt-guide">llms.txt</a></nav>
+</header>
+
+<p class="meta">Guide · Updated July 2026 · 6 min read</p>
+<h1>What is agentic commerce? A merchant's plain-English guide</h1>
+
+<div class="tldr"><b>Direct answer:</b> Agentic commerce is <em>delegated shopping</em> — a customer tells an AI agent what they want and under what constraints ("running shoes under $120, wide fit, arrives by Friday"), and the agent searches, compares, and completes steps of the purchase for them. The agent doesn't browse your beautiful storefront. It reads your <em>data</em>. If your data is unreadable, you don't exist.</div>
+
+<h2>What actually changed</h2>
+<p>Three things converged in 2025–2026:</p>
+<ol>
+  <li><strong>Consumers moved.</strong> A Morgan Stanley survey (Nov 2025) found 45% of US consumers had used ChatGPT in the prior month; IBM's Institute for Business Value (Jan 2026) found 45% of consumers already use AI in some part of the buying journey.</li>
+  <li><strong>The rails were built.</strong> OpenAI and Stripe shipped the <a href="/acp-guide">Agentic Commerce Protocol (ACP)</a>, which powers ChatGPT Shopping. Google launched the Universal Commerce Protocol (UCP) at NRF 2026, covering discovery through post-purchase. Anthropic's Model Context Protocol (MCP) became the standard connectivity layer for live inventory, pricing and product data.</li>
+  <li><strong>Merchants were enrolled — mostly without noticing.</strong> Over 1 million Shopify merchants are auto-enrolled in ChatGPT Shopping and Google AI Mode. Participation isn't the question anymore. Being <em>selectable</em> is.</li>
+</ol>
+
+<h2>How an agent buys (versus how a human buys)</h2>
+<table>
+  <tr><th>Step</th><th>Human shopper</th><th>AI agent</th></tr>
+  <tr><td>Discover</td><td>Google, ads, social</td><td>Model knowledge + live crawl + product feeds</td></tr>
+  <tr><td>Evaluate</td><td>Photos, reviews, brand feel</td><td>Structured data: price, availability, specs, policies</td></tr>
+  <tr><td>Trust</td><td>Design, social proof</td><td>Organization schema, consistent data, third-party citations</td></tr>
+  <tr><td>Buy</td><td>Your checkout UI</td><td>Delegated checkout via ACP/UCP, or a handoff link</td></tr>
+</table>
+<p>Notice what's missing from the right column: your hero image, your popup, your carefully A/B-tested button color. Agents are immune to persuasion and allergic to ambiguity.</p>
+
+<h2>The new funnel metric: citation share</h2>
+<p>SEO optimized for <em>ranking</em>. Agentic commerce optimizes for <em>being in the answer</em>. When a buyer asks "best ergonomic office chair under $400", the agent composes a shortlist of 3–5 products. Either you're in that synthesis or you're invisible — there is no page two.</p>
+
+<h2>What merchants should do, in order</h2>
+<ol>
+  <li><strong>Unblock the crawlers.</strong> Check robots.txt for GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot, Google-Extended. Many stores block them by accident via blanket bot rules.</li>
+  <li><strong>Structure your products.</strong> schema.org <code>Product</code> + <code>Offer</code> JSON-LD on every product page: price, currency, availability, GTIN/SKU, shipping.</li>
+  <li><strong>Publish <a href="/llms-txt-guide">llms.txt</a>.</strong> A curated, markdown map of what you sell and your policies.</li>
+  <li><strong>Keep feeds clean.</strong> Your Google Merchant Center / Shopify feed increasingly doubles as your agent-facing catalog.</li>
+  <li><strong>Answer questions in public.</strong> FAQ pages with FAQPage schema are among the most-cited structures in AI answers.</li>
+</ol>
+<p>The full ordered list with verification steps is in the <a href="/merchant-checklist">10-step readiness checklist</a>.</p>
+
+<div class="cta">
+  <h3>Check your store in 10 seconds</h3>
+  <p>Free scan: AI crawler access, Product schema, llms.txt, and answer-readiness.</p>
+  <a class="btn" href="https://agentready.dev">Run the free scan →</a>
+</div>
+
+<footer>
+  <div class="links"><a href="/">All guides</a><a href="/llms.txt">llms.txt</a><a href="https://agentready.dev">AgentReady scanner</a></div>
+  <div>© 2026 SellToAgents</div>
+</footer>
+</div>
+</body>
+</html>

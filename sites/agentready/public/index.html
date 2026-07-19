@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AgentReady — Is your store visible to AI shoppers?</title>
+<meta name="description" content="Free AI sales-visibility scanner. Check in 10 seconds whether ChatGPT, Claude, Perplexity and Google AI can discover, understand and recommend what you sell.">
+<link rel="canonical" href="https://agentready.dev/">
+<meta property="og:title" content="AgentReady — Is your store visible to AI shoppers?">
+<meta property="og:description" content="45% of consumers already use AI in their buying journey. Scan your site's agentic-commerce readiness for free.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://agentready.dev/og.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "AgentReady",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "description": "Free scanner that scores how visible your store is to AI shopping agents like ChatGPT Shopping, Claude, Perplexity and Google AI Mode.",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is AI sales visibility?",
+          "acceptedAnswer": { "@type": "Answer", "text": "AI sales visibility is whether AI assistants and shopping agents (ChatGPT, Claude, Perplexity, Google AI Mode) can crawl your site, parse your product data, and confidently recommend your products when a buyer asks. It is the AI-era equivalent of ranking on page one of Google." }
+        },
+        {
+          "@type": "Question",
+          "name": "What does AgentReady check?",
+          "acceptedAnswer": { "@type": "Answer", "text": "AgentReady checks whether your robots.txt allows the seven major AI crawlers, whether you publish llms.txt, whether your pages carry schema.org Product, Offer, Organization and FAQ structured data, plus sitemap and answer-readiness metadata — then scores you 0–100 with concrete fixes." }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does this matter now?",
+          "acceptedAnswer": { "@type": "Answer", "text": "45% of consumers already use AI in their buying journey and McKinsey projects $3–5 trillion in agent-orchestrated retail spend by 2030. Over a million Shopify stores are already enrolled in ChatGPT Shopping — the question is whether your product data is structured well enough to be picked." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+:root{--bg:#0a0e1a;--panel:#111629;--panel2:#161d36;--line:#232c4d;--text:#e7ebf7;--dim:#8b94b5;--acc:#5b8cff;--acc2:#38d9a9;--warn:#ffc078;--bad:#ff6b6b;--r:14px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:960px;margin:0 auto;padding:0 24px}
+header{padding:22px 0;display:flex;justify-content:space-between;align-items:center}
+.logo{font-weight:800;font-size:20px;letter-spacing:-.02em}
+.logo span{color:var(--acc)}
+nav a{color:var(--dim);text-decoration:none;margin-left:22px;font-size:14px}
+nav a:hover{color:var(--text)}
+.hero{padding:64px 0 40px;text-align:center}
+h1{font-size:clamp(30px,5.5vw,52px);line-height:1.12;letter-spacing:-.03em;font-weight:800}
+h1 em{font-style:normal;background:linear-gradient(90deg,var(--acc),var(--acc2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--dim);max-width:640px;margin:18px auto 0;font-size:18px}
+.scanbox{margin:36px auto 10px;max-width:640px;display:flex;gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:10px}
+.scanbox input{flex:1;background:transparent;border:0;outline:0;color:var(--text);font-size:16px;padding:10px 12px}
+.scanbox input::placeholder{color:#5b6484}
+.btn{background:linear-gradient(90deg,var(--acc),#7b5bff);color:#fff;border:0;border-radius:10px;padding:12px 22px;font-size:15px;font-weight:700;cursor:pointer;white-space:nowrap}
+.btn:hover{filter:brightness(1.1)}
+.btn[disabled]{opacity:.6;cursor:wait}
+.tiny{color:#5b6484;font-size:13px;margin-top:10px}
+.stats{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:44px 0 8px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:18px 22px;min-width:200px}
+.stat b{display:block;font-size:26px;letter-spacing:-.02em}
+.stat span{color:var(--dim);font-size:13px}
+#result{max-width:760px;margin:26px auto 0;display:none;text-align:left}
+.scorehead{display:flex;align-items:center;gap:22px;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:22px}
+.ring{width:110px;height:110px;flex:none}
+.scorehead h2{font-size:22px;letter-spacing:-.02em}
+.scorehead p{color:var(--dim);font-size:14px;margin-top:6px}
+.cat{margin-top:18px}
+.cat h3{font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);margin:20px 0 10px}
+.check{display:flex;gap:12px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:8px}
+.check .dot{width:10px;height:10px;border-radius:50%;margin-top:7px;flex:none}
+.pass .dot{background:var(--acc2)}.warn .dot{background:var(--warn)}.fail .dot{background:var(--bad)}
+.check b{font-size:15px}
+.check p{color:var(--dim);font-size:14px;margin-top:2px}
+.check .fix{color:var(--warn);font-size:13px;margin-top:6px}
+.cta-strip{margin-top:26px;background:linear-gradient(135deg,#18223f,#131a33);border:1px solid var(--line);border-radius:var(--r);padding:26px;text-align:center}
+.cta-strip h3{font-size:20px;letter-spacing:-.02em}
+.cta-strip p{color:var(--dim);font-size:14px;margin:8px 0 16px}
+.email-row{display:flex;gap:10px;max-width:440px;margin:0 auto}
+.email-row input{flex:1;background:var(--panel);border:1px solid var(--line);border-radius:10px;color:var(--text);padding:12px 14px;font-size:15px;outline:0}
+section.info{padding:56px 0;border-top:1px solid var(--line);margin-top:64px}
+section.info h2{font-size:28px;letter-spacing:-.02em;margin-bottom:12px}
+section.info p{color:var(--dim);max-width:720px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:26px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:20px}
+.card b{font-size:16px}
+.card p{font-size:14px;margin-top:6px}
+footer{border-top:1px solid var(--line);padding:34px 0;color:var(--dim);font-size:13px;margin-top:60px}
+footer .links{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:12px}
+footer a{color:var(--dim)}
+@media(max-width:560px){.scanbox{flex-direction:column}.scorehead{flex-direction:column;text-align:center}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="logo">Agent<span>Ready</span></div>
+  <nav><a href="#how">How it works</a><a href="#why">Why now</a><a href="#faq">FAQ</a></nav>
+</header>
+
+<section class="hero">
+  <h1>Is your store visible<br>to <em>AI shoppers</em>?</h1>
+  <p class="sub">ChatGPT, Claude, Perplexity and Google AI already recommend products to millions of buyers. Scan your site in 10 seconds and find out if they can even see yours.</p>
+  <form class="scanbox" id="scanform">
+    <input id="url" type="text" placeholder="yourstore.com" autocomplete="url" required>
+    <button class="btn" id="scanbtn" type="submit">Scan free →</button>
+  </form>
+  <div class="tiny">Free · No signup · Checks 7 AI crawlers + structured data + llms.txt</div>
+
+  <div id="result"></div>
+
+  <div class="stats">
+    <div class="stat"><b>45%</b><span>of consumers already use AI in their buying journey (IBM, 2026)</span></div>
+    <div class="stat"><b>$3–5T</b><span>retail spend orchestrated by AI agents by 2030 (McKinsey)</span></div>
+    <div class="stat"><b>-25%</b><span>traditional search volume by 2026 (Gartner)</span></div>
+  </div>
+</section>
+
+<section class="info" id="how">
+  <h2>What we check</h2>
+  <p>AI agents don't browse your store like humans — they read machine signals. AgentReady audits the exact surface AI shopping agents use to decide whether to recommend you:</p>
+  <div class="grid3">
+    <div class="card"><b>🤖 AI crawler access</b><p>Does robots.txt allow GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot, Google-Extended and friends — or are you invisible by accident?</p></div>
+    <div class="card"><b>🧾 Structured data</b><p>schema.org Product, Offer, Organization and FAQ markup — the format agents actually parse for price, availability and trust.</p></div>
+    <div class="card"><b>📄 llms.txt</b><p>The emerging standard that hands AI agents a curated map of what you sell, your policies and your best pages.</p></div>
+  </div>
+</section>
+
+<section class="info" id="why">
+  <h2>Why this matters now</h2>
+  <p>Over 1 million Shopify merchants are already auto-enrolled in ChatGPT Shopping and Google AI Mode. Agentic-commerce protocols (OpenAI/Stripe's ACP, Google's UCP, Anthropic's MCP) are live. The merchants who structure their data first get recommended first — the same land-grab SEO was in 2005, replayed at 10x speed.</p>
+</section>
+
+<section class="info" id="faq">
+  <h2>FAQ</h2>
+  <div class="grid3">
+    <div class="card"><b>Is the scan really free?</b><p>Yes. The instant scan is free forever. Continuous monitoring, weekly re-scans and competitor benchmarks are part of the upcoming Pro plan.</p></div>
+    <div class="card"><b>What's a good score?</b><p>75+ means agents can discover and parse you. Most stores we scan start between 30 and 55 — which is exactly why early movers win.</p></div>
+    <div class="card"><b>Do you store my data?</b><p>Scans run live and are not persisted in the MVP. We only store your email if you ask for the monitoring waitlist.</p></div>
+  </div>
+</section>
+
+<footer>
+  <div class="links">
+    <a href="/llms.txt">llms.txt</a>
+    <a href="#how">Methodology</a>
+    <a href="https://selltoagents.pages.dev" id="link-guide">Agentic commerce guides</a>
+    <a href="https://closecalc.pages.dev" id="link-calc">Sales calculators</a>
+  </div>
+  <div>© 2026 AgentReady · Built for the agentic-commerce era. We practice what we scan: this site ships llms.txt, FAQ schema and open AI-crawler policies.</div>
+</footer>
+</div>
+
+<script>
+const form = document.getElementById('scanform');
+const btn = document.getElementById('scanbtn');
+const result = document.getElementById('result');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const url = document.getElementById('url').value.trim();
+  if (!url) return;
+  btn.disabled = true; btn.textContent = 'Scanning…';
+  result.style.display = 'block';
+  result.innerHTML = '<div class="scorehead"><div style="font-size:34px">⏳</div><div><h2>Scanning ' + esc(url) + '…</h2><p>Fetching robots.txt, llms.txt, structured data and metadata.</p></div></div>';
+  try {
+    const res = await fetch('/api/scan?url=' + encodeURIComponent(url));
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Scan failed');
+    render(data);
+  } catch (err) {
+    result.innerHTML = '<div class="scorehead fail"><div style="font-size:34px">⚠️</div><div><h2>Scan failed</h2><p>' + esc(err.message) + '</p></div></div>';
+  } finally {
+    btn.disabled = false; btn.textContent = 'Scan free →';
+  }
+});
+
+function render(d) {
+  const color = d.score >= 75 ? '#38d9a9' : d.score >= 55 ? '#ffc078' : '#ff6b6b';
+  const cats = {};
+  d.checks.forEach(c => { (cats[c.category] = cats[c.category] || []).push(c); });
+  let html = '<div class="scorehead">' + ring(d.score, color) +
+    '<div><h2>Grade ' + d.grade + ' — ' + d.score + '/100</h2><p>' + esc(d.summary) + '</p></div></div>';
+  for (const [cat, checks] of Object.entries(cats)) {
+    html += '<div class="cat"><h3>' + esc(cat) + '</h3>';
+    for (const c of checks) {
+      html += '<div class="check ' + c.status + '"><div class="dot"></div><div><b>' + esc(c.title) + '</b><p>' + esc(c.detail) + '</p>' + (c.fix ? '<div class="fix">Fix: ' + esc(c.fix) + '</div>' : '') + '</div></div>';
+    }
+    html += '</div>';
+  }
+  html += '<div class="cta-strip"><h3>Don\'t lose the AI shelf space race</h3><p>Get weekly re-scans, alerts when an AI crawler gets blocked, and competitor benchmarks. Join the Pro waitlist:</p><form class="email-row" id="subform"><input type="email" id="email" placeholder="you@company.com" required><button class="btn" type="submit">Join waitlist</button></form></div>';
+  result.innerHTML = html;
+  document.getElementById('subform').addEventListener('submit', subscribe);
+}
+
+async function subscribe(e) {
+  e.preventDefault();
+  const email = document.getElementById('email').value.trim();
+  const target = e.target;
+  try {
+    const res = await fetch('/api/subscribe', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ email }) });
+    if (!res.ok) throw new Error();
+    target.innerHTML = '<p style="color:#38d9a9;font-weight:700">✓ You\'re on the list. We\'ll email you when Pro monitoring opens.</p>';
+  } catch {
+    target.innerHTML = '<p style="color:#ff6b6b">Something went wrong — please try again later.</p>';
+  }
+}
+
+function ring(score, color) {
+  const r = 46, c = 2 * Math.PI * r, off = c - (score / 100) * c;
+  return '<svg class="ring" viewBox="0 0 110 110"><circle cx="55" cy="55" r="' + r + '" fill="none" stroke="#232c4d" stroke-width="9"/><circle cx="55" cy="55" r="' + r + '" fill="none" stroke="' + color + '" stroke-width="9" stroke-linecap="round" stroke-dasharray="' + c + '" stroke-dashoffset="' + off + '" transform="rotate(-90 55 55)"/><text x="55" y="63" text-anchor="middle" fill="#e7ebf7" font-size="26" font-weight="800">' + score + '</text></svg>';
+}
+
+function esc(s) { const d = document.createElement('div'); d.textContent = String(s); return d.innerHTML; }
+</script>
+</body>
+</html>

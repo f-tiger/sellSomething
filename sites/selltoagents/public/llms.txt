@@ -1,0 +1,16 @@
+# SellToAgents
+
+> SellToAgents publishes plain-English guides for merchants on agentic commerce: how AI agents (ChatGPT Shopping, Claude, Perplexity, Google AI Mode) discover, compare and buy products, and how to make your store the one they recommend.
+
+## Guides
+- [What is agentic commerce?](/what-is-agentic-commerce): the 2026 landscape — ACP, UCP, MCP, and why citation share replaces rankings
+- [10-step readiness checklist](/merchant-checklist): ordered, mostly-free steps with verification
+- [ACP explained](/acp-guide): how ChatGPT Shopping selects products
+- [llms.txt for stores](/llms-txt-guide): 20-minute implementation with a copy-paste template
+
+## Related tools
+- [AgentReady](https://agentready.dev): free AI sales-visibility scanner
+- [CloseCalc](https://closecalc.dev): free sales calculators
+
+## Audience
+E-commerce merchants, DTC brands, marketplaces and agencies preparing for AI-agent-driven sales channels.

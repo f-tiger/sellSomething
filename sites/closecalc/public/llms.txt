@@ -1,0 +1,13 @@
+# CloseCalc
+
+> CloseCalc offers free, no-signup calculators for sales teams: commission (with tiers and accelerators), pipeline coverage, cold email ROI, and discount break-even. All formulas are transparent and documented on each page.
+
+## Calculators
+- [Sales commission calculator](/commission): base + accelerator payout math, attainment and effective rate
+- [Pipeline coverage calculator](/pipeline-coverage): required pipeline = quota ÷ win rate; honest coverage ratios
+- [Cold email ROI calculator](/cold-email-roi): full funnel model with 2026 benchmark reply rates
+- [Discount break-even calculator](/discount-impact): volume increase = discount ÷ (margin − discount)
+
+## Related
+- [AgentReady](https://agentready.dev): free AI sales-visibility scanner for the agentic-commerce era
+- [SellToAgents](https://selltoagents.dev): merchant guides to selling through AI agents

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Discount Break-Even Calculator — how much more must you sell? (free)</title>
+<meta name="description" content="Free discount break-even calculator: enter your gross margin and a proposed discount to see exactly how much extra volume you need to keep the same profit.">
+<link rel="canonical" href="https://closecalc.dev/discount-impact">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"WebApplication","name":"Discount Break-Even Calculator","applicationCategory":"BusinessApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How much more do I need to sell after a discount?","acceptedAnswer":{"@type":"Answer","text":"Required volume increase = discount ÷ (gross margin − discount). At a 40% margin, a 10% discount requires 33% more unit volume just to earn the same gross profit; a 20% discount requires 100% more."}},
+{"@type":"Question","name":"Why do small discounts hurt so much?","acceptedAnswer":{"@type":"Answer","text":"Because a discount comes entirely out of your margin, not your price. Cutting price 10% on a 40%-margin product cuts profit per unit by 25% — so volume must rise disproportionately to compensate."}}
+]}]}
+</script>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="/">Close<span>Calc</span></a>
+  <nav><a href="/commission">Commission</a><a href="/pipeline-coverage">Pipeline</a><a href="/cold-email-roi">Email ROI</a></nav>
+</header>
+
+<p class="meta">Free calculator · No signup</p>
+<h1>Discount break-even calculator</h1>
+<p class="lead">Every discount comes straight out of your margin. See how much extra volume a price cut really demands — before you approve it.</p>
+
+<div class="calc">
+  <div class="row2">
+    <div class="field"><label>Gross margin (%)</label><input type="number" id="margin" value="40" min="1" max="99" step="0.5"></div>
+    <div class="field"><label>Proposed discount (%)</label><input type="number" id="discount" value="10" min="0" max="99" step="0.5"></div>
+  </div>
+  <div class="row2">
+    <div class="field"><label>Price per unit ($, optional)</label><input type="number" id="price" value="100" min="0"></div>
+    <div class="field"><label>Current monthly units (optional)</label><input type="number" id="units" value="500" min="0"></div>
+  </div>
+  <div class="result" id="out"></div>
+</div>
+
+<h2>How the math works</h2>
+<p>Required volume increase = discount ÷ (margin − discount). At 40% margin, a 10% discount leaves 30 points of margin per unit instead of 40 — so you need 40/30 = 1.33× the volume (+33%) for the same gross profit. If the discount ≥ your margin, no volume can save you: you lose money on every sale.</p>
+<div class="note">Flip it: this same formula shows why a 10% price <em>increase</em> at 40% margin lets you lose up to 20% of volume and still make more money. Price is the strongest lever in the P&amp;L — in both directions.</div>
+
+<footer>
+  <div class="links"><a href="/">All calculators</a><a href="https://agentready.dev">AgentReady</a><a href="https://selltoagents.dev">SellToAgents</a></div>
+  <div>© 2026 CloseCalc</div>
+</footer>
+</div>
+<script>
+const $ = id => document.getElementById(id);
+const fmt = n => n.toLocaleString('en-US', {style:'currency', currency:'USD', maximumFractionDigits:0});
+function calc(){
+  const m = (+$('margin').value || 0)/100, d = (+$('discount').value || 0)/100;
+  const price = +$('price').value || 0, units = +$('units').value || 0;
+  const out = $('out');
+  if (d >= m) {
+    out.innerHTML = '<div class="big" style="color:#ff6b6b">Unprofitable</div><div class="sub">The discount (' + (d*100).toFixed(1) + '%) meets or exceeds your gross margin (' + (m*100).toFixed(1) + '%). Every discounted sale loses money — no volume increase can break even.</div>';
+    return;
+  }
+  const inc = d / (m - d);
+  const newUnits = units > 0 ? Math.ceil(units * (1 + inc)) : 0;
+  let rows = '<table><tr><td>Margin after discount</td><td>' + ((m-d)*100).toFixed(1) + '%</td></tr>' +
+    '<tr><td>Profit per unit change</td><td>−' + (d/m*100).toFixed(1) + '%</td></tr>';
+  if (units > 0) rows += '<tr><td>Units needed (was ' + units + ')</td><td>' + newUnits + '</td></tr>';
+  if (price > 0 && units > 0) rows += '<tr><td>Gross profit at break-even</td><td>' + fmt(units * price * m) + '</td></tr>';
+  rows += '</table>';
+  out.innerHTML = '<div class="big">+' + (inc*100).toFixed(1) + '% volume</div><div class="sub">required to keep the same gross profit after a ' + (d*100).toFixed(1) + '% discount</div>' + rows;
+}
+document.querySelectorAll('input').forEach(i => i.addEventListener('input', calc));
+calc();
+</script>
+</body>
+</html>

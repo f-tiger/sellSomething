@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The 10-step agentic-commerce readiness checklist for merchants (2026)</title>
+<meta name="description" content="An ordered, mostly-free checklist to make your store visible to AI shopping agents: robots.txt, Product schema, llms.txt, feeds, FAQ markup — with verification steps.">
+<link rel="canonical" href="https://selltoagents.dev/merchant-checklist">
+<meta property="og:title" content="The 10-step agentic-commerce readiness checklist">
+<meta property="og:type" content="article">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Agentic-commerce readiness checklist for merchants",
+  "description": "10 ordered steps to make a store discoverable and selectable by AI shopping agents.",
+  "step": [
+    { "@type": "HowToStep", "name": "Unblock AI crawlers in robots.txt" },
+    { "@type": "HowToStep", "name": "Add Product and Offer JSON-LD to product pages" },
+    { "@type": "HowToStep", "name": "Add Organization schema to your homepage" },
+    { "@type": "HowToStep", "name": "Publish llms.txt" },
+    { "@type": "HowToStep", "name": "Publish and declare an XML sitemap" },
+    { "@type": "HowToStep", "name": "Write extractable product copy" },
+    { "@type": "HowToStep", "name": "Publish an FAQ with FAQPage schema" },
+    { "@type": "HowToStep", "name": "Clean up your product feed" },
+    { "@type": "HowToStep", "name": "Make policies machine-readable" },
+    { "@type": "HowToStep", "name": "Monitor your AI visibility monthly" }
+  ]
+}
+</script>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="/">Sell<span>To</span>Agents</a>
+  <nav><a href="/what-is-agentic-commerce">Start here</a><a href="/acp-guide">ACP</a><a href="/llms-txt-guide">llms.txt</a></nav>
+</header>
+
+<p class="meta">Checklist · Updated July 2026 · 8 min read</p>
+<h1>The 10-step agentic-commerce readiness checklist</h1>
+<p class="lead">Ordered by impact-per-hour. Steps 1–5 cost nothing but time and cover ~80% of what AI agents need. Each step includes how to verify it worked.</p>
+
+<h2>1. Unblock AI crawlers in robots.txt</h2>
+<p>The single most common failure: a blanket bot-blocking rule (often shipped by a security plugin or CDN preset) silently blocks GPTBot, ClaudeBot and PerplexityBot — removing you from every AI shopping channel at once.</p>
+<pre><code>User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /</code></pre>
+<p><strong>Verify:</strong> open <code>yourstore.com/robots.txt</code> and confirm none of those agents is disallowed — or run a <a href="https://agentready.dev">free AgentReady scan</a> which checks all seven at once.</p>
+
+<h2>2. Add Product + Offer JSON-LD to every product page</h2>
+<p>This is the data agents actually parse for price, currency and availability:</p>
+<pre><code>{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "Alpine Trail Running Shoe",
+  "sku": "ATR-042",
+  "description": "Wide-fit trail shoe, 8mm drop, vegan materials.",
+  "offers": {
+    "@type": "Offer",
+    "price": "119.00",
+    "priceCurrency": "USD",
+    "availability": "https://schema.org/InStock",
+    "shippingDetails": { "@type": "OfferShippingDetails" }
+  }
+}</code></pre>
+<p><strong>Verify:</strong> Google Rich Results Test, or view-source and search for <code>application/ld+json</code>.</p>
+
+<h2>3. Add Organization schema to your homepage</h2>
+<p>Agents prefer merchants they can identify. Name, logo, URL, contact point, same-as links to your social profiles.</p>
+
+<h2>4. Publish llms.txt</h2>
+<p>A curated markdown file at <code>/llms.txt</code> that tells agents what you sell, your best pages, and your policies. Full template in our <a href="/llms-txt-guide">20-minute llms.txt guide</a>.</p>
+
+<h2>5. Publish and declare an XML sitemap</h2>
+<p>Ship <code>/sitemap.xml</code> and declare it in robots.txt (<code>Sitemap: https://yourstore.com/sitemap.xml</code>) so crawlers find every product page, not just the ones your nav links to.</p>
+
+<h2>6. Write extractable product copy</h2>
+<ul>
+  <li>State facts as facts: dimensions, materials, compatibility, weight — in text, not only in images.</li>
+  <li>Front-load the answer: first paragraph should say what it is, who it's for, and the price point.</li>
+  <li>Kill "lifestyle-only" descriptions. Agents can't parse vibes.</li>
+</ul>
+
+<h2>7. Publish an FAQ with FAQPage schema</h2>
+<p>Shipping times, returns, sizing, warranty, "does it work with X" — FAQ markup is among the most-cited structures in AI-generated answers.</p>
+
+<h2>8. Clean up your product feed</h2>
+<p>Your Merchant Center / Shopify feed doubles as your agent-facing catalog. Fix: missing GTINs, stale availability, truncated titles, inconsistent variants.</p>
+
+<h2>9. Make policies machine-readable</h2>
+<p>Return window, shipping costs and delivery estimates as structured data (<code>MerchantReturnPolicy</code>, <code>shippingDetails</code>). Agents increasingly filter by "free returns" and "arrives by" constraints.</p>
+
+<h2>10. Monitor monthly</h2>
+<p>New crawlers appear, plugins rewrite robots.txt, themes drop schema in redesigns. Re-scan monthly and after every site change. Ask ChatGPT and Perplexity to recommend products in your category and note whether you appear — that's your citation share, the metric that replaces rankings.</p>
+
+<div class="cta">
+  <h3>Audit steps 1–5 automatically</h3>
+  <p>AgentReady runs the crawler, schema, llms.txt and sitemap checks in one free 10-second scan.</p>
+  <a class="btn" href="https://agentready.dev">Scan my store →</a>
+</div>
+
+<footer>
+  <div class="links"><a href="/">All guides</a><a href="/what-is-agentic-commerce">What is agentic commerce?</a><a href="https://agentready.dev">AgentReady scanner</a></div>
+  <div>© 2026 SellToAgents</div>
+</footer>
+</div>
+</body>
+</html>

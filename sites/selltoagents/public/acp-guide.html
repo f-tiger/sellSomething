@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ACP explained: how ChatGPT Shopping picks products (merchant guide, 2026)</title>
+<meta name="description" content="The Agentic Commerce Protocol (ACP) from OpenAI and Stripe powers ChatGPT Shopping. Here's how product discovery and delegated checkout work, and what merchants should do.">
+<link rel="canonical" href="https://selltoagents.dev/acp-guide">
+<meta property="og:title" content="ACP explained: how ChatGPT Shopping picks products">
+<meta property="og:type" content="article">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    { "@type": "Article", "headline": "ACP explained: how ChatGPT Shopping picks products", "datePublished": "2026-07-19", "author": { "@type": "Organization", "name": "SellToAgents" } },
+    { "@type": "FAQPage", "mainEntity": [
+      { "@type": "Question", "name": "What is the Agentic Commerce Protocol (ACP)?", "acceptedAnswer": { "@type": "Answer", "text": "ACP is an open protocol developed by OpenAI and Stripe that lets AI agents discover merchant products and complete purchases. It powers ChatGPT Shopping: merchants expose a product feed, and checkout is either delegated (agent completes it via the protocol) or handed off to the merchant's site." } },
+      { "@type": "Question", "name": "How do I get my products into ChatGPT Shopping?", "acceptedAnswer": { "@type": "Answer", "text": "Shopify merchants are largely auto-enrolled. Other merchants should maintain a clean structured product feed, keep schema.org Product/Offer markup accurate, allow OAI-SearchBot in robots.txt, and follow OpenAI's merchant onboarding for ACP feeds." } },
+      { "@type": "Question", "name": "Do I lose the customer relationship under ACP?", "acceptedAnswer": { "@type": "Answer", "text": "No — under delegated checkout the merchant remains the seller of record: you process the order, own fulfillment, and own post-purchase communication. The agent is a new demand channel, similar to how marketplaces refer buyers." } }
+    ] }
+  ]
+}
+</script>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="/">Sell<span>To</span>Agents</a>
+  <nav><a href="/what-is-agentic-commerce">Start here</a><a href="/merchant-checklist">Checklist</a><a href="/llms-txt-guide">llms.txt</a></nav>
+</header>
+
+<p class="meta">Protocol guide · Updated July 2026 · 7 min read</p>
+<h1>ACP explained: how ChatGPT Shopping picks products</h1>
+
+<div class="tldr"><b>Direct answer:</b> The Agentic Commerce Protocol (ACP), built by OpenAI and Stripe, is the pipe between ChatGPT and merchant catalogs. Discovery runs on structured product feeds; purchase runs on delegated checkout (the agent transacts, you stay seller of record) or redirect. Your job as a merchant: feed quality, data freshness, and crawler access.</div>
+
+<h2>The three layers of ACP</h2>
+<table>
+  <tr><th>Layer</th><th>What it does</th><th>What you control</th></tr>
+  <tr><td>Discovery</td><td>ChatGPT matches buyer intent against merchant product data</td><td>Feed quality, schema markup, OAI-SearchBot access</td></tr>
+  <tr><td>Selection</td><td>The model shortlists 3–5 products fitting constraints</td><td>Price/availability accuracy, specs in text, reviews, policies</td></tr>
+  <tr><td>Checkout</td><td>Delegated payment via Stripe rails, or handoff to your site</td><td>Checkout integration, order webhooks, fulfillment SLAs</td></tr>
+</table>
+
+<h2>How selection actually works</h2>
+<p>When a buyer asks ChatGPT for "a standing desk under $500 that ships this week", the model doesn't rank ads — it composes an answer from products whose <em>data</em> proves they fit every constraint:</p>
+<ul>
+  <li><strong>Price and availability</strong> must be present and current in structured form. Stale = skipped.</li>
+  <li><strong>Constraints are filters.</strong> "Ships this week" requires machine-readable shipping data. No data, no match — even if you actually ship same-day.</li>
+  <li><strong>Trust compounds.</strong> Consistent Organization data, real review signals and third-party citations raise selection odds across <em>all</em> queries, not one keyword.</li>
+</ul>
+
+<h2>What a small merchant should actually do</h2>
+<ol>
+  <li><strong>If you're on Shopify:</strong> you're likely already enrolled in ChatGPT Shopping. Your work is data quality — titles, GTINs, availability, variant hygiene. Audit your feed like it's your storefront, because now it is.</li>
+  <li><strong>If you're not:</strong> keep a clean structured feed (Merchant Center format is a good baseline), ship schema.org Product/Offer JSON-LD (see the <a href="/merchant-checklist">checklist</a>, step 2), and allow <code>OAI-SearchBot</code> in robots.txt.</li>
+  <li><strong>Watch your citation share.</strong> Monthly, ask ChatGPT to recommend products in your category. If competitors show and you don't, the gap is nearly always data, not brand.</li>
+</ol>
+
+<h2>ACP vs UCP vs MCP, in one paragraph</h2>
+<p><strong>ACP</strong> (OpenAI + Stripe) is transaction-focused and powers ChatGPT Shopping. <strong>UCP</strong> (Google, launched NRF 2026) is broader — discovery through post-purchase across Google surfaces. <strong>MCP</strong> (Anthropic) is the connectivity standard agents use to query live systems — inventory, pricing, order status. They're complementary rails, and all three consume the same fuel: clean, structured, accessible product data. Optimize the fuel once and every rail benefits.</p>
+
+<div class="cta">
+  <h3>Is OAI-SearchBot even allowed on your site?</h3>
+  <p>One misconfigured robots.txt line removes you from ChatGPT Shopping. Check free in 10 seconds.</p>
+  <a class="btn" href="https://agentready.dev">Run the free scan →</a>
+</div>
+
+<footer>
+  <div class="links"><a href="/">All guides</a><a href="/merchant-checklist">Checklist</a><a href="https://agentready.dev">AgentReady scanner</a></div>
+  <div>© 2026 SellToAgents</div>
+</footer>
+</div>
+</body>
+</html>

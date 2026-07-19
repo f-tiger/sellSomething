@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>llms.txt for stores: the 20-minute implementation guide (2026)</title>
+<meta name="description" content="What llms.txt is, what merchants should put in it, a copy-paste template for e-commerce stores, and the mistakes that make AI agents ignore it.">
+<link rel="canonical" href="https://selltoagents.dev/llms-txt-guide">
+<meta property="og:title" content="llms.txt for stores: the 20-minute implementation guide">
+<meta property="og:type" content="article">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    { "@type": "Article", "headline": "llms.txt for stores: the 20-minute implementation guide", "datePublished": "2026-07-19", "author": { "@type": "Organization", "name": "SellToAgents" } },
+    { "@type": "FAQPage", "mainEntity": [
+      { "@type": "Question", "name": "What is llms.txt?", "acceptedAnswer": { "@type": "Answer", "text": "llms.txt is a plain markdown file served at /llms.txt that gives AI systems a curated summary of a website: what it is, its most important pages, and key facts. For stores, it's a hand-written map of what you sell, pricing and policies — content you control that agents read first." } },
+      { "@type": "Question", "name": "Does llms.txt replace robots.txt or sitemaps?", "acceptedAnswer": { "@type": "Answer", "text": "No. robots.txt controls access, sitemap.xml lists URLs, and llms.txt curates meaning. They're complementary: allow crawlers in robots.txt, enumerate pages in the sitemap, and explain your store in llms.txt." } }
+    ] }
+  ]
+}
+</script>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="/">Sell<span>To</span>Agents</a>
+  <nav><a href="/what-is-agentic-commerce">Start here</a><a href="/merchant-checklist">Checklist</a><a href="/acp-guide">ACP</a></nav>
+</header>
+
+<p class="meta">Standard guide · Updated July 2026 · 5 min read</p>
+<h1>llms.txt for stores: the 20-minute implementation guide</h1>
+
+<div class="tldr"><b>Direct answer:</b> <code>llms.txt</code> is a markdown file at your domain root that gives AI agents a curated, human-written map of your store: what you sell, for whom, your best pages, and your policies. It takes 20 minutes, costs nothing, and it's the one place where <em>you</em> write the summary agents read — instead of hoping they infer it.</div>
+
+<h2>Where it goes and what it is</h2>
+<ul>
+  <li>Served at <code>https://yourstore.com/llms.txt</code>, content type text/plain or markdown.</li>
+  <li>Format: an H1 title, a one-paragraph blockquote summary, then H2 sections with annotated links.</li>
+  <li>It complements — never replaces — robots.txt (access) and sitemap.xml (enumeration).</li>
+</ul>
+
+<h2>Copy-paste template for an e-commerce store</h2>
+<pre><code># Acme Ergonomics
+
+&gt; Acme sells ergonomic office furniture (standing desks,
+&gt; chairs, monitor arms) for home offices. Prices $89–$799,
+&gt; free US shipping over $50, 30-day returns, 5-year warranty.
+
+## What we sell
+- [Standing desks](/collections/desks): 12 models, $249–$799
+- [Ergonomic chairs](/collections/chairs): $189–$599, wide-fit available
+- [Accessories](/collections/accessories): monitor arms, mats, cable trays
+
+## Buying info
+- [Shipping policy](/policies/shipping): free over $50, 2–5 business days
+- [Returns](/policies/returns): 30 days, free return label
+- [Warranty](/policies/warranty): 5 years on all desks and chairs
+- [Size guide](/pages/size-guide): fit by height and desk depth
+
+## Best sellers
+- [Apex Pro standing desk](/products/apex-pro): $499, dual motor, 355 lb capacity
+- [DriftFlex chair](/products/driftflex): $349, wide-fit, breathable mesh
+
+## Company
+- [About](/pages/about): US-based, founded 2019, 40k+ customers
+- [Contact](/pages/contact): support@acme.com, responds &lt; 24h</code></pre>
+
+<h2>The five mistakes that make agents ignore your llms.txt</h2>
+<ol>
+  <li><strong>Marketing copy instead of facts.</strong> "World-class comfort reimagined" tells an agent nothing. "$349, wide-fit, 30-day returns" gets you selected.</li>
+  <li><strong>Dumping every URL.</strong> That's the sitemap's job. Curate 15–30 links that answer buyer questions.</li>
+  <li><strong>Letting it go stale.</strong> Wrong prices in llms.txt are worse than no llms.txt — inconsistency is a trust penalty. Regenerate it when your catalog changes.</li>
+  <li><strong>Serving HTML.</strong> It must be plain markdown text. A common failure: your 404 page returns HTML with status 200, and agents read soup.</li>
+  <li><strong>Blocking crawlers anyway.</strong> llms.txt is useless if robots.txt blocks GPTBot and ClaudeBot from reading it. Access first (<a href="/merchant-checklist">checklist</a>, step 1).</li>
+</ol>
+
+<h2>20-minute implementation plan</h2>
+<ol>
+  <li>(5 min) Fill in the template above with your top collections, policies and 3–5 best sellers.</li>
+  <li>(5 min) Upload it: Shopify — a small app or theme asset route; anything static — drop the file in your public root.</li>
+  <li>(2 min) Open <code>yourstore.com/llms.txt</code> in an incognito tab — confirm plain text, correct facts.</li>
+  <li>(3 min) Verify crawler access and everything else with a <a href="https://agentready.dev">free AgentReady scan</a>.</li>
+  <li>(5 min) Add "regenerate llms.txt" to your catalog-change checklist. Stale is the silent killer.</li>
+</ol>
+
+<div class="cta">
+  <h3>Did it work?</h3>
+  <p>AgentReady checks llms.txt, crawler access and structured data in one free scan.</p>
+  <a class="btn" href="https://agentready.dev">Verify my store →</a>
+</div>
+
+<footer>
+  <div class="links"><a href="/">All guides</a><a href="/merchant-checklist">Checklist</a><a href="https://agentready.dev">AgentReady scanner</a></div>
+  <div>© 2026 SellToAgents</div>
+</footer>
+</div>
+</body>
+</html>

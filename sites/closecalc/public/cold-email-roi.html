@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cold Email ROI Calculator — cost per meeting & honest funnel math (free)</title>
+<meta name="description" content="Free cold email ROI calculator: sends → replies → meetings → wins. See cost per meeting, revenue, and ROI with 2026 benchmark reply rates built in.">
+<link rel="canonical" href="https://closecalc.dev/cold-email-roi">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"WebApplication","name":"Cold Email ROI Calculator","applicationCategory":"BusinessApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is a realistic cold email reply rate in 2026?","acceptedAnswer":{"@type":"Answer","text":"Average B2B cold-email reply rates have fallen to roughly 3.5–5% in 2025–2026 as inbox providers filter AI-generated outreach patterns. Only a fraction of replies are positive — modeling 30–50% of replies as positive is realistic."}},
+{"@type":"Question","name":"How do I calculate cold email ROI?","acceptedAnswer":{"@type":"Answer","text":"ROI = (revenue from closed deals − campaign cost) ÷ campaign cost. Chain the funnel: sends × reply rate × positive-reply rate × meeting-booked rate × win rate × deal value, then compare against tooling, data and labor costs."}}
+]}]}
+</script>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="/">Close<span>Calc</span></a>
+  <nav><a href="/commission">Commission</a><a href="/pipeline-coverage">Pipeline</a><a href="/discount-impact">Discounts</a></nav>
+</header>
+
+<p class="meta">Free calculator · No signup · 2026 benchmarks preloaded</p>
+<h1>Cold email ROI calculator</h1>
+<p class="lead">Reply rates have fallen to ~3.5–5% as inboxes filter AI-written outreach. Model the funnel honestly before you spend the quarter on it.</p>
+
+<div class="calc">
+  <div class="row2">
+    <div class="field"><label>Emails sent per month</label><input type="number" id="sends" value="5000" min="0"></div>
+    <div class="field"><label>Reply rate (%)</label><input type="number" id="reply" value="4" min="0" step="0.1"></div>
+  </div>
+  <div class="row2">
+    <div class="field"><label>Positive replies (% of replies)</label><input type="number" id="positive" value="35" min="0" step="1"></div>
+    <div class="field"><label>Positive reply → meeting (%)</label><input type="number" id="meeting" value="60" min="0" step="1"></div>
+  </div>
+  <div class="row2">
+    <div class="field"><label>Meeting → closed-won (%)</label><input type="number" id="win" value="15" min="0" step="0.5"></div>
+    <div class="field"><label>Average deal value ($)</label><input type="number" id="deal" value="8000" min="0"></div>
+  </div>
+  <div class="field"><label>Monthly campaign cost — tools + data + labor ($)</label><input type="number" id="cost" value="3000" min="0"></div>
+  <div class="result" id="out"></div>
+</div>
+
+<h2>How the math works</h2>
+<p>The funnel chains: sends × reply% × positive% × meeting% × win% × deal value. The two numbers leaders actually manage by are <strong>cost per meeting</strong> (healthy: under $300–500 for mid-market) and <strong>ROI</strong>. If ROI is negative at honest rates, more volume makes it worse, not better.</p>
+<div class="note">Context: dedicated AI SDR tooling now sees 50–70% first-year churn — automation amplifies your funnel math, it doesn't fix it. If the model above barely breaks even, fix targeting and offer before adding volume. And note where buyers are going instead: <a href="https://selltoagents.dev">AI assistants recommending products directly</a>.</div>
+
+<footer>
+  <div class="links"><a href="/">All calculators</a><a href="https://agentready.dev">AgentReady</a><a href="https://selltoagents.dev">SellToAgents</a></div>
+  <div>© 2026 CloseCalc</div>
+</footer>
+</div>
+<script>
+const $ = id => document.getElementById(id);
+const fmt = n => n.toLocaleString('en-US', {style:'currency', currency:'USD', maximumFractionDigits:0});
+function calc(){
+  const sends = +$('sends').value || 0;
+  const replies = sends * (+$('reply').value || 0)/100;
+  const positives = replies * (+$('positive').value || 0)/100;
+  const meetings = positives * (+$('meeting').value || 0)/100;
+  const wins = meetings * (+$('win').value || 0)/100;
+  const revenue = wins * (+$('deal').value || 0);
+  const cost = +$('cost').value || 0;
+  const roi = cost > 0 ? ((revenue - cost)/cost*100) : 0;
+  const cpm = meetings > 0 ? cost/meetings : 0;
+  const color = revenue >= cost ? '#38d9a9' : '#ff6b6b';
+  $('out').innerHTML = '<div class="big" style="color:' + color + '">' + (cost>0 ? roi.toFixed(0) + '% ROI' : fmt(revenue)) + '</div>' +
+    '<div class="sub">' + fmt(revenue) + ' expected revenue vs ' + fmt(cost) + ' cost</div>' +
+    '<table><tr><td>Replies</td><td>' + Math.round(replies) + '</td></tr>' +
+    '<tr><td>Positive replies</td><td>' + Math.round(positives) + '</td></tr>' +
+    '<tr><td>Meetings booked</td><td>' + meetings.toFixed(1) + '</td></tr>' +
+    '<tr><td>Deals won</td><td>' + wins.toFixed(2) + '</td></tr>' +
+    '<tr><td>Cost per meeting</td><td>' + (meetings>0 ? fmt(cpm) : '—') + '</td></tr></table>';
+}
+document.querySelectorAll('input').forEach(i => i.addEventListener('input', calc));
+calc();
+</script>
+</body>
+</html>

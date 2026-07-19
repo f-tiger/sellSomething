@@ -1,0 +1,22 @@
+# AgentReady
+
+> AgentReady is a free AI sales-visibility scanner. Enter any website URL and get a 0–100 score of how discoverable and parseable your store is for AI shopping agents (ChatGPT Shopping, Claude, Perplexity, Google AI Mode), plus concrete fixes.
+
+## What we check
+- robots.txt access for 7 major AI crawlers (GPTBot, OAI-SearchBot, ChatGPT-User, ClaudeBot, Claude-User, PerplexityBot, Google-Extended)
+- llms.txt presence
+- schema.org structured data: Product, Offer, Organization, FAQPage (JSON-LD)
+- XML sitemap discoverability
+- Answer-readiness metadata: title, meta description, Open Graph, canonical
+
+## Key pages
+- [Home & scanner](/): run a free scan
+- [Methodology](/#how): what the score measures
+- [FAQ](/#faq): common questions
+
+## Pricing
+- Instant scan: free, no signup
+- Pro (waitlist): weekly re-scans, block alerts, competitor benchmarks
+
+## Audience
+E-commerce merchants, DTC brands, and agencies preparing for agentic commerce (ACP, UCP, MCP).
