@@ -5,6 +5,9 @@
   "routes": [
     { "pattern": "agentready.agiscorecard.com", "custom_domain": true }
   ],
+  "kv_namespaces": [
+    { "binding": "SUBSCRIBERS", "id": "e981ec645ff54685a8139b0c26f6de82" }
+  ],
   "assets": {
     "directory": "./public",
     "binding": "ASSETS",

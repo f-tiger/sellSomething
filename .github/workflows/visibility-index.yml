@@ -1,0 +1,36 @@
+name: Build AI Visibility Index
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 6 * * 1" # weekly, Monday 06:00 UTC
+
+permissions:
+  contents: write
+
+jobs:
+  build-index:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: claude/sales-website-research-plan-7i7rc2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Scan brands and build index data
+        run: node scripts/build-visibility-index.mjs
+      - name: Commit updated index
+        run: |
+          git config user.name "visibility-index-bot"
+          git config user.email "actions@github.com"
+          git add sites/selltoagents/public/data/visibility-index.json
+          git diff --cached --quiet && echo "No changes" || git commit -m "chore: refresh AI Visibility Index data"
+          git push
+      # Pushes from GITHUB_TOKEN don't retrigger the deploy workflow, so deploy here directly.
+      - uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: sites/selltoagents
+          wranglerVersion: "4.112.0"

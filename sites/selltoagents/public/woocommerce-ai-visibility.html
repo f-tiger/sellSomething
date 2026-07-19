@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WooCommerce AI visibility: make your store readable for ChatGPT & Perplexity (2026)</title>
+<meta name="description" content="WooCommerce gives you full control — and full responsibility. The exact plugins, files and schema you need so AI shopping agents can find and recommend your products.">
+<link rel="canonical" href="https://selltoagents.agiscorecard.com/woocommerce-ai-visibility">
+<meta property="og:title" content="WooCommerce AI visibility guide (2026)">
+<meta property="og:type" content="article">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"Article","headline":"WooCommerce AI visibility guide (2026)","datePublished":"2026-07-19","author":{"@type":"Organization","name":"SellToAgents"}},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Does WooCommerce output Product schema by default?","acceptedAnswer":{"@type":"Answer","text":"WooCommerce emits basic Product JSON-LD on product pages, but commonly misses GTIN, shipping details and return-policy markup. SEO plugins (Yoast, Rank Math) can fill gaps; verify with a scan rather than assuming."}},
+{"@type":"Question","name":"How do I add llms.txt to WooCommerce?","acceptedAnswer":{"@type":"Answer","text":"Unlike Shopify, WooCommerce has no native llms.txt. Drop a hand-written llms.txt file in your site root (or use a plugin), keep it factual and current, and confirm it serves as plain text at yourdomain.com/llms.txt."}}
+]}]}
+</script>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="/">Sell<span>To</span>Agents</a>
+  <nav><a href="/merchant-checklist">Checklist</a><a href="/ai-visibility-index">Index</a><a href="https://agentready.agiscorecard.com">Scanner</a></nav>
+</header>
+
+<p class="meta">Platform guide · WooCommerce · Updated July 2026</p>
+<h1>WooCommerce AI visibility: full control, full responsibility</h1>
+
+<div class="tldr"><b>Direct answer:</b> WooCommerce doesn't auto-enroll you anywhere — you own every AI-readiness signal yourself. The upside: nothing is locked. Four jobs: (1) robots.txt that allows AI crawlers, (2) complete Product/Offer JSON-LD, (3) a hand-written <a href="https://agentready.agiscorecard.com/llms-txt-generator">llms.txt</a>, (4) a clean product feed. Verify each with a <a href="https://agentready.agiscorecard.com">free scan</a>.</div>
+
+<h2>The WooCommerce AI-readiness stack</h2>
+<ol>
+  <li><strong>robots.txt.</strong> WordPress security plugins (Wordfence rules, "block bad bots" presets) frequently block GPTBot and friends. Check the actual served file, not your intentions.</li>
+  <li><strong>Schema.</strong> Woo's default Product JSON-LD misses GTIN, <code>shippingDetails</code> and <code>MerchantReturnPolicy</code>. Yoast SEO / Rank Math fill some gaps; for full control use a schema plugin or theme snippet.</li>
+  <li><strong>llms.txt + agents.md.</strong> No native support — create both by hand (2-minute job with the <a href="https://agentready.agiscorecard.com/llms-txt-generator">free generator</a>) and upload to the site root.</li>
+  <li><strong>Feed.</strong> Use a Merchant Center feed plugin and fix GTIN/availability gaps — the same feed increasingly powers AI shopping surfaces.</li>
+  <li><strong>FAQ with FAQPage schema.</strong> Shipping, returns, sizing, compatibility — the most-cited structure in AI answers.</li>
+</ol>
+
+<h2>Common WooCommerce failure modes</h2>
+<ul>
+  <li>Caching/optimization plugins serving llms.txt as a themed 404 page (HTML with status 200) — agents read soup.</li>
+  <li>Staging robots.txt (<code>Disallow: /</code>) shipped to production.</li>
+  <li>Variable products whose variants never surface price/availability in structured data.</li>
+</ul>
+
+<div class="cta"><h3>Check all of it in one pass</h3><p>Crawler access × 7, schema, llms.txt, agents.md, sitemap — free.</p><a class="btn" href="https://agentready.agiscorecard.com">Scan my store →</a></div>
+
+<footer><div class="links"><a href="/">All guides</a><a href="/shopify-ai-visibility">Shopify guide</a><a href="/ai-visibility-index">DTC Index</a></div><div>© 2026 SellToAgents</div></footer>
+</div>
+</body>
+</html>

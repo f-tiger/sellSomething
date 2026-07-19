@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The DTC AI Visibility Index — which brands can AI shoppers actually see?</title>
+<meta name="description" content="We scan 40 leading DTC brands for AI-shopping-agent readiness (crawler access, structured data, llms.txt) and rank them 0-100. Updated weekly.">
+<link rel="canonical" href="https://selltoagents.agiscorecard.com/ai-visibility-index">
+<meta property="og:title" content="The DTC AI Visibility Index">
+<meta property="og:description" content="40 leading DTC brands ranked by AI-shopping-agent readiness. Updated weekly.">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Dataset","name":"DTC AI Visibility Index","description":"Weekly ranking of leading direct-to-consumer brands by AI-shopping-agent readiness score (0-100): AI crawler access, structured data, llms.txt, sitemap and answer-readiness.","creator":{"@type":"Organization","name":"SellToAgents"},"distribution":{"@type":"DataDownload","encodingFormat":"application/json","contentUrl":"https://selltoagents.agiscorecard.com/data/visibility-index.json"}}
+</script>
+<style>
+.rank-table{width:100%;border-collapse:collapse;margin:20px 0;font-size:14.5px}
+.rank-table th,.rank-table td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left}
+.rank-table th{color:var(--dim);font-size:12px;text-transform:uppercase;letter-spacing:.07em}
+.score-pill{display:inline-block;min-width:44px;text-align:center;border-radius:8px;padding:3px 8px;font-weight:800}
+.g-a{background:#12352b;color:#38d9a9}.g-b{background:#14304a;color:#5b8cff}.g-c{background:#3a2f14;color:#ffc078}.g-d,.g-f{background:#3a1a1a;color:#ff6b6b}
+.fails{color:var(--dim);font-size:13px}
+.statrow{display:flex;gap:14px;flex-wrap:wrap;margin:20px 0}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:14px 20px}
+.stat b{font-size:24px;display:block}
+.stat span{color:var(--dim);font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="/">Sell<span>To</span>Agents</a>
+  <nav><a href="/what-is-agentic-commerce">Start here</a><a href="/merchant-checklist">Checklist</a><a href="https://agentready.agiscorecard.com">Scanner</a></nav>
+</header>
+
+<p class="meta">Index · Updated <span id="updated">weekly</span> · <a href="/data/visibility-index.json">Raw data (JSON)</a></p>
+<h1>The DTC AI Visibility Index</h1>
+<p class="lead">45% of consumers already use AI in their buying journey — but can AI shopping agents actually see the brands they'd recommend? We scan 40 leading DTC brands with <a href="https://agentready.agiscorecard.com">AgentReady</a> (crawler access × 7 bots, structured data, llms.txt, agents.md, sitemap, answer-readiness) and rank them 0–100.</p>
+
+<div class="statrow" id="stats"></div>
+<div id="tablewrap"><p class="meta">Loading index…</p></div>
+
+<div class="tldr"><b>Method:</b> each brand's homepage is scanned live by the free AgentReady scanner. Score = weighted sum of 19 machine-readable signals AI agents rely on. A high score doesn't guarantee recommendations — but a low one nearly guarantees invisibility. Brands: want your score fixed? Start with the <a href="/merchant-checklist">10-step checklist</a>.</div>
+
+<div class="cta">
+  <h3>Where does <em>your</em> store rank?</h3>
+  <p>Same scan, free, 10 seconds.</p>
+  <a class="btn" href="https://agentready.agiscorecard.com">Scan my store →</a>
+</div>
+
+<footer>
+  <div class="links"><a href="/">All guides</a><a href="/data/visibility-index.json">Dataset</a><a href="https://agentready.agiscorecard.com">AgentReady</a></div>
+  <div>© 2026 SellToAgents · Cite freely with a link to this page.</div>
+</footer>
+</div>
+<script>
+fetch('/data/visibility-index.json').then(r => r.json()).then(d => {
+  document.getElementById('updated').textContent = d.updatedAt;
+  document.getElementById('stats').innerHTML =
+    '<div class="stat"><b>' + d.brandCount + '</b><span>brands scanned</span></div>' +
+    '<div class="stat"><b>' + d.averageScore + '/100</b><span>average score</span></div>' +
+    '<div class="stat"><b>' + d.results.filter(r => r.score < 55).length + '</b><span>brands effectively invisible (&lt;55)</span></div>';
+  let rows = d.results.map((r, i) =>
+    '<tr><td>' + (i + 1) + '</td><td><b>' + esc(r.name) + '</b> <span class="fails">' + esc(r.domain) + '</span></td>' +
+    '<td><span class="score-pill g-' + r.grade.toLowerCase() + '">' + r.score + '</span> ' + r.grade + '</td>' +
+    '<td class="fails">' + (r.failing.length ? 'Failing: ' + r.failing.map(esc).join(', ') : '—') + '</td></tr>').join('');
+  document.getElementById('tablewrap').innerHTML =
+    '<table class="rank-table"><tr><th>#</th><th>Brand</th><th>Score</th><th>Biggest gaps</th></tr>' + rows + '</table>';
+}).catch(() => {
+  document.getElementById('tablewrap').innerHTML = '<p class="meta">First index run is in progress — check back shortly.</p>';
+});
+function esc(s){const d=document.createElement('div');d.textContent=String(s);return d.innerHTML}
+</script>
+</body>
+</html>

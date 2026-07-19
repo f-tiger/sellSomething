@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BigCommerce AI visibility guide: get recommended by AI shoppers (2026)</title>
+<meta name="description" content="How BigCommerce merchants prepare for agentic commerce: crawler access, structured data via Script Manager, llms.txt, and feed hygiene — with a free verification scan.">
+<link rel="canonical" href="https://selltoagents.agiscorecard.com/bigcommerce-ai-visibility">
+<meta property="og:title" content="BigCommerce AI visibility guide (2026)">
+<meta property="og:type" content="article">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"Article","headline":"BigCommerce AI visibility guide (2026)","datePublished":"2026-07-19","author":{"@type":"Organization","name":"SellToAgents"}},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Does BigCommerce support llms.txt?","acceptedAnswer":{"@type":"Answer","text":"Not natively as of mid-2026. Serve llms.txt via a redirect to a WebDAV-hosted file or an edge worker in front of your store, and keep it plain text at yourdomain.com/llms.txt."}},
+{"@type":"Question","name":"How do I improve BigCommerce structured data for AI agents?","acceptedAnswer":{"@type":"Answer","text":"Stencil themes emit base Product JSON-LD. Extend it with GTIN, shippingDetails and MerchantReturnPolicy via theme edits or Script Manager, then verify with a scanner rather than assuming the theme covers it."}}
+]}]}
+</script>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="/">Sell<span>To</span>Agents</a>
+  <nav><a href="/merchant-checklist">Checklist</a><a href="/ai-visibility-index">Index</a><a href="https://agentready.agiscorecard.com">Scanner</a></nav>
+</header>
+
+<p class="meta">Platform guide · BigCommerce · Updated July 2026</p>
+<h1>BigCommerce AI visibility: the pragmatic setup</h1>
+
+<div class="tldr"><b>Direct answer:</b> BigCommerce sits between Shopify (everything native) and WooCommerce (everything manual). Stencil themes give you base Product schema; you add the agent-grade extras — GTIN, shipping/returns markup, llms.txt via WebDAV or edge, FAQ schema — and verify with a <a href="https://agentready.agiscorecard.com">free scan</a>.</div>
+
+<h2>Five jobs for BigCommerce merchants</h2>
+<ol>
+  <li><strong>robots.txt:</strong> check Settings → Store setup — confirm GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot and Google-Extended aren't blocked by a bot-management preset.</li>
+  <li><strong>Schema:</strong> extend Stencil's Product JSON-LD with GTIN, <code>shippingDetails</code>, <code>MerchantReturnPolicy</code> (theme file or Script Manager).</li>
+  <li><strong>llms.txt:</strong> no native route — host the file via WebDAV and 301 <code>/llms.txt</code> to it, or serve it from an edge worker. Generate one free <a href="https://agentready.agiscorecard.com/llms-txt-generator">here</a>.</li>
+  <li><strong>Feed:</strong> keep your Google feed clean (GTINs, availability); it doubles as your agent-facing catalog.</li>
+  <li><strong>FAQ:</strong> publish shipping/returns/sizing FAQs with FAQPage schema — the most-quoted structure in AI answers.</li>
+</ol>
+
+<div class="cta"><h3>Verify in one pass</h3><p>All 19 signals, free, 10 seconds.</p><a class="btn" href="https://agentready.agiscorecard.com">Scan my store →</a></div>
+
+<footer><div class="links"><a href="/">All guides</a><a href="/shopify-ai-visibility">Shopify guide</a><a href="/wix-ai-visibility">Wix guide</a></div><div>© 2026 SellToAgents</div></footer>
+</div>
+</body>
+</html>
