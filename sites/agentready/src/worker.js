@@ -35,17 +35,19 @@ async function handleScan(request) {
   if (target.error) return json({ error: target.error }, 400);
 
   const origin = target.origin;
-  const [robotsR, llmsR, homeR, sitemapR] = await Promise.allSettled([
+  const [robotsR, llmsR, homeR, sitemapR, agentsR] = await Promise.allSettled([
     fetchText(origin + "/robots.txt"),
     fetchText(origin + "/llms.txt"),
     fetchText(target.href),
     fetchHead(origin + "/sitemap.xml"),
+    fetchText(origin + "/agents.md"),
   ]);
 
   const robots = settled(robotsR);
   const llms = settled(llmsR);
   const home = settled(homeR);
   const sitemap = settled(sitemapR);
+  const agents = settled(agentsR);
 
   if (!home || !home.ok) {
     return json({ error: "Could not reach " + target.href + " — check the URL and try again." }, 422);
@@ -54,6 +56,7 @@ async function handleScan(request) {
   const checks = [];
   checks.push(...checkAiCrawlerAccess(robots));
   checks.push(checkLlmsTxt(llms));
+  checks.push(checkAgentsMd(agents));
   checks.push(...checkStructuredData(home.body));
   checks.push(...checkMetaBasics(home.body));
   checks.push(checkSitemap(sitemap, robots));
@@ -243,15 +246,31 @@ function checkLlmsTxt(llms) {
     id: "llms-txt",
     category: "AI-native content",
     title: "llms.txt",
-    earned: found ? 10 : 0,
-    possible: 10,
-    status: found ? "pass" : "fail",
+    earned: found ? 7 : 0,
+    possible: 7,
+    status: found ? "pass" : "warn",
     detail: found
-      ? "llms.txt found — you give AI agents a curated map of what you sell."
-      : "No llms.txt. AI agents crawling your site get no curated summary of your products, pricing, or policies.",
+      ? "llms.txt found — a curated map for AI agents. Note: an emerging convention (Shopify serves it natively; Google calls it speculative), useful but not a ranking guarantee."
+      : "No llms.txt. It's an emerging convention — cheap to add, gives agents a curated summary of what you sell. Shopify stores get one natively.",
     fix: found
       ? null
-      : "Add /llms.txt: a short markdown file listing what you sell, key product pages, pricing, and shipping/return policies.",
+      : "Add /llms.txt: a short markdown file listing what you sell, key product pages, pricing, and shipping/return policies (free generator: agentready.tuoqiantu.workers.dev/llms-txt-generator).",
+  };
+}
+
+function checkAgentsMd(agents) {
+  const found = !!(agents && agents.ok && agents.body.trim().length > 0 && !/^\s*</.test(agents.body));
+  return {
+    id: "agents-md",
+    category: "AI-native content",
+    title: "agents.md",
+    earned: found ? 3 : 0,
+    possible: 3,
+    status: found ? "pass" : "warn",
+    detail: found
+      ? "agents.md found — instructions for AI agents interacting with your site (Shopify now serves this natively)."
+      : "No agents.md. A newer convention (adopted natively by Shopify) that tells AI agents how to interact with your store.",
+    fix: found ? null : "Add /agents.md describing how agents should browse, query and transact with your site.",
   };
 }
 
