@@ -15,3 +15,5 @@ Allow: /
 
 User-agent: Google-Extended
 Allow: /
+
+Sitemap: https://agentready.tuoqiantu.workers.dev/sitemap.xml

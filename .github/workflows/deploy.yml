@@ -32,8 +32,9 @@ jobs:
             url="https://${site}.tuoqiantu.workers.dev"
             code=$(curl -s -o /dev/null -w "%{http_code}" "$url/")
             llms=$(curl -s -o /dev/null -w "%{http_code}" "$url/llms.txt")
-            echo "$site: / -> $code, /llms.txt -> $llms"
-            [ "$code" = "200" ] && [ "$llms" = "200" ] || { echo "::error::$site is not healthy"; exit 1; }
+            smap=$(curl -s -o /dev/null -w "%{http_code}" "$url/sitemap.xml")
+            echo "$site: / -> $code, /llms.txt -> $llms, /sitemap.xml -> $smap"
+            [ "$code" = "200" ] && [ "$llms" = "200" ] && [ "$smap" = "200" ] || { echo "::error::$site is not healthy"; exit 1; }
           done
       - name: Verify scanner API end-to-end
         run: |

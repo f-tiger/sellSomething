@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free llms.txt Generator for Stores & Businesses — AgentReady</title>
+<meta name="description" content="Generate a valid llms.txt file for your website in 2 minutes. Free, no signup, runs in your browser. Make your store readable for ChatGPT, Claude and Perplexity.">
+<link rel="canonical" href="https://agentready.tuoqiantu.workers.dev/llms-txt-generator">
+<meta property="og:title" content="Free llms.txt Generator — AgentReady">
+<meta property="og:description" content="Generate a valid llms.txt for your site in 2 minutes. Free, no signup.">
+<meta property="og:type" content="website">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "llms.txt Generator",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "description": "Free browser-based generator that builds a valid llms.txt file for any website or online store.",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "What is llms.txt?", "acceptedAnswer": { "@type": "Answer", "text": "llms.txt is a markdown file served at your domain root (/llms.txt) that gives AI systems a curated summary of your site: what it is, its most important pages, and key facts like pricing and policies." } },
+        { "@type": "Question", "name": "Where do I upload llms.txt?", "acceptedAnswer": { "@type": "Answer", "text": "Upload it to your web root so it is reachable at https://yourdomain.com/llms.txt, served as plain text. On Shopify use an app or theme asset route; on static hosts just drop the file in the public folder." } },
+        { "@type": "Question", "name": "Is this generator really free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. It runs entirely in your browser — nothing is uploaded to our servers. Verify the result afterwards with the free AgentReady scan." } }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+:root{--bg:#0a0e1a;--panel:#111629;--panel2:#161d36;--line:#232c4d;--text:#e7ebf7;--dim:#8b94b5;--acc:#5b8cff;--acc2:#38d9a9;--r:14px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:960px;margin:0 auto;padding:0 24px}
+header{padding:22px 0;display:flex;justify-content:space-between;align-items:center}
+.logo{font-weight:800;font-size:20px;letter-spacing:-.02em;color:var(--text);text-decoration:none}
+.logo span{color:var(--acc)}
+nav a{color:var(--dim);text-decoration:none;margin-left:22px;font-size:14px}
+nav a:hover{color:var(--text)}
+h1{font-size:clamp(26px,4.5vw,40px);letter-spacing:-.03em;margin:26px 0 10px}
+.lead{color:var(--dim);font-size:17px;max-width:680px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:28px 0}
+@media(max-width:860px){.grid{grid-template-columns:1fr}}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:22px}
+.panel h2{font-size:15px;text-transform:uppercase;letter-spacing:.08em;color:var(--dim);margin-bottom:14px}
+.field{margin:12px 0}
+.field label{display:block;font-size:13px;color:var(--dim);margin-bottom:5px;font-weight:600}
+.field input,.field textarea{width:100%;background:var(--panel2);border:1px solid var(--line);border-radius:10px;color:var(--text);padding:11px 13px;font-size:15px;outline:0;font-family:inherit}
+.field textarea{min-height:74px;resize:vertical}
+.field input:focus,.field textarea:focus{border-color:var(--acc)}
+.hint{font-size:12px;color:#5b6484;margin-top:4px}
+pre{background:#0d1219;border:1px solid var(--line);border-radius:10px;padding:16px;overflow-x:auto;font-size:13px;line-height:1.55;white-space:pre-wrap;word-break:break-word;min-height:340px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.btnrow{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.btn{background:linear-gradient(90deg,var(--acc),#7b5bff);color:#fff;border:0;border-radius:10px;padding:11px 20px;font-size:14px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block}
+.btn.ghost{background:var(--panel2);border:1px solid var(--line);color:var(--text)}
+.btn:hover{filter:brightness(1.1)}
+.steps{margin:36px 0;color:var(--dim);font-size:15px}
+.steps ol{margin-left:22px}
+.steps li{margin:8px 0}
+.steps code{background:var(--panel2);padding:1px 7px;border-radius:6px;font-size:13px}
+footer{border-top:1px solid var(--line);padding:30px 0;color:var(--dim);font-size:13px;margin-top:50px}
+footer a{color:var(--dim);margin-right:16px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="/">Agent<span>Ready</span></a>
+  <nav><a href="/">Scanner</a><a href="/llms-txt-generator">llms.txt generator</a></nav>
+</header>
+
+<h1>Free llms.txt generator</h1>
+<p class="lead">Fill in the form, get a valid <code>llms.txt</code>. Runs 100% in your browser — nothing is uploaded. When you're done, <a href="/" style="color:var(--acc)">scan your site</a> to verify AI agents can actually read it.</p>
+
+<div class="grid">
+  <div class="panel">
+    <h2>Your business</h2>
+    <div class="field"><label>Business / site name *</label><input id="name" placeholder="Acme Ergonomics"></div>
+    <div class="field"><label>One-paragraph summary (what you sell, for whom, price range, key policies) *</label><textarea id="summary" placeholder="Acme sells ergonomic office furniture (standing desks, chairs, monitor arms) for home offices. Prices $89–$799, free US shipping over $50, 30-day returns, 5-year warranty."></textarea></div>
+    <div class="field"><label>What you sell — one per line: Title | /path | short fact-rich note</label><textarea id="products" placeholder="Standing desks | /collections/desks | 12 models, $249–$799&#10;Ergonomic chairs | /collections/chairs | $189–$599, wide-fit available"></textarea><div class="hint">Curate 5–15 links that answer buyer questions — not every URL.</div></div>
+    <div class="field"><label>Buying info — one per line: Title | /path | note</label><textarea id="policies" placeholder="Shipping | /policies/shipping | free over $50, 2–5 business days&#10;Returns | /policies/returns | 30 days, free label"></textarea></div>
+    <div class="field"><label>Company links — one per line: Title | /path | note (optional)</label><textarea id="company" placeholder="About | /pages/about | US-based, founded 2019&#10;Contact | /pages/contact | support@acme.com"></textarea></div>
+  </div>
+  <div class="panel">
+    <h2>Your llms.txt</h2>
+    <pre id="out"># Fill in the form to generate…</pre>
+    <div class="btnrow">
+      <button class="btn" id="copy">Copy</button>
+      <button class="btn ghost" id="download">Download llms.txt</button>
+      <a class="btn ghost" href="/">Verify with a scan →</a>
+    </div>
+  </div>
+</div>
+
+<div class="steps">
+  <h2 style="color:var(--text);font-size:20px;letter-spacing:-.02em;margin-bottom:8px">Then: 3 steps to go live</h2>
+  <ol>
+    <li>Upload the file so it's reachable at <code>https://yourdomain.com/llms.txt</code> (plain text, not HTML).</li>
+    <li>Make sure robots.txt doesn't block GPTBot, ClaudeBot or PerplexityBot — or the file is useless.</li>
+    <li>Run a <a href="/" style="color:var(--acc)">free AgentReady scan</a> to verify both, plus your structured data.</li>
+  </ol>
+</div>
+
+<footer>
+  <a href="/">Scanner</a>
+  <a href="/llms.txt">Our own llms.txt</a>
+  <a href="https://selltoagents.tuoqiantu.workers.dev/llms-txt-guide">Full llms.txt guide</a>
+  <div style="margin-top:10px">© 2026 AgentReady</div>
+</footer>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const fields = ['name','summary','products','policies','company'];
+
+function parseLines(text) {
+  return text.split('\n').map(l => l.trim()).filter(Boolean).map(l => {
+    const [title, path, note] = l.split('|').map(s => (s || '').trim());
+    return { title: title || 'Untitled', path: path || '/', note: note || '' };
+  });
+}
+
+function section(header, items) {
+  if (!items.length) return '';
+  let out = '\n## ' + header + '\n';
+  for (const it of items) out += '- [' + it.title + '](' + it.path + ')' + (it.note ? ': ' + it.note : '') + '\n';
+  return out;
+}
+
+function generate() {
+  const name = $('name').value.trim() || 'My Business';
+  const summary = $('summary').value.trim() || 'Describe what you sell, for whom, your price range and key policies.';
+  const quoted = summary.split('\n').map(l => '> ' + l).join('\n');
+  let txt = '# ' + name + '\n\n' + quoted + '\n';
+  txt += section('What we sell', parseLines($('products').value));
+  txt += section('Buying info', parseLines($('policies').value));
+  txt += section('Company', parseLines($('company').value));
+  $('out').textContent = txt;
+  return txt;
+}
+
+fields.forEach(f => $(f).addEventListener('input', generate));
+
+$('copy').addEventListener('click', async () => {
+  await navigator.clipboard.writeText(generate());
+  $('copy').textContent = '✓ Copied'; setTimeout(() => $('copy').textContent = 'Copy', 1500);
+});
+$('download').addEventListener('click', () => {
+  const blob = new Blob([generate()], { type: 'text/plain' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = 'llms.txt'; a.click();
+  URL.revokeObjectURL(a.href);
+});
+generate();
+</script>
+</body>
+</html>

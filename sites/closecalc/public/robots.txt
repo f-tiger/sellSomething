@@ -15,3 +15,5 @@ Allow: /
 
 User-agent: Google-Extended
 Allow: /
+
+Sitemap: https://closecalc.tuoqiantu.workers.dev/sitemap.xml
