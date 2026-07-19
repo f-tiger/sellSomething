@@ -451,15 +451,18 @@ function summarize(score) {
 async function handleSubscribe(request, env) {
   if (request.method !== "POST") return json({ error: "POST only" }, 405);
   let email = "";
+  let intent = "waitlist";
   try {
     const body = await request.json();
     email = String(body.email || "").trim().toLowerCase();
+    if (body.intent === "preorder") intent = "preorder";
   } catch {
     return json({ error: "Invalid JSON body" }, 400);
   }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return json({ error: "Invalid email" }, 400);
   if (env.SUBSCRIBERS) {
-    await env.SUBSCRIBERS.put("sub:" + email, JSON.stringify({ email, at: new Date().toISOString() }));
+    // Keyed by intent so pre-order demand (willingness to pay) is countable separately.
+    await env.SUBSCRIBERS.put(intent + ":" + email, JSON.stringify({ email, intent, at: new Date().toISOString() }));
   }
   return json({ ok: true });
 }

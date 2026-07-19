@@ -146,7 +146,12 @@ footer a{color:var(--dim)}
   <p>The instant scan is free forever. Pro launches soon — waitlist members lock in the launch price.</p>
   <div class="grid3">
     <div class="card"><b>Free</b><p style="font-size:24px;font-weight:800;color:var(--text);margin:8px 0">$0</p><p>Instant scan, unlimited · llms.txt generator · no signup</p></div>
-    <div class="card" style="border-color:var(--acc)"><b>Pro <span style="color:var(--acc2);font-size:12px">· launch price</span></b><p style="font-size:24px;font-weight:800;color:var(--text);margin:8px 0">$29<span style="font-size:13px;color:var(--dim)">/mo</span></p><p>Weekly re-scans + email alerts · score history · 3 competitor benchmarks · monthly AI citation sampling · PDF reports</p><p style="margin-top:10px"><a href="#" onclick="document.querySelector('#url').focus();return false" style="color:var(--acc)">Scan first, join the waitlist after →</a></p></div>
+    <div class="card" style="border-color:var(--acc)"><b>Pro <span style="color:var(--acc2);font-size:12px">· founding-member price, locked for life</span></b><p style="font-size:24px;font-weight:800;color:var(--text);margin:8px 0">$29<span style="font-size:13px;color:var(--dim)">/mo</span></p><p>Weekly re-scans + email alerts · score history · 3 competitor benchmarks · monthly AI citation sampling · PDF reports</p>
+      <form id="preorder-form" style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+        <input type="email" id="preorder-email" placeholder="you@company.com" required style="flex:1;min-width:150px;background:var(--panel2);border:1px solid var(--line);border-radius:10px;color:var(--text);padding:10px 12px;font-size:14px;outline:0">
+        <button class="btn" type="submit" style="padding:10px 16px;font-size:14px">Pre-order →</button>
+      </form>
+      <p style="font-size:12px;color:var(--dim);margin-top:8px">No charge today. You'll get first access + this price locked when Pro ships.</p></div>
     <div class="card"><b>Agency</b><p style="font-size:24px;font-weight:800;color:var(--text);margin:8px 0">$99<span style="font-size:13px;color:var(--dim)">/mo</span></p><p>20 sites · white-label reports · API access</p></div>
   </div>
 </section>
@@ -233,6 +238,19 @@ function ring(score, color) {
 }
 
 function esc(s) { const d = document.createElement('div'); d.textContent = String(s); return d.innerHTML; }
+
+document.getElementById('preorder-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const form = e.target;
+  const email = document.getElementById('preorder-email').value.trim();
+  try {
+    const res = await fetch('/api/subscribe', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ email, intent: 'preorder' }) });
+    if (!res.ok) throw new Error();
+    form.innerHTML = '<p style="color:#38d9a9;font-weight:700;font-size:14px">✓ Pre-order locked in. We\'ll email you the moment Pro opens — at $29/mo, forever.</p>';
+  } catch {
+    form.innerHTML = '<p style="color:#ff6b6b;font-size:14px">Something went wrong — please try again later.</p>';
+  }
+});
 </script>
 </body>
 </html>
