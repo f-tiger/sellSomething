@@ -9,5 +9,5 @@
 - [Discount break-even calculator](/discount-impact): volume increase = discount ÷ (margin − discount)
 
 ## Related
-- [AgentReady](https://agentready.dev): free AI sales-visibility scanner for the agentic-commerce era
-- [SellToAgents](https://selltoagents.dev): merchant guides to selling through AI agents
+- [AgentReady](https://agentready.tuoqiantu.workers.dev): free AI sales-visibility scanner for the agentic-commerce era
+- [SellToAgents](https://selltoagents.tuoqiantu.workers.dev): merchant guides to selling through AI agents

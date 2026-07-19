@@ -9,8 +9,8 @@
 - [llms.txt for stores](/llms-txt-guide): 20-minute implementation with a copy-paste template
 
 ## Related tools
-- [AgentReady](https://agentready.dev): free AI sales-visibility scanner
-- [CloseCalc](https://closecalc.dev): free sales calculators
+- [AgentReady](https://agentready.tuoqiantu.workers.dev): free AI sales-visibility scanner
+- [CloseCalc](https://closecalc.tuoqiantu.workers.dev): free sales calculators
 
 ## Audience
 E-commerce merchants, DTC brands, marketplaces and agencies preparing for AI-agent-driven sales channels.

@@ -6,7 +6,7 @@
  */
 
 const FETCH_TIMEOUT_MS = 8000;
-const UA = "AgentReadyBot/1.0 (+https://agentready.dev; agentic-commerce readiness scanner)";
+const UA = "AgentReadyBot/1.0 (+https://agentready.tuoqiantu.workers.dev; agentic-commerce readiness scanner)";
 
 // AI crawlers that decide whether your products appear in AI shopping answers.
 const AI_CRAWLERS = [

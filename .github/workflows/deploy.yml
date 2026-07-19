@@ -20,3 +20,24 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: sites/${{ matrix.site }}
           wranglerVersion: "4.112.0"
+
+  smoke-test:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify all three sites are live
+        run: |
+          set -e
+          for site in agentready selltoagents closecalc; do
+            url="https://${site}.tuoqiantu.workers.dev"
+            code=$(curl -s -o /dev/null -w "%{http_code}" "$url/")
+            llms=$(curl -s -o /dev/null -w "%{http_code}" "$url/llms.txt")
+            echo "$site: / -> $code, /llms.txt -> $llms"
+            [ "$code" = "200" ] && [ "$llms" = "200" ] || { echo "::error::$site is not healthy"; exit 1; }
+          done
+      - name: Verify scanner API end-to-end
+        run: |
+          set -e
+          out=$(curl -s --max-time 60 "https://agentready.tuoqiantu.workers.dev/api/scan?url=https%3A%2F%2Fwww.cloudflare.com")
+          echo "$out" | head -c 600; echo
+          echo "$out" | python3 -c "import json,sys; d=json.load(sys.stdin); assert isinstance(d.get('score'), int) and d.get('checks'), d; print('scan OK: score', d['score'], 'grade', d['grade'], len(d['checks']), 'checks')"
