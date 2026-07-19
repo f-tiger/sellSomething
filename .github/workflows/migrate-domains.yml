@@ -26,10 +26,17 @@ jobs:
           echo "== domains before =="
           api GET "/accounts/$CF_ACCOUNT_ID/workers/domains" | jq -r '.result[] | "\(.hostname) -> \(.service)"'
 
-          echo "== move agentfront.agiscorecard.com -> agentfront worker =="
-          api PUT "/accounts/$CF_ACCOUNT_ID/workers/domains" \
-            --data "{\"zone_id\":\"$ZONE_ID\",\"hostname\":\"agentfront.agiscorecard.com\",\"service\":\"agentfront\",\"environment\":\"production\"}" \
-            | jq -e '.success'
+          echo "== detach agentfront.agiscorecard.com from createjob =="
+          AF_ID=$(api GET "/accounts/$CF_ACCOUNT_ID/workers/domains?hostname=agentfront.agiscorecard.com" | jq -r '.result[0].id // empty')
+          if [ -n "$AF_ID" ]; then
+            api DELETE "/accounts/$CF_ACCOUNT_ID/workers/domains/$AF_ID" | jq '{success, errors}'
+          fi
+
+          echo "== attach agentfront.agiscorecard.com -> agentfront worker =="
+          RESP=$(api PUT "/accounts/$CF_ACCOUNT_ID/workers/domains" \
+            --data "{\"zone_id\":\"$ZONE_ID\",\"hostname\":\"agentfront.agiscorecard.com\",\"service\":\"agentfront\",\"environment\":\"production\"}")
+          echo "$RESP" | jq '{success, errors}'
+          echo "$RESP" | jq -e '.success' > /dev/null
 
           echo "== verify =="
           api GET "/accounts/$CF_ACCOUNT_ID/workers/domains?hostname=agentfront.agiscorecard.com" \
