@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MCP Pulse — health check any MCP server in 10 seconds</title>
+<meta name="description" content="Free scanner for remote MCP servers: protocol handshake, tools/list, latency, TLS, auth and metadata quality — scored 0-100 with concrete fixes. Built for the Model Context Protocol era.">
+<link rel="canonical" href="https://mcppulse.agiscorecard.com/">
+<meta property="og:title" content="MCP Pulse — health check any MCP server">
+<meta property="og:description" content="Paste an MCP endpoint, get a conformance and health score in 10 seconds. Free, no signup.">
+<meta property="og:type" content="website">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "MCP Pulse",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Web",
+      "description": "Free health, conformance and latency scanner for remote Model Context Protocol (MCP) servers.",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "What does MCP Pulse check?", "acceptedAnswer": { "@type": "Answer", "text": "MCP Pulse performs a real JSON-RPC handshake with your streamable-HTTP MCP endpoint: initialize, protocol version negotiation, serverInfo identity, declared capabilities, tools/list with description quality, handshake latency, HTTPS and authentication posture — then scores the server 0-100 with concrete fixes." } },
+        { "@type": "Question", "name": "Why does MCP server health matter?", "acceptedAnswer": { "@type": "Answer", "text": "Thousands of MCP servers are now listed in registries, and agents pick tools by metadata quality. Servers with missing descriptions, slow handshakes or broken conformance silently lose usage — and paid MCP servers lose revenue with every minute of downtime." } },
+        { "@type": "Question", "name": "Is my server URL stored?", "acceptedAnswer": { "@type": "Answer", "text": "Scans run live and are not persisted in the MVP. Only your email is stored if you join the monitoring waitlist." } }
+      ]
+    }
+  ]
+}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FZXLMBB5QB"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-FZXLMBB5QB');</script>
+<style>
+:root{--bg:#070d0f;--panel:#0e181b;--panel2:#122024;--line:#1e3238;--text:#e8f4f2;--dim:#8fb0ac;--acc:#2dd4bf;--acc2:#a3e635;--warn:#fbbf24;--bad:#f87171;--r:14px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:960px;margin:0 auto;padding:0 24px}
+header{padding:22px 0;display:flex;justify-content:space-between;align-items:center}
+.logo{font-weight:800;font-size:20px;letter-spacing:-.02em}
+.logo span{color:var(--acc)}
+nav a{color:var(--dim);text-decoration:none;margin-left:22px;font-size:14px}
+nav a:hover{color:var(--text)}
+.hero{padding:60px 0 40px;text-align:center}
+h1{font-size:clamp(30px,5.5vw,50px);line-height:1.12;letter-spacing:-.03em;font-weight:800}
+h1 em{font-style:normal;background:linear-gradient(90deg,var(--acc),var(--acc2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--dim);max-width:660px;margin:18px auto 0;font-size:18px}
+.scanbox{margin:34px auto 10px;max-width:680px;display:flex;gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:10px}
+.scanbox input{flex:1;background:transparent;border:0;outline:0;color:var(--text);font-size:15px;padding:10px 12px;font-family:ui-monospace,Menlo,monospace}
+.scanbox input::placeholder{color:#4a6a66}
+.btn{background:linear-gradient(90deg,var(--acc),#0ea5a3);color:#03211d;border:0;border-radius:10px;padding:12px 22px;font-size:15px;font-weight:800;cursor:pointer;white-space:nowrap}
+.btn:hover{filter:brightness(1.1)}
+.btn[disabled]{opacity:.6;cursor:wait}
+.tiny{color:#4a6a66;font-size:13px;margin-top:10px}
+#result{max-width:760px;margin:26px auto 0;display:none;text-align:left}
+.scorehead{display:flex;align-items:center;gap:22px;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:22px}
+.ring{width:110px;height:110px;flex:none}
+.scorehead h2{font-size:21px;letter-spacing:-.02em}
+.scorehead p{color:var(--dim);font-size:14px;margin-top:6px}
+.cat h3{font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);margin:20px 0 10px}
+.checkrow{display:flex;gap:12px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:8px}
+.checkrow .dot{width:10px;height:10px;border-radius:50%;margin-top:7px;flex:none}
+.pass .dot{background:var(--acc2)}.warn .dot{background:var(--warn)}.fail .dot{background:var(--bad)}
+.checkrow b{font-size:15px}
+.checkrow p{color:var(--dim);font-size:14px;margin-top:2px}
+.checkrow .fix{color:var(--warn);font-size:13px;margin-top:6px}
+.cta-strip{margin-top:26px;background:linear-gradient(135deg,#0d2320,#0c1a24);border:1px solid var(--line);border-radius:var(--r);padding:26px;text-align:center}
+.cta-strip h3{font-size:20px;letter-spacing:-.02em}
+.cta-strip p{color:var(--dim);font-size:14px;margin:8px 0 16px}
+.email-row{display:flex;gap:10px;max-width:440px;margin:0 auto}
+.email-row input{flex:1;background:var(--panel);border:1px solid var(--line);border-radius:10px;color:var(--text);padding:12px 14px;font-size:15px;outline:0}
+section.info{padding:52px 0;border-top:1px solid var(--line);margin-top:60px}
+section.info h2{font-size:28px;letter-spacing:-.02em;margin-bottom:12px}
+section.info p{color:var(--dim);max-width:720px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:26px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:20px}
+.card b{font-size:16px}
+.card p{font-size:14px;margin-top:6px}
+footer{border-top:1px solid var(--line);padding:34px 0;color:var(--dim);font-size:13px;margin-top:60px}
+footer .links{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:12px}
+footer a{color:var(--dim)}
+@media(max-width:560px){.scanbox{flex-direction:column}.scorehead{flex-direction:column;text-align:center}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="logo">MCP<span>Pulse</span></div>
+  <nav><a href="#how">What we check</a><a href="#why">Why</a><a href="#pro">Monitoring</a><a href="#faq">FAQ</a></nav>
+</header>
+
+<section class="hero">
+  <h1>Is your <em>MCP server</em><br>actually healthy?</h1>
+  <p class="sub">Thousands of MCP servers are live. Agents pick the ones that respond fast, conform to spec, and document their tools. Paste your streamable-HTTP endpoint — get a real handshake-based score in 10 seconds.</p>
+  <form class="scanbox" id="scanform">
+    <input id="url" type="text" placeholder="https://your-server.example.com/mcp" autocomplete="url" required>
+    <button class="btn" id="scanbtn" type="submit">Scan free →</button>
+  </form>
+  <div class="tiny">Free · No signup · Real JSON-RPC initialize + tools/list, not a ping</div>
+  <div id="result"></div>
+</section>
+
+<section class="info" id="how">
+  <h2>What we check</h2>
+  <p>MCP Pulse speaks the protocol — it doesn't just ping your URL:</p>
+  <div class="grid3">
+    <div class="card"><b>🤝 Conformance</b><p>initialize handshake, protocol version negotiation, serverInfo identity, declared capabilities.</p></div>
+    <div class="card"><b>🛠 Tool quality</b><p>tools/list round-trip and description coverage — agents choose tools by their descriptions, not their code.</p></div>
+    <div class="card"><b>⚡ Transport & security</b><p>handshake latency, HTTPS, session handling, authentication posture.</p></div>
+  </div>
+</section>
+
+<section class="info" id="why">
+  <h2>Why this matters now</h2>
+  <p>The MCP ecosystem passed 5,800+ community servers in the official registry, with Google and Microsoft shipping their own agent registries. Discovery is exploding — but trust and reliability tooling hasn't kept up. A server with a slow handshake or undocumented tools silently loses agent traffic to a better-run competitor. And if your MCP server is paid, every minute of downtime is lost revenue nobody alerts you about. That's the gap MCP Pulse fills.</p>
+</section>
+
+<section class="info" id="pro">
+  <h2>Monitoring (Pro)</h2>
+  <div class="grid3">
+    <div class="card"><b>Free</b><p style="font-size:24px;font-weight:800;color:var(--text);margin:8px 0">$0</p><p>Instant scan, unlimited · full conformance report</p></div>
+    <div class="card" style="border-color:var(--acc)"><b>Pro <span style="color:var(--acc2);font-size:12px">· founding price</span></b><p style="font-size:24px;font-weight:800;color:var(--text);margin:8px 0">$19<span style="font-size:13px;color:var(--dim)">/mo</span></p><p>5-minute uptime + latency checks · schema-drift alerts (tools added/removed/changed) · weekly report · status badge for your README</p>
+      <form id="preorder-form" style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+        <input type="email" id="preorder-email" placeholder="you@company.com" required style="flex:1;min-width:150px;background:var(--panel2);border:1px solid var(--line);border-radius:10px;color:var(--text);padding:10px 12px;font-size:14px;outline:0">
+        <button class="btn" type="submit" style="padding:10px 16px;font-size:14px">Join waitlist →</button>
+      </form>
+      <p style="font-size:12px;color:var(--dim);margin-top:8px">No charge today — founding price locked when monitoring ships.</p></div>
+    <div class="card"><b>Teams</b><p style="font-size:24px;font-weight:800;color:var(--text);margin:8px 0">$59<span style="font-size:13px;color:var(--dim)">/mo</span></p><p>10 servers · Slack/webhook alerts · API access</p></div>
+  </div>
+</section>
+
+<section class="info" id="faq">
+  <h2>FAQ</h2>
+  <div class="grid3">
+    <div class="card"><b>Which transports are supported?</b><p>Streamable HTTP (the current spec transport), including SSE responses. Legacy SSE-only and stdio servers can't be scanned remotely.</p></div>
+    <div class="card"><b>My server needs auth — can you still scan?</b><p>Yes — we detect and report the auth posture (a good sign!). Full introspection of authenticated servers comes with Pro monitoring.</p></div>
+    <div class="card"><b>Do you store scans?</b><p>No. Scans run live and aren't persisted in the MVP. Only waitlist emails are stored.</p></div>
+  </div>
+</section>
+
+<footer>
+  <div class="links">
+    <a href="/llms.txt">llms.txt</a>
+    <a href="https://agentready.agiscorecard.com">AgentReady (store scanner)</a>
+    <a href="https://selltoagents.agiscorecard.com">Agentic commerce guides</a>
+  </div>
+  <div>© 2026 MCP Pulse · Part of the agiscorecard family. We speak MCP so you can trust what agents see.</div>
+</footer>
+</div>
+
+<script>
+const form = document.getElementById('scanform');
+const btn = document.getElementById('scanbtn');
+const result = document.getElementById('result');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const url = document.getElementById('url').value.trim();
+  if (!url) return;
+  btn.disabled = true; btn.textContent = 'Scanning…';
+  result.style.display = 'block';
+  result.innerHTML = '<div class="scorehead"><div style="font-size:34px">⏳</div><div><h2>Handshaking with ' + esc(url) + '…</h2><p>initialize → capabilities → tools/list → latency.</p></div></div>';
+  try {
+    const res = await fetch('/api/scan?url=' + encodeURIComponent(url));
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Scan failed');
+    render(data);
+  } catch (err) {
+    result.innerHTML = '<div class="scorehead fail"><div style="font-size:34px">⚠️</div><div><h2>Scan failed</h2><p>' + esc(err.message) + '</p></div></div>';
+  } finally {
+    btn.disabled = false; btn.textContent = 'Scan free →';
+  }
+});
+
+function render(d) {
+  const color = d.score >= 75 ? '#a3e635' : d.score >= 55 ? '#fbbf24' : '#f87171';
+  const cats = {};
+  d.checks.forEach(c => { (cats[c.category] = cats[c.category] || []).push(c); });
+  let html = '<div class="scorehead">' + ring(d.score, color) +
+    '<div><h2>Grade ' + d.grade + ' — ' + d.score + '/100 · ' + d.latencyMs + 'ms</h2><p>' + esc(d.summary) + '</p>' +
+    (d.tools ? '<p style="margin-top:6px">' + d.tools.count + ' tools · ' + d.tools.describedPct + '% documented</p>' : '') + '</div></div>';
+  for (const [cat, checks] of Object.entries(cats)) {
+    html += '<div class="cat"><h3>' + esc(cat) + '</h3>';
+    for (const c of checks) {
+      html += '<div class="checkrow ' + c.status + '"><div class="dot"></div><div><b>' + esc(c.title) + '</b><p>' + esc(c.detail) + '</p>' + (c.fix ? '<div class="fix">Fix: ' + esc(c.fix) + '</div>' : '') + '</div></div>';
+    }
+    html += '</div>';
+  }
+  html += '<div class="cta-strip"><h3>Know the moment it breaks</h3><p>Uptime, latency and schema-drift alerts for this server — join the Pro waitlist:</p><form class="email-row" id="subform"><input type="email" id="email" placeholder="you@company.com" required><button class="btn" type="submit">Join waitlist</button></form></div>';
+  result.innerHTML = html;
+  document.getElementById('subform').addEventListener('submit', subscribe);
+}
+
+async function subscribe(e) {
+  e.preventDefault();
+  const email = document.getElementById('email').value.trim();
+  const target = e.target;
+  try {
+    const res = await fetch('/api/subscribe', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ email }) });
+    if (!res.ok) throw new Error();
+    target.innerHTML = '<p style="color:#a3e635;font-weight:700">✓ On the list — we\'ll email you when monitoring opens.</p>';
+  } catch {
+    target.innerHTML = '<p style="color:#f87171">Something went wrong — please try again later.</p>';
+  }
+}
+
+document.getElementById('preorder-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const email = document.getElementById('preorder-email').value.trim();
+  const f = e.target;
+  try {
+    const res = await fetch('/api/subscribe', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ email }) });
+    if (!res.ok) throw new Error();
+    f.innerHTML = '<p style="color:#a3e635;font-weight:700;font-size:14px">✓ Founding price locked. We\'ll email you at launch.</p>';
+  } catch {
+    f.innerHTML = '<p style="color:#f87171;font-size:14px">Something went wrong — try again later.</p>';
+  }
+});
+
+function ring(score, color) {
+  const r = 46, c = 2 * Math.PI * r, off = c - (score / 100) * c;
+  return '<svg class="ring" viewBox="0 0 110 110"><circle cx="55" cy="55" r="' + r + '" fill="none" stroke="#1e3238" stroke-width="9"/><circle cx="55" cy="55" r="' + r + '" fill="none" stroke="' + color + '" stroke-width="9" stroke-linecap="round" stroke-dasharray="' + c + '" stroke-dashoffset="' + off + '" transform="rotate(-90 55 55)"/><text x="55" y="63" text-anchor="middle" fill="#e8f4f2" font-size="26" font-weight="800">' + score + '</text></svg>';
+}
+function esc(s) { const d = document.createElement('div'); d.textContent = String(s); return d.innerHTML; }
+</script>
+</body>
+</html>

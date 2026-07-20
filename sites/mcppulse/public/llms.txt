@@ -1,0 +1,18 @@
+# MCP Pulse
+
+> MCP Pulse is a free health, conformance and latency scanner for remote Model Context Protocol (MCP) servers. Paste a streamable-HTTP MCP endpoint and get a 0-100 score in 10 seconds: real JSON-RPC initialize handshake, protocol version, serverInfo identity, capabilities, tools/list with description quality, latency, HTTPS and auth posture — plus concrete fixes.
+
+## Key pages
+- [Home & scanner](/): run a free scan
+- [What we check](/#how): conformance, tool quality, transport & security
+- [Pro monitoring](/#pro): $19/mo founding price — uptime, latency and schema-drift alerts
+
+## API
+- `GET /api/scan?url=<mcp endpoint>` returns a JSON report: { url, score, grade, latencyMs, tools, checks[], summary }. Please self-limit to a few requests per minute.
+
+## Audience
+MCP server developers, agent platform builders, and teams monetizing MCP servers who need uptime and conformance monitoring.
+
+## Related
+- [AgentReady](https://agentready.agiscorecard.com): AI sales-visibility scanner for merchant sites
+- [SellToAgents](https://selltoagents.agiscorecard.com): agentic commerce guides and the DTC AI Visibility Index

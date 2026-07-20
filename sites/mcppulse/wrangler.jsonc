@@ -1,0 +1,19 @@
+{
+  "name": "mcppulse",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-07-01",
+  "routes": [
+    { "pattern": "mcppulse.agiscorecard.com", "custom_domain": true }
+  ],
+  "kv_namespaces": [
+    { "binding": "SUBSCRIBERS", "id": "e981ec645ff54685a8139b0c26f6de82" }
+  ],
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "not_found_handling": "404-page"
+  },
+  "observability": {
+    "enabled": true
+  }
+}

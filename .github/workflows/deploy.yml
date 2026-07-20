@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        site: [agentready, selltoagents, closecalc, agentfront]
+        site: [agentready, selltoagents, closecalc, agentfront, mcppulse]
     steps:
       - uses: actions/checkout@v4
       - uses: cloudflare/wrangler-action@v3
@@ -29,7 +29,7 @@ jobs:
         run: |
           set -e
           # Custom-domain DNS may take a couple of minutes right after first attach — retry.
-          for site in agentready selltoagents closecalc; do
+          for site in agentready selltoagents closecalc mcppulse; do
             url="https://${site}.agiscorecard.com"
             ok=""
             for attempt in $(seq 1 12); do
@@ -48,3 +48,10 @@ jobs:
           out=$(curl -s --max-time 60 "https://agentready.agiscorecard.com/api/scan?url=https%3A%2F%2Fwww.cloudflare.com")
           echo "$out" | head -c 600; echo
           echo "$out" | python3 -c "import json,sys; d=json.load(sys.stdin); assert isinstance(d.get('score'), int) and d.get('checks'), d; print('scan OK: score', d['score'], 'grade', d['grade'], len(d['checks']), 'checks')"
+      - name: Verify MCP Pulse scanner end-to-end
+        run: |
+          set -e
+          # Scan a well-known public streamable-HTTP MCP endpoint (Cloudflare docs MCP).
+          out=$(curl -s --max-time 60 "https://mcppulse.agiscorecard.com/api/scan?url=https%3A%2F%2Fdocs.mcp.cloudflare.com%2Fmcp")
+          echo "$out" | head -c 600; echo
+          echo "$out" | python3 -c "import json,sys; d=json.load(sys.stdin); assert isinstance(d.get('score'), int) and d.get('checks'), d; print('mcp scan OK: score', d['score'], 'grade', d['grade'], 'latency', d.get('latencyMs'), 'ms')"
