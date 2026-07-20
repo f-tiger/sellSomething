@@ -1,0 +1,61 @@
+# Weekly ops data collection: site health, funnel counts, index summary.
+# Commits a dated markdown report to docs/ops/ so the optimization Routine
+# (and the owner) can read a durable data trail straight from the repo.
+name: Weekly ops report
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 7 * * 1" # Monday 07:00 UTC, after the 06:00 visibility-index run
+
+permissions:
+  contents: write
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: claude/sales-website-research-plan-7i7rc2
+      - name: Collect data and write report
+        run: |
+          set -e
+          mkdir -p docs/ops
+          DATE=$(date -u +%F)
+          R="docs/ops/report-$DATE.md"
+          echo "# Ops report $DATE" > "$R"
+          echo "" >> "$R"
+          echo "## Site health" >> "$R"
+          for host in agentready selltoagents closecalc agentfront searchfurture; do
+            code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 20 "https://$host.agiscorecard.com/" || echo ERR)
+            echo "- $host.agiscorecard.com: $code" >> "$R"
+          done
+          echo "" >> "$R"
+          echo "## Funnel (AgentReady KV)" >> "$R"
+          stats=$(curl -s --max-time 20 "https://agentready.agiscorecard.com/api/stats" || echo '{}')
+          echo '```json' >> "$R"; echo "$stats" >> "$R"; echo '```' >> "$R"
+          echo "" >> "$R"
+          echo "## Visibility Index" >> "$R"
+          idx=$(curl -s --max-time 20 "https://selltoagents.agiscorecard.com/data/visibility-index.json" || echo '{}')
+          echo "$idx" | python3 -c "
+          import json,sys
+          try:
+              d=json.load(sys.stdin); rs=d.get('results',[])
+              print(f\"- updated: {d.get('updatedAt')} · brands: {d.get('brandCount')} · avg: {d.get('averageScore')}\")
+              if rs:
+                  print('- top3: ' + ', '.join(f\"{r['name']}({r['score']})\" for r in rs[:3]))
+                  print('- bottom3: ' + ', '.join(f\"{r['name']}({r['score']})\" for r in rs[-3:]))
+          except Exception as e:
+              print('- index unavailable:', e)
+          " >> "$R"
+          echo "" >> "$R"
+          echo "_Collected automatically. GA4 numbers are pulled separately by the weekly optimization Routine._" >> "$R"
+          cat "$R"
+      - name: Commit report
+        run: |
+          git config user.name "ops-report-bot"
+          git config user.email "actions@github.com"
+          git add docs/ops/
+          git diff --cached --quiet && echo "No changes" || git commit -m "chore: weekly ops report"
+          git push

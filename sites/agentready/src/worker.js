@@ -24,6 +24,7 @@ export default {
     const url = new URL(request.url);
     if (url.pathname === "/api/scan") return handleScan(request);
     if (url.pathname === "/api/subscribe") return handleSubscribe(request, env);
+    if (url.pathname === "/api/stats") return handleStats(env);
     return env.ASSETS.fetch(request);
   },
 };
@@ -465,6 +466,24 @@ async function handleSubscribe(request, env) {
     await env.SUBSCRIBERS.put(intent + ":" + email, JSON.stringify({ email, intent, at: new Date().toISOString() }));
   }
   return json({ ok: true });
+}
+
+async function handleStats(env) {
+  // Aggregate counts only — no emails or PII are ever exposed.
+  const counts = { waitlist: 0, preorder: 0, legacy: 0 };
+  if (env.SUBSCRIBERS) {
+    for (const prefix of ["waitlist:", "preorder:", "sub:"]) {
+      let cursor;
+      let n = 0;
+      do {
+        const page = await env.SUBSCRIBERS.list({ prefix, cursor, limit: 1000 });
+        n += page.keys.length;
+        cursor = page.list_complete ? undefined : page.cursor;
+      } while (cursor);
+      counts[prefix === "sub:" ? "legacy" : prefix.slice(0, -1)] = n;
+    }
+  }
+  return json(counts);
 }
 
 function json(data, status = 200) {
