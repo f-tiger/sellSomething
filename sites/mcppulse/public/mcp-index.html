@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Public MCP Server Index — health & conformance rankings, updated weekly</title>
+<meta name="description" content="We scan popular public MCP servers for protocol conformance, tool documentation, latency and security — ranked 0-100. Updated weekly. Free dataset.">
+<link rel="canonical" href="https://mcppulse.agiscorecard.com/mcp-index">
+<meta property="og:title" content="The Public MCP Server Index">
+<meta property="og:description" content="Popular public MCP servers ranked by health, conformance and latency. Updated weekly.">
+<meta property="og:type" content="website">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Dataset","name":"Public MCP Server Index","description":"Weekly health, conformance and latency ranking of popular public Model Context Protocol (MCP) servers, scored 0-100 via a real JSON-RPC handshake.","creator":{"@type":"Organization","name":"MCP Pulse"},"distribution":{"@type":"DataDownload","encodingFormat":"application/json","contentUrl":"https://mcppulse.agiscorecard.com/data/mcp-index.json"}}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FZXLMBB5QB"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-FZXLMBB5QB');</script>
+<style>
+:root{--bg:#070d0f;--panel:#0e181b;--panel2:#122024;--line:#1e3238;--text:#e8f4f2;--dim:#8fb0ac;--acc:#2dd4bf;--acc2:#a3e635;--warn:#fbbf24;--bad:#f87171;--r:14px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:900px;margin:0 auto;padding:0 24px}
+header{padding:20px 0;display:flex;justify-content:space-between;align-items:center}
+.logo{font-weight:800;font-size:20px;letter-spacing:-.02em;color:var(--text);text-decoration:none}
+.logo span{color:var(--acc)}
+nav a{color:var(--dim);text-decoration:none;margin-left:18px;font-size:14px}
+nav a:hover{color:var(--text)}
+h1{font-size:clamp(28px,5vw,40px);letter-spacing:-.03em;font-weight:800;margin:26px 0 12px}
+.lead{color:var(--dim);font-size:18px;max-width:720px}
+a{color:var(--acc)}
+.meta{color:#6d8b87;font-size:13px}
+.statrow{display:flex;gap:14px;flex-wrap:wrap;margin:22px 0}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:14px 20px}
+.stat b{font-size:24px;display:block}
+.stat span{color:var(--dim);font-size:13px}
+table{width:100%;border-collapse:collapse;margin:20px 0;font-size:14.5px}
+th,td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left}
+th{color:var(--dim);font-size:12px;text-transform:uppercase;letter-spacing:.07em}
+.pill{display:inline-block;min-width:44px;text-align:center;border-radius:8px;padding:3px 8px;font-weight:800}
+.g-a{background:#12352b;color:#a3e635}.g-b{background:#0d2f2c;color:#2dd4bf}.g-c{background:#3a2f14;color:#fbbf24}.g-d,.g-f{background:#3a1a1a;color:#f87171}
+.fails{color:var(--dim);font-size:13px}
+.tldr{background:var(--panel2);border-left:3px solid var(--acc);border-radius:0 var(--r) var(--r) 0;padding:16px 20px;margin:22px 0;color:var(--dim);font-size:14.5px}
+.cta{background:linear-gradient(135deg,#0d2320,#0c1a24);border:1px solid var(--line);border-radius:var(--r);padding:24px;margin:32px 0;text-align:center}
+.cta a.btn{display:inline-block;background:linear-gradient(90deg,var(--acc),#0ea5a3);color:#03211d;border-radius:10px;padding:12px 24px;font-weight:800;text-decoration:none;margin-top:10px}
+footer{border-top:1px solid var(--line);padding:30px 0;color:var(--dim);font-size:13px;margin-top:52px}
+footer .links{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:10px}
+footer a{color:var(--dim)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="/">MCP<span>Pulse</span></a>
+  <nav><a href="/">Scanner</a><a href="/mcp-index">Index</a><a href="/#pro">Monitoring</a></nav>
+</header>
+
+<p class="meta">Index · Updated <span id="updated">weekly</span> · <a href="/data/mcp-index.json">Raw data (JSON)</a></p>
+<h1>The Public MCP Server Index</h1>
+<p class="lead">The MCP ecosystem passed 5,800+ registered servers — but which ones are actually healthy? We scan popular <em>public</em> MCP servers with a real JSON-RPC handshake and rank them by conformance, tool documentation, latency and security.</p>
+
+<div class="statrow" id="stats"></div>
+<div id="tablewrap"><p class="meta">Loading index…</p></div>
+
+<div class="tldr"><b>Method:</b> each server gets a live <code>initialize</code> + <code>tools/list</code> handshake via <a href="/">MCP Pulse</a>; score is a weighted sum of protocol conformance, serverInfo identity, tool description coverage, handshake latency, HTTPS and auth posture. Auth-gated servers can't be introspected and are excluded from the ranking. Run your own server through the <a href="/">free scanner</a>.</div>
+
+<div class="cta">
+  <h3>Is <em>your</em> MCP server on here — and where would it rank?</h3>
+  <p>Free scan, 10 seconds, real protocol handshake.</p>
+  <a class="btn" href="/">Scan my server →</a>
+</div>
+
+<footer>
+  <div class="links"><a href="/">Scanner</a><a href="/data/mcp-index.json">Dataset</a><a href="/llms.txt">llms.txt</a></div>
+  <div>© 2026 MCP Pulse · Cite freely with a link to this page.</div>
+</footer>
+</div>
+<script>
+fetch('/data/mcp-index.json').then(r => r.json()).then(d => {
+  document.getElementById('updated').textContent = d.updatedAt;
+  document.getElementById('stats').innerHTML =
+    '<div class="stat"><b>' + d.scanned + '</b><span>public servers ranked</span></div>' +
+    '<div class="stat"><b>' + d.averageScore + '/100</b><span>average score</span></div>' +
+    '<div class="stat"><b>' + d.averageLatencyMs + 'ms</b><span>average handshake latency</span></div>' +
+    '<div class="stat"><b>' + (d.authGated || 0) + '</b><span>auth-gated (not rankable)</span></div>';
+  if (!d.results || !d.results.length) {
+    document.getElementById('tablewrap').innerHTML = '<p class="meta">First index run is in progress — check back shortly.</p>';
+    return;
+  }
+  let rows = d.results.map((r, i) =>
+    '<tr><td>' + (i + 1) + '</td><td><b>' + esc(r.name) + '</b></td>' +
+    '<td><span class="pill g-' + r.grade.toLowerCase() + '">' + r.score + '</span> ' + r.grade + '</td>' +
+    '<td>' + r.latencyMs + 'ms</td><td>' + r.tools + ' (' + r.describedPct + '% doc)</td>' +
+    '<td class="fails">' + (r.failing && r.failing.length ? r.failing.join(', ') : '—') + '</td></tr>').join('');
+  document.getElementById('tablewrap').innerHTML =
+    '<table><tr><th>#</th><th>Server</th><th>Score</th><th>Latency</th><th>Tools</th><th>Gaps</th></tr>' + rows + '</table>';
+}).catch(() => {
+  document.getElementById('tablewrap').innerHTML = '<p class="meta">First index run is in progress — check back shortly.</p>';
+});
+function esc(s){const d=document.createElement('div');d.textContent=String(s);return d.innerHTML}
+</script>
+</body>
+</html>

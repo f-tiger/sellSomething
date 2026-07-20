@@ -1,7 +1,8 @@
 /**
  * MCP Pulse — health, conformance and latency scanner for remote MCP servers.
- * GET  /api/scan?url=<mcp endpoint>  → JSON health report (JSON-RPC over streamable HTTP)
- * POST /api/subscribe                → Pro-monitoring waitlist (shared SUBSCRIBERS KV)
+ * GET  /api/scan?url=<mcp endpoint>   → JSON health report (JSON-RPC over streamable HTTP)
+ * GET  /api/badge?url=<mcp endpoint>  → SVG score badge (embed in your README)
+ * POST /api/subscribe                 → Pro-monitoring waitlist (shared SUBSCRIBERS KV)
  */
 
 const TIMEOUT_MS = 10000;
@@ -11,6 +12,7 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     if (url.pathname === "/api/scan") return handleScan(request);
+    if (url.pathname === "/api/badge") return handleBadge(request);
     if (url.pathname === "/api/subscribe") return handleSubscribe(request, env);
     return env.ASSETS.fetch(request);
   },
@@ -21,18 +23,23 @@ export default {
 async function handleScan(request) {
   const target = normalizeTarget(new URL(request.url).searchParams.get("url"));
   if (target.error) return json({ error: target.error }, 400);
+  const report = await buildReport(target.href);
+  if (report.error) return json({ error: report.error }, report.status || 422);
+  return json(report);
+}
 
+async function buildReport(href) {
   const checks = [];
   const started = Date.now();
   let init;
   try {
-    init = await rpc(target.href, null, "initialize", {
+    init = await rpc(href, null, "initialize", {
       protocolVersion: PROTOCOL,
       capabilities: {},
       clientInfo: { name: "MCPPulse", version: "1.0" },
     }, 1);
   } catch (e) {
-    return json({ error: "Could not reach " + target.href + " — " + (e.message || "network error") }, 422);
+    return { error: "Could not reach " + href + " — " + (e.message || "network error"), status: 422 };
   }
   const latency = Date.now() - started;
 
@@ -41,16 +48,16 @@ async function handleScan(request) {
       "Server responded (HTTP " + init.status + ")."));
     checks.push(check("auth", "Security", "Authentication", 15, 15, "pass",
       "Server requires authentication (" + init.status + ") — good: your MCP server is not open to the world. Full introspection needs credentials, so the remaining checks are limited."));
-    checks.push(checkHttps(target));
-    return finish(target.href, checks, latency, null, { authProtected: true });
+    checks.push(checkHttps(href));
+    return finish(href, checks, latency, null, { authProtected: true });
   }
 
   if (!init.ok || !init.result) {
     checks.push(check("reachable", "Transport", "MCP handshake", 0, 15, "fail",
       "Endpoint responded (HTTP " + init.status + ") but did not return a valid JSON-RPC initialize result. " + (init.note || ""),
       "Confirm this is a streamable-HTTP MCP endpoint that accepts POSTed JSON-RPC 'initialize' requests."));
-    checks.push(checkHttps(target));
-    return finish(target.href, checks, latency, null, {});
+    checks.push(checkHttps(href));
+    return finish(href, checks, latency, null, {});
   }
 
   const r = init.result;
@@ -74,12 +81,11 @@ async function handleScan(request) {
     capList.length ? "Declares: " + capList.join(", ") + "." : "No capabilities declared.",
     capList.length ? null : "Declare tools/resources/prompts capabilities you support."));
 
-  // tools/list (after notifications/initialized)
   let toolsInfo = null;
   if (caps.tools !== undefined) {
     try {
-      await rpcNotify(target.href, init.sessionId, "notifications/initialized");
-      const tl = await rpc(target.href, init.sessionId, "tools/list", {}, 2);
+      await rpcNotify(href, init.sessionId, "notifications/initialized");
+      const tl = await rpc(href, init.sessionId, "tools/list", {}, 2);
       const tools = tl.ok && tl.result && Array.isArray(tl.result.tools) ? tl.result.tools : null;
       if (tools) {
         const described = tools.filter((t) => t.description && t.description.length >= 10).length;
@@ -110,17 +116,17 @@ async function handleScan(request) {
     latency + " ms to initialize. Agents run multi-step chains — every slow hop compounds.",
     latency < 800 ? null : "Serve from an edge runtime or reduce cold starts."));
 
-  checks.push(checkHttps(target));
+  checks.push(checkHttps(href));
 
   checks.push(check("auth", "Security", "Authentication", 0, 5, "warn",
     "Server answered initialize without authentication. Fine for public read-only servers; risky if any tool mutates state or reaches private data.",
     "If this server is not meant to be public, require an Authorization header (OAuth or bearer token)."));
 
-  return finish(target.href, checks, latency, toolsInfo, { serverInfo: si, protocolVersion: proto });
+  return finish(href, checks, latency, toolsInfo, { serverInfo: si, protocolVersion: proto });
 }
 
-function checkHttps(target) {
-  const https = target.href.startsWith("https:");
+function checkHttps(href) {
+  const https = href.startsWith("https:");
   return check("tls", "Security", "HTTPS", https ? 10 : 0, 10, https ? "pass" : "fail",
     https ? "Served over HTTPS." : "Not HTTPS — most MCP clients refuse plaintext endpoints.",
     https ? null : "Serve the endpoint over TLS.");
@@ -130,7 +136,7 @@ function finish(url, checks, latency, tools, extra) {
   const earned = checks.reduce((s, c) => s + c.earned, 0);
   const possible = checks.reduce((s, c) => s + c.possible, 0);
   const score = Math.round((earned / possible) * 100);
-  return json({
+  return {
     url,
     scannedAt: new Date().toISOString(),
     latencyMs: latency,
@@ -144,11 +150,59 @@ function finish(url, checks, latency, tools, extra) {
       score >= 75 ? "Good — solid conformance with a few gaps worth closing." :
       score >= 55 ? "Partial — works, but agents will hit friction (docs, latency or metadata gaps)." :
       "Weak — most MCP clients will struggle with this endpoint.",
-  });
+  };
 }
 
 function check(id, category, title, earned, possible, status, detail, fix = null) {
   return { id, category, title, earned, possible, status, detail, fix };
+}
+
+/* ---------------- badge ---------------- */
+
+async function handleBadge(request) {
+  const target = normalizeTarget(new URL(request.url).searchParams.get("url"));
+  let label = "MCP Pulse";
+  let value, color;
+  if (target.error) {
+    value = "invalid url"; color = "#9ca3af";
+  } else {
+    const report = await buildReport(target.href);
+    if (report.error) { value = "unreachable"; color = "#f87171"; }
+    else if (report.authProtected) { value = "auth ✓"; color = "#2dd4bf"; }
+    else {
+      value = report.grade + " " + report.score;
+      color = report.grade === "A" ? "#65a30d" : report.grade === "B" ? "#0d9488"
+            : report.grade === "C" ? "#d97706" : "#dc2626";
+    }
+  }
+  return new Response(renderBadge(label, value, color), {
+    headers: {
+      "Content-Type": "image/svg+xml; charset=utf-8",
+      // Let GitHub's camo proxy cache for an hour so README badges stay fast.
+      "Cache-Control": "public, max-age=3600, s-maxage=3600",
+    },
+  });
+}
+
+function renderBadge(label, value, color) {
+  const lw = 7 * label.length + 12;
+  const vw = 7 * value.length + 14;
+  const w = lw + vw;
+  const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="20" role="img" aria-label="${esc(label)}: ${esc(value)}">
+<linearGradient id="s" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/></linearGradient>
+<clipPath id="r"><rect width="${w}" height="20" rx="3" fill="#fff"/></clipPath>
+<g clip-path="url(#r)">
+<rect width="${lw}" height="20" fill="#20303a"/>
+<rect x="${lw}" width="${vw}" height="20" fill="${color}"/>
+<rect width="${w}" height="20" fill="url(#s)"/>
+</g>
+<g fill="#fff" text-anchor="middle" font-family="Verdana,Geneva,DejaVu Sans,sans-serif" font-size="11">
+<text x="${lw / 2}" y="15" fill="#010101" fill-opacity=".3">${esc(label)}</text>
+<text x="${lw / 2}" y="14">${esc(label)}</text>
+<text x="${lw + vw / 2}" y="15" fill="#010101" fill-opacity=".3">${esc(value)}</text>
+<text x="${lw + vw / 2}" y="14">${esc(value)}</text>
+</g></svg>`;
 }
 
 /* ---------------- JSON-RPC over streamable HTTP ---------------- */

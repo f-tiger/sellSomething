@@ -55,3 +55,9 @@ jobs:
           out=$(curl -s --max-time 60 "https://mcppulse.agiscorecard.com/api/scan?url=https%3A%2F%2Fdocs.mcp.cloudflare.com%2Fmcp")
           echo "$out" | head -c 600; echo
           echo "$out" | python3 -c "import json,sys; d=json.load(sys.stdin); assert isinstance(d.get('score'), int) and d.get('checks'), d; print('mcp scan OK: score', d['score'], 'grade', d['grade'], 'latency', d.get('latencyMs'), 'ms')"
+      - name: Verify MCP Pulse badge endpoint
+        run: |
+          set -e
+          ctype=$(curl -s -o /dev/null -w "%{content_type}" --max-time 60 "https://mcppulse.agiscorecard.com/api/badge?url=https%3A%2F%2Fdocs.mcp.cloudflare.com%2Fmcp")
+          echo "badge content-type: $ctype"
+          echo "$ctype" | grep -q "image/svg" || { echo "::error::badge did not return SVG"; exit 1; }
