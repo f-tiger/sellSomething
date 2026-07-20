@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-07-19",
-  "brandCount": 37,
+  "updatedAt": "2026-07-20",
+  "brandCount": 36,
   "averageScore": 74,
   "results": [
     {
@@ -60,15 +60,6 @@
     {
       "name": "Our Place",
       "domain": "fromourplace.com",
-      "score": 84,
-      "grade": "B",
-      "failing": [
-        "Product / Offer schema"
-      ]
-    },
-    {
-      "name": "Stanley",
-      "domain": "stanley1913.com",
       "score": 84,
       "grade": "B",
       "failing": [
