@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Public MCP server examples (2026): real remote servers you can try</title>
+<meta name="description" content="A curated list of real public remote MCP servers you can connect to today — Cloudflare Docs, DeepWiki, Context7, Hugging Face and more — with their live health scores.">
+<link rel="canonical" href="https://mcppulse.agiscorecard.com/mcp-server-examples">
+<meta property="og:title" content="Public MCP server examples (2026)">
+<meta property="og:type" content="article">
+<link rel="stylesheet" href="/style.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FZXLMBB5QB"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-FZXLMBB5QB');</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"Article","headline":"Public MCP server examples (2026): real remote servers you can try","datePublished":"2026-07-20","author":{"@type":"Organization","name":"MCP Pulse"}},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What are some public MCP servers I can connect to?","acceptedAnswer":{"@type":"Answer","text":"Public remote MCP servers you can connect to over streamable HTTP include Cloudflare's docs server, DeepWiki, Context7 and Hugging Face. Many production servers (Notion, Linear, Sentry, Stripe, GitHub) are also remote MCP servers but require OAuth authentication, so you connect with an account rather than anonymously."}},
+{"@type":"Question","name":"How do I connect to a remote MCP server?","acceptedAnswer":{"@type":"Answer","text":"Add the server's HTTPS endpoint to your MCP client (Claude, Cursor, or an agent framework) as a streamable-HTTP server. The client performs a JSON-RPC initialize handshake, then tools/list to discover the tools. Authenticated servers redirect you through OAuth first."}}
+]}]}
+</script>
+<style>
+.exlist{margin:20px 0}
+.pill{display:inline-block;min-width:40px;text-align:center;border-radius:8px;padding:2px 8px;font-weight:800;font-size:13px}
+.g-a{background:#12352b;color:#a3e635}.g-b{background:#0d2f2c;color:#2dd4bf}.g-c{background:#3a2f14;color:#fbbf24}.g-d,.g-f{background:#3a1a1a;color:#f87171}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="/">MCP<span>Pulse</span></a>
+  <nav><a href="/mcp-server-checklist">Guides</a><a href="/mcp-index">Index</a><a href="/">Scanner</a></nav>
+</header>
+
+<p class="meta">Guide · Updated weekly · 5 min read</p>
+<h1>Public MCP server examples you can try today</h1>
+
+<div class="tldr"><b>Direct answer:</b> The fastest way to learn MCP is to connect to a real server. A handful are <em>public</em> (no auth) and safe to explore — docs and knowledge servers. Most production servers (Notion, Linear, Sentry, Stripe, GitHub) are also remote MCP servers but sit behind OAuth. Below are live-scored public examples, pulled from our weekly index.</div>
+
+<h2>Public, no-auth servers (great for learning)</h2>
+<p>These respond to an anonymous <code>initialize</code> handshake — paste any into the <a href="/">scanner</a> or your MCP client:</p>
+<div class="exlist" id="live"><p class="meta">Loading live scores…</p></div>
+<p class="meta">Scores update weekly via the <a href="/mcp-index">Public MCP Server Index</a>. Want your server listed? <a href="/">Scan it</a>.</p>
+
+<h2>Popular servers that require auth</h2>
+<p>These are remote MCP servers too, but you connect through OAuth with an account — you won't get an anonymous handshake:</p>
+<table>
+  <tr><th>Server</th><th>What it does</th></tr>
+  <tr><td>Notion</td><td>Read/query your Notion workspace</td></tr>
+  <tr><td>Linear</td><td>Issues, projects, cycles</td></tr>
+  <tr><td>Sentry</td><td>Errors, issues, releases</td></tr>
+  <tr><td>Stripe</td><td>Payments, customers, invoices</td></tr>
+  <tr><td>GitHub</td><td>Repos, issues, PRs, actions</td></tr>
+</table>
+<p>A server requiring auth is a <em>good</em> sign for anything that touches private data — see the <a href="/mcp-server-checklist">conformance checklist</a>, step 9.</p>
+
+<h2>How to connect</h2>
+<ol>
+  <li>Add the HTTPS endpoint to your MCP client (Claude, Cursor, an agent framework) as a streamable-HTTP server.</li>
+  <li>The client runs <code>initialize</code> then <code>tools/list</code> to discover tools.</li>
+  <li>Authenticated servers redirect you through OAuth first.</li>
+</ol>
+
+<div class="cta"><h3>Building your own? Test it first.</h3><p>Real handshake, conformance score, latency — free, 10 seconds.</p><a class="btn" href="/">Scan my server →</a></div>
+
+<footer>
+  <div class="links"><a href="/">Scanner</a><a href="/mcp-index">Index</a><a href="/how-to-test-mcp-server">How to test</a><a href="/mcp-transports-explained">MCP transports</a></div>
+  <div>© 2026 MCP Pulse</div>
+</footer>
+</div>
+<script>
+fetch('/data/mcp-index.json').then(r=>r.json()).then(d=>{
+  if(!d.results||!d.results.length){document.getElementById('live').innerHTML='<p class="meta">Index refreshing — check back shortly.</p>';return;}
+  document.getElementById('live').innerHTML = d.results.map(r=>
+    '<div class="card"><span class="pill g-'+r.grade.toLowerCase()+'">'+r.grade+' '+r.score+'</span> <b style="margin-left:8px">'+esc(r.name)+'</b>'+
+    '<p>'+r.tools+' tools ('+r.describedPct+'% documented) · '+r.latencyMs+'ms handshake · <a href="/?url='+encodeURIComponent(r.url)+'">re-scan</a></p></div>').join('');
+}).catch(()=>{document.getElementById('live').innerHTML='<p class="meta">Index refreshing — check back shortly.</p>';});
+function esc(s){const d=document.createElement('div');d.textContent=String(s);return d.innerHTML}
+</script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MCP transports explained: streamable HTTP vs SSE vs stdio (2026)</title>
+<meta name="description" content="The three MCP transports — stdio, the deprecated HTTP+SSE, and streamable HTTP — explained plainly, with when to use each and why remote servers should use streamable HTTP.">
+<link rel="canonical" href="https://mcppulse.agiscorecard.com/mcp-transports-explained">
+<meta property="og:title" content="MCP transports explained: streamable HTTP vs SSE vs stdio">
+<meta property="og:type" content="article">
+<link rel="stylesheet" href="/style.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FZXLMBB5QB"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-FZXLMBB5QB');</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"Article","headline":"MCP transports explained: streamable HTTP vs SSE vs stdio","datePublished":"2026-07-20","author":{"@type":"Organization","name":"MCP Pulse"}},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is the difference between MCP stdio and HTTP transports?","acceptedAnswer":{"@type":"Answer","text":"stdio runs the MCP server as a local subprocess and exchanges JSON-RPC over standard input/output — ideal for local tools on the same machine. HTTP transports run the server as a remote service over the network. Remote agents and hosted clients need an HTTP transport; stdio can't be reached remotely."}},
+{"@type":"Question","name":"Is SSE transport deprecated in MCP?","acceptedAnswer":{"@type":"Answer","text":"The original standalone HTTP+SSE transport (two endpoints, a GET SSE stream plus a POST channel) has been superseded by streamable HTTP, which uses a single endpoint that can return either a plain JSON response or an SSE stream per request. New remote servers should implement streamable HTTP; SSE responses still exist within it."}},
+{"@type":"Question","name":"Which MCP transport should a remote server use?","acceptedAnswer":{"@type":"Answer","text":"Streamable HTTP. It's a single HTTPS endpoint that accepts POSTed JSON-RPC and replies with JSON or an SSE stream, supports optional sessions via the Mcp-Session-Id header, and is what current clients expect from remote servers."}}
+]}]}
+</script>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="/">MCP<span>Pulse</span></a>
+  <nav><a href="/mcp-server-checklist">Guides</a><a href="/mcp-index">Index</a><a href="/">Scanner</a></nav>
+</header>
+
+<p class="meta">Guide · Updated July 2026 · 6 min read</p>
+<h1>MCP transports explained</h1>
+
+<div class="tldr"><b>Direct answer:</b> MCP has one message format (JSON-RPC 2.0) carried over different <em>transports</em>. Three matter: <strong>stdio</strong> (local subprocess), the older <strong>HTTP+SSE</strong> (two endpoints, now superseded), and <strong>streamable HTTP</strong> (one endpoint, JSON or SSE per request). Remote servers should use streamable HTTP.</div>
+
+<h2>stdio — local subprocess</h2>
+<p>The client launches the server as a child process and exchanges JSON-RPC over stdin/stdout. Zero network, lowest latency, dead simple — but only reachable on the same machine. Perfect for local dev tools and desktop clients; useless for a hosted agent that needs to reach your server over the internet.</p>
+
+<h2>HTTP + SSE (legacy) — two endpoints</h2>
+<p>The first remote transport: the client opens a long-lived <code>GET</code> Server-Sent-Events stream for server→client messages and <code>POST</code>s to a separate endpoint for client→server messages. It works, but the two-endpoint design is awkward to host and scale, and it has been <strong>superseded</strong>. You'll still meet older servers speaking it.</p>
+
+<h2>Streamable HTTP — one endpoint (current)</h2>
+<p>The current remote transport collapses everything to a <strong>single HTTPS endpoint</strong>:</p>
+<ul>
+  <li>The client <code>POST</code>s JSON-RPC with <code>Accept: application/json, text/event-stream</code>.</li>
+  <li>The server replies with either a plain JSON response <em>or</em> an SSE stream — per request, whichever fits.</li>
+  <li>Optional sessions via the <code>Mcp-Session-Id</code> response header, echoed on later requests.</li>
+</ul>
+<p>This is what MCP Pulse speaks when it scans, and what current clients expect from a remote server.</p>
+
+<h2>Which should you use?</h2>
+<table>
+  <tr><th>Scenario</th><th>Transport</th></tr>
+  <tr><td>Local tool, same machine</td><td>stdio</td></tr>
+  <tr><td>New remote/hosted server</td><td>Streamable HTTP</td></tr>
+  <tr><td>Maintaining an old deployment</td><td>HTTP+SSE (plan to migrate)</td></tr>
+</table>
+
+<h2>Common transport bugs</h2>
+<ul>
+  <li>Returning SSE but never emitting a <code>data:</code> event with the JSON-RPC <code>result</code> — the client hangs.</li>
+  <li>Issuing an <code>Mcp-Session-Id</code> but not accepting it back on the next request.</li>
+  <li>Missing the <code>text/event-stream</code> accept handling, so streaming responses break.</li>
+  <li>Serving over plain HTTP — remote clients refuse it.</li>
+</ul>
+<p>MCP Pulse detects the transport, parses JSON <em>and</em> SSE responses, and flags exactly these failures.</p>
+
+<div class="cta"><h3>Not sure your transport is right?</h3><p>Scan the endpoint — we handshake over streamable HTTP and tell you what's wrong.</p><a class="btn" href="/">Scan my server →</a></div>
+
+<footer>
+  <div class="links"><a href="/">Scanner</a><a href="/how-to-test-mcp-server">How to test</a><a href="/mcp-server-examples">Server examples</a><a href="/mcp-server-checklist">Checklist</a></div>
+  <div>© 2026 MCP Pulse</div>
+</footer>
+</div>
+</body>
+</html>

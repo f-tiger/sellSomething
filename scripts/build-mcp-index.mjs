@@ -30,6 +30,20 @@ const SERVERS = [
   ["Cloudflare Containers", "https://containers.mcp.cloudflare.com/mcp"],
   ["Semgrep", "https://mcp.semgrep.ai/mcp"],
   ["Globalping", "https://mcp.globalping.dev/mcp"],
+  ["Microsoft Learn", "https://learn.microsoft.com/api/mcp"],
+  ["AWS Knowledge", "https://knowledge-mcp.global.api.aws/mcp"],
+  ["GitHub", "https://api.githubcopilot.com/mcp/"],
+  ["Notion", "https://mcp.notion.com/mcp"],
+  ["Linear", "https://mcp.linear.app/mcp"],
+  ["Sentry", "https://mcp.sentry.dev/mcp"],
+  ["Stripe", "https://mcp.stripe.com"],
+  ["PayPal", "https://mcp.paypal.com/mcp"],
+  ["Vercel", "https://mcp.vercel.com"],
+  ["Neon", "https://mcp.neon.tech/mcp"],
+  ["Grafana", "https://mcp.grafana.com/mcp"],
+  ["Asana", "https://mcp.asana.com/mcp"],
+  ["Atlassian", "https://mcp.atlassian.com/v1/sse"],
+  ["Wix", "https://mcp.wix.com/sse"],
 ];
 
 async function scan(url) {
