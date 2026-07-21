@@ -1,0 +1,25 @@
+# Agent Glossary
+
+> Plain-English definitions for the AI-agent era: agentic commerce, the Model Context Protocol (MCP), GEO/AEO, and agent payments (x402, AP2). Each term is answered in one sentence, then explained, with links to free tools.
+
+## Terms
+- [Agentic commerce](/agentic-commerce): Agentic commerce is delegated shopping: a person states intent and constraints, and an AI agent searches, compares and completes part or all of a purchase on their behalf. Unlike a chatbot, an agent transacts — it produces an order.
+- [Agentic Commerce Protocol (ACP)](/acp): The Agentic Commerce Protocol (ACP) is an open protocol from OpenAI and Stripe that lets AI agents discover merchant products and complete purchases. It powers ChatGPT Shopping.
+- [Universal Commerce Protocol (UCP)](/ucp): The Universal Commerce Protocol (UCP) is Google's agentic-commerce standard, launched at NRF 2026, covering the full journey from product discovery to post-purchase across Google's AI surfaces.
+- [AI shopping agent](/ai-shopping-agent): An AI shopping agent is an AI assistant that discovers, compares and can purchase products on a buyer's behalf — for example ChatGPT Shopping, Perplexity, or Google AI Mode acting on a shopping request.
+- [Citation share](/citation-share): Citation share is how often an AI assistant cites or recommends your brand when answering a relevant query — the AI-era replacement for search rankings. If SEO was about ranking a link, citation share is about being part of the answer.
+- [Generative Engine Optimization (GEO)](/geo): Generative Engine Optimization (GEO) is the practice of optimizing content and data so AI systems (ChatGPT, Perplexity, Google AI Overviews) cite you in their synthesized answers. It's SEO for the AI-answer era.
+- [Answer Engine Optimization (AEO)](/aeo): Answer Engine Optimization (AEO) is optimizing content to be the direct answer an AI or search engine returns — often used interchangeably with GEO, with a slightly stronger focus on Q&A-style extraction and featured answers.
+- [llms.txt](/llms-txt): llms.txt is a plain-markdown file served at a site's root (/llms.txt) that gives AI systems a curated summary of the site — what it is, its key pages, and important facts like pricing and policies.
+- [agents.md](/agents-md): agents.md is an emerging convention: a markdown file that tells AI agents how to interact with your site or repository — what it is, how to use it, and what they may do. Shopify serves one natively for stores.
+- [Model Context Protocol (MCP)](/mcp): The Model Context Protocol (MCP) is an open standard from Anthropic that lets AI applications connect to external tools and data through a common interface. It's often described as "USB-C for AI" — one protocol, many integrations.
+- [MCP server](/mcp-server): An MCP server is a program that exposes tools, resources or prompts to AI clients over the Model Context Protocol. Clients discover its tools via a tools/list call and invoke them through JSON-RPC.
+- [Streamable HTTP (MCP transport)](/streamable-http): Streamable HTTP is the current transport for remote MCP servers: a single HTTPS endpoint that accepts POSTed JSON-RPC and replies with either a plain JSON response or a Server-Sent-Events stream, with optional sessions via the Mcp-Session-Id header.
+- [x402](/x402): x402 is an open protocol (originated by Coinbase) that revives the HTTP 402 "Payment Required" status so AI agents and apps can pay for API calls or content programmatically, typically with stablecoins, in a single request-response.
+- [AP2 (Agent Payments Protocol)](/ap2): AP2 (Agent Payments Protocol) is Google's open protocol for agent-initiated payments, using cryptographically signed "mandates" that prove a user authorized an agent to make a specific purchase within set limits.
+- [Agentic payments](/agentic-payments): Agentic payments are payments initiated and completed by AI agents on a user's behalf, using protocols like x402 (settlement) and AP2 (authorization) so an agent can pay for goods, APIs or content without manual checkout.
+
+## Related tools
+- [AgentReady](https://agentready.agiscorecard.com): AI sales-visibility scanner
+- [MCP Pulse](https://mcppulse.agiscorecard.com): MCP server health scanner
+- [SellToAgents](https://selltoagents.agiscorecard.com): agentic commerce guides

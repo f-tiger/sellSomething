@@ -1,0 +1,14 @@
+# Agentic Tools
+
+> Free, browser-based tools for the AI-agent era. No signup, no upload — everything runs client-side. For merchants and developers preparing for AI agents, AI search and the Model Context Protocol.
+
+## Tools
+- [AI robots.txt generator](/ai-robots-txt-generator): allow or block GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot, Google-Extended and more
+- [Product schema generator](/product-schema-generator): schema.org Product + Offer JSON-LD for AI shopping agents
+- [FAQ schema generator](/faq-schema-generator): schema.org FAQPage JSON-LD
+- [MCP client config generator](/mcp-config-generator): Claude / Cursor config for a remote MCP server
+
+## Related
+- [AgentReady](https://agentready.agiscorecard.com): AI sales-visibility scanner (+ llms.txt generator)
+- [MCP Pulse](https://mcppulse.agiscorecard.com): MCP server health scanner
+- [Agent Glossary](https://glossary.agiscorecard.com): plain-English definitions for the AI-agent era

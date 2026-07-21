@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What is MCP server? Definition &amp; how it works (2026)</title>
+<meta name="description" content="An MCP server is a program that exposes tools, resources or prompts to AI clients over the Model Context Protocol. Clients discover its tools via a tools/l">
+<link rel="canonical" href="https://glossary.agiscorecard.com/mcp-server">
+<meta property="og:title" content="What is MCP server? Definition &amp; how it works (2026)">
+<meta property="og:description" content="An MCP server is a program that exposes tools, resources or prompts to AI clients over the Model Context Protocol. Clients discover its tools via a tools/l">
+<meta property="og:type" content="article">
+<link rel="stylesheet" href="/style.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FZXLMBB5QB"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-FZXLMBB5QB');</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"DefinedTerm","name":"MCP server","description":"An MCP server is a program that exposes tools, resources or prompts to AI clients over the Model Context Protocol. Clients discover its tools via a tools/list call and invoke them through JSON-RPC.","inDefinedTermSet":"https://glossary.agiscorecard.com"},{"@type":"Article","headline":"What is MCP server?","datePublished":"2026-07-21","author":{"@type":"Organization","name":"Agent Glossary"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is MCP server?","acceptedAnswer":{"@type":"Answer","text":"An MCP server is a program that exposes tools, resources or prompts to AI clients over the Model Context Protocol. Clients discover its tools via a tools/list call and invoke them through JSON-RPC."}},{"@type":"Question","name":"How do I know if my MCP server is healthy?","acceptedAnswer":{"@type":"Answer","text":"Run a real initialize + tools/list handshake and check protocol conformance, tool-description coverage, latency and TLS. A free scan surfaces all of it in seconds."}}]}]}
+</script>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="/">Agent<span>Glossary</span></a>
+  <nav><a href="/">All terms</a><a href="https://agentready.agiscorecard.com">AgentReady</a><a href="https://mcppulse.agiscorecard.com">MCP Pulse</a></nav>
+</header>
+<span class="tag">Model Context Protocol</span>
+<h1>What is MCP server?</h1>
+<div class="answer"><b>Definition:</b> An MCP server is a program that exposes tools, resources or prompts to AI clients over the Model Context Protocol. Clients discover its tools via a tools/list call and invoke them through JSON-RPC.</div>
+<p>A remote MCP server runs as an HTTPS service; a local one runs as a subprocess over stdio. Either way it answers an <code>initialize</code> handshake, declares its <code>capabilities</code>, and lists tools — each with a name, a description and a JSON-Schema input.</p>
+<p>The quality bar that decides whether agents actually use a server: clear tool descriptions (agents pick tools by description), valid input schemas, low handshake latency, and a deliberate auth posture.</p>
+<h2>How do I know if my MCP server is healthy?</h2><p>Run a real initialize + tools/list handshake and check protocol conformance, tool-description coverage, latency and TLS. A free scan surfaces all of it in seconds.</p>
+<div class="cta"><h3>Put it into practice</h3><a class="btn" href="https://mcppulse.agiscorecard.com">Scan your MCP server →</a></div>
+<h3>Related terms</h3>
+<div class="related"><a href="/mcp">Model Context Protocol (MCP)</a><a href="/streamable-http">Streamable HTTP (MCP transport)</a><a href="/mcp">Model Context Protocol (MCP)</a></div>
+<footer>
+  <div class="links"><a href="/">All terms</a><a href="/llms.txt">llms.txt</a><a href="https://selltoagents.agiscorecard.com">SellToAgents</a><a href="https://agentready.agiscorecard.com">AgentReady</a><a href="https://mcppulse.agiscorecard.com">MCP Pulse</a></div>
+  <div>© 2026 Agent Glossary · Plain-English definitions for the AI-agent era. Cite freely with a link.</div>
+</footer>
+</div>
+</body>
+</html>

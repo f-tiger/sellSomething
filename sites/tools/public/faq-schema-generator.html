@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FAQ schema generator — free schema.org FAQPage JSON-LD</title>
+<meta name="description" content="Free FAQ schema generator. Add questions and answers and get valid schema.org FAQPage JSON-LD — one of the most-cited structures in AI-generated answers.">
+<link rel="canonical" href="https://tools.agiscorecard.com/faq-schema-generator">
+<meta property="og:title" content="FAQ schema (JSON-LD) generator">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/style.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FZXLMBB5QB"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-FZXLMBB5QB');</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"WebApplication","name":"FAQ schema generator","applicationCategory":"DeveloperApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is FAQ schema?","acceptedAnswer":{"@type":"Answer","text":"FAQ schema is schema.org FAQPage structured data (JSON-LD) that marks up a list of questions and answers. Search engines and AI assistants use it to surface and cite your answers directly — it's among the most-cited structures in AI-generated responses."}},
+{"@type":"Question","name":"How many FAQs should I add?","acceptedAnswer":{"@type":"Answer","text":"Add every genuine question a buyer or user asks — shipping, returns, sizing, compatibility, pricing. Keep answers factual and self-contained so they can be lifted cleanly into an AI answer."}}
+]}]}
+</script>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="/">Agentic<span>Tools</span></a>
+  <nav><a href="/">All tools</a><a href="https://agentready.agiscorecard.com">Scanner</a></nav>
+</header>
+
+<h1>FAQ schema generator</h1>
+<p class="lead">Turn questions &amp; answers into valid <code>FAQPage</code> JSON-LD — one of the most-cited structures in AI answers. Browser-only.</p>
+
+<div class="panel">
+  <div id="rows"></div>
+  <div class="btnrow"><button class="btn ghost" id="add">+ Add question</button></div>
+  <label style="display:block;font-size:13px;color:var(--dim);margin:16px 0 5px;font-weight:600">Your JSON-LD</label>
+  <pre id="out"></pre>
+  <div class="btnrow"><button class="btn" id="copy">Copy</button><a class="btn ghost" href="https://agentready.agiscorecard.com">Verify with a scan →</a></div>
+</div>
+
+<footer>
+  <div class="links"><a href="/">All tools</a><a href="https://glossary.agiscorecard.com/aeo">What is AEO?</a><a href="https://agentready.agiscorecard.com">AgentReady</a></div>
+  <div>© 2026 Agentic Tools</div>
+</footer>
+</div>
+<script>
+const rows=document.getElementById('rows');
+function addRow(q='',a=''){
+  const d=document.createElement('div');d.className='field';
+  d.innerHTML='<input class="q" placeholder="Question" style="margin-bottom:6px" value="'+q.replace(/"/g,'&quot;')+'"><textarea class="a" placeholder="Answer">'+a+'</textarea>';
+  rows.appendChild(d);
+  d.querySelectorAll('input,textarea').forEach(i=>i.addEventListener('input',gen));
+  gen();
+}
+function gen(){
+  const qs=[...rows.querySelectorAll('.field')].map(f=>({q:f.querySelector('.q').value.trim(),a:f.querySelector('.a').value.trim()})).filter(x=>x.q&&x.a);
+  const obj={"@context":"https://schema.org","@type":"FAQPage",mainEntity:qs.map(x=>({"@type":"Question",name:x.q,acceptedAnswer:{"@type":"Answer",text:x.a}}))};
+  const json=JSON.stringify(obj,null,2);
+  document.getElementById('out').textContent='<script type="application/ld+json">\n'+json+'\n<\/script>';
+  return '<script type="application/ld+json">\n'+json+'\n<\/script>';
+}
+document.getElementById('add').addEventListener('click',()=>addRow());
+document.getElementById('copy').addEventListener('click',async()=>{await navigator.clipboard.writeText(gen());const b=document.getElementById('copy');b.textContent='✓ Copied';setTimeout(()=>b.textContent='Copy',1400);});
+addRow('Do you offer free shipping?','Yes — free US shipping on orders over $50, delivered in 2–5 business days.');
+addRow('What is your return policy?','30-day returns with a free return label on all orders.');
+</script>
+</body>
+</html>

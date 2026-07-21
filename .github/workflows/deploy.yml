@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        site: [agentready, selltoagents, closecalc, agentfront, mcppulse]
+        site: [agentready, selltoagents, closecalc, agentfront, mcppulse, glossary, tools]
     steps:
       - uses: actions/checkout@v4
       - uses: cloudflare/wrangler-action@v3
@@ -29,7 +29,7 @@ jobs:
         run: |
           set -e
           # Custom-domain DNS may take a couple of minutes right after first attach — retry.
-          for site in agentready selltoagents closecalc mcppulse; do
+          for site in agentready selltoagents closecalc mcppulse glossary tools; do
             url="https://${site}.agiscorecard.com"
             ok=""
             for attempt in $(seq 1 12); do

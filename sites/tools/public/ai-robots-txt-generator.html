@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI robots.txt generator — allow or block GPTBot, ClaudeBot & AI crawlers (free)</title>
+<meta name="description" content="Free AI robots.txt generator. Choose which AI crawlers (GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot, Google-Extended, and more) to allow or block, and copy a ready-to-use robots.txt.">
+<link rel="canonical" href="https://tools.agiscorecard.com/ai-robots-txt-generator">
+<meta property="og:title" content="AI robots.txt generator">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/style.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FZXLMBB5QB"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-FZXLMBB5QB');</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"WebApplication","name":"AI robots.txt generator","applicationCategory":"DeveloperApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How do I allow AI crawlers in robots.txt?","acceptedAnswer":{"@type":"Answer","text":"Add a User-agent block for each AI crawler (GPTBot, OAI-SearchBot, ChatGPT-User, ClaudeBot, Claude-User, PerplexityBot, Google-Extended) followed by Allow: / to permit crawling, or Disallow: / to block it. This generator builds the file for you."}},
+{"@type":"Question","name":"Which AI crawlers should I allow?","acceptedAnswer":{"@type":"Answer","text":"To be discoverable by AI assistants and shopping agents, allow GPTBot and OAI-SearchBot (OpenAI/ChatGPT), ClaudeBot (Anthropic), PerplexityBot (Perplexity) and Google-Extended (Gemini/AI Mode). Block only the ones you specifically don't want training on or citing your content."}}
+]}]}
+</script>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="/">Agentic<span>Tools</span></a>
+  <nav><a href="/">All tools</a><a href="https://agentready.agiscorecard.com">Scanner</a></nav>
+</header>
+
+<h1>AI robots.txt generator</h1>
+<p class="lead">Pick which AI crawlers to allow or block, then copy a ready-to-use <code>robots.txt</code>. Runs entirely in your browser.</p>
+
+<div class="tldr"><b>Tip:</b> blocking an AI crawler removes you from that assistant's answers and shopping results. If you want to be discoverable by AI, allow them all. <a href="https://agentready.agiscorecard.com">Scan your live robots.txt</a> to confirm it's actually working.</div>
+
+<div class="panel">
+  <div class="field"><label>AI crawlers — check to allow, uncheck to block</label>
+    <div class="checks" id="bots"></div>
+  </div>
+  <div class="field"><label>Sitemap URL (optional)</label><input id="sitemap" placeholder="https://yoursite.com/sitemap.xml"></div>
+  <div class="field"><label>Also allow all other bots (User-agent: *)</label>
+    <div class="checks"><label><input type="checkbox" id="allowall" checked> Allow everyone else</label></div>
+  </div>
+  <label style="display:block;font-size:13px;color:var(--dim);margin:14px 0 5px;font-weight:600">Your robots.txt</label>
+  <pre id="out"></pre>
+  <div class="btnrow">
+    <button class="btn" id="copy">Copy</button>
+    <button class="btn ghost" id="download">Download robots.txt</button>
+    <a class="btn ghost" href="https://agentready.agiscorecard.com">Verify with a scan →</a>
+  </div>
+</div>
+
+<footer>
+  <div class="links"><a href="/">All tools</a><a href="https://glossary.agiscorecard.com/geo">What is GEO?</a><a href="https://agentready.agiscorecard.com">AgentReady</a></div>
+  <div>© 2026 Agentic Tools</div>
+</footer>
+</div>
+<script>
+const BOTS = [
+  ["GPTBot","ChatGPT training / retrieval"],["OAI-SearchBot","ChatGPT Search & Shopping"],
+  ["ChatGPT-User","ChatGPT live browsing"],["ClaudeBot","Claude training / retrieval"],
+  ["Claude-User","Claude live browsing"],["PerplexityBot","Perplexity answers & shopping"],
+  ["Google-Extended","Gemini / Google AI Mode"],["Applebot-Extended","Apple Intelligence"],
+  ["Bytespider","TikTok/ByteDance"],["Meta-ExternalAgent","Meta AI"]
+];
+const box = document.getElementById('bots');
+box.innerHTML = BOTS.map(([b],i)=>`<label><input type="checkbox" data-bot="${b}" ${i<7?'checked':''}> ${b}</label>`).join('');
+function gen(){
+  let out='';
+  if(document.getElementById('allowall').checked){out+='User-agent: *\nAllow: /\n\n';}
+  document.querySelectorAll('[data-bot]').forEach(cb=>{
+    out+='User-agent: '+cb.dataset.bot+'\n'+(cb.checked?'Allow: /':'Disallow: /')+'\n\n';
+  });
+  const sm=document.getElementById('sitemap').value.trim();
+  if(sm) out+='Sitemap: '+sm+'\n';
+  document.getElementById('out').textContent=out.trim()+'\n';
+  return out.trim()+'\n';
+}
+document.querySelectorAll('input').forEach(i=>i.addEventListener('input',gen));
+document.getElementById('copy').addEventListener('click',async()=>{await navigator.clipboard.writeText(gen());const b=document.getElementById('copy');b.textContent='✓ Copied';setTimeout(()=>b.textContent='Copy',1400);});
+document.getElementById('download').addEventListener('click',()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([gen()],{type:'text/plain'}));a.download='robots.txt';a.click();URL.revokeObjectURL(a.href);});
+gen();
+</script>
+</body>
+</html>

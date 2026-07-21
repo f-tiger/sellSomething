@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Product schema generator — free schema.org Product + Offer JSON-LD</title>
+<meta name="description" content="Free Product schema generator. Fill in a form and get valid schema.org Product + Offer JSON-LD so AI shopping agents and Google can read your price, availability and specs.">
+<link rel="canonical" href="https://tools.agiscorecard.com/product-schema-generator">
+<meta property="og:title" content="Product schema (JSON-LD) generator">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/style.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FZXLMBB5QB"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-FZXLMBB5QB');</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"WebApplication","name":"Product schema generator","applicationCategory":"DeveloperApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is Product schema?","acceptedAnswer":{"@type":"Answer","text":"Product schema is schema.org structured data (usually JSON-LD) on a product page that states the product's name, description, price, currency, availability and identifiers. AI shopping agents and search engines read it to understand and recommend the product."}},
+{"@type":"Question","name":"Where do I put the JSON-LD?","acceptedAnswer":{"@type":"Answer","text":"Paste the generated <script type=\"application/ld+json\"> block into the <head> or <body> of the product page's HTML. Then validate with Google's Rich Results Test or an AI-visibility scan."}}
+]}]}
+</script>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="/">Agentic<span>Tools</span></a>
+  <nav><a href="/">All tools</a><a href="https://agentready.agiscorecard.com">Scanner</a></nav>
+</header>
+
+<h1>Product schema generator</h1>
+<p class="lead">Build valid schema.org <code>Product</code> + <code>Offer</code> JSON-LD — the data AI shopping agents actually read for price and availability. Runs in your browser.</p>
+
+<div class="panel">
+  <div class="row2">
+    <div class="field"><label>Product name *</label><input id="name" placeholder="Alpine Trail Running Shoe"></div>
+    <div class="field"><label>Brand</label><input id="brand" placeholder="Acme"></div>
+  </div>
+  <div class="field"><label>Description</label><textarea id="desc" placeholder="Wide-fit trail shoe, 8mm drop, vegan materials."></textarea></div>
+  <div class="row2">
+    <div class="field"><label>Price *</label><input id="price" type="number" step="0.01" placeholder="119.00"></div>
+    <div class="field"><label>Currency</label><input id="cur" value="USD"></div>
+  </div>
+  <div class="row2">
+    <div class="field"><label>Availability</label><select id="avail"><option value="InStock">In stock</option><option value="OutOfStock">Out of stock</option><option value="PreOrder">Pre-order</option><option value="BackOrder">Back-order</option></select></div>
+    <div class="field"><label>SKU</label><input id="sku" placeholder="ATR-042"></div>
+  </div>
+  <div class="row2">
+    <div class="field"><label>GTIN (UPC/EAN, optional)</label><input id="gtin" placeholder="0123456789012"></div>
+    <div class="field"><label>Product URL</label><input id="url" placeholder="https://store.com/products/atr"></div>
+  </div>
+  <div class="field"><label>Image URL</label><input id="img" placeholder="https://store.com/img/atr.jpg"></div>
+  <label style="display:block;font-size:13px;color:var(--dim);margin:14px 0 5px;font-weight:600">Your JSON-LD</label>
+  <pre id="out"></pre>
+  <div class="btnrow"><button class="btn" id="copy">Copy</button><a class="btn ghost" href="https://agentready.agiscorecard.com">Verify with a scan →</a></div>
+</div>
+
+<footer>
+  <div class="links"><a href="/">All tools</a><a href="https://glossary.agiscorecard.com/ai-shopping-agent">What is an AI shopping agent?</a><a href="https://agentready.agiscorecard.com">AgentReady</a></div>
+  <div>© 2026 Agentic Tools</div>
+</footer>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+function gen(){
+  const offer={"@type":"Offer",price:($('price').value||"0"),priceCurrency:($('cur').value||"USD"),availability:"https://schema.org/"+$('avail').value};
+  if($('url').value)offer.url=$('url').value;
+  const p={"@context":"https://schema.org","@type":"Product",name:$('name').value||"Product name"};
+  if($('desc').value)p.description=$('desc').value;
+  if($('brand').value)p.brand={"@type":"Brand",name:$('brand').value};
+  if($('sku').value)p.sku=$('sku').value;
+  if($('gtin').value)p.gtin=$('gtin').value;
+  if($('img').value)p.image=$('img').value;
+  p.offers=offer;
+  const json=JSON.stringify(p,null,2);
+  $('out').textContent='<script type="application/ld+json">\n'+json+'\n<\/script>';
+  return '<script type="application/ld+json">\n'+json+'\n<\/script>';
+}
+document.querySelectorAll('input,textarea,select').forEach(i=>i.addEventListener('input',gen));
+$('copy').addEventListener('click',async()=>{await navigator.clipboard.writeText(gen());const b=$('copy');b.textContent='✓ Copied';setTimeout(()=>b.textContent='Copy',1400);});
+gen();
+</script>
+</body>
+</html>
