@@ -42,6 +42,20 @@ jobs:
             done
             [ -n "$ok" ] || { echo "::error::$site is not healthy after retries"; exit 1; }
           done
+      - name: Verify key content pages resolve (extensionless routing)
+        run: |
+          set -e
+          for url in \
+            "https://tools.agiscorecard.com/xml-sitemap-generator" \
+            "https://tools.agiscorecard.com/meta-tag-generator" \
+            "https://tools.agiscorecard.com/faq-schema-generator" \
+            "https://glossary.agiscorecard.com/ai-agent" \
+            "https://glossary.agiscorecard.com/prompt-injection" \
+            "https://glossary.agiscorecard.com/mcp-tool"; do
+            code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 "$url" || true)
+            echo "$url -> $code"
+            [ "$code" = "200" ] || { echo "::error::$url did not return 200"; exit 1; }
+          done
       - name: Verify scanner API end-to-end
         run: |
           set -e
