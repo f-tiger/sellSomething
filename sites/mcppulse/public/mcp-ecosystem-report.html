@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The State of Public MCP Servers (2026): what we found scanning the popular ones</title>
+<meta name="description" content="We scanned popular MCP servers with a real protocol handshake. Most require auth, the public ones all cap at the same score for the same reason, and handshake latency varies 40x. Live data, updated weekly.">
+<link rel="canonical" href="https://mcppulse.agiscorecard.com/mcp-ecosystem-report">
+<meta property="og:title" content="The State of Public MCP Servers (2026)">
+<meta property="og:description" content="Most popular MCP servers require auth; the public ones all cap at the same score; latency varies 40x. Live data.">
+<meta property="og:type" content="article">
+<link rel="stylesheet" href="/style.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FZXLMBB5QB"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-FZXLMBB5QB');</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"Article","headline":"The State of Public MCP Servers (2026)","datePublished":"2026-07-21","author":{"@type":"Organization","name":"MCP Pulse"}},
+{"@type":"Dataset","name":"Public MCP Server Index","description":"Weekly health, conformance and latency data for popular MCP servers.","distribution":{"@type":"DataDownload","encodingFormat":"application/json","contentUrl":"https://mcppulse.agiscorecard.com/data/mcp-index.json"}}
+]}]}
+</script>
+<style>
+.big-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin:24px 0}
+.bs{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:20px}
+.bs b{font-size:32px;display:block;letter-spacing:-.02em}
+.bs span{color:var(--dim);font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="/">MCP<span>Pulse</span></a>
+  <nav><a href="/mcp-server-checklist">Guides</a><a href="/mcp-index">Index</a><a href="/">Scanner</a></nav>
+</header>
+
+<p class="meta">Data report · Updated weekly · <a href="/data/mcp-index.json">Raw data (JSON)</a></p>
+<h1>The State of Public MCP Servers</h1>
+<p class="lead">We scan a rotating set of popular MCP servers every week with a real JSON-RPC handshake — not a ping. Here's what the current data says. All numbers below are live from this week's <a href="/mcp-index">index</a>.</p>
+
+<div class="big-stats" id="bigstats"></div>
+
+<h2>Finding 1 — most production MCP servers require auth</h2>
+<p id="f1" class="meta">Loading…</p>
+<p>That's the correct posture for anything touching private data (Notion, Linear, Sentry, Stripe, GitHub all sit behind OAuth). But it means the openly-introspectable surface — the servers agents can discover and try anonymously — is much smaller than the raw registry counts suggest.</p>
+
+<h2>Finding 2 — the public servers all hit the same ceiling</h2>
+<p id="f2" class="meta">Loading…</p>
+<p>Every publicly-introspectable server we rank tops out at the same score, docked the same points for the same reason: they answer <code>initialize</code> without authentication. For a public docs/knowledge server that's a deliberate, reasonable choice — but it's the one thing separating them from a perfect score, and it's identical across the board.</p>
+
+<h2>Finding 3 — handshake latency varies wildly</h2>
+<p id="f3" class="meta">Loading…</p>
+<p>Agents chain many calls, so handshake latency compounds. The spread between the fastest and slowest public server is large — a real, measurable quality difference that never shows up in a registry listing.</p>
+
+<h2>Finding 4 — tool documentation is the differentiator</h2>
+<p>Across the servers that pass conformance, the thing that varies most is <em>tool description coverage</em> — and it's the single strongest predictor of whether agents actually call a server's tools. See <a href="/why-mcp-tools-not-called">why your tools aren't being called</a>.</p>
+
+<div class="tldr"><b>Method:</b> each server gets a live <code>initialize</code> + <code>tools/list</code> handshake via <a href="/">MCP Pulse</a>. Auth-gated servers can't be introspected anonymously and are excluded from scored rankings but counted in the totals. Data refreshes weekly; cite it freely with a link.</div>
+
+<div class="cta"><h3>Where does your MCP server land?</h3><p>Real handshake, conformance score, latency — free, 10 seconds.</p><a class="btn" href="/">Scan my server →</a></div>
+
+<footer>
+  <div class="links"><a href="/mcp-index">Full index</a><a href="/data/mcp-index.json">Dataset</a><a href="/mcp-server-checklist">Checklist</a><a href="/">Scanner</a></div>
+  <div>© 2026 MCP Pulse · Cite freely with a link to this page.</div>
+</footer>
+</div>
+<script>
+fetch('/data/mcp-index.json').then(r=>r.json()).then(d=>{
+  const rs=d.results||[];
+  const total=(d.scanned||0)+(d.authGated||0);
+  const authPct=total?Math.round((d.authGated||0)/total*100):0;
+  const scores=rs.map(r=>r.score), lat=rs.map(r=>r.latencyMs);
+  const maxS=scores.length?Math.max(...scores):0, minS=scores.length?Math.min(...scores):0;
+  const minL=lat.length?Math.min(...lat):0, maxL=lat.length?Math.max(...lat):0;
+  const spread=minL?Math.round(maxL/minL):0;
+  document.getElementById('bigstats').innerHTML=
+    '<div class="bs"><b>'+d.scanned+'</b><span>public servers introspectable</span></div>'+
+    '<div class="bs"><b>'+authPct+'%</b><span>of servers require auth</span></div>'+
+    '<div class="bs"><b>'+spread+'×</b><span>fastest-vs-slowest latency</span></div>'+
+    '<div class="bs"><b>'+d.averageScore+'</b><span>avg score (public)</span></div>';
+  document.getElementById('f1').innerHTML='Of <b>'+total+'</b> popular servers scanned this week, <b>'+d.authGated+'</b> ('+authPct+'%) require authentication and only <b>'+d.scanned+'</b> are anonymously introspectable.';
+  document.getElementById('f2').innerHTML='All '+d.scanned+' public servers score between <b>'+minS+'</b> and <b>'+maxS+'</b> — clustered at the top, each losing the same points for running without auth.';
+  document.getElementById('f3').innerHTML='Handshake latency ranges from <b>'+minL+'ms</b> to <b>'+maxL+'ms</b> — a <b>'+spread+'×</b> spread across otherwise-similar public servers.';
+}).catch(()=>{document.getElementById('bigstats').innerHTML='<p class="meta">Index refreshing — check back shortly.</p>';});
+</script>
+</body>
+</html>

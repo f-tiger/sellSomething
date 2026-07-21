@@ -5,6 +5,7 @@
 ## Key pages
 - [Home & scanner](/): run a free scan
 - [Public MCP Server Index](/mcp-index): weekly health/conformance ranking of popular public MCP servers ([raw JSON](/data/mcp-index.json))
+- [The State of Public MCP Servers](/mcp-ecosystem-report): weekly data report — most servers require auth, public ones cluster at the same score, latency varies ~40x
 - [What we check](/#how): conformance, tool quality, transport & security
 - [README badge](/#badge): embeddable live score badge for your server
 - [Pro monitoring](/#pro): $19/mo founding price — uptime, latency and schema-drift alerts

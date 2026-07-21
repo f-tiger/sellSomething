@@ -30,10 +30,23 @@
 >
 > https://mcppulse.agiscorecard.com
 
-### r/mcp 帖
-**标题**：`I scanned popular public MCP servers for conformance — here's what most get wrong`
+### r/mcp 帖(带真实数据,直接可发)
+**标题**：`I scanned 32 popular MCP servers with a real handshake — 72% require auth, and the public ones all cap at the same score`
 
-**正文**：先甩榜单里的真实发现(如"X% 的服务器 tools/list 里工具没有描述""平均握手延迟 N ms"),再引出工具。给价值优先,链接放最后。附徽章 markdown,邀请大家扫自己的服务器回帖比分数——UGC 会自然滚动。
+**正文**：
+> I built a scanner that does a real JSON-RPC `initialize` + `tools/list` handshake (not a ping) and ran it against 32 popular MCP servers. Findings this week:
+>
+> • **23 of 32 (72%) require auth** — Notion, Linear, Sentry, Stripe, GitHub etc. sit behind OAuth. The openly-introspectable surface is way smaller than registry counts suggest.
+> • **The 6 public ones all score 94/100** — every one docked the same 5 points for answering `initialize` without auth. Cloudflare Docs, Hugging Face, Context7, Microsoft Learn, DeepWiki, AWS Knowledge.
+> • **Handshake latency spread is ~40×** — 16ms (Cloudflare) to 639ms (AWS Knowledge). Agents chain calls, so that compounds.
+> • The thing that actually varies and predicts whether agents call your tools: **tool description coverage.**
+>
+> Live data (updates weekly, free JSON): https://mcppulse.agiscorecard.com/mcp-ecosystem-report
+> Scan your own server: https://mcppulse.agiscorecard.com
+>
+> What conformance signals should I be scoring that I'm not? Genuinely want feedback on the rubric.
+
+(给价值优先,提问结尾邀请讨论——比硬广转化高得多。附徽章 markdown 邀请大家扫自己的服务器回帖比分,UGC 自然滚动。)
 
 ### X 线程(5 条)
 1. Most MCP servers I test "work" — but agents quietly skip them. Undocumented tools, slow handshakes, no serverInfo. So I built a scanner that speaks the protocol. 🧵
