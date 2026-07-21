@@ -11,12 +11,15 @@
 
 ## Key pages
 - [Home & scanner](/): run a free scan
+- [Pricing & monitoring](/pricing): start free AI-visibility monitoring with email alerts
 - [Methodology](/#how): what the score measures
 - [FAQ](/#faq): common questions
 
 ## Pricing
 - Instant scan: free, no signup
-- Pro (waitlist): weekly re-scans, block alerts, competitor benchmarks
+- Free monitoring: 1 store, weekly re-scan, email alert on regression
+- Pro $19/mo (early access): up to 3 stores, daily re-scans, 90-day history, shareable reports
+- Team $49/mo (early access): up to 25 stores, Slack + email alerts, white-label reports, CSV/API
 
 ## Audience
 E-commerce merchants, DTC brands, and agencies preparing for agentic commerce (ACP, UCP, MCP).

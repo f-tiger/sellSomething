@@ -49,6 +49,7 @@ jobs:
             "https://tools.agiscorecard.com/xml-sitemap-generator" \
             "https://tools.agiscorecard.com/meta-tag-generator" \
             "https://tools.agiscorecard.com/faq-schema-generator" \
+            "https://agentready.agiscorecard.com/pricing" \
             "https://glossary.agiscorecard.com/ai-agent" \
             "https://glossary.agiscorecard.com/prompt-injection" \
             "https://glossary.agiscorecard.com/mcp-tool"; do
@@ -56,6 +57,15 @@ jobs:
             echo "$url -> $code"
             [ "$code" = "200" ] || { echo "::error::$url did not return 200"; exit 1; }
           done
+      - name: Verify monitor endpoint is wired (validation, no side effects)
+        run: |
+          set -e
+          # Invalid email is rejected (400) before any scan or KV write — confirms the route exists.
+          code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 \
+            -X POST "https://agentready.agiscorecard.com/api/monitor" \
+            -H "Content-Type: application/json" -d '{"email":"not-an-email","url":"example.com"}' || true)
+          echo "/api/monitor invalid-email -> $code"
+          [ "$code" = "400" ] || { echo "::error::/api/monitor did not validate (expected 400, got $code)"; exit 1; }
       - name: Verify scanner API end-to-end
         run: |
           set -e

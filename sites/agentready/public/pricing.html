@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pricing & AI-visibility monitoring — AgentReady</title>
+<meta name="description" content="Monitor your store's visibility to AI shopping agents. AgentReady re-scans on a schedule and emails you the moment a robots.txt, llms.txt, schema or sitemap change makes you invisible to ChatGPT, Claude, Perplexity and Google AI. Free plan available.">
+<link rel="canonical" href="https://agentready.agiscorecard.com/pricing">
+<meta property="og:title" content="AI-visibility monitoring for stores — AgentReady">
+<meta property="og:description" content="Get alerted the moment a silent change makes your store invisible to AI shopping agents.">
+<meta property="og:type" content="website">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"WebApplication","name":"AgentReady Monitoring","applicationCategory":"BusinessApplication","operatingSystem":"Web","offers":[
+{"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD"},
+{"@type":"Offer","name":"Pro","price":"19","priceCurrency":"USD"},
+{"@type":"Offer","name":"Team","price":"49","priceCurrency":"USD"}]},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What does monitoring do?","acceptedAnswer":{"@type":"Answer","text":"AgentReady re-scans your store on a schedule and emails you when its AI-visibility score drops or a specific check regresses — for example if robots.txt starts blocking AI crawlers, your llms.txt disappears, or product schema breaks. These are silent changes that quietly make you invisible to AI shopping agents and that you would not otherwise notice."}},
+{"@type":"Question","name":"Is there a free plan?","acceptedAnswer":{"@type":"Answer","text":"Yes. The Free plan monitors one store weekly and emails you on regressions. Pro ($19/mo) adds up to 3 stores, daily re-scans, 90-day history and shareable reports. Team ($49/mo) adds up to 25 stores, Slack alerts, white-label reports and API access."}},
+{"@type":"Question","name":"Do I need to pay now?","acceptedAnswer":{"@type":"Answer","text":"No. Free monitoring is live today. Paid plans are in early access — join and you lock the founding price; billing switches on later with no charge until then."}}
+]}]}
+</script>
+<style>
+:root{--bg:#0a0e1a;--panel:#111629;--panel2:#161d36;--line:#232c4d;--text:#e7ebf7;--dim:#8b94b5;--acc:#5b8cff;--acc2:#38d9a9;--warn:#ffc078;--bad:#ff6b6b;--r:14px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:960px;margin:0 auto;padding:0 24px}
+header{padding:22px 0;display:flex;justify-content:space-between;align-items:center}
+.logo{font-weight:800;font-size:20px;letter-spacing:-.02em;color:var(--text);text-decoration:none}
+.logo span{color:var(--acc)}
+nav a{color:var(--dim);text-decoration:none;margin-left:22px;font-size:14px}
+nav a:hover{color:var(--text)}
+.hero{padding:52px 0 20px;text-align:center}
+h1{font-size:clamp(28px,5vw,44px);line-height:1.14;letter-spacing:-.03em;font-weight:800}
+h1 em{font-style:normal;background:linear-gradient(90deg,var(--acc),var(--acc2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--dim);max-width:660px;margin:18px auto 0;font-size:18px}
+.btn{background:linear-gradient(90deg,var(--acc),#7b5bff);color:#fff;border:0;border-radius:10px;padding:12px 22px;font-size:15px;font-weight:700;cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-block}
+.btn:hover{filter:brightness(1.1)}
+.btn[disabled]{opacity:.6;cursor:wait}
+.btn.ghost{background:var(--panel2);border:1px solid var(--line);color:var(--text)}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:22px;margin:26px auto 0;max-width:620px;text-align:left}
+.panel label{display:block;font-size:13px;color:var(--dim);font-weight:600;margin:0 0 5px}
+.panel input{width:100%;background:var(--panel2);border:1px solid var(--line);border-radius:10px;color:var(--text);padding:12px 14px;font-size:15px;outline:0;margin-bottom:12px}
+.panel input:focus{border-color:var(--acc)}
+.note{color:#5b6484;font-size:13px;margin-top:6px}
+#mon-out{margin-top:14px;font-size:14px}
+.ok{color:var(--acc2)}.err{color:var(--bad)}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:30px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:22px;text-align:left}
+.card.hi{border-color:var(--acc)}
+.card b{font-size:16px}
+.price{font-size:28px;font-weight:800;color:var(--text);margin:10px 0}
+.price span{font-size:13px;color:var(--dim);font-weight:600}
+.card ul{list-style:none;margin:12px 0 0}
+.card li{font-size:14px;color:var(--dim);padding:5px 0 5px 20px;position:relative}
+.card li:before{content:"✓";position:absolute;left:0;color:var(--acc2)}
+.card form{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap}
+.card form input{flex:1;min-width:150px;background:var(--panel2);border:1px solid var(--line);border-radius:10px;color:var(--text);padding:10px 12px;font-size:14px;outline:0}
+section.info{padding:52px 0;border-top:1px solid var(--line);margin-top:56px}
+section.info h2{font-size:26px;letter-spacing:-.02em;margin-bottom:12px}
+section.info p{color:var(--dim);max-width:720px}
+footer{border-top:1px solid var(--line);padding:34px 0;color:var(--dim);font-size:13px;margin-top:56px}
+footer .links{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:12px}
+footer a{color:var(--dim)}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FZXLMBB5QB"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-FZXLMBB5QB');</script>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="/">Agent<span>Ready</span></a>
+  <nav><a href="/">Scanner</a><a href="/llms-txt-generator">llms.txt generator</a><a href="/pricing">Pricing</a></nav>
+</header>
+
+<section class="hero">
+  <h1>Never go <em>invisible</em> to AI shoppers</h1>
+  <p class="sub">A single silent change — robots.txt blocks a crawler, your llms.txt is dropped, product schema breaks — can quietly remove your store from ChatGPT, Claude, Perplexity and Google AI. AgentReady re-scans on a schedule and emails you the moment it happens.</p>
+
+  <div class="panel">
+    <label for="mon-url">Store URL</label>
+    <input id="mon-url" type="text" placeholder="yourstore.com" autocomplete="url">
+    <label for="mon-email">Email for alerts</label>
+    <input id="mon-email" type="email" placeholder="you@company.com" autocomplete="email">
+    <button class="btn" id="mon-btn" type="button" style="width:100%">Start free monitoring →</button>
+    <div class="note">Free plan: one store, re-scanned weekly, email on any regression. No card. We store only your URL, email and each scan's score.</div>
+    <div id="mon-out"></div>
+  </div>
+</section>
+
+<section class="info">
+  <h2>Plans</h2>
+  <p>Start free. Upgrade when you want more stores, faster scans and history. Paid plans are in early access — join to lock the founding price.</p>
+  <div class="grid3">
+    <div class="card">
+      <b>Free</b>
+      <div class="price">$0</div>
+      <ul><li>1 store</li><li>Weekly re-scan</li><li>Email alert on regression</li><li>Instant scans + llms.txt generator</li></ul>
+      <p class="note" style="margin-top:14px">Use the form above to start.</p>
+    </div>
+    <div class="card hi">
+      <b>Pro <span style="color:var(--acc2);font-size:12px">· founding price</span></b>
+      <div class="price">$19<span>/mo</span></div>
+      <ul><li>Up to 3 stores</li><li>Daily re-scans</li><li>Regression email alerts</li><li>90-day score history</li><li>Shareable reports</li></ul>
+      <form id="pro-form"><input type="email" id="pro-email" placeholder="you@company.com" required><button class="btn" type="submit" style="padding:10px 16px;font-size:14px">Get early access</button></form>
+      <p class="note">No charge today — price locks when billing ships.</p>
+    </div>
+    <div class="card">
+      <b>Team</b>
+      <div class="price">$49<span>/mo</span></div>
+      <ul><li>Up to 25 stores</li><li>Daily scans</li><li>Slack + email alerts</li><li>White-label reports</li><li>CSV export / API</li></ul>
+      <form id="team-form"><input type="email" id="team-email" placeholder="you@company.com" required><button class="btn ghost" type="submit" style="padding:10px 16px;font-size:14px">Get early access</button></form>
+      <p class="note">For agencies & multi-brand.</p>
+    </div>
+  </div>
+</section>
+
+<section class="info">
+  <h2>Why monitoring, not just a one-time scan</h2>
+  <p>A scan is a snapshot. Your AI visibility changes every time someone edits a theme, ships a plugin, or a platform updates a default — and none of it shows up in your analytics, because AI-agent traffic is invisible to most dashboards. Monitoring is the only way to catch a regression before it costs you weeks of AI-shelf presence. Every check is a deterministic technical signal (crawler access, llms.txt, schema, sitemap), so alerts are precise, not guesses.</p>
+</section>
+
+<footer>
+  <div class="links"><a href="/">Scanner</a><a href="/pricing">Pricing</a><a href="https://mcppulse.agiscorecard.com">MCP Pulse</a><a href="https://glossary.agiscorecard.com">Glossary</a><a href="https://tools.agiscorecard.com">Tools</a></div>
+  <div>© 2026 AgentReady · AI sales-visibility monitoring.</div>
+</footer>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+function setOut(msg,cls){const o=$('mon-out');o.className=cls||'';o.innerHTML=msg;}
+
+$('mon-btn').addEventListener('click',async()=>{
+  const url=$('mon-url').value.trim();
+  const email=$('mon-email').value.trim();
+  if(!url){setOut('Enter your store URL.','err');return;}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){setOut('Enter a valid email.','err');return;}
+  const btn=$('mon-btn');btn.disabled=true;setOut('Running your first scan…');
+  try{
+    const r=await fetch('/api/monitor',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url,email})});
+    const d=await r.json();
+    if(!r.ok){setOut(d.error||'Could not start monitoring.','err');btn.disabled=false;return;}
+    gtag('event','monitor_start',{value:d.score});
+    setOut('✓ Monitoring started for <b>'+(d.url||url)+'</b>. Baseline score <b>'+d.score+'/100 ('+d.grade+')</b>. We\'ll email <b>'+email+'</b> if it regresses. <a href="/?url='+encodeURIComponent(d.url||url)+'">See full report →</a>','ok');
+    btn.textContent='✓ Monitoring on';
+  }catch(e){setOut('Network error — please try again.','err');btn.disabled=false;}
+});
+
+function earlyAccess(formId,emailId,plan){
+  $(formId).addEventListener('submit',async e=>{
+    e.preventDefault();
+    const email=$(emailId).value.trim();
+    const btn=e.target.querySelector('button');const orig=btn.textContent;btn.disabled=true;
+    try{
+      await fetch('/api/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,intent:'preorder'})});
+      gtag('event','early_access',{plan:plan});
+      btn.textContent='✓ You\'re on the list';
+    }catch(_){btn.textContent='Try again';btn.disabled=false;}
+  });
+}
+earlyAccess('pro-form','pro-email','pro');
+earlyAccess('team-form','team-email','team');
+</script>
+</body>
+</html>

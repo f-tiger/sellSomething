@@ -24,16 +24,30 @@ export default {
     const url = new URL(request.url);
     if (url.pathname === "/api/scan") return handleScan(request);
     if (url.pathname === "/api/subscribe") return handleSubscribe(request, env);
+    if (url.pathname === "/api/monitor") return handleMonitor(request, env);
+    if (url.pathname === "/api/billing/webhook") return handleBillingWebhook(request, env);
     if (url.pathname === "/api/stats") return handleStats(env);
     return env.ASSETS.fetch(request);
+  },
+
+  // Cron Trigger: re-scan every saved monitor that is due, alert on regressions.
+  async scheduled(event, env, ctx) {
+    ctx.waitUntil(runScheduledMonitors(env));
   },
 };
 
 /* ---------------- scan ---------------- */
 
 async function handleScan(request) {
-  const target = normalizeTarget(new URL(request.url).searchParams.get("url"));
-  if (target.error) return json({ error: target.error }, 400);
+  const report = await buildScanReport(new URL(request.url).searchParams.get("url"));
+  if (report.error) return json({ error: report.error }, report.status || 400);
+  return json(report);
+}
+
+// Reusable scan → data object (no Response). Used by /api/scan and the cron monitor.
+async function buildScanReport(rawUrl) {
+  const target = normalizeTarget(rawUrl);
+  if (target.error) return { error: target.error, status: 400 };
 
   const origin = target.origin;
   const [robotsR, llmsR, homeR, sitemapR, agentsR] = await Promise.allSettled([
@@ -51,7 +65,7 @@ async function handleScan(request) {
   const agents = settled(agentsR);
 
   if (!home || !home.ok) {
-    return json({ error: "Could not reach " + target.href + " — check the URL and try again." }, 422);
+    return { error: "Could not reach " + target.href + " — check the URL and try again.", status: 422 };
   }
 
   const checks = [];
@@ -66,14 +80,14 @@ async function handleScan(request) {
   const possible = checks.reduce((s, c) => s + c.possible, 0);
   const score = Math.round((earned / possible) * 100);
 
-  return json({
+  return {
     url: target.href,
     scannedAt: new Date().toISOString(),
     score,
     grade: grade(score),
     checks,
     summary: summarize(score),
-  });
+  };
 }
 
 function normalizeTarget(raw) {
@@ -468,11 +482,173 @@ async function handleSubscribe(request, env) {
   return json({ ok: true });
 }
 
+/* ---------------- monitoring (subscription engine) ---------------- */
+// Recurring value = scheduled re-scan + regression alert. All checks are
+// deterministic HTTP fetches (zero LLM cost). Plan-gated for later billing.
+
+const MONITOR_PREFIX = "monitor:agentready:";
+const PLAN_FREQ = { free: "weekly", pro: "daily", team: "daily" };
+const FREQ_MS = { hourly: 3600e3, daily: 86400e3, weekly: 7 * 86400e3 };
+const SCORE_DROP_ALERT = 5; // points
+const MAX_SCANS_PER_CRON = 200;
+
+function monitorId(email, url) {
+  // Deterministic djb2 hash so re-submitting the same pair updates one record.
+  const s = email + "|" + url;
+  let h = 5381;
+  for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) >>> 0;
+  return h.toString(16);
+}
+
+function compactChecks(checks) {
+  return checks.map((c) => ({ id: c.id, t: c.title, e: c.earned, p: c.possible }));
+}
+
+async function handleMonitor(request, env) {
+  if (request.method !== "POST") return json({ error: "POST only" }, 405);
+  let email = "", rawUrl = "";
+  try {
+    const body = await request.json();
+    email = String(body.email || "").trim().toLowerCase();
+    rawUrl = String(body.url || "").trim();
+  } catch {
+    return json({ error: "Invalid JSON body" }, 400);
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return json({ error: "Invalid email" }, 400);
+
+  const report = await buildScanReport(rawUrl);
+  if (report.error) return json({ error: report.error }, report.status || 400);
+
+  const now = new Date().toISOString();
+  const plan = "free";
+  const record = {
+    id: monitorId(email, report.url),
+    url: report.url,
+    email,
+    plan,
+    freq: PLAN_FREQ[plan],
+    createdAt: now,
+    lastRun: now,
+    baseline: { score: report.score, grade: report.grade, checks: compactChecks(report.checks) },
+  };
+  if (env.SUBSCRIBERS) {
+    await env.SUBSCRIBERS.put(MONITOR_PREFIX + record.id, JSON.stringify(record));
+    // Also count this email in the funnel (willingness-to-monitor intent).
+    await env.SUBSCRIBERS.put("monitorlead:" + email, JSON.stringify({ email, at: now }));
+  }
+  return json({ ok: true, url: report.url, score: report.score, grade: report.grade, summary: report.summary });
+}
+
+async function runScheduledMonitors(env) {
+  if (!env.SUBSCRIBERS) return;
+  const nowMs = Date.now();
+  let cursor, scans = 0;
+  do {
+    const page = await env.SUBSCRIBERS.list({ prefix: MONITOR_PREFIX, cursor, limit: 1000 });
+    for (const key of page.keys) {
+      if (scans >= MAX_SCANS_PER_CRON) return;
+      let rec;
+      try { rec = JSON.parse(await env.SUBSCRIBERS.get(key.name)); } catch { continue; }
+      if (!rec || !rec.url) continue;
+      const interval = FREQ_MS[rec.freq] || FREQ_MS.weekly;
+      if (rec.lastRun && nowMs - Date.parse(rec.lastRun) < interval) continue; // not due
+      scans++;
+      const fresh = await buildScanReport(rec.url);
+      if (fresh.error) continue; // transient; leave baseline, retry next cron
+      const issues = detectRegressions(rec.baseline, fresh);
+      if (issues.length) await sendAlert(env, rec, fresh, issues);
+      rec.lastRun = new Date(nowMs).toISOString();
+      rec.baseline = { score: fresh.score, grade: fresh.grade, checks: compactChecks(fresh.checks) };
+      await env.SUBSCRIBERS.put(key.name, JSON.stringify(rec));
+    }
+    cursor = page.list_complete ? undefined : page.cursor;
+  } while (cursor);
+}
+
+function detectRegressions(baseline, fresh) {
+  const issues = [];
+  if (baseline && typeof baseline.score === "number" && fresh.score <= baseline.score - SCORE_DROP_ALERT) {
+    issues.push(`Overall AI-visibility score dropped ${baseline.score} → ${fresh.score}.`);
+  }
+  const prev = new Map((baseline?.checks || []).map((c) => [c.id, c]));
+  for (const c of fresh.checks) {
+    const b = prev.get(c.id);
+    if (b && b.e > 0 && c.earned === 0) {
+      issues.push(`"${c.title}" regressed — it used to pass and now fails.`);
+    }
+  }
+  return issues;
+}
+
+async function sendAlert(env, rec, fresh, issues) {
+  const host = (() => { try { return new URL(rec.url).host; } catch { return rec.url; } })();
+  const subject = `⚠️ AI-visibility regression on ${host} (score ${fresh.score}/100)`;
+  const lines = [
+    `Your AgentReady monitor found a regression on ${rec.url}:`,
+    "",
+    ...issues.map((i) => "• " + i),
+    "",
+    `Current score: ${fresh.score}/100 (${fresh.grade}). ${fresh.summary}`,
+    "",
+    `Re-scan: https://agentready.agiscorecard.com/?url=${encodeURIComponent(rec.url)}`,
+    "",
+    "— AgentReady monitoring",
+  ];
+  const text = lines.join("\n");
+  const at = new Date().toISOString();
+
+  if (env.RESEND_API_KEY) {
+    try {
+      const r = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: { Authorization: "Bearer " + env.RESEND_API_KEY, "Content-Type": "application/json" },
+        body: JSON.stringify({
+          from: env.ALERT_FROM || "AgentReady <alerts@agiscorecard.com>",
+          to: rec.email,
+          subject,
+          text,
+        }),
+      });
+      if (r.ok) return;
+    } catch { /* fall through to KV persistence */ }
+  }
+  // No email provider configured (or send failed): persist so nothing is lost.
+  await env.SUBSCRIBERS.put(`alert:agentready:${rec.id}:${at}`, JSON.stringify({ email: rec.email, subject, text, at }));
+}
+
+async function handleBillingWebhook(request, env) {
+  // Merchant-of-Record webhook stub. Real provider (Creem) sets plan later;
+  // today this is a safe no-op that can already flip a plan field if asked.
+  if (request.method !== "POST") return json({ error: "POST only" }, 405);
+  let body = {};
+  try { body = await request.json(); } catch { /* accept empty */ }
+  const email = String(body.email || "").trim().toLowerCase();
+  const plan = ["free", "pro", "team"].includes(body.plan) ? body.plan : null;
+  if (env.SUBSCRIBERS && email && plan) {
+    let cursor;
+    do {
+      const page = await env.SUBSCRIBERS.list({ prefix: MONITOR_PREFIX, cursor, limit: 1000 });
+      for (const key of page.keys) {
+        let rec;
+        try { rec = JSON.parse(await env.SUBSCRIBERS.get(key.name)); } catch { continue; }
+        if (rec && rec.email === email) {
+          rec.plan = plan;
+          rec.freq = PLAN_FREQ[plan] || rec.freq;
+          await env.SUBSCRIBERS.put(key.name, JSON.stringify(rec));
+        }
+      }
+      cursor = page.list_complete ? undefined : page.cursor;
+    } while (cursor);
+  }
+  return json({ ok: true });
+}
+
 async function handleStats(env) {
   // Aggregate counts only — no emails or PII are ever exposed.
-  const counts = { waitlist: 0, preorder: 0, legacy: 0 };
+  const counts = { waitlist: 0, preorder: 0, legacy: 0, monitors: 0 };
   if (env.SUBSCRIBERS) {
-    for (const prefix of ["waitlist:", "preorder:", "sub:"]) {
+    const buckets = { "waitlist:": "waitlist", "preorder:": "preorder", "sub:": "legacy", [MONITOR_PREFIX]: "monitors" };
+    for (const prefix of Object.keys(buckets)) {
       let cursor;
       let n = 0;
       do {
@@ -480,7 +656,7 @@ async function handleStats(env) {
         n += page.keys.length;
         cursor = page.list_complete ? undefined : page.cursor;
       } while (cursor);
-      counts[prefix === "sub:" ? "legacy" : prefix.slice(0, -1)] = n;
+      counts[buckets[prefix]] = n;
     }
   }
   return json(counts);
