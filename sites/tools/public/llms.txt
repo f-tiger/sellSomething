@@ -7,6 +7,8 @@
 - [Product schema generator](/product-schema-generator): schema.org Product + Offer JSON-LD for AI shopping agents
 - [FAQ schema generator](/faq-schema-generator): schema.org FAQPage JSON-LD
 - [MCP client config generator](/mcp-config-generator): Claude / Cursor config for a remote MCP server
+- [XML sitemap generator](/xml-sitemap-generator): turn a list of URLs into a valid sitemap.xml with lastmod, changefreq, priority
+- [Meta & Open Graph generator](/meta-tag-generator): title, meta description, canonical, Open Graph and Twitter Card tags
 
 ## Related
 - [AgentReady](https://agentready.agiscorecard.com): AI sales-visibility scanner (+ llms.txt generator)

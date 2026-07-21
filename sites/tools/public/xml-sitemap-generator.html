@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>XML sitemap generator — free sitemap.xml builder</title>
+<meta name="description" content="Free XML sitemap generator. Paste your URLs and get a valid sitemap.xml with lastmod, changefreq and priority — copy or download. Helps search engines and AI crawlers find every page.">
+<link rel="canonical" href="https://tools.agiscorecard.com/xml-sitemap-generator">
+<meta property="og:title" content="XML sitemap generator">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/style.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FZXLMBB5QB"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-FZXLMBB5QB');</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"WebApplication","name":"XML sitemap generator","applicationCategory":"DeveloperApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is an XML sitemap?","acceptedAnswer":{"@type":"Answer","text":"An XML sitemap is a sitemap.xml file that lists every URL you want search engines and AI crawlers to index, optionally with a last-modified date, change frequency and priority. It helps crawlers discover pages that internal links alone might miss."}},
+{"@type":"Question","name":"Where do I put sitemap.xml?","acceptedAnswer":{"@type":"Answer","text":"Place it at the root of your domain (e.g. https://example.com/sitemap.xml) and reference it from robots.txt with a line like 'Sitemap: https://example.com/sitemap.xml'. Then submit the URL in Google Search Console and Bing Webmaster Tools."}},
+{"@type":"Question","name":"Do AI crawlers use sitemaps?","acceptedAnswer":{"@type":"Answer","text":"Yes. AI crawlers such as GPTBot, ClaudeBot and PerplexityBot honor robots.txt and can use your sitemap to find pages, so a complete, current sitemap improves the odds your content is read and cited in AI answers."}}
+]}]}
+</script>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="/">Agentic<span>Tools</span></a>
+  <nav><a href="/">All tools</a><a href="https://agentready.agiscorecard.com">Scanner</a></nav>
+</header>
+
+<h1>XML sitemap generator</h1>
+<p class="lead">Paste one URL per line and get a valid <code>sitemap.xml</code> — with optional <code>lastmod</code>, <code>changefreq</code> and <code>priority</code>. Runs entirely in your browser.</p>
+
+<div class="panel">
+  <div class="field"><label>Your URLs (one per line)</label>
+  <textarea id="urls" style="min-height:150px" placeholder="https://example.com/&#10;https://example.com/about&#10;https://example.com/products"></textarea></div>
+  <div class="btnrow" style="flex-wrap:wrap;gap:14px;margin-top:12px">
+    <label style="font-size:13px;color:var(--dim)"><input type="checkbox" id="uselastmod" checked> Add today's <code>lastmod</code></label>
+    <label style="font-size:13px;color:var(--dim)">changefreq
+      <select id="freq">
+        <option value="">(none)</option>
+        <option value="daily">daily</option>
+        <option value="weekly" selected>weekly</option>
+        <option value="monthly">monthly</option>
+        <option value="yearly">yearly</option>
+      </select>
+    </label>
+    <label style="font-size:13px;color:var(--dim)">priority
+      <select id="prio">
+        <option value="">(none)</option>
+        <option value="1.0">1.0</option>
+        <option value="0.8" selected>0.8</option>
+        <option value="0.5">0.5</option>
+      </select>
+    </label>
+  </div>
+  <label style="display:block;font-size:13px;color:var(--dim);margin:16px 0 5px;font-weight:600">Your sitemap.xml <span id="count"></span></label>
+  <pre id="out"></pre>
+  <div class="btnrow"><button class="btn" id="copy">Copy</button><button class="btn ghost" id="dl">Download sitemap.xml</button><a class="btn ghost" href="/ai-robots-txt-generator">Add it to robots.txt →</a></div>
+</div>
+
+<footer>
+  <div class="links"><a href="/">All tools</a><a href="https://glossary.agiscorecard.com/geo">What is GEO?</a><a href="https://agentready.agiscorecard.com">AgentReady</a></div>
+  <div>© 2026 Agentic Tools</div>
+</footer>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&apos;');}
+function today(){return new Date().toISOString().slice(0,10);}
+function gen(){
+  const lines=$('urls').value.split('\n').map(s=>s.trim()).filter(Boolean);
+  const seen=new Set();const urls=[];
+  for(const l of lines){if(!/^https?:\/\//i.test(l))continue;if(seen.has(l))continue;seen.add(l);urls.push(l);}
+  const lm=$('uselastmod').checked,fq=$('freq').value,pr=$('prio').value;
+  let x='<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
+  for(const u of urls){
+    x+='  <url><loc>'+esc(u)+'</loc>';
+    if(lm)x+='<lastmod>'+today()+'</lastmod>';
+    if(fq)x+='<changefreq>'+fq+'</changefreq>';
+    if(pr)x+='<priority>'+pr+'</priority>';
+    x+='</url>\n';
+  }
+  x+='</urlset>';
+  $('out').textContent=x;
+  $('count').textContent=urls.length?'('+urls.length+' URL'+(urls.length>1?'s':'')+')':'';
+  return x;
+}
+['urls','freq','prio'].forEach(id=>$(id).addEventListener('input',gen));
+$('uselastmod').addEventListener('change',gen);
+$('copy').addEventListener('click',async()=>{await navigator.clipboard.writeText(gen());const b=$('copy');b.textContent='✓ Copied';setTimeout(()=>b.textContent='Copy',1400);});
+$('dl').addEventListener('click',()=>{const blob=new Blob([gen()],{type:'application/xml'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='sitemap.xml';a.click();URL.revokeObjectURL(a.href);});
+$('urls').value='https://example.com/\nhttps://example.com/about\nhttps://example.com/products\nhttps://example.com/contact';
+gen();
+</script>
+</body>
+</html>

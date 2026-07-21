@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meta tag &amp; Open Graph generator — free SEO + social preview tags</title>
+<meta name="description" content="Free meta tag generator. Fill in title, description and image and get title, meta description, canonical, Open Graph and Twitter Card tags — copy-paste ready for better SEO and social previews.">
+<link rel="canonical" href="https://tools.agiscorecard.com/meta-tag-generator">
+<meta property="og:title" content="Meta tag & Open Graph generator">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/style.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FZXLMBB5QB"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-FZXLMBB5QB');</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"WebApplication","name":"Meta tag & Open Graph generator","applicationCategory":"DeveloperApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What are meta tags?","acceptedAnswer":{"@type":"Answer","text":"Meta tags are HTML tags in the <head> that describe a page to search engines and social platforms — the title, meta description, canonical URL, and Open Graph / Twitter Card tags that control how a link looks when shared."}},
+{"@type":"Question","name":"What is Open Graph?","acceptedAnswer":{"@type":"Answer","text":"Open Graph (og:) tags tell Facebook, LinkedIn, Slack, Discord and other platforms the title, description and preview image to show when your page is shared. Twitter/X uses its own twitter:card tags, which this tool also outputs."}},
+{"@type":"Question","name":"How long should a meta description be?","acceptedAnswer":{"@type":"Answer","text":"Aim for roughly 150–160 characters. Front-load the most important information because search engines truncate longer descriptions, and write it as a self-contained sentence so AI answers can lift it cleanly."}}
+]}]}
+</script>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="/">Agentic<span>Tools</span></a>
+  <nav><a href="/">All tools</a><a href="https://agentready.agiscorecard.com">Scanner</a></nav>
+</header>
+
+<h1>Meta tag &amp; Open Graph generator</h1>
+<p class="lead">Fill in the fields and get <code>title</code>, meta description, canonical, <code>og:</code> and <code>twitter:</code> tags — copy-paste into your <code>&lt;head&gt;</code>. Browser-only.</p>
+
+<div class="panel">
+  <div class="field"><label>Page title</label><input id="title" placeholder="Free tools for the AI-agent era"></div>
+  <div class="field"><label>Meta description <span id="dlen" style="color:var(--dim);font-weight:400"></span></label><textarea id="desc" placeholder="One or two sentences describing the page."></textarea></div>
+  <div class="field"><label>Canonical URL</label><input id="url" placeholder="https://example.com/page"></div>
+  <div class="field"><label>Preview image URL (og:image)</label><input id="img" placeholder="https://example.com/preview.png"></div>
+  <div class="field"><label>Twitter @handle (optional)</label><input id="tw" placeholder="@yoursite"></div>
+  <label style="display:block;font-size:13px;color:var(--dim);margin:16px 0 5px;font-weight:600">Your tags</label>
+  <pre id="out"></pre>
+  <div class="btnrow"><button class="btn" id="copy">Copy</button><a class="btn ghost" href="/faq-schema-generator">Add FAQ schema →</a></div>
+</div>
+
+<footer>
+  <div class="links"><a href="/">All tools</a><a href="https://glossary.agiscorecard.com/structured-data">What is structured data?</a><a href="https://agentready.agiscorecard.com">AgentReady</a></div>
+  <div>© 2026 Agentic Tools</div>
+</footer>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function gen(){
+  const t=$('title').value.trim(),d=$('desc').value.trim(),u=$('url').value.trim(),img=$('img').value.trim(),tw=$('tw').value.trim();
+  const L=[];
+  if(t)L.push('<title>'+esc(t)+'</title>');
+  if(d)L.push('<meta name="description" content="'+esc(d)+'">');
+  if(u)L.push('<link rel="canonical" href="'+esc(u)+'">');
+  L.push('');
+  L.push('<!-- Open Graph -->');
+  if(t)L.push('<meta property="og:title" content="'+esc(t)+'">');
+  if(d)L.push('<meta property="og:description" content="'+esc(d)+'">');
+  L.push('<meta property="og:type" content="website">');
+  if(u)L.push('<meta property="og:url" content="'+esc(u)+'">');
+  if(img)L.push('<meta property="og:image" content="'+esc(img)+'">');
+  L.push('');
+  L.push('<!-- Twitter / X -->');
+  L.push('<meta name="twitter:card" content="'+(img?'summary_large_image':'summary')+'">');
+  if(t)L.push('<meta name="twitter:title" content="'+esc(t)+'">');
+  if(d)L.push('<meta name="twitter:description" content="'+esc(d)+'">');
+  if(img)L.push('<meta name="twitter:image" content="'+esc(img)+'">');
+  if(tw)L.push('<meta name="twitter:site" content="'+esc(tw)+'">');
+  const out=L.join('\n');
+  $('out').textContent=out;
+  const n=d.length;$('dlen').textContent=n?'('+n+' chars'+(n>160?' — a bit long':n<50&&n>0?' — a bit short':'')+')':'';
+  return out;
+}
+['title','desc','url','img','tw'].forEach(id=>$(id).addEventListener('input',gen));
+$('copy').addEventListener('click',async()=>{await navigator.clipboard.writeText(gen());const b=$('copy');b.textContent='✓ Copied';setTimeout(()=>b.textContent='Copy',1400);});
+$('title').value='Free tools for the AI-agent era';
+$('desc').value='No-signup browser tools for AI search and agents: schema generators, AI robots.txt, sitemap and meta tag builders.';
+$('url').value='https://tools.agiscorecard.com/';
+gen();
+</script>
+</body>
+</html>

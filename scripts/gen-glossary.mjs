@@ -18,7 +18,7 @@ const MCPPULSE = "https://mcppulse.agiscorecard.com";
 const SELLTOAGENTS = "https://selltoagents.agiscorecard.com";
 
 // category -> ordering weight for the index
-const CATS = ["Agentic commerce", "AI visibility (GEO/AEO)", "Model Context Protocol", "Agent payments"];
+const CATS = ["AI agents & concepts", "Agentic commerce", "AI visibility (GEO/AEO)", "Model Context Protocol", "Agent payments"];
 
 const TERMS = [
   {
@@ -152,6 +152,91 @@ const TERMS = [
     related: ["x402", "ap2", "acp", "agentic-commerce"],
     faq: [["Do agentic payments require crypto?", "Not necessarily. x402 commonly uses stablecoins, but agent-payment authorization (AP2) and card-network schemes (Visa, Mastercard) also support fiat rails. The common thread is programmatic, agent-initiated payment."]],
     cta: [SELLTOAGENTS, "Where agent payments meet commerce →"],
+  },
+  {
+    slug: "ai-agent", term: "AI agent", cat: "AI agents & concepts",
+    answer: "An AI agent is a system that uses a large language model to pursue a goal autonomously — deciding on steps, calling tools or APIs, and acting on the results — rather than just answering a single prompt.",
+    body: `<p>Where a chatbot responds once, an agent loops: it plans, calls a tool (search, code, a database, a purchase), observes the result, and decides the next step until the goal is met. Tool access is what turns a model into an agent — commonly via <a href="/mcp">MCP</a> or function calling.</p>
+<p>Agents now shop (<a href="/agentic-commerce">agentic commerce</a>), write code, and operate software. Their reliability depends on the quality of the tools and data they can reach — which is why tool descriptions, structured data and server health matter so much.</p>`,
+    related: ["mcp", "function-calling", "agentic-commerce", "rag"],
+    faq: [["What's the difference between an AI agent and a chatbot?", "A chatbot answers a prompt. An agent pursues a goal across multiple steps, calling tools and acting on results autonomously until it's done."]],
+    cta: [MCPPULSE, "Building agent tools? Scan your MCP server →"],
+  },
+  {
+    slug: "rag", term: "RAG (Retrieval-Augmented Generation)", cat: "AI agents & concepts",
+    answer: "RAG (Retrieval-Augmented Generation) is a technique where an AI model retrieves relevant documents from an external knowledge source and uses them as context to generate a more accurate, grounded answer — reducing hallucination.",
+    body: `<p>Instead of relying only on what a model memorized in training, RAG fetches fresh, specific data at query time (from a vector database, search index or API) and feeds it into the prompt. The model then answers from that retrieved context.</p>
+<p>RAG is how assistants stay current and cite sources. <a href="/mcp">MCP</a> servers are increasingly the retrieval layer — exposing live data an agent pulls in on demand.</p>`,
+    related: ["ai-agent", "mcp", "function-calling"],
+    faq: [["Does RAG stop hallucinations?", "It reduces them by grounding answers in retrieved sources, but doesn't eliminate them — retrieval quality and how the model uses the context still matter."]],
+    cta: [MCPPULSE, "Exposing data to agents via MCP? Test it →"],
+  },
+  {
+    slug: "function-calling", term: "Function calling (tool calling)", cat: "AI agents & concepts",
+    answer: "Function calling (or tool calling) is a capability where an AI model, given a set of tool definitions, outputs a structured request to invoke one — with arguments — so an application can run it and return the result to the model.",
+    body: `<p>It's the mechanism behind agents: you describe tools (name, description, JSON-Schema inputs), the model decides which to call and with what arguments, your code executes it, and the result goes back into the conversation. <a href="/mcp">MCP</a> standardizes this across clients and servers.</p>
+<p>The model chooses tools from their <strong>descriptions</strong> — so vague descriptions mean tools never get called, whether you use raw function calling or MCP.</p>`,
+    related: ["ai-agent", "mcp", "mcp-tool"],
+    faq: [["Is function calling the same as MCP?", "Related but not identical. Function calling is a model capability; MCP is an open protocol that standardizes how tools are exposed and called across different clients and servers."]],
+    cta: [MCPPULSE + "/why-mcp-tools-not-called", "Why agents skip your tools →"],
+  },
+  {
+    slug: "a2a", term: "A2A (Agent2Agent protocol)", cat: "AI agents & concepts",
+    answer: "A2A (Agent2Agent) is an open protocol, introduced by Google, that lets independent AI agents discover each other and collaborate — delegating tasks and exchanging results — across different vendors and frameworks.",
+    body: `<p>Where <a href="/mcp">MCP</a> connects an agent to tools and data, A2A connects agents to other agents. An agent publishes a capability card; another agent can discover it and hand off a task. The two protocols are complementary layers of the agent stack.</p>`,
+    related: ["mcp", "ai-agent", "agentic-payments"],
+    faq: [["How is A2A different from MCP?", "MCP is agent-to-tool (an agent calls tools/data). A2A is agent-to-agent (agents delegate tasks to each other). They compose: an agent uses MCP for tools and A2A to collaborate."]],
+    cta: [MCPPULSE, "Health-check your agent's MCP tools →"],
+  },
+  {
+    slug: "prompt-injection", term: "Prompt injection", cat: "AI agents & concepts",
+    answer: "Prompt injection is an attack where malicious instructions hidden in content an AI reads (a web page, document, tool output) trick the model into ignoring its original task and following the attacker's instructions instead.",
+    body: `<p>It's the top security risk for agents that browse the web or call tools: untrusted data can carry commands ("ignore previous instructions and…"). For agentic systems this is serious because agents <em>act</em> — they can send data or make purchases.</p>
+<p>Mitigations include treating tool/web content as untrusted, constraining what tools can do, requiring confirmation for sensitive actions, and clear auth boundaries on <a href="/mcp-server">MCP servers</a>.</p>`,
+    related: ["ai-agent", "mcp-server", "mcp"],
+    faq: [["Why is prompt injection worse for agents?", "Because agents take actions, not just answer. An injected instruction can cause an agent to exfiltrate data or make a transaction, not merely say something wrong."]],
+    cta: [MCPPULSE, "Check your MCP server's auth posture →"],
+  },
+  {
+    slug: "ai-overviews", term: "AI Overviews", cat: "AI visibility (GEO/AEO)",
+    answer: "AI Overviews are Google's AI-generated answer summaries shown at the top of search results. They synthesize an answer from multiple sources and cite them, often reducing clicks to the underlying websites.",
+    body: `<p>AI Overviews now appear on roughly half of queries and can cut organic click-through substantially when present. For businesses, the goal shifts from ranking a link to being one of the cited sources in the overview — the essence of <a href="/geo">GEO</a>.</p>`,
+    related: ["geo", "zero-click-search", "citation-share", "aeo"],
+    faq: [["How do I get cited in AI Overviews?", "Publish clear, factual, well-structured content with schema markup, earn third-party citations, and keep your site crawlable. Domain authority is a strong predictor of being cited."]],
+    cta: [AGENTREADY, "Check your AI-answer readiness →"],
+  },
+  {
+    slug: "zero-click-search", term: "Zero-click search", cat: "AI visibility (GEO/AEO)",
+    answer: "A zero-click search is a search where the user gets their answer directly on the results page — from an AI Overview, featured snippet or knowledge panel — without clicking through to any website.",
+    body: `<p>Zero-click searches climbed past 69% of queries in 2025 and are projected higher as AI answers expand. It means less referral traffic from informational queries, and makes <em>being the cited source</em> (rather than the clicked link) the thing worth optimizing for.</p>`,
+    related: ["ai-overviews", "geo", "citation-share"],
+    faq: [["Is SEO dead because of zero-click search?", "No, but its goal changes. Informational-query traffic shrinks; the win shifts to being cited in AI answers (GEO) and capturing transactional and brand demand."]],
+    cta: [SELLTOAGENTS, "Adapt your store to AI search →"],
+  },
+  {
+    slug: "structured-data", term: "Structured data (schema markup)", cat: "AI visibility (GEO/AEO)",
+    answer: "Structured data is machine-readable markup (usually schema.org JSON-LD) added to a web page that describes its content — a product's price, an FAQ, an organization — so search engines and AI agents can understand and use it reliably.",
+    body: `<p>Humans read your page; machines read your structured data. For commerce, schema.org <a href="/ai-shopping-agent">Product and Offer</a> markup tells AI shopping agents your price, availability and specs. FAQ and Organization markup feed AI answers and trust signals.</p>
+<p>Generate it free with the <a href="https://tools.agiscorecard.com/product-schema-generator">Product schema</a> and <a href="https://tools.agiscorecard.com/faq-schema-generator">FAQ schema</a> tools, then verify it's present with a scan.</p>`,
+    related: ["geo", "ai-shopping-agent", "citation-share", "llms-txt"],
+    faq: [["What format should structured data use?", "JSON-LD is the recommended format — a script block you add to the page, decoupled from your HTML. schema.org defines the vocabulary."]],
+    cta: [AGENTREADY, "Scan your structured data →"],
+  },
+  {
+    slug: "chatgpt-shopping", term: "ChatGPT Shopping", cat: "Agentic commerce",
+    answer: "ChatGPT Shopping is OpenAI's feature that lets ChatGPT recommend products and, via the Agentic Commerce Protocol, surface merchant items and support purchases directly in the conversation.",
+    body: `<p>When a user asks ChatGPT for product help, it can present a shortlist drawn from merchant feeds through <a href="/acp">ACP</a>. Over a million Shopify merchants are auto-enrolled; the question isn't whether you participate but whether your product data is structured well enough to be selected.</p>`,
+    related: ["acp", "ai-shopping-agent", "agentic-commerce", "citation-share"],
+    faq: [["How do I appear in ChatGPT Shopping?", "Keep a clean structured product feed, ship Product/Offer schema, and allow OAI-SearchBot in robots.txt. Shopify stores are largely enrolled automatically."]],
+    cta: [AGENTREADY, "Are you visible in ChatGPT Shopping? Scan →"],
+  },
+  {
+    slug: "mcp-tool", term: "MCP tool", cat: "Model Context Protocol",
+    answer: "An MCP tool is a single callable function exposed by an MCP server — with a name, a description and a JSON-Schema for its inputs — that an AI agent can discover via tools/list and invoke to perform an action.",
+    body: `<p>Tools are the actions an <a href="/mcp-server">MCP server</a> offers: search_orders, run_query, create_ticket. The agent reads each tool's <strong>description</strong> to decide when to call it, so a clear description and a valid input schema are what make a tool actually get used.</p>`,
+    related: ["mcp-server", "mcp", "function-calling"],
+    faq: [["Why won't the model call my MCP tool?", "Almost always the description: agents select tools by their name and description. Vague, empty or duplicate descriptions make a tool invisible — even if it works perfectly."]],
+    cta: [MCPPULSE, "See your tool-description coverage →"],
   },
 ];
 
