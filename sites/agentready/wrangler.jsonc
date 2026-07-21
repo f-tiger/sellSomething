@@ -8,10 +8,6 @@
   "kv_namespaces": [
     { "binding": "SUBSCRIBERS", "id": "e981ec645ff54685a8139b0c26f6de82" }
   ],
-  "triggers": {
-    // Daily 08:00 UTC: re-scan due monitors, alert on AI-visibility regressions.
-    "crons": ["0 8 * * *"]
-  },
   "assets": {
     "directory": "./public",
     "binding": "ASSETS",

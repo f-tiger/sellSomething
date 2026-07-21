@@ -25,6 +25,7 @@ export default {
     if (url.pathname === "/api/scan") return handleScan(request);
     if (url.pathname === "/api/subscribe") return handleSubscribe(request, env);
     if (url.pathname === "/api/monitor") return handleMonitor(request, env);
+    if (url.pathname === "/api/cron/run") return handleCronRun(request, env);
     if (url.pathname === "/api/billing/webhook") return handleBillingWebhook(request, env);
     if (url.pathname === "/api/stats") return handleStats(env);
     return env.ASSETS.fetch(request);
@@ -539,14 +540,23 @@ async function handleMonitor(request, env) {
   return json({ ok: true, url: report.url, score: report.score, grade: report.grade, summary: report.summary });
 }
 
+// External-scheduler entrypoint for the monitor sweep (used when Cloudflare Cron
+// isn't available on the plan). Guarded by CRON_SECRET when that secret is set.
+async function handleCronRun(request, env) {
+  const key = new URL(request.url).searchParams.get("key") || request.headers.get("x-cron-key");
+  if (env.CRON_SECRET && key !== env.CRON_SECRET) return json({ error: "Unauthorized" }, 401);
+  const ran = await runScheduledMonitors(env);
+  return json({ ok: true, scanned: ran });
+}
+
 async function runScheduledMonitors(env) {
-  if (!env.SUBSCRIBERS) return;
+  if (!env.SUBSCRIBERS) return 0;
   const nowMs = Date.now();
   let cursor, scans = 0;
   do {
     const page = await env.SUBSCRIBERS.list({ prefix: MONITOR_PREFIX, cursor, limit: 1000 });
     for (const key of page.keys) {
-      if (scans >= MAX_SCANS_PER_CRON) return;
+      if (scans >= MAX_SCANS_PER_CRON) return scans;
       let rec;
       try { rec = JSON.parse(await env.SUBSCRIBERS.get(key.name)); } catch { continue; }
       if (!rec || !rec.url) continue;
@@ -563,6 +573,7 @@ async function runScheduledMonitors(env) {
     }
     cursor = page.list_complete ? undefined : page.cursor;
   } while (cursor);
+  return scans;
 }
 
 function detectRegressions(baseline, fresh) {

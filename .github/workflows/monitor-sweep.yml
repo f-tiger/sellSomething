@@ -1,0 +1,30 @@
+# Drives the AgentReady monitoring sweep (scheduled re-scan + regression alerts).
+# Cloudflare Cron Triggers aren't available on this account/token, so the sweep
+# is invoked over HTTP instead. The endpoint (/api/cron/run) only re-scans
+# already-registered monitors — no arbitrary URLs — and is guarded by
+# CRON_SECRET when that secret is set on both the Worker and here.
+#
+# Note: GitHub `schedule` fires from the default branch. Until this lands on the
+# default branch it runs via `workflow_dispatch` (and the same endpoint can be
+# hit by any external scheduler, e.g. a claude-code-remote Routine).
+name: AgentReady monitor sweep
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 8 * * *" # daily 08:00 UTC
+
+jobs:
+  sweep:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger monitor sweep
+        run: |
+          set -e
+          url="https://agentready.agiscorecard.com/api/cron/run"
+          if [ -n "${{ secrets.CRON_SECRET }}" ]; then
+            url="$url?key=${{ secrets.CRON_SECRET }}"
+          fi
+          out=$(curl -s --max-time 120 "$url" || true)
+          echo "sweep response: $out"
+          echo "$out" | python3 -c "import json,sys; d=json.load(sys.stdin); assert d.get('ok') is True, d; print('sweep OK, scanned', d.get('scanned'))"
