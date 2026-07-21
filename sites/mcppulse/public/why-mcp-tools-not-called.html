@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why your MCP tools aren't being called (and how to fix it)</title>
+<meta name="description" content="Your MCP server connects fine but agents never call your tools. The usual cause is tool metadata: vague descriptions, missing input schemas, and too many tools. Here's how to fix it.">
+<link rel="canonical" href="https://mcppulse.agiscorecard.com/why-mcp-tools-not-called">
+<meta property="og:title" content="Why your MCP tools aren't being called">
+<meta property="og:type" content="article">
+<link rel="stylesheet" href="/style.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FZXLMBB5QB"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-FZXLMBB5QB');</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"Article","headline":"Why your MCP tools aren't being called (and how to fix it)","datePublished":"2026-07-20","author":{"@type":"Organization","name":"MCP Pulse"}},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Why does the model never call my MCP tool?","acceptedAnswer":{"@type":"Answer","text":"An MCP client selects tools almost entirely from their name and description in tools/list. If the description is empty, one word, or doesn't say what the tool does, when to use it and what it returns, the model can't match it to a user request — so it silently skips it. Vague descriptions, missing inputSchema, and overloaded servers with dozens of similar tools are the top causes."}},
+{"@type":"Question","name":"How should I write MCP tool descriptions?","acceptedAnswer":{"@type":"Answer","text":"Write each description as one or two sentences stating what the tool does, when an agent should use it, and what it returns. Name tools with clear verbs (search_orders, not handler3). Give every input a typed inputSchema with per-field descriptions. Avoid near-duplicate tools; consolidate or disambiguate them so the model isn't forced to guess."}}
+]}]}
+</script>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="/">MCP<span>Pulse</span></a>
+  <nav><a href="/mcp-server-checklist">Checklist</a><a href="/mcp-index">Index</a><a href="/">Scanner</a></nav>
+</header>
+
+<p class="meta">Guide · Updated July 2026 · 6 min read</p>
+<h1>Why your MCP tools aren't being called</h1>
+
+<div class="tldr"><b>Direct answer:</b> Your server connects, <code>tools/list</code> returns your tools, and yet the model never uses them. The cause is almost always <em>metadata</em>, not transport: the model picks tools from their <strong>name and description</strong>, so a vague or empty description makes a tool invisible. Fix descriptions, input schemas and tool count — then verify with a <a href="/">scan</a>.</div>
+
+<h2>How an agent actually chooses a tool</h2>
+<p>When a user asks an agent to do something, the model doesn't read your source code. It sees the <code>tools/list</code> output — each tool's <code>name</code>, <code>description</code> and <code>inputSchema</code> — and matches the request against those strings. If nothing clearly matches, it does nothing or answers from memory. Your tool can be perfectly implemented and still never fire.</p>
+
+<h2>The three usual culprits</h2>
+<h3>1. Empty or vague descriptions</h3>
+<p>Compare:</p>
+<pre><code>// invisible to agents
+{ "name": "run", "description": "" }
+{ "name": "getData", "description": "gets data" }
+
+// gets selected
+{ "name": "search_orders",
+  "description": "Search a customer's past orders by email or order ID. Use when the user asks about order status, history, or a specific purchase. Returns order id, date, items, total and fulfillment status." }</code></pre>
+<p>State <strong>what it does, when to use it, and what it returns.</strong> That last clause matters — the model plans multi-step chains and needs to know a tool's output shape.</p>
+
+<h3>2. Missing or loose input schemas</h3>
+<p>Every tool needs a valid <code>inputSchema</code> (JSON Schema) with typed fields and per-field <code>description</code>s. Without it the model can't construct a valid call, so it avoids the tool. Mark required fields; don't leave everything optional and untyped.</p>
+
+<h3>3. Too many near-duplicate tools</h3>
+<p>Twenty tools named <code>get_x</code>, <code>fetch_x</code>, <code>list_x</code> with overlapping descriptions force the model to guess and it guesses wrong (or abstains). Consolidate. A handful of clearly-differentiated tools outperforms a sprawling, ambiguous surface.</p>
+
+<h2>Verify the fix</h2>
+<p>MCP Pulse reports the exact percentage of your tools that have meaningful descriptions and flags the ones that don't — so you can see the problem the way an agent sees it, and confirm the fix landed.</p>
+
+<div class="cta"><h3>See which of your tools are invisible</h3><p>Free scan shows tool-description coverage in 10 seconds.</p><a class="btn" href="/">Scan my server →</a></div>
+
+<footer>
+  <div class="links"><a href="/">Scanner</a><a href="/how-to-test-mcp-server">How to test</a><a href="/mcp-server-checklist">Checklist</a><a href="/mcp-server-monitoring">Monitoring</a></div>
+  <div>© 2026 MCP Pulse</div>
+</footer>
+</div>
+</body>
+</html>

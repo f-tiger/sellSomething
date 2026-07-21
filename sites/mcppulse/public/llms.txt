@@ -9,6 +9,12 @@
 - [README badge](/#badge): embeddable live score badge for your server
 - [Pro monitoring](/#pro): $19/mo founding price — uptime, latency and schema-drift alerts
 
+## Guides
+- [How to test an MCP server](/how-to-test-mcp-server): the full protocol-lifecycle test with curl and a scanner
+- [Why your MCP tools aren't being called](/why-mcp-tools-not-called): tool metadata (descriptions, input schemas) is why agents skip your tools
+- [MCP server conformance checklist](/mcp-server-checklist): 10 ordered checks agents rely on
+- [MCP server monitoring](/mcp-server-monitoring): uptime, latency and schema-drift alerts
+
 ## API
 - `GET /api/scan?url=<mcp endpoint>` returns a JSON report: { url, score, grade, latencyMs, tools, checks[], summary }. Please self-limit to a few requests per minute.
 - `GET /api/badge?url=<mcp endpoint>` returns an SVG score badge for embedding in READMEs.

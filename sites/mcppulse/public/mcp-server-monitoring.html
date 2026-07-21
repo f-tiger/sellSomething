@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MCP server monitoring: uptime, latency & schema-drift alerts (2026 guide)</title>
+<meta name="description" content="Why MCP servers need monitoring, what to watch (uptime, handshake latency, tool schema drift), and how to get alerted before agents silently drop your server.">
+<link rel="canonical" href="https://mcppulse.agiscorecard.com/mcp-server-monitoring">
+<meta property="og:title" content="MCP server monitoring guide (2026)">
+<meta property="og:type" content="article">
+<link rel="stylesheet" href="/style.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FZXLMBB5QB"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-FZXLMBB5QB');</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"Article","headline":"MCP server monitoring: uptime, latency & schema-drift alerts","datePublished":"2026-07-20","author":{"@type":"Organization","name":"MCP Pulse"}},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Why do MCP servers need monitoring?","acceptedAnswer":{"@type":"Answer","text":"MCP servers fail silently. When a handshake breaks, latency spikes, or a deploy drops a tool, agents just stop using your server — no error reaches you, and if the server is paid you lose revenue with no alert. Monitoring catches uptime, latency and tool-schema changes so you find out before your users do."}},
+{"@type":"Question","name":"What should I monitor on an MCP server?","acceptedAnswer":{"@type":"Answer","text":"Track four things: uptime of the initialize handshake, handshake latency trend, tool schema drift (tools added, removed or their descriptions/inputSchema changed), and auth/TLS posture. Alert on any regression via email, Slack or webhook."}}
+]}]}
+</script>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="/">MCP<span>Pulse</span></a>
+  <nav><a href="/mcp-server-checklist">Checklist</a><a href="/mcp-index">Index</a><a href="/">Scanner</a></nav>
+</header>
+
+<p class="meta">Guide · Updated July 2026 · 5 min read</p>
+<h1>MCP server monitoring</h1>
+
+<div class="tldr"><b>Direct answer:</b> MCP servers fail <em>silently</em>. A broken handshake, a latency spike, or a deploy that quietly drops a tool doesn't throw an error your way — agents just stop calling you, and if your server is paid, revenue drops with no alert. Monitoring watches uptime, latency and tool-schema drift so you find out first.</div>
+
+<h2>Why a health check at deploy isn't enough</h2>
+<p>Scanning once tells you the server is healthy <em>now</em>. But MCP servers drift: a dependency update changes a tool's input schema, a CDN config bumps latency, an auth change starts rejecting clients, a refactor renames a tool. Each is invisible until an agent silently stops using you. Continuous monitoring turns "silent" into "alerted".</p>
+
+<h2>What to monitor</h2>
+<table>
+  <tr><th>Signal</th><th>Why it matters</th></tr>
+  <tr><td>Handshake uptime</td><td>If <code>initialize</code> fails, every client drops you instantly.</td></tr>
+  <tr><td>Handshake latency</td><td>Agents chain many calls; a slow server loses to a faster equivalent.</td></tr>
+  <tr><td>Tool schema drift</td><td>Tools added, removed, renamed, or descriptions/inputSchema changed — the things agents select on.</td></tr>
+  <tr><td>TLS & auth posture</td><td>An expired cert or a broken auth change silently locks clients out.</td></tr>
+</table>
+
+<h2>The revenue angle</h2>
+<p>The MCP ecosystem is starting to monetize — paid servers already earn recurring revenue. The moment a paid server has downtime it can't see, it loses money and trust with no signal. That's why uptime monitoring is not a nice-to-have for a commercial MCP server; it's table stakes, exactly as it is for any paid API.</p>
+
+<h2>How MCP Pulse monitors</h2>
+<p>MCP Pulse Pro re-runs the full protocol handshake on a schedule, tracks your score and latency over time, and alerts you when a tool's schema drifts or the server goes down — via email now, Slack/webhook on the Teams plan. There's also a live README badge so your users can see the server's health at a glance.</p>
+
+<div class="cta"><h3>Never get surprised by a broken MCP server</h3><p>Start with a free scan; join the Pro monitoring waitlist ($19/mo founding price).</p><a class="btn" href="/#pro">See monitoring →</a></div>
+
+<footer>
+  <div class="links"><a href="/">Scanner</a><a href="/how-to-test-mcp-server">How to test</a><a href="/why-mcp-tools-not-called">Why tools aren't called</a><a href="/mcp-server-checklist">Checklist</a></div>
+  <div>© 2026 MCP Pulse</div>
+</footer>
+</div>
+</body>
+</html>

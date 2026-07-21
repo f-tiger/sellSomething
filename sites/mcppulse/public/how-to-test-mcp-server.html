@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to test an MCP server (2026): the complete checklist</title>
+<meta name="description" content="How to test a Model Context Protocol server end to end — the initialize handshake, tools/list, streamable HTTP transport, auth and latency — with commands and a free online scanner.">
+<link rel="canonical" href="https://mcppulse.agiscorecard.com/how-to-test-mcp-server">
+<meta property="og:title" content="How to test an MCP server (2026)">
+<meta property="og:type" content="article">
+<link rel="stylesheet" href="/style.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FZXLMBB5QB"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-FZXLMBB5QB');</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"Article","headline":"How to test an MCP server (2026): the complete checklist","datePublished":"2026-07-20","author":{"@type":"Organization","name":"MCP Pulse"}},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How do I test an MCP server?","acceptedAnswer":{"@type":"Answer","text":"Test an MCP server by performing the protocol lifecycle it will face in production: POST a JSON-RPC 2.0 initialize request to the streamable-HTTP endpoint, verify it returns a protocolVersion, serverInfo and capabilities; send notifications/initialized; then call tools/list and confirm every tool has a clear description and a valid inputSchema. Also check HTTPS, handshake latency and authentication. You can run all of this automatically with a free scanner like MCP Pulse."}},
+{"@type":"Question","name":"What is the MCP initialize handshake?","acceptedAnswer":{"@type":"Answer","text":"initialize is the first JSON-RPC call an MCP client makes. The client sends its protocolVersion, capabilities and clientInfo; the server replies with the protocolVersion it will use, its own capabilities and serverInfo (name and version). The client then sends a notifications/initialized notification before making further calls like tools/list."}},
+{"@type":"Question","name":"Why won't my MCP server connect in Claude or Cursor?","acceptedAnswer":{"@type":"Answer","text":"The most common causes are: the endpoint isn't served over HTTPS, it doesn't return a valid JSON-RPC initialize result, it requires an Mcp-Session-Id header that the client isn't sending back, the transport is stdio/legacy-SSE rather than streamable HTTP, or CORS/auth is blocking the request. Scanning the endpoint reveals which of these is failing."}}
+]}]}
+</script>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="/">MCP<span>Pulse</span></a>
+  <nav><a href="/mcp-server-checklist">Checklist</a><a href="/mcp-index">Index</a><a href="/">Scanner</a></nav>
+</header>
+
+<p class="meta">Guide · Updated July 2026 · 7 min read</p>
+<h1>How to test an MCP server</h1>
+
+<div class="tldr"><b>Direct answer:</b> Test your MCP server the way a real client will drive it — the full protocol lifecycle, not a ping. Four layers: (1) transport reachable over HTTPS, (2) a valid JSON-RPC <code>initialize</code> handshake, (3) <code>tools/list</code> with well-described tools and valid input schemas, (4) latency and auth. You can do it by hand with <code>curl</code>, with the MCP Inspector, or automatically with the <a href="/">free MCP Pulse scanner</a>.</div>
+
+<h2>What "testing an MCP server" actually means</h2>
+<p>An MCP server isn't a normal REST API — clients like Claude, Cursor and agent frameworks speak a specific JSON-RPC 2.0 lifecycle over a transport (today: <strong>streamable HTTP</strong>, which may respond with plain JSON or an SSE stream). "It returns 200" tells you nothing. What matters is whether the client can complete the handshake, enumerate your tools, and understand them well enough to call them.</p>
+
+<h2>1. Transport & reachability</h2>
+<ul>
+  <li>Served over <strong>HTTPS</strong> — most clients refuse plaintext remote endpoints.</li>
+  <li>Accepts <code>POST</code> with <code>Content-Type: application/json</code> and <code>Accept: application/json, text/event-stream</code>.</li>
+  <li>If you issue a session, you return an <code>Mcp-Session-Id</code> response header and honor it on subsequent requests.</li>
+</ul>
+
+<h2>2. The initialize handshake</h2>
+<p>This is the make-or-break call. A minimal manual test:</p>
+<pre><code>curl -sN https://your-server.example.com/mcp \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json, text/event-stream' \
+  -H 'MCP-Protocol-Version: 2025-06-18' \
+  -d '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{
+        "protocolVersion":"2025-06-18","capabilities":{},
+        "clientInfo":{"name":"test","version":"1.0"}}}'</code></pre>
+<p>A healthy response contains <code>result.protocolVersion</code>, <code>result.serverInfo</code> (name + version) and <code>result.capabilities</code>. If any is missing, clients and registries can't identify or route to your server.</p>
+
+<h2>3. tools/list and tool quality</h2>
+<p>After initialize, send the <code>notifications/initialized</code> notification, then call <code>tools/list</code>. For each tool, verify:</p>
+<ul>
+  <li>A <strong>meaningful <code>description</code></strong> — agents choose tools by their description, not their code. An undocumented tool is invisible in an agent workflow.</li>
+  <li>A valid <code>inputSchema</code> (JSON Schema) so the client knows how to call it.</li>
+</ul>
+<p>This is the single most common gap we see: servers that respond perfectly but ship tools with empty or one-word descriptions, then wonder why agents never call them.</p>
+
+<h2>4. Latency & auth</h2>
+<p>Agents run multi-step chains — a 2-second handshake compounds across every hop. Measure it. And decide your auth posture deliberately: a public read-only server answering without auth is fine; a server whose tools mutate state or reach private data should require an <code>Authorization</code> header.</p>
+
+<h2>The fast way: automated scan</h2>
+<p>Doing all four layers by hand for every deploy is tedious. MCP Pulse runs the real <code>initialize</code> + <code>tools/list</code> handshake, scores conformance, tool-doc coverage, latency, TLS and auth 0–100, and tells you exactly what to fix — in 10 seconds, no signup.</p>
+
+<div class="cta"><h3>Test your MCP server now</h3><p>Real protocol handshake, free, 10 seconds.</p><a class="btn" href="/">Scan my server →</a></div>
+
+<footer>
+  <div class="links"><a href="/">Scanner</a><a href="/mcp-server-checklist">Conformance checklist</a><a href="/why-mcp-tools-not-called">Why tools aren't called</a><a href="/mcp-server-monitoring">Monitoring</a></div>
+  <div>© 2026 MCP Pulse</div>
+</footer>
+</div>
+</body>
+</html>

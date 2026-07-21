@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The MCP server conformance checklist (2026): 10 checks agents rely on</title>
+<meta name="description" content="An ordered checklist to make your MCP server discoverable, callable and reliable: HTTPS, initialize handshake, serverInfo, capabilities, tool descriptions, input schemas, latency, auth, session handling and monitoring.">
+<link rel="canonical" href="https://mcppulse.agiscorecard.com/mcp-server-checklist">
+<meta property="og:title" content="The MCP server conformance checklist (2026)">
+<meta property="og:type" content="article">
+<link rel="stylesheet" href="/style.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FZXLMBB5QB"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-FZXLMBB5QB');</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"HowTo","name":"MCP server conformance checklist","description":"Ten ordered checks to make an MCP server discoverable, callable and reliable for agent clients.","step":[
+{"@type":"HowToStep","name":"Serve over HTTPS"},
+{"@type":"HowToStep","name":"Return a valid JSON-RPC initialize result"},
+{"@type":"HowToStep","name":"Negotiate a protocolVersion"},
+{"@type":"HowToStep","name":"Provide serverInfo name and version"},
+{"@type":"HowToStep","name":"Declare capabilities"},
+{"@type":"HowToStep","name":"Describe every tool clearly"},
+{"@type":"HowToStep","name":"Give every tool a valid inputSchema"},
+{"@type":"HowToStep","name":"Keep handshake latency low"},
+{"@type":"HowToStep","name":"Set a deliberate auth posture"},
+{"@type":"HowToStep","name":"Monitor for drift and downtime"}
+]}
+</script>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="/">MCP<span>Pulse</span></a>
+  <nav><a href="/how-to-test-mcp-server">How to test</a><a href="/mcp-index">Index</a><a href="/">Scanner</a></nav>
+</header>
+
+<p class="meta">Checklist · Updated July 2026 · 8 min read</p>
+<h1>The MCP server conformance checklist</h1>
+<p class="lead">Ten checks, ordered by how badly getting them wrong hurts. The first five decide whether clients can use your server at all; the rest decide whether agents actually pick it and keep working.</p>
+
+<h2>1. Serve over HTTPS</h2>
+<p>Most MCP clients refuse plaintext remote endpoints. Non-negotiable for anything beyond localhost.</p>
+
+<h2>2. Return a valid JSON-RPC initialize result</h2>
+<p>A <code>POST</code>ed <code>initialize</code> must return a JSON-RPC 2.0 <code>result</code> (as JSON or an SSE <code>data:</code> event). This is the single gate every client passes through — <a href="/how-to-test-mcp-server">test it first</a>.</p>
+
+<h2>3. Negotiate a protocolVersion</h2>
+<p>Echo a supported <code>protocolVersion</code> in the initialize result. Missing it makes clients and registries unsure how to talk to you.</p>
+
+<h2>4. Provide serverInfo (name + version)</h2>
+<p>Set <code>serverInfo.name</code> and <code>serverInfo.version</code>. Directories, dashboards and clients identify your server by these; without them you're anonymous.</p>
+
+<h2>5. Declare capabilities</h2>
+<p>Declare the <code>capabilities</code> you support (tools, resources, prompts). Clients gate calls on this — undeclared capabilities may never be probed.</p>
+
+<h2>6. Describe every tool clearly</h2>
+<p>Agents choose tools by description. State what each tool does, when to use it, and what it returns. This is the #1 real-world gap — see <a href="/why-mcp-tools-not-called">why your tools aren't being called</a>.</p>
+
+<h2>7. Give every tool a valid inputSchema</h2>
+<p>Typed JSON Schema with per-field descriptions and required fields, so the model can construct valid calls.</p>
+
+<h2>8. Keep handshake latency low</h2>
+<p>Agents chain many calls; every slow hop compounds. Serve from an edge runtime and minimize cold starts. Under ~800ms is healthy.</p>
+
+<h2>9. Set a deliberate auth posture</h2>
+<p>Public read-only server: no auth is fine. Anything that mutates state or reaches private data: require an <code>Authorization</code> header (OAuth or bearer). Decide on purpose — don't leave a stateful server open by accident.</p>
+
+<h2>10. Monitor for drift and downtime</h2>
+<p>Servers regress silently. Watch uptime, latency and tool-schema drift so you're alerted before agents drop you — see the <a href="/mcp-server-monitoring">monitoring guide</a>.</p>
+
+<div class="cta"><h3>Score your server against all 10</h3><p>MCP Pulse checks every item with a real handshake — free, 10 seconds.</p><a class="btn" href="/">Scan my server →</a></div>
+
+<footer>
+  <div class="links"><a href="/">Scanner</a><a href="/how-to-test-mcp-server">How to test</a><a href="/why-mcp-tools-not-called">Why tools aren't called</a><a href="/mcp-server-monitoring">Monitoring</a><a href="/mcp-index">Index</a></div>
+  <div>© 2026 MCP Pulse</div>
+</footer>
+</div>
+</body>
+</html>
