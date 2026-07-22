@@ -80,14 +80,20 @@ jobs:
       - name: Verify billing/alert endpoints are wired and safe-by-default
         run: |
           set -e
-          # Billing webhook must reject unauthenticated calls (no CREEM_WEBHOOK_SECRET configured → 400, never mutates plans).
-          bw=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 -X POST "https://agentready.agiscorecard.com/api/billing/webhook" -H "Content-Type: application/json" -d '{"eventType":"subscription.paid","customer":{"email":"x@example.com"}}' || true)
-          echo "billing webhook (unauth) -> $bw"
-          [ "$bw" = "400" ] || [ "$bw" = "401" ] || { echo "::error::billing webhook did not reject unauthenticated call (got $bw)"; exit 1; }
-          # Test-alert endpoint refuses without CRON_SECRET configured (400).
-          ta=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 "https://agentready.agiscorecard.com/api/monitor/test?to=x@example.com" || true)
-          echo "monitor test (unconfigured) -> $ta"
-          [ "$ta" = "400" ] || [ "$ta" = "401" ] || { echo "::error::monitor test endpoint not guarded (got $ta)"; exit 1; }
+          # New worker routes can lag across edges for a few seconds post-deploy — retry.
+          check() { # $1=desc  $2=curl-args...  expects 400 or 401
+            local desc="$1"; shift
+            for attempt in $(seq 1 6); do
+              code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 "$@" || true)
+              if [ "$code" = "400" ] || [ "$code" = "401" ]; then echo "$desc -> $code (attempt $attempt)"; return 0; fi
+              echo "$desc -> $code (attempt $attempt, retrying)"; sleep 10
+            done
+            echo "::error::$desc not guarded (last code $code)"; return 1
+          }
+          # Billing webhook must reject unauthenticated calls (never mutates plans without a verified signature).
+          check "billing webhook (unauth)" -X POST "https://agentready.agiscorecard.com/api/billing/webhook" -H "Content-Type: application/json" -d '{"eventType":"subscription.paid","customer":{"email":"x@example.com"}}'
+          # Test-alert endpoint refuses without CRON_SECRET configured.
+          check "monitor test (unconfigured)" "https://agentready.agiscorecard.com/api/monitor/test?to=x@example.com"
       - name: Verify scanner API end-to-end
         run: |
           set -e
