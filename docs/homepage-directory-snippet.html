@@ -1,0 +1,66 @@
+<!--
+  agiscorecard.com 首页「目录 / 联动」片段(可直接粘贴到根站首页与页脚)
+  ------------------------------------------------------------------
+  背景:根站占全站 ~85% 流量,受众是关注 AGI/AI 进展的人群。
+  策略:按受众匹配度排序——AI 定义(Glossary)与 AI 工具在前,电商产品在后。
+  收益:① 内链把根站的域名权威/爬虫抓取传给子域(SEO+GEO 飞轮);
+        ② 抓住根站读者里对 AI 概念好奇的子集。
+  说明:样式内联、主题中性,可直接用;如与你首页风格冲突,改 class 名或删 <style> 用你自己的。
+  统计:链接带 ?ref=home,便于在 GA 里区分来自首页的点击。
+-->
+
+<!-- ① 目录区:放在首页内容主体之后、页脚之前 -->
+<section class="ags-directory" aria-label="Tools and references">
+  <style>
+    .ags-directory{max-width:960px;margin:56px auto;padding:0 24px;font-family:inherit}
+    .ags-directory h2{font-size:24px;font-weight:800;letter-spacing:-.02em;margin-bottom:6px}
+    .ags-directory .ags-sub{color:#6b7488;font-size:15px;margin-bottom:22px}
+    .ags-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+    .ags-card{display:block;border:1px solid #e3e6ee;border-radius:14px;padding:18px 20px;text-decoration:none;color:inherit;background:#fff;transition:border-color .15s}
+    .ags-card:hover{border-color:#5b8cff}
+    .ags-card b{display:block;font-size:16px;margin-bottom:4px}
+    .ags-card span{font-size:13.5px;color:#6b7488;line-height:1.5}
+    .ags-tag{display:inline-block;font-size:11px;font-weight:700;color:#2b7a5b;background:#e7f7ef;border-radius:6px;padding:2px 7px;margin-bottom:8px;letter-spacing:.03em}
+    @media(prefers-color-scheme:dark){
+      .ags-card{background:#111629;border-color:#232c4d}
+      .ags-directory .ags-sub,.ags-card span{color:#8b94b5}
+      .ags-tag{color:#38d9a9;background:#123}
+    }
+  </style>
+  <h2>Explore the AI-agent stack</h2>
+  <p class="ags-sub">Plain-English references and free tools for the AI-agent era — built alongside the scorecard.</p>
+  <div class="ags-grid">
+    <!-- 受众高契合:AI 定义 + 工具 -->
+    <a class="ags-card" href="https://glossary.agiscorecard.com/?ref=home">
+      <span class="ags-tag">REFERENCE</span>
+      <b>Agent Glossary</b>
+      <span>25 plain-English definitions: AI agents, RAG, MCP, GEO/AEO, agentic commerce and more.</span>
+    </a>
+    <a class="ags-card" href="https://tools.agiscorecard.com/?ref=home">
+      <span class="ags-tag">FREE TOOLS</span>
+      <b>Agentic Tools</b>
+      <span>Browser tools: schema/JSON-LD, AI robots.txt, sitemap, meta &amp; Open Graph, MCP config generators.</span>
+    </a>
+    <a class="ags-card" href="https://mcppulse.agiscorecard.com/?ref=home">
+      <span class="ags-tag">DEVELOPER</span>
+      <b>MCP Pulse</b>
+      <span>Health-check any Model Context Protocol server with a real protocol handshake. Free.</span>
+    </a>
+    <!-- 电商产品:次级区,受众不完全匹配,放后面 -->
+    <a class="ags-card" href="https://agentready.agiscorecard.com/?ref=home">
+      <span class="ags-tag">FOR STORES</span>
+      <b>AgentReady</b>
+      <span>Scan &amp; monitor whether AI shopping agents (ChatGPT, Perplexity, Google AI) can see your store.</span>
+    </a>
+  </div>
+</section>
+
+<!-- ② 页脚交叉链接:加到你现有 footer 里(内链持续传导权威,不占版面) -->
+<!-- 例:<nav class="ags-footer-links"> ... </nav> -->
+<nav class="ags-footer-links" aria-label="Related sites" style="max-width:960px;margin:0 auto;padding:16px 24px;font-size:13px;color:#6b7488;display:flex;gap:16px;flex-wrap:wrap">
+  <a href="https://glossary.agiscorecard.com/?ref=home" style="color:inherit">Agent Glossary</a>
+  <a href="https://tools.agiscorecard.com/?ref=home" style="color:inherit">Free tools</a>
+  <a href="https://mcppulse.agiscorecard.com/?ref=home" style="color:inherit">MCP Pulse</a>
+  <a href="https://agentready.agiscorecard.com/?ref=home" style="color:inherit">AgentReady</a>
+  <a href="https://selltoagents.agiscorecard.com/?ref=home" style="color:inherit">Sell to Agents</a>
+</nav>
