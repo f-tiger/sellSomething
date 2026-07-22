@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agent discovery checker — is your site's well-known set complete?</title>
+<meta name="description" content="Free agent-discovery checker. Enter a URL and see whether your site publishes the well-known files AI agents look for — ai-catalog.json, MCP server-card.json, A2A agent-card.json, llms.txt, agents.md — plus AI-crawler access. Live server-side check.">
+<link rel="canonical" href="https://tools.agiscorecard.com/well-known-checker">
+<meta property="og:title" content="Agent discovery (well-known) checker">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/style.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FZXLMBB5QB"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-FZXLMBB5QB');</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"WebApplication","name":"Agent discovery well-known checker","applicationCategory":"DeveloperApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What are well-known agent discovery files?","acceptedAnswer":{"@type":"Answer","text":"They are standard files at fixed paths that AI agents, crawlers and registries look for to discover what a site offers: /.well-known/ai-catalog.json (Agentic Resource Discovery), /.well-known/mcp/server-card.json (MCP server), /.well-known/agent-card.json (A2A agent), plus /llms.txt and /agents.md, and robots.txt for AI-crawler access. This checker fetches all of them and reports what's present, valid or missing."}},
+{"@type":"Question","name":"Why does agent discoverability matter?","acceptedAnswer":{"@type":"Answer","text":"AI agents don't browse like people — they read machine-readable files. If your discovery files are missing, agents can't find your MCP server, call your agent, or read a curated map of your site, so you're invisible to the agentic web even if your pages rank in normal search."}},
+{"@type":"Question","name":"How do I fix a missing file?","acceptedAnswer":{"@type":"Answer","text":"Each missing item links to a free generator: build your ai-catalog.json, MCP Server Card, A2A Agent Card, or llms.txt, publish it at the shown path, then re-run the check."}}
+]}]}
+</script>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="/">Agentic<span>Tools</span></a>
+  <nav><a href="/">All tools</a><a href="https://mcppulse.agiscorecard.com">MCP Pulse</a></nav>
+</header>
+
+<h1>Agent discovery checker</h1>
+<p class="lead">Enter a site and see whether it publishes the <b>well-known files</b> AI agents look for — <code>ai-catalog.json</code>, MCP <code>server-card.json</code>, A2A <code>agent-card.json</code>, <code>llms.txt</code>, <code>agents.md</code> — plus AI-crawler access. Live check.</p>
+
+<div class="panel">
+  <div class="btnrow" style="margin-top:0">
+    <input id="url" type="text" placeholder="yourdomain.com" autocomplete="url" style="flex:1;min-width:180px;background:var(--panel2);border:1px solid var(--line);border-radius:10px;color:var(--text);padding:11px 13px;font-size:15px;outline:0">
+    <button class="btn" id="run" type="button">Check</button>
+  </div>
+  <div id="out" style="margin-top:16px"></div>
+</div>
+
+<footer>
+  <div class="links"><a href="/">All tools</a><a href="/ai-catalog-generator">ai-catalog.json generator</a><a href="/mcp-server-card-generator">MCP Server Card</a><a href="/a2a-agent-card-generator">A2A Agent Card</a><a href="https://mcppulse.agiscorecard.com">MCP Pulse</a></div>
+  <div>© 2026 Agentic Tools</div>
+</footer>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function ring(score){
+  const color=score>=80?"#38d9a9":score>=50?"#ffc078":"#ff6b6b";
+  return '<div style="display:flex;align-items:center;gap:16px;margin-bottom:14px"><div style="font-size:38px;font-weight:800;color:'+color+'">'+score+'<span style="font-size:16px;color:var(--dim)">/100</span></div><div style="flex:1"><b>Agent discoverability</b><div style="font-size:13px;color:var(--dim)" id="sm"></div></div></div>';
+}
+async function run(){
+  const url=$("url").value.trim();
+  if(!url){return;}
+  const out=$("out");const btn=$("run");btn.disabled=true;
+  out.innerHTML='<div class="tldr">Fetching well-known files from '+esc(url)+'…</div>';
+  try{
+    const r=await fetch("/api/wellknown?url="+encodeURIComponent(url));
+    const d=await r.json();
+    if(!r.ok){out.innerHTML='<div class="tldr" style="border-left-color:#ff6b6b;color:#ffb4b4">'+esc(d.error||"Check failed.")+'</div>';btn.disabled=false;return;}
+    gtag('event','wellknown_check',{value:d.score});
+    let html=ring(d.score);
+    for(const c of d.checks){
+      const color=c.status==="pass"?"#38d9a9":c.status==="warn"?"#ffc078":"#ff6b6b";
+      const icon=c.status==="pass"?"✓":c.status==="warn"?"⚠":"✗";
+      html+='<div class="tool" style="margin-bottom:8px"><b><span style="color:'+color+'">'+icon+'</span> '+esc(c.title)+'</b><p style="font-size:13px;color:var(--dim);margin-top:4px">'+esc(c.detail)+'</p>'+(c.fix?'<p style="font-size:13px;color:#ffc078;margin-top:4px">'+esc(c.fix)+'</p>':'')+'</div>';
+    }
+    html+='<div class="btnrow"><a class="btn ghost" href="https://mcppulse.agiscorecard.com">Health-check your MCP server →</a><a class="btn ghost" href="https://agentready.agiscorecard.com">Scan store AI-visibility →</a></div>';
+    out.innerHTML=html;
+    const sm=$("sm");if(sm)sm.textContent=d.summary;
+  }catch(e){out.innerHTML='<div class="tldr" style="border-left-color:#ff6b6b;color:#ffb4b4">Network error — please try again.</div>';}
+  btn.disabled=false;
+}
+$("run").addEventListener("click",run);
+$("url").addEventListener("keydown",e=>{if(e.key==="Enter")run();});
+// Deep-link: /well-known-checker?url=example.com auto-runs.
+const q=new URLSearchParams(location.search).get("url");
+if(q){$("url").value=q;run();}
+</script>
+</body>
+</html>

@@ -54,6 +54,7 @@ jobs:
             "https://tools.agiscorecard.com/ai-catalog-generator" \
             "https://tools.agiscorecard.com/a2a-agent-card-generator" \
             "https://tools.agiscorecard.com/json-ld-rich-results-checker" \
+            "https://tools.agiscorecard.com/well-known-checker" \
             "https://agentready.agiscorecard.com/pricing" \
             "https://glossary.agiscorecard.com/ai-agent" \
             "https://glossary.agiscorecard.com/prompt-injection" \
@@ -89,6 +90,12 @@ jobs:
           out=$(curl -s --max-time 60 "https://mcppulse.agiscorecard.com/api/scan?url=https%3A%2F%2Fdocs.mcp.cloudflare.com%2Fmcp")
           echo "$out" | head -c 600; echo
           echo "$out" | python3 -c "import json,sys; d=json.load(sys.stdin); assert isinstance(d.get('score'), int) and d.get('checks'), d; print('mcp scan OK: score', d['score'], 'grade', d['grade'], 'latency', d.get('latencyMs'), 'ms')"
+      - name: Verify well-known discovery API end-to-end
+        run: |
+          set -e
+          out=$(curl -s --max-time 60 "https://tools.agiscorecard.com/api/wellknown?url=https%3A%2F%2Fagentready.agiscorecard.com")
+          echo "$out" | head -c 600; echo
+          echo "$out" | python3 -c "import json,sys; d=json.load(sys.stdin); assert isinstance(d.get('score'), int) and d.get('checks'), d; print('wellknown OK: score', d['score'], d['present'],'/',d['total'],'present')"
       - name: Verify MCP Pulse badge endpoint
         run: |
           set -e
