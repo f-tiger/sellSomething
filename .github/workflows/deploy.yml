@@ -56,9 +56,14 @@ jobs:
             "https://glossary.agiscorecard.com/ai-agent" \
             "https://glossary.agiscorecard.com/prompt-injection" \
             "https://glossary.agiscorecard.com/mcp-tool"; do
-            code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 "$url" || true)
-            echo "$url -> $code"
-            [ "$code" = "200" ] || { echo "::error::$url did not return 200"; exit 1; }
+            ok=""
+            # Brand-new asset paths can 404 on an edge for a few seconds post-deploy — retry.
+            for attempt in $(seq 1 6); do
+              code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 "$url" || true)
+              if [ "$code" = "200" ]; then ok=1; echo "$url -> 200 (attempt $attempt)"; break; fi
+              echo "$url -> $code (attempt $attempt, retrying)"; sleep 10
+            done
+            [ -n "$ok" ] || { echo "::error::$url did not return 200 after retries"; exit 1; }
           done
       - name: Verify monitor endpoint is wired (validation, no side effects)
         run: |
