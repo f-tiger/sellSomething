@@ -49,6 +49,9 @@ jobs:
             "https://tools.agiscorecard.com/xml-sitemap-generator" \
             "https://tools.agiscorecard.com/meta-tag-generator" \
             "https://tools.agiscorecard.com/faq-schema-generator" \
+            "https://tools.agiscorecard.com/acp-feed-converter" \
+            "https://tools.agiscorecard.com/mcp-server-card-generator" \
+            "https://tools.agiscorecard.com/ai-catalog-generator" \
             "https://agentready.agiscorecard.com/pricing" \
             "https://glossary.agiscorecard.com/ai-agent" \
             "https://glossary.agiscorecard.com/prompt-injection" \

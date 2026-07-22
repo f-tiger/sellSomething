@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ai-catalog.json generator — Agentic Resource Discovery manifest</title>
+<meta name="description" content="Free ai-catalog.json generator for Agentic Resource Discovery (ARD). List your MCP servers, agents and APIs in one /.well-known/ai-catalog.json manifest so AI agents and registries can discover everything your site offers. Runs in your browser.">
+<link rel="canonical" href="https://tools.agiscorecard.com/ai-catalog-generator">
+<meta property="og:title" content="ai-catalog.json (Agentic Resource Discovery) generator">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/style.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FZXLMBB5QB"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-FZXLMBB5QB');</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"WebApplication","name":"ai-catalog.json generator","applicationCategory":"DeveloperApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is ai-catalog.json / Agentic Resource Discovery?","acceptedAnswer":{"@type":"Answer","text":"Agentic Resource Discovery (ARD) is a draft specification, backed by Google and Microsoft, for a /.well-known/ai-catalog.json manifest that advertises everything a site offers to AI agents in one place — its MCP servers, A2A agents, APIs and skills. Crawlers and registries read it to discover your agent-facing resources without guessing at well-known paths."}},
+{"@type":"Question","name":"Where do I host ai-catalog.json?","acceptedAnswer":{"@type":"Answer","text":"Serve it at https://your-domain/.well-known/ai-catalog.json. Each listed resource points to its own endpoint or manifest (for example an MCP server's URL or server-card), so agents can follow the catalog to the actual service."}},
+{"@type":"Question","name":"How does this fit with MCP and A2A?","acceptedAnswer":{"@type":"Answer","text":"ai-catalog.json is the index; MCP servers and A2A agent cards are the entries it points to. Generate the catalog here, then generate an MCP Server Card for each MCP endpoint, and health-check each server with MCP Pulse so the resources you advertise actually work."}}
+]}]}
+</script>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="/">Agentic<span>Tools</span></a>
+  <nav><a href="/">All tools</a><a href="https://mcppulse.agiscorecard.com">MCP Pulse</a></nav>
+</header>
+
+<h1>ai-catalog.json generator</h1>
+<p class="lead">Advertise everything your site offers to AI agents — MCP servers, agents, APIs — in one <b>Agentic Resource Discovery</b> <code>/.well-known/ai-catalog.json</code> manifest. Browser-only.</p>
+
+<div class="panel">
+  <div class="row2">
+    <div class="field"><label>Site / org name</label><input id="name" placeholder="Acme Inc"></div>
+    <div class="field"><label>Homepage URL</label><input id="url" placeholder="https://acme.com"></div>
+  </div>
+  <div class="field"><label>Resources — one per line as <code>type | name | url</code> (type = mcp, a2a, api, or openapi)</label>
+  <textarea id="resources" style="min-height:120px" placeholder="mcp | Acme Docs MCP | https://mcp.acme.com/mcp&#10;api | Orders API | https://api.acme.com/openapi.json&#10;a2a | Support Agent | https://acme.com/.well-known/agent-card.json"></textarea></div>
+  <label style="display:block;font-size:13px;color:var(--dim);margin:6px 0 5px;font-weight:600">ai-catalog.json <span id="count"></span></label>
+  <pre id="out"></pre>
+  <div class="btnrow"><button class="btn" id="copy">Copy</button><button class="btn ghost" id="dl">Download ai-catalog.json</button><a class="btn ghost" href="/mcp-server-card-generator">Generate an MCP Server Card →</a></div>
+</div>
+
+<footer>
+  <div class="links"><a href="/">All tools</a><a href="/mcp-server-card-generator">MCP Server Card generator</a><a href="https://glossary.agiscorecard.com/mcp">What is MCP?</a><a href="https://mcppulse.agiscorecard.com">MCP Pulse</a></div>
+  <div>© 2026 Agentic Tools</div>
+</footer>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const TYPES={mcp:"mcp_server",a2a:"a2a_agent",api:"api",openapi:"api"};
+function gen(){
+  const resources=$("resources").value.split("\n").map(l=>l.trim()).filter(Boolean).map(l=>{
+    const parts=l.split("|").map(s=>s.trim());
+    const type=(parts[0]||"api").toLowerCase();
+    return {type:TYPES[type]||type,name:parts[1]||"",url:parts[2]||""};
+  }).filter(r=>r.url);
+  const cat={
+    schema_version:"2026-06-17",
+    name:$("name").value.trim()||"My Organization",
+    url:$("url").value.trim()||"https://example.com",
+    resources
+  };
+  const json=JSON.stringify(cat,null,2);
+  $("out").textContent=json;
+  $("count").textContent=resources.length?"("+resources.length+" resource"+(resources.length>1?"s":"")+")":"";
+  return json;
+}
+["name","url","resources"].forEach(id=>$(id).addEventListener("input",gen));
+$("copy").addEventListener("click",async()=>{await navigator.clipboard.writeText(gen());const b=$("copy");b.textContent="✓ Copied";setTimeout(()=>b.textContent="Copy",1400);});
+$("dl").addEventListener("click",()=>{const blob=new Blob([gen()],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="ai-catalog.json";a.click();URL.revokeObjectURL(a.href);});
+$("name").value="Acme Inc";$("url").value="https://acme.com";
+$("resources").value="mcp | Acme Docs MCP | https://mcp.acme.com/mcp\napi | Orders API | https://api.acme.com/openapi.json";
+gen();
+</script>
+</body>
+</html>

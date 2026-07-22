@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ACP product feed converter — CSV to ChatGPT / Agentic Commerce JSONL</title>
+<meta name="description" content="Free ACP product-feed converter. Paste your Google-Merchant-style product CSV and get a JSONL feed for the Agentic Commerce Protocol (ChatGPT Shopping / Instant Checkout) — with required-field validation. Runs in your browser.">
+<link rel="canonical" href="https://tools.agiscorecard.com/acp-feed-converter">
+<meta property="og:title" content="ACP product feed converter (CSV → JSONL)">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/style.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FZXLMBB5QB"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-FZXLMBB5QB');</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"WebApplication","name":"ACP product feed converter","applicationCategory":"BusinessApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is an ACP product feed?","acceptedAnswer":{"@type":"Answer","text":"The Agentic Commerce Protocol (ACP), backed by OpenAI and Stripe, uses a product feed that AI shopping agents like ChatGPT read to discover and check out your products. The feed is JSONL — one JSON product object per line — with fields such as id, title, description, link, price and availability. It is a separate feed from your Google Merchant Center feed."}},
+{"@type":"Question","name":"How do I convert my Google Merchant feed to ACP JSONL?","acceptedAnswer":{"@type":"Answer","text":"Export your products as CSV (the same columns you use for Google Merchant Center: id, title, description, link, image_link, price, availability, brand, gtin), paste it here, and this tool maps each row to a JSONL product line and flags any missing required fields. Everything runs in your browser — no upload."}},
+{"@type":"Question","name":"Which fields are required?","acceptedAnswer":{"@type":"Answer","text":"At minimum id, title, description, link, price and availability. Recommended additions include image_link, brand, gtin/mpn, condition and inventory_quantity, which help agents rank and present your products."}}
+]}]}
+</script>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="/">Agentic<span>Tools</span></a>
+  <nav><a href="/">All tools</a><a href="https://agentready.agiscorecard.com">Scanner</a></nav>
+</header>
+
+<h1>ACP product feed converter</h1>
+<p class="lead">Paste a Google-Merchant-style product <b>CSV</b> and get a <code>.jsonl</code> feed for the <b>Agentic Commerce Protocol</b> (ChatGPT Shopping / Instant Checkout) — with required-field validation. Browser-only, nothing uploaded.</p>
+
+<div class="panel">
+  <div class="field"><label>Product CSV — first row is the header (id, title, description, link, image_link, price, availability, brand, gtin…)</label>
+  <textarea id="csv" style="min-height:150px" placeholder="id,title,description,link,image_link,price,availability&#10;SKU1,Blue Runners,Lightweight running shoe,https://store.com/p/sku1,https://store.com/img/sku1.jpg,79.00 USD,in_stock"></textarea></div>
+  <div class="btnrow"><button class="btn" id="convert">Convert to JSONL</button><button class="btn ghost" id="sample">Load sample</button></div>
+  <div id="report" style="margin-top:14px;font-size:14px"></div>
+  <label style="display:block;font-size:13px;color:var(--dim);margin:16px 0 5px;font-weight:600">ACP feed (JSONL) <span id="count"></span></label>
+  <pre id="out"></pre>
+  <div class="btnrow"><button class="btn" id="copy">Copy</button><button class="btn ghost" id="dl">Download feed.jsonl</button><a class="btn ghost" href="https://agentready.agiscorecard.com">Scan your store's AI readiness →</a></div>
+</div>
+
+<footer>
+  <div class="links"><a href="/">All tools</a><a href="https://glossary.agiscorecard.com/chatgpt-shopping">What is ChatGPT Shopping?</a><a href="https://glossary.agiscorecard.com/acp">What is ACP?</a><a href="https://agentready.agiscorecard.com">AgentReady</a></div>
+  <div>© 2026 Agentic Tools</div>
+</footer>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const REQUIRED=["id","title","description","link","price","availability"];
+const RECOMMENDED=["image_link","brand","gtin","mpn","condition","inventory_quantity"];
+
+// Minimal RFC-4180-ish CSV line splitter (handles quoted fields with commas).
+function splitCsvLine(line){
+  const out=[];let cur="",q=false;
+  for(let i=0;i<line.length;i++){
+    const c=line[i];
+    if(q){
+      if(c==='"'){ if(line[i+1]==='"'){cur+='"';i++;} else q=false; }
+      else cur+=c;
+    }else{
+      if(c===','){out.push(cur);cur="";}
+      else if(c==='"')q=true;
+      else cur+=c;
+    }
+  }
+  out.push(cur);return out.map(s=>s.trim());
+}
+function parseCsv(text){
+  const lines=text.split(/\r?\n/).filter(l=>l.trim().length);
+  if(!lines.length)return{headers:[],rows:[]};
+  const headers=splitCsvLine(lines[0]).map(h=>h.toLowerCase().replace(/\s+/g,"_"));
+  const rows=lines.slice(1).map(l=>{
+    const cells=splitCsvLine(l);const o={};
+    headers.forEach((h,i)=>{ if(cells[i]!==undefined&&cells[i]!=="")o[h]=cells[i]; });
+    return o;
+  });
+  return{headers,rows};
+}
+function convert(){
+  const {headers,rows}=parseCsv($("csv").value);
+  const rep=$("report");
+  if(!rows.length){rep.innerHTML='<span class="err" style="color:var(--acc,#38bdf8)">Paste at least a header row and one product.</span>';$("out").textContent="";$("count").textContent="";return "";}
+  const missingReq=REQUIRED.filter(f=>!headers.includes(f));
+  const missingRec=RECOMMENDED.filter(f=>!headers.includes(f));
+  const jsonl=rows.map(r=>JSON.stringify(r)).join("\n");
+  $("out").textContent=jsonl;
+  $("count").textContent="("+rows.length+" product"+(rows.length>1?"s":"")+")";
+  let html="";
+  if(missingReq.length) html+='<div style="color:#ff6b6b">✗ Missing required columns: <b>'+missingReq.join(", ")+'</b> — agents may reject these products.</div>';
+  else html+='<div style="color:#38d9a9">✓ All required fields present ('+REQUIRED.join(", ")+').</div>';
+  if(missingRec.length) html+='<div style="color:var(--dim);margin-top:4px">Tip: add recommended fields for better ranking — '+missingRec.join(", ")+'.</div>';
+  rep.innerHTML=html;
+  return jsonl;
+}
+$("convert").addEventListener("click",convert);
+$("copy").addEventListener("click",async()=>{const t=convert();if(!t)return;await navigator.clipboard.writeText(t);const b=$("copy");b.textContent="✓ Copied";setTimeout(()=>b.textContent="Copy",1400);});
+$("dl").addEventListener("click",()=>{const t=convert();if(!t)return;const blob=new Blob([t],{type:"application/x-ndjson"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="feed.jsonl";a.click();URL.revokeObjectURL(a.href);});
+$("sample").addEventListener("click",()=>{$("csv").value='id,title,description,link,image_link,price,availability,brand,gtin,condition\nSKU1,Blue Trail Runners,Lightweight breathable trail running shoe with grippy outsole,https://store.example.com/p/sku1,https://store.example.com/img/sku1.jpg,79.00 USD,in_stock,Acme,0193572001234,new\nSKU2,Merino Wool Socks (3-pack),Soft moisture-wicking merino socks,https://store.example.com/p/sku2,https://store.example.com/img/sku2.jpg,24.00 USD,in_stock,Acme,0193572005678,new';convert();});
+convert();
+</script>
+</body>
+</html>

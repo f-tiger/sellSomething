@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MCP Server Card generator — /.well-known/mcp/server-card.json</title>
+<meta name="description" content="Free MCP Server Card generator. Fill in your Model Context Protocol server's name, endpoint, transport, auth and tools and get a /.well-known/mcp/server-card.json manifest so agents and registries can discover it. Runs in your browser.">
+<link rel="canonical" href="https://tools.agiscorecard.com/mcp-server-card-generator">
+<meta property="og:title" content="MCP Server Card generator">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/style.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FZXLMBB5QB"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-FZXLMBB5QB');</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"WebApplication","name":"MCP Server Card generator","applicationCategory":"DeveloperApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is an MCP Server Card?","acceptedAnswer":{"@type":"Answer","text":"An MCP Server Card is a small JSON manifest, typically served at /.well-known/mcp/server-card.json, that describes a Model Context Protocol server before an agent connects — its name, description, endpoint URL, transport, authentication and the tools it exposes. It lets agents, registries and readiness scanners discover and describe your server without a full handshake."}},
+{"@type":"Question","name":"Where do I put the server card?","acceptedAnswer":{"@type":"Answer","text":"Serve the generated JSON at https://your-domain/.well-known/mcp/server-card.json. Keep it in sync with your actual server: the endpoint URL, transport (streamable HTTP, SSE or stdio) and tool list should match what your server really exposes."}},
+{"@type":"Question","name":"How do I know my server actually works?","acceptedAnswer":{"@type":"Answer","text":"After publishing the card, health-check the live endpoint with a real protocol handshake using MCP Pulse — it verifies the initialize handshake, lists tools, and measures latency, so you know agents can actually use the server the card advertises."}}
+]}]}
+</script>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="/">Agentic<span>Tools</span></a>
+  <nav><a href="/">All tools</a><a href="https://mcppulse.agiscorecard.com">MCP Pulse</a></nav>
+</header>
+
+<h1>MCP Server Card generator</h1>
+<p class="lead">Describe your <b>Model Context Protocol</b> server and get a <code>/.well-known/mcp/server-card.json</code> manifest so agents, registries and readiness scanners can discover it. Browser-only.</p>
+
+<div class="panel">
+  <div class="field"><label>Server name</label><input id="name" placeholder="Acme Docs MCP"></div>
+  <div class="field"><label>Description</label><textarea id="desc" placeholder="Search and read Acme's product documentation."></textarea></div>
+  <div class="row2">
+    <div class="field"><label>Endpoint URL</label><input id="url" placeholder="https://mcp.acme.com/mcp"></div>
+    <div class="field"><label>Version</label><input id="version" placeholder="1.0.0"></div>
+  </div>
+  <div class="row2">
+    <div class="field"><label>Transport</label>
+      <select id="transport"><option value="streamable-http">streamable-http</option><option value="sse">sse</option><option value="stdio">stdio</option></select></div>
+    <div class="field"><label>Authentication</label>
+      <select id="auth"><option value="none">none</option><option value="oauth2">oauth2</option><option value="apikey">api key</option></select></div>
+  </div>
+  <div class="field"><label>Tools — one per line as <code>name: description</code></label>
+  <textarea id="tools" placeholder="search_docs: Full-text search over the docs&#10;get_page: Fetch a doc page by id"></textarea></div>
+  <div class="field"><label>Docs / contact URL (optional)</label><input id="contact" placeholder="https://acme.com/mcp"></div>
+  <label style="display:block;font-size:13px;color:var(--dim);margin:6px 0 5px;font-weight:600">server-card.json</label>
+  <pre id="out"></pre>
+  <div class="btnrow"><button class="btn" id="copy">Copy</button><button class="btn ghost" id="dl">Download server-card.json</button><a class="btn ghost" href="https://mcppulse.agiscorecard.com">Health-check your server →</a></div>
+</div>
+
+<footer>
+  <div class="links"><a href="/">All tools</a><a href="https://glossary.agiscorecard.com/mcp-server">What is an MCP server?</a><a href="https://glossary.agiscorecard.com/mcp">What is MCP?</a><a href="https://mcppulse.agiscorecard.com">MCP Pulse</a></div>
+  <div>© 2026 Agentic Tools</div>
+</footer>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+function gen(){
+  const tools=$("tools").value.split("\n").map(l=>l.trim()).filter(Boolean).map(l=>{
+    const i=l.indexOf(":");
+    return i<0?{name:l}:{name:l.slice(0,i).trim(),description:l.slice(i+1).trim()};
+  });
+  const card={
+    schema_version:"2025-11-25",
+    name:$("name").value.trim()||"My MCP Server",
+    description:$("desc").value.trim()||"",
+    version:$("version").value.trim()||"1.0.0",
+    endpoint:{url:$("url").value.trim()||"https://example.com/mcp",transport:$("transport").value},
+    authentication:{type:$("auth").value},
+    tools
+  };
+  const contact=$("contact").value.trim();
+  if(contact)card.documentation_url=contact;
+  const json=JSON.stringify(card,null,2);
+  $("out").textContent=json;
+  return json;
+}
+["name","desc","url","version","transport","auth","tools","contact"].forEach(id=>$(id).addEventListener("input",gen));
+$("copy").addEventListener("click",async()=>{await navigator.clipboard.writeText(gen());const b=$("copy");b.textContent="✓ Copied";setTimeout(()=>b.textContent="Copy",1400);});
+$("dl").addEventListener("click",()=>{const blob=new Blob([gen()],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="server-card.json";a.click();URL.revokeObjectURL(a.href);});
+$("name").value="Acme Docs MCP";$("desc").value="Search and read Acme's product documentation.";$("url").value="https://mcp.acme.com/mcp";$("version").value="1.0.0";
+$("tools").value="search_docs: Full-text search over the docs\nget_page: Fetch a doc page by id";
+gen();
+</script>
+</body>
+</html>
