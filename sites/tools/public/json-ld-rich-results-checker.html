@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JSON-LD rich results checker — which schema still works in 2026</title>
+<meta name="description" content="Free JSON-LD checker. Paste your schema.org structured data and see which types still earn rich results in 2026 and which are deprecated (FAQPage, HowTo) — plus syntax and required-property checks. Runs in your browser.">
+<link rel="canonical" href="https://tools.agiscorecard.com/json-ld-rich-results-checker">
+<meta property="og:title" content="JSON-LD rich results checker (2026)">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/style.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FZXLMBB5QB"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-FZXLMBB5QB');</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"WebApplication","name":"JSON-LD rich results checker","applicationCategory":"DeveloperApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Does FAQ schema still show rich results?","acceptedAnswer":{"@type":"Answer","text":"For almost all sites, no. Google restricted FAQ rich results to authoritative government and health sites in 2023 and removed them broadly in 2026. FAQPage JSON-LD is still useful for AI answers and assistants, but it no longer earns the expandable Q&A rich result in Google search for typical sites. HowTo rich results were similarly deprecated."}},
+{"@type":"Question","name":"Which schema types still earn rich results in 2026?","acceptedAnswer":{"@type":"Answer","text":"Product and Offer, Review and AggregateRating, Recipe, Event, JobPosting, VideoObject, BreadcrumbList, and Organization/LocalBusiness remain eligible for rich results. This checker labels each @type in your markup as still-eligible or deprecated and flags common missing required properties."}},
+{"@type":"Question","name":"Is this the same as Google's Rich Results Test?","acceptedAnswer":{"@type":"Answer","text":"No. Google's test validates syntax but buries the fact that a type has been deprecated. This tool's focus is telling you which of your types still trigger a rich result in 2026 versus which are dead, so you don't keep maintaining markup that no longer earns anything in search."}}
+]}]}
+</script>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="/">Agentic<span>Tools</span></a>
+  <nav><a href="/">All tools</a><a href="https://agentready.agiscorecard.com">Scanner</a></nav>
+</header>
+
+<h1>JSON-LD rich results checker</h1>
+<p class="lead">Paste your <code>schema.org</code> JSON-LD and see which types <b>still earn rich results in 2026</b> and which are <b>deprecated</b> (FAQPage, HowTo) — plus syntax and required-property checks. Browser-only.</p>
+
+<div class="panel">
+  <div class="field"><label>Your JSON-LD (with or without the <code>&lt;script&gt;</code> wrapper)</label>
+  <textarea id="in" style="min-height:150px" placeholder='{"@context":"https://schema.org","@type":"Product","name":"..."}'></textarea></div>
+  <div class="btnrow"><button class="btn" id="check">Check</button><button class="btn ghost" id="sample">Load sample</button></div>
+  <div id="out" style="margin-top:16px"></div>
+</div>
+
+<footer>
+  <div class="links"><a href="/">All tools</a><a href="/product-schema-generator">Product schema generator</a><a href="https://glossary.agiscorecard.com/structured-data">What is structured data?</a><a href="https://agentready.agiscorecard.com">AgentReady</a></div>
+  <div>© 2026 Agentic Tools</div>
+</footer>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+// type -> {status: 'ok'|'deprecated', note, required:[...]}
+const TYPES={
+  Product:{status:"ok",required:["name"],note:"Add Offer (price, priceCurrency, availability) and AggregateRating for the strongest result."},
+  Offer:{status:"ok",required:["price","priceCurrency"]},
+  Review:{status:"ok",required:["reviewRating","author"]},
+  AggregateRating:{status:"ok",required:["ratingValue"]},
+  Recipe:{status:"ok",required:["name"]},
+  Event:{status:"ok",required:["name","startDate","location"]},
+  JobPosting:{status:"ok",required:["title","hiringOrganization","datePosted"]},
+  VideoObject:{status:"ok",required:["name","thumbnailUrl","uploadDate"]},
+  BreadcrumbList:{status:"ok",required:["itemListElement"]},
+  Organization:{status:"ok",required:["name"]},
+  LocalBusiness:{status:"ok",required:["name","address"]},
+  Article:{status:"ok",required:["headline"],note:"Article no longer shows a distinct rich result but remains a strong signal for Google News / Discover and AI answers."},
+  MerchantReturnPolicy:{status:"ok",required:["returnPolicyCategory"],note:"Feeds the Product result and is favored by AI shopping agents — 94% of stores omit it."},
+  FAQPage:{status:"deprecated",required:["mainEntity"],note:"Rich result removed for typical sites (2023 restriction → 2026 removal). Keep it for AI assistants, but it no longer expands in Google search."},
+  HowTo:{status:"deprecated",required:["step"],note:"HowTo rich result was deprecated by Google. Markup is inert for search rich results now."},
+  QAPage:{status:"deprecated",required:["mainEntity"],note:"Only eligible for genuine user-forum Q&A pages; not for marketing FAQs."},
+  WebSite:{status:"ok",required:["name"],note:"Sitelinks search box (SearchAction) was deprecated in 2024; the WebSite object itself is still fine for entity signals."}
+};
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function collectTypes(node,acc){
+  if(Array.isArray(node)){node.forEach(n=>collectTypes(n,acc));return;}
+  if(node&&typeof node==="object"){
+    if(node["@type"]){const t=node["@type"];(Array.isArray(t)?t:[t]).forEach(tt=>acc.push({type:tt,node}));}
+    for(const k in node){if(k!=="@type")collectTypes(node[k],acc);}
+  }
+}
+function check(){
+  let raw=$("in").value.trim();
+  const out=$("out");
+  const m=raw.match(/<script[^>]*>([\s\S]*?)<\/script>/i);
+  if(m)raw=m[1].trim();
+  if(!raw){out.innerHTML="";return;}
+  let data;
+  try{data=JSON.parse(raw);}
+  catch(e){out.innerHTML='<div class="tldr" style="border-left-color:#ff6b6b;color:#ffb4b4">✗ Invalid JSON — '+esc(e.message)+'</div>';return;}
+  const found=[];collectTypes((data&&data["@graph"])||data,found);
+  if(!found.length){out.innerHTML='<div class="tldr">Valid JSON, but no <code>@type</code> found. schema.org markup needs a @type.</div>';return;}
+  const hasCtx=JSON.stringify(data).indexOf("schema.org")>=0;
+  let html="";
+  if(!hasCtx)html+='<div class="tldr" style="border-left-color:var(--warn,#ffc078)">⚠ No <code>@context":"https://schema.org"</code> found — add it or the markup is ignored.</div>';
+  const seen=new Set();
+  for(const {type,node} of found){
+    const key=type+JSON.stringify(node).length;if(seen.has(key))continue;seen.add(key);
+    const spec=TYPES[type];
+    const props=Object.keys(node);
+    let badge,color;
+    if(!spec){badge="unknown type";color="var(--dim)";}
+    else if(spec.status==="deprecated"){badge="⚠ DEPRECATED rich result";color="#ffc078";}
+    else{badge="✓ eligible in 2026";color="#38d9a9";}
+    let miss=spec?(spec.required||[]).filter(r=>!props.includes(r)):[];
+    html+='<div class="tool" style="margin-bottom:10px">';
+    html+='<b>'+esc(type)+'</b> &nbsp;<span style="color:'+color+';font-size:12px;font-weight:700">'+badge+'</span>';
+    if(spec&&spec.note)html+='<p style="font-size:13px;color:var(--dim);margin-top:5px">'+esc(spec.note)+'</p>';
+    if(miss.length)html+='<p style="font-size:13px;color:#ffc078;margin-top:5px">Missing recommended: <b>'+miss.join(", ")+'</b></p>';
+    html+='</div>';
+  }
+  html+='<div class="btnrow"><a class="btn ghost" href="https://agentready.agiscorecard.com">Scan the whole page →</a></div>';
+  out.innerHTML=html;
+}
+$("check").addEventListener("click",check);
+$("in").addEventListener("input",check);
+$("sample").addEventListener("click",()=>{$("in").value='{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Do you ship free?","acceptedAnswer":{"@type":"Answer","text":"Yes, over $50."}}]}';check();});
+check();
+</script>
+</body>
+</html>

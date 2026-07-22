@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A2A Agent Card generator — /.well-known/agent-card.json</title>
+<meta name="description" content="Free A2A Agent Card generator. Describe your agent's skills, capabilities and endpoint and get an Agent2Agent /.well-known/agent-card.json so other agents can discover and call it. Runs in your browser.">
+<link rel="canonical" href="https://tools.agiscorecard.com/a2a-agent-card-generator">
+<meta property="og:title" content="A2A Agent Card generator">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/style.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FZXLMBB5QB"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-FZXLMBB5QB');</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"WebApplication","name":"A2A Agent Card generator","applicationCategory":"DeveloperApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is an A2A Agent Card?","acceptedAnswer":{"@type":"Answer","text":"An Agent Card is a JSON document used by the Agent2Agent (A2A) protocol, usually served at /.well-known/agent-card.json, that describes an agent so other agents can discover and call it — its name, description, endpoint URL, capabilities (streaming, push notifications), input/output modes and the skills it offers."}},
+{"@type":"Question","name":"Where do I host the agent card?","acceptedAnswer":{"@type":"Answer","text":"Serve the generated JSON at https://your-domain/.well-known/agent-card.json. Keep the url, skills and capabilities in sync with what your agent actually implements so calling agents don't get rejected."}},
+{"@type":"Question","name":"How does A2A relate to MCP?","acceptedAnswer":{"@type":"Answer","text":"MCP connects an agent to tools and data; A2A connects agents to other agents. Together with an ai-catalog.json manifest, an A2A Agent Card and an MCP Server Card form the well-known discovery set that lets the agentic web find and use what you expose."}}
+]}]}
+</script>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="/">Agentic<span>Tools</span></a>
+  <nav><a href="/">All tools</a><a href="https://mcppulse.agiscorecard.com">MCP Pulse</a></nav>
+</header>
+
+<h1>A2A Agent Card generator</h1>
+<p class="lead">Describe your <b>Agent2Agent (A2A)</b> agent and get a <code>/.well-known/agent-card.json</code> so other agents can discover and call it. Browser-only.</p>
+
+<div class="panel">
+  <div class="field"><label>Agent name</label><input id="name" placeholder="Acme Support Agent"></div>
+  <div class="field"><label>Description</label><textarea id="desc" placeholder="Answers billing and account questions for Acme customers."></textarea></div>
+  <div class="row2">
+    <div class="field"><label>Agent endpoint URL</label><input id="url" placeholder="https://agent.acme.com/a2a"></div>
+    <div class="field"><label>Version</label><input id="version" placeholder="1.0.0"></div>
+  </div>
+  <div class="row2">
+    <div class="field"><label>Provider organization</label><input id="org" placeholder="Acme Inc"></div>
+    <div class="field"><label>Authentication</label>
+      <select id="auth"><option value="none">none</option><option value="oauth2">oauth2</option><option value="bearer">bearer</option><option value="apiKey">api key</option></select></div>
+  </div>
+  <div class="checks">
+    <label><input type="checkbox" id="streaming" checked> streaming</label>
+    <label><input type="checkbox" id="push"> push notifications</label>
+  </div>
+  <div class="field"><label>Skills — one per line as <code>id: name — description</code></label>
+  <textarea id="skills" style="min-height:90px" placeholder="billing: Billing help — Answer invoice and payment questions&#10;account: Account help — Update account details"></textarea></div>
+  <label style="display:block;font-size:13px;color:var(--dim);margin:6px 0 5px;font-weight:600">agent-card.json</label>
+  <pre id="out"></pre>
+  <div class="btnrow"><button class="btn" id="copy">Copy</button><button class="btn ghost" id="dl">Download agent-card.json</button><a class="btn ghost" href="/ai-catalog-generator">Add it to ai-catalog.json →</a></div>
+</div>
+
+<footer>
+  <div class="links"><a href="/">All tools</a><a href="/mcp-server-card-generator">MCP Server Card generator</a><a href="https://glossary.agiscorecard.com/a2a">What is A2A?</a><a href="https://mcppulse.agiscorecard.com">MCP Pulse</a></div>
+  <div>© 2026 Agentic Tools</div>
+</footer>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+function gen(){
+  const skills=$("skills").value.split("\n").map(l=>l.trim()).filter(Boolean).map(l=>{
+    const c=l.indexOf(":");
+    const id=c<0?l:l.slice(0,c).trim();
+    let rest=c<0?"":l.slice(c+1).trim();
+    let name=rest,description="";
+    const d=rest.indexOf("—");const d2=d<0?rest.indexOf(" - "):d;
+    if(d>=0){name=rest.slice(0,d).trim();description=rest.slice(d+1).trim();}
+    else if(rest.indexOf(" - ")>=0){name=rest.slice(0,rest.indexOf(" - ")).trim();description=rest.slice(rest.indexOf(" - ")+3).trim();}
+    const s={id,name:name||id};
+    if(description)s.description=description;
+    return s;
+  });
+  const card={
+    protocolVersion:"0.3.0",
+    name:$("name").value.trim()||"My Agent",
+    description:$("desc").value.trim()||"",
+    url:$("url").value.trim()||"https://example.com/a2a",
+    version:$("version").value.trim()||"1.0.0",
+    provider:{organization:$("org").value.trim()||""},
+    capabilities:{streaming:$("streaming").checked,pushNotifications:$("push").checked},
+    defaultInputModes:["text/plain"],
+    defaultOutputModes:["text/plain"],
+    securitySchemes:{primary:{type:$("auth").value}},
+    skills
+  };
+  const json=JSON.stringify(card,null,2);
+  $("out").textContent=json;
+  return json;
+}
+["name","desc","url","version","org","auth","skills"].forEach(id=>$(id).addEventListener("input",gen));
+["streaming","push"].forEach(id=>$(id).addEventListener("change",gen));
+$("copy").addEventListener("click",async()=>{await navigator.clipboard.writeText(gen());const b=$("copy");b.textContent="✓ Copied";setTimeout(()=>b.textContent="Copy",1400);});
+$("dl").addEventListener("click",()=>{const blob=new Blob([gen()],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="agent-card.json";a.click();URL.revokeObjectURL(a.href);});
+$("name").value="Acme Support Agent";$("desc").value="Answers billing and account questions for Acme customers.";$("url").value="https://agent.acme.com/a2a";$("version").value="1.0.0";$("org").value="Acme Inc";
+$("skills").value="billing: Billing help — Answer invoice and payment questions\naccount: Account help — Update account details";
+gen();
+</script>
+</body>
+</html>

@@ -10,4 +10,6 @@
   <url><loc>https://tools.agiscorecard.com/acp-feed-converter</loc><lastmod>2026-07-22</lastmod><priority>0.9</priority></url>
   <url><loc>https://tools.agiscorecard.com/mcp-server-card-generator</loc><lastmod>2026-07-22</lastmod><priority>0.9</priority></url>
   <url><loc>https://tools.agiscorecard.com/ai-catalog-generator</loc><lastmod>2026-07-22</lastmod><priority>0.9</priority></url>
+  <url><loc>https://tools.agiscorecard.com/a2a-agent-card-generator</loc><lastmod>2026-07-22</lastmod><priority>0.9</priority></url>
+  <url><loc>https://tools.agiscorecard.com/json-ld-rich-results-checker</loc><lastmod>2026-07-22</lastmod><priority>0.9</priority></url>
 </urlset>

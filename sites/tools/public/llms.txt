@@ -12,6 +12,8 @@
 - [ACP product feed converter](/acp-feed-converter): convert a Google-Merchant-style CSV into an Agentic Commerce Protocol (ChatGPT Shopping) JSONL feed with validation
 - [MCP Server Card generator](/mcp-server-card-generator): build a /.well-known/mcp/server-card.json manifest for a Model Context Protocol server
 - [ai-catalog.json generator](/ai-catalog-generator): build an Agentic Resource Discovery /.well-known/ai-catalog.json listing MCP servers, agents and APIs
+- [A2A Agent Card generator](/a2a-agent-card-generator): build an Agent2Agent /.well-known/agent-card.json so other agents can discover and call yours
+- [JSON-LD rich results checker](/json-ld-rich-results-checker): paste schema.org JSON-LD and see which types still earn rich results in 2026 vs deprecated ones (FAQPage, HowTo)
 
 ## Related
 - [AgentReady](https://agentready.agiscorecard.com): AI sales-visibility scanner (+ llms.txt generator)
