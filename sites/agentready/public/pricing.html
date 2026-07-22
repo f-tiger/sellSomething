@@ -147,11 +147,30 @@ $('mon-btn').addEventListener('click',async()=>{
   }catch(e){setOut('Network error — please try again.','err');btn.disabled=false;}
 });
 
+// Creem checkout URLs — paste them here to switch a plan from waitlist to live
+// checkout (see docs/BILLING-SETUP.md). Empty = early-access waitlist mode.
+const CHECKOUT={pro:"",team:""};
+
 function earlyAccess(formId,emailId,plan){
-  $(formId).addEventListener('submit',async e=>{
+  const form=$(formId);
+  const btn=form.querySelector('button');
+  if(CHECKOUT[plan]){
+    // Live checkout: submit sends the buyer to Creem (email prefilled).
+    btn.textContent='Subscribe →';
+    form.addEventListener('submit',e=>{
+      e.preventDefault();
+      const email=$(emailId).value.trim();
+      gtag('event','checkout_click',{plan:plan});
+      const sep=CHECKOUT[plan].indexOf('?')<0?'?':'&';
+      location.href=CHECKOUT[plan]+(email?sep+'email='+encodeURIComponent(email):'');
+    });
+    return;
+  }
+  // Waitlist mode (no charge, validate intent).
+  form.addEventListener('submit',async e=>{
     e.preventDefault();
     const email=$(emailId).value.trim();
-    const btn=e.target.querySelector('button');const orig=btn.textContent;btn.disabled=true;
+    btn.disabled=true;
     try{
       await fetch('/api/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,intent:'preorder'})});
       gtag('event','early_access',{plan:plan});

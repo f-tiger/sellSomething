@@ -25,6 +25,7 @@ export default {
     if (url.pathname === "/api/scan") return handleScan(request);
     if (url.pathname === "/api/subscribe") return handleSubscribe(request, env);
     if (url.pathname === "/api/monitor") return handleMonitor(request, env);
+    if (url.pathname === "/api/monitor/test") return handleMonitorTest(request, env);
     if (url.pathname === "/api/cron/run") return handleCronRun(request, env);
     if (url.pathname === "/api/billing/webhook") return handleBillingWebhook(request, env);
     if (url.pathname === "/api/stats") return handleStats(env);
@@ -594,7 +595,7 @@ function detectRegressions(baseline, fresh) {
 async function sendAlert(env, rec, fresh, issues) {
   const host = (() => { try { return new URL(rec.url).host; } catch { return rec.url; } })();
   const subject = `⚠️ AI-visibility regression on ${host} (score ${fresh.score}/100)`;
-  const lines = [
+  const text = [
     `Your AgentReady monitor found a regression on ${rec.url}:`,
     "",
     ...issues.map((i) => "• " + i),
@@ -604,54 +605,140 @@ async function sendAlert(env, rec, fresh, issues) {
     `Re-scan: https://agentready.agiscorecard.com/?url=${encodeURIComponent(rec.url)}`,
     "",
     "— AgentReady monitoring",
-  ];
-  const text = lines.join("\n");
-  const at = new Date().toISOString();
+  ].join("\n");
 
-  if (env.RESEND_API_KEY) {
-    try {
-      const r = await fetch("https://api.resend.com/emails", {
-        method: "POST",
-        headers: { Authorization: "Bearer " + env.RESEND_API_KEY, "Content-Type": "application/json" },
-        body: JSON.stringify({
-          from: env.ALERT_FROM || "AgentReady <alerts@agiscorecard.com>",
-          to: rec.email,
-          subject,
-          text,
-        }),
-      });
-      if (r.ok) return;
-    } catch { /* fall through to KV persistence */ }
-  }
+  const res = await sendEmail(env, rec.email, subject, text);
+  if (res.ok) return;
   // No email provider configured (or send failed): persist so nothing is lost.
-  await env.SUBSCRIBERS.put(`alert:agentready:${rec.id}:${at}`, JSON.stringify({ email: rec.email, subject, text, at }));
+  await env.SUBSCRIBERS.put(`alert:agentready:${rec.id}:${new Date().toISOString()}`,
+    JSON.stringify({ email: rec.email, subject, text, at: new Date().toISOString(), delivery: res }));
 }
 
-async function handleBillingWebhook(request, env) {
-  // Merchant-of-Record webhook stub. Real provider (Creem) sets plan later;
-  // today this is a safe no-op that can already flip a plan field if asked.
-  if (request.method !== "POST") return json({ error: "POST only" }, 405);
-  let body = {};
-  try { body = await request.json(); } catch { /* accept empty */ }
-  const email = String(body.email || "").trim().toLowerCase();
-  const plan = ["free", "pro", "team"].includes(body.plan) ? body.plan : null;
-  if (env.SUBSCRIBERS && email && plan) {
-    let cursor;
-    do {
-      const page = await env.SUBSCRIBERS.list({ prefix: MONITOR_PREFIX, cursor, limit: 1000 });
-      for (const key of page.keys) {
-        let rec;
-        try { rec = JSON.parse(await env.SUBSCRIBERS.get(key.name)); } catch { continue; }
-        if (rec && rec.email === email) {
-          rec.plan = plan;
-          rec.freq = PLAN_FREQ[plan] || rec.freq;
-          await env.SUBSCRIBERS.put(key.name, JSON.stringify(rec));
-        }
-      }
-      cursor = page.list_complete ? undefined : page.cursor;
-    } while (cursor);
+// Single email sender used by alerts + the test endpoint. Returns {ok, skipped?, status?, error?}.
+async function sendEmail(env, to, subject, text) {
+  if (!env.RESEND_API_KEY) return { ok: false, skipped: "no RESEND_API_KEY set" };
+  try {
+    const r = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: { Authorization: "Bearer " + env.RESEND_API_KEY, "Content-Type": "application/json" },
+      body: JSON.stringify({ from: env.ALERT_FROM || "AgentReady <alerts@agiscorecard.com>", to, subject, text }),
+    });
+    if (r.ok) return { ok: true, status: r.status };
+    let detail = "";
+    try { detail = (await r.text()).slice(0, 300); } catch { /* ignore */ }
+    return { ok: false, status: r.status, error: detail || "Resend returned " + r.status };
+  } catch (e) {
+    return { ok: false, error: String(e && e.message || e) };
   }
-  return json({ ok: true });
+}
+
+// Guarded test-alert: verify the Resend integration end-to-end once the key is set.
+// GET/POST /api/monitor/test?key=<CRON_SECRET>&to=<email>
+async function handleMonitorTest(request, env) {
+  const u = new URL(request.url);
+  const key = u.searchParams.get("key") || request.headers.get("x-cron-key");
+  if (!env.CRON_SECRET) return json({ error: "Set CRON_SECRET (and RESEND_API_KEY) to use the test endpoint." }, 400);
+  if (key !== env.CRON_SECRET) return json({ error: "Unauthorized" }, 401);
+  const to = u.searchParams.get("to");
+  if (!to || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(to)) return json({ error: "Provide a valid ?to= email." }, 400);
+  const res = await sendEmail(env, to,
+    "AgentReady monitoring — test alert",
+    "This is a test of your AgentReady monitoring alerts. If you received this, Resend delivery is working. — AgentReady");
+  return json({ ok: res.ok, delivery: res });
+}
+
+// Merchant-of-Record (Creem) webhook. Verifies the HMAC signature when
+// CREEM_WEBHOOK_SECRET is set, then maps the event → plan and updates the
+// subscriber's monitors. Also accepts a manual {email, plan} body (guarded by
+// CRON_SECRET) for testing. Env: CREEM_WEBHOOK_SECRET, CREEM_SIGNATURE_HEADER
+// (default "creem-signature"), CREEM_PRO_PRODUCT_ID, CREEM_TEAM_PRODUCT_ID.
+async function handleBillingWebhook(request, env) {
+  if (request.method !== "POST") return json({ error: "POST only" }, 405);
+  const raw = await request.text();
+
+  // Manual path (testing / admin): {email, plan} authorized by CRON_SECRET.
+  const adminKey = new URL(request.url).searchParams.get("key");
+  if (env.CRON_SECRET && adminKey === env.CRON_SECRET) {
+    let b = {}; try { b = JSON.parse(raw || "{}"); } catch { /* ignore */ }
+    const email = String(b.email || "").trim().toLowerCase();
+    const plan = ["free", "pro", "team"].includes(b.plan) ? b.plan : null;
+    if (email && plan) { const n = await setPlanForEmail(env, email, plan); return json({ ok: true, updated: n }); }
+    return json({ error: "Provide {email, plan}" }, 400);
+  }
+
+  // Creem webhook path: MUST verify signature. If no secret is configured we
+  // cannot authenticate the caller, so we never mutate plans from here.
+  if (!env.CREEM_WEBHOOK_SECRET) return json({ error: "Billing webhook not configured" }, 400);
+  {
+    const header = env.CREEM_SIGNATURE_HEADER || "creem-signature";
+    const sig = request.headers.get(header) || "";
+    const ok = await verifyHmacSha256(raw, env.CREEM_WEBHOOK_SECRET, sig);
+    if (!ok) return json({ error: "Invalid signature" }, 401);
+  }
+
+  let evt = {}; try { evt = JSON.parse(raw || "{}"); } catch { return json({ error: "Invalid JSON" }, 400); }
+  const type = String(evt.eventType || evt.type || evt.event || "").toLowerCase();
+  const obj = evt.object || evt.data || evt;
+  const email = extractEmail(obj);
+  const productId = extractProductId(obj);
+
+  let plan = null;
+  if (/cancel|expire|refund|revoke/.test(type)) plan = "free";
+  else if (/paid|active|complete|success|subscription|checkout/.test(type)) {
+    if (productId && env.CREEM_TEAM_PRODUCT_ID && productId === env.CREEM_TEAM_PRODUCT_ID) plan = "team";
+    else if (productId && env.CREEM_PRO_PRODUCT_ID && productId === env.CREEM_PRO_PRODUCT_ID) plan = "pro";
+    else if (obj && obj.metadata && ["pro", "team"].includes(obj.metadata.plan)) plan = obj.metadata.plan;
+    else plan = "pro"; // sensible default for a completed paid event
+  }
+
+  let updated = 0;
+  if (email && plan) updated = await setPlanForEmail(env, email, plan);
+  return json({ ok: true, type, plan, updated });
+}
+
+function extractEmail(o) {
+  if (!o || typeof o !== "object") return "";
+  const cands = [o.customer_email, o.email, o.customer && o.customer.email, o.customer && o.customer.customer_email,
+    o.data && o.data.customer && o.data.customer.email];
+  for (const c of cands) if (c && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(c)) return String(c).trim().toLowerCase();
+  return "";
+}
+function extractProductId(o) {
+  if (!o || typeof o !== "object") return "";
+  return String((o.product && (o.product.id || o.product)) || o.product_id || (o.data && o.data.product && o.data.product.id) || "").trim();
+}
+async function setPlanForEmail(env, email, plan) {
+  if (!env.SUBSCRIBERS) return 0;
+  let cursor, n = 0;
+  do {
+    const page = await env.SUBSCRIBERS.list({ prefix: MONITOR_PREFIX, cursor, limit: 1000 });
+    for (const key of page.keys) {
+      let rec;
+      try { rec = JSON.parse(await env.SUBSCRIBERS.get(key.name)); } catch { continue; }
+      if (rec && rec.email === email) {
+        rec.plan = plan;
+        rec.freq = PLAN_FREQ[plan] || rec.freq;
+        await env.SUBSCRIBERS.put(key.name, JSON.stringify(rec));
+        n++;
+      }
+    }
+    cursor = page.list_complete ? undefined : page.cursor;
+  } while (cursor);
+  return n;
+}
+// HMAC-SHA256(raw) == sig (hex), constant-time compare. Accepts bare hex or "sha256=hex".
+async function verifyHmacSha256(raw, secret, sig) {
+  try {
+    const key = await crypto.subtle.importKey("raw", new TextEncoder().encode(secret),
+      { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
+    const mac = await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(raw));
+    const hex = [...new Uint8Array(mac)].map((b) => b.toString(16).padStart(2, "0")).join("");
+    const got = (sig || "").replace(/^sha256=/i, "").trim().toLowerCase();
+    if (got.length !== hex.length) return false;
+    let diff = 0;
+    for (let i = 0; i < hex.length; i++) diff |= hex.charCodeAt(i) ^ got.charCodeAt(i);
+    return diff === 0;
+  } catch { return false; }
 }
 
 async function handleStats(env) {
