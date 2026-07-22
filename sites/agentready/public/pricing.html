@@ -142,7 +142,7 @@ $('mon-btn').addEventListener('click',async()=>{
     const d=await r.json();
     if(!r.ok){setOut(d.error||'Could not start monitoring.','err');btn.disabled=false;return;}
     gtag('event','monitor_start',{value:d.score});
-    setOut('✓ Monitoring started for <b>'+(d.url||url)+'</b>. Baseline score <b>'+d.score+'/100 ('+d.grade+')</b>. We\'ll email <b>'+email+'</b> if it regresses. <a href="/?url='+encodeURIComponent(d.url||url)+'">See full report →</a>','ok');
+    setOut('✓ Monitoring started for <b>'+(d.url||url)+'</b>. Baseline score <b>'+d.score+'/100 ('+d.grade+')</b>. We\'ll email <b>'+email+'</b> if it regresses.'+(d.statusUrl?' <a href="'+d.statusUrl+'">Open your dashboard →</a>':' <a href="/?url='+encodeURIComponent(d.url||url)+'">See full report →</a>'),'ok');
     btn.textContent='✓ Monitoring on';
   }catch(e){setOut('Network error — please try again.','err');btn.disabled=false;}
 });

@@ -56,6 +56,7 @@ jobs:
             "https://tools.agiscorecard.com/json-ld-rich-results-checker" \
             "https://tools.agiscorecard.com/well-known-checker" \
             "https://agentready.agiscorecard.com/pricing" \
+            "https://agentready.agiscorecard.com/status" \
             "https://glossary.agiscorecard.com/ai-agent" \
             "https://glossary.agiscorecard.com/prompt-injection" \
             "https://glossary.agiscorecard.com/mcp-tool"; do
@@ -94,6 +95,8 @@ jobs:
           check "billing webhook (unauth)" -X POST "https://agentready.agiscorecard.com/api/billing/webhook" -H "Content-Type: application/json" -d '{"eventType":"subscription.paid","customer":{"email":"x@example.com"}}'
           # Test-alert endpoint refuses without CRON_SECRET configured.
           check "monitor test (unconfigured)" "https://agentready.agiscorecard.com/api/monitor/test?to=x@example.com"
+          # Status endpoint is wired (missing params -> 400, proves it isn't falling through to assets).
+          check "monitor status (no params)" "https://agentready.agiscorecard.com/api/monitor/status"
       - name: Verify scanner API end-to-end
         run: |
           set -e

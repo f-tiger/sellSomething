@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI-visibility monitor — AgentReady</title>
+<meta name="description" content="Live AI-visibility monitoring status: current score, trend history and any regressions for a monitored store.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://agentready.agiscorecard.com/status">
+<style>
+:root{--bg:#0a0e1a;--panel:#111629;--panel2:#161d36;--line:#232c4d;--text:#e7ebf7;--dim:#8b94b5;--acc:#5b8cff;--acc2:#38d9a9;--warn:#ffc078;--bad:#ff6b6b;--r:14px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:760px;margin:0 auto;padding:0 24px}
+header{padding:22px 0;display:flex;justify-content:space-between;align-items:center}
+.logo{font-weight:800;font-size:20px;letter-spacing:-.02em;color:var(--text);text-decoration:none}
+.logo span{color:var(--acc)}
+nav a{color:var(--dim);text-decoration:none;margin-left:20px;font-size:14px}
+h1{font-size:22px;letter-spacing:-.02em;margin:18px 0 4px;word-break:break-all}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:22px;margin:18px 0}
+.scorehead{display:flex;align-items:center;gap:22px}
+.big{font-size:52px;font-weight:800;line-height:1}
+.muted{color:var(--dim);font-size:14px}
+.chip{display:inline-block;font-size:12px;font-weight:700;border-radius:8px;padding:5px 11px;margin-top:6px}
+svg{width:100%;height:120px;display:block;margin-top:8px}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.stat{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:13px;color:var(--dim)}
+.stat b{color:var(--text);display:block;font-size:16px}
+.fail{color:var(--bad)}
+.btn{background:linear-gradient(90deg,var(--acc),#7b5bff);color:#fff;border:0;border-radius:10px;padding:11px 20px;font-size:14px;font-weight:700;text-decoration:none;display:inline-block;margin-top:14px}
+.btn.ghost{background:var(--panel2);border:1px solid var(--line);color:var(--text)}
+footer{border-top:1px solid var(--line);padding:26px 0;color:var(--dim);font-size:13px;margin-top:40px}
+footer a{color:var(--dim);margin-right:16px}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FZXLMBB5QB"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-FZXLMBB5QB');</script>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="/">Agent<span>Ready</span></a>
+  <nav><a href="/">Scanner</a><a href="/pricing">Pricing</a></nav>
+</header>
+<div id="app"><div class="panel muted">Loading monitor…</div></div>
+<footer>
+  <a href="/">Run a scan</a><a href="/pricing">Monitoring plans</a>
+  <div style="margin-top:8px">© 2026 AgentReady · Read-only monitoring status.</div>
+</footer>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function color(sc){return sc>=75?"var(--acc2)":sc>=45?"var(--warn)":"var(--bad)";}
+function grade(sc){return sc>=90?"A":sc>=75?"B":sc>=55?"C":sc>=35?"D":"F";}
+function spark(hist){
+  if(hist.length<2)return '<p class="muted" style="margin-top:10px">Trend appears after the next scheduled re-scan.</p>';
+  const w=680,h=120,pad=8;
+  const xs=(i)=>pad+i*(w-2*pad)/(hist.length-1);
+  const ys=(v)=>h-pad-(v/100)*(h-2*pad);
+  const pts=hist.map((p,i)=>xs(i)+","+ys(p.score)).join(" ");
+  const last=hist[hist.length-1].score;
+  const area="M "+xs(0)+","+(h-pad)+" L "+hist.map((p,i)=>xs(i)+","+ys(p.score)).join(" L ")+" L "+xs(hist.length-1)+","+(h-pad)+" Z";
+  return '<svg viewBox="0 0 '+w+' '+h+'" preserveAspectRatio="none">'
+    +'<path d="'+area+'" fill="'+color(last)+'" opacity="0.12"/>'
+    +'<polyline points="'+pts+'" fill="none" stroke="'+color(last)+'" stroke-width="2.5"/>'
+    +'</svg>';
+}
+async function load(){
+  const q=new URLSearchParams(location.search);
+  const id=q.get("id"),t=q.get("t");
+  const app=$("app");
+  if(!id||!t){app.innerHTML='<div class="panel">This is a private monitoring link. Start monitoring on the <a href="/pricing">pricing page</a> to get yours.</div>';return;}
+  try{
+    const r=await fetch("/api/monitor/status?id="+encodeURIComponent(id)+"&t="+encodeURIComponent(t));
+    const d=await r.json();
+    if(!r.ok){app.innerHTML='<div class="panel">Monitor not found — check your link.</div>';return;}
+    gtag('event','monitor_status_view',{value:d.score});
+    const host=(()=>{try{return new URL(d.url).host;}catch{return d.url;}})();
+    const g=d.grade||grade(d.score);
+    let html='<h1>'+esc(host)+'</h1><div class="muted">'+esc(d.url)+'</div>';
+    html+='<div class="panel"><div class="scorehead"><div><div class="big" style="color:'+color(d.score)+'">'+d.score+'<span style="font-size:18px;color:var(--dim)">/100</span></div><div class="chip" style="background:rgba(91,140,255,.12);color:'+color(d.score)+'">Grade '+g+'</div></div><div style="flex:1"><div class="muted">AI-visibility score — how readable your store is to AI shopping agents.</div></div></div>';
+    html+=spark(d.history||[]);
+    html+='<div class="row">'
+      +'<div class="stat">Plan<b>'+esc((d.plan||"free"))+'</b></div>'
+      +'<div class="stat">Re-scan<b>'+esc(d.freq||"weekly")+'</b></div>'
+      +'<div class="stat">Last checked<b>'+(d.lastRun?new Date(d.lastRun).toLocaleDateString():"—")+'</b></div>'
+      +'<div class="stat">Data points<b>'+((d.history||[]).length)+'</b></div>'
+      +'</div>';
+    if((d.failing||[]).length){
+      html+='<div style="margin-top:14px"><b class="fail">Currently failing:</b><ul style="margin:8px 0 0 18px;color:var(--dim);font-size:14px">'+d.failing.map(f=>'<li>'+esc(f)+'</li>').join("")+'</ul></div>';
+    }else{
+      html+='<div style="margin-top:14px;color:var(--acc2)">✓ No failing checks right now.</div>';
+    }
+    html+='<a class="btn" href="/?url='+encodeURIComponent(d.url)+'">Re-scan now →</a> <a class="btn ghost" href="/pricing">Upgrade for daily scans</a>';
+    html+='</div>';
+    app.innerHTML=html;
+  }catch(e){app.innerHTML='<div class="panel">Network error — please refresh.</div>';}
+}
+load();
+</script>
+</body>
+</html>

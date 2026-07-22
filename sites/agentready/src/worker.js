@@ -25,6 +25,7 @@ export default {
     if (url.pathname === "/api/scan") return handleScan(request);
     if (url.pathname === "/api/subscribe") return handleSubscribe(request, env);
     if (url.pathname === "/api/monitor") return handleMonitor(request, env);
+    if (url.pathname === "/api/monitor/status") return handleMonitorStatus(request, env);
     if (url.pathname === "/api/monitor/test") return handleMonitorTest(request, env);
     if (url.pathname === "/api/cron/run") return handleCronRun(request, env);
     if (url.pathname === "/api/billing/webhook") return handleBillingWebhook(request, env);
@@ -493,6 +494,7 @@ const PLAN_FREQ = { free: "weekly", pro: "daily", team: "daily" };
 const FREQ_MS = { hourly: 3600e3, daily: 86400e3, weekly: 7 * 86400e3 };
 const SCORE_DROP_ALERT = 5; // points
 const MAX_SCANS_PER_CRON = 200;
+const MAX_HISTORY = 180; // ~180 daily points
 
 function monitorId(email, url) {
   // Deterministic djb2 hash so re-submitting the same pair updates one record.
@@ -500,6 +502,12 @@ function monitorId(email, url) {
   let h = 5381;
   for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) >>> 0;
   return h.toString(16);
+}
+
+function randToken() {
+  const b = new Uint8Array(16);
+  crypto.getRandomValues(b);
+  return [...b].map((x) => x.toString(16).padStart(2, "0")).join("");
 }
 
 function compactChecks(checks) {
@@ -523,22 +531,57 @@ async function handleMonitor(request, env) {
 
   const now = new Date().toISOString();
   const plan = "free";
+  const id = monitorId(email, report.url);
+  // Preserve token + history if this monitor already exists (re-submit).
+  let token, history = [];
+  if (env.SUBSCRIBERS) {
+    try {
+      const prev = JSON.parse(await env.SUBSCRIBERS.get(MONITOR_PREFIX + id));
+      if (prev) { token = prev.token; history = Array.isArray(prev.history) ? prev.history : []; }
+    } catch { /* new monitor */ }
+  }
+  if (!token) token = randToken();
+  history = [...history, { at: now, score: report.score, grade: report.grade }].slice(-MAX_HISTORY);
   const record = {
-    id: monitorId(email, report.url),
-    url: report.url,
-    email,
-    plan,
+    id, url: report.url, email, plan, token,
     freq: PLAN_FREQ[plan],
     createdAt: now,
     lastRun: now,
     baseline: { score: report.score, grade: report.grade, checks: compactChecks(report.checks) },
+    history,
   };
   if (env.SUBSCRIBERS) {
     await env.SUBSCRIBERS.put(MONITOR_PREFIX + record.id, JSON.stringify(record));
-    // Also count this email in the funnel (willingness-to-monitor intent).
     await env.SUBSCRIBERS.put("monitorlead:" + email, JSON.stringify({ email, at: now }));
   }
-  return json({ ok: true, url: report.url, score: report.score, grade: report.grade, summary: report.summary });
+  const statusUrl = `https://agentready.agiscorecard.com/status?id=${record.id}&t=${token}`;
+  return json({ ok: true, url: report.url, score: report.score, grade: report.grade, summary: report.summary, statusUrl });
+}
+
+// Token-gated read-only status for a monitor (shareable). No email/PII exposed.
+// GET /api/monitor/status?id=<id>&t=<token>
+async function handleMonitorStatus(request, env) {
+  const u = new URL(request.url);
+  const id = u.searchParams.get("id") || "";
+  const t = u.searchParams.get("t") || "";
+  if (!id || !t) return json({ error: "Missing id or token" }, 400);
+  if (!env.SUBSCRIBERS) return json({ error: "Not found" }, 404);
+  let rec;
+  try { rec = JSON.parse(await env.SUBSCRIBERS.get(MONITOR_PREFIX + id)); } catch { rec = null; }
+  if (!rec || rec.token !== t) return json({ error: "Not found" }, 404);
+  const b = rec.baseline || {};
+  const failing = (b.checks || []).filter((c) => c.e === 0).map((c) => c.t);
+  return json({
+    url: rec.url,
+    score: b.score,
+    grade: b.grade,
+    plan: rec.plan,
+    freq: rec.freq,
+    createdAt: rec.createdAt,
+    lastRun: rec.lastRun,
+    failing,
+    history: (rec.history || []).map((h) => ({ at: h.at, score: h.score })),
+  });
 }
 
 // External-scheduler entrypoint for the monitor sweep (used when Cloudflare Cron
@@ -568,8 +611,10 @@ async function runScheduledMonitors(env) {
       if (fresh.error) continue; // transient; leave baseline, retry next cron
       const issues = detectRegressions(rec.baseline, fresh);
       if (issues.length) await sendAlert(env, rec, fresh, issues);
-      rec.lastRun = new Date(nowMs).toISOString();
+      const at = new Date(nowMs).toISOString();
+      rec.lastRun = at;
       rec.baseline = { score: fresh.score, grade: fresh.grade, checks: compactChecks(fresh.checks) };
+      rec.history = [...(Array.isArray(rec.history) ? rec.history : []), { at, score: fresh.score, grade: fresh.grade }].slice(-MAX_HISTORY);
       await env.SUBSCRIBERS.put(key.name, JSON.stringify(rec));
     }
     cursor = page.list_complete ? undefined : page.cursor;
