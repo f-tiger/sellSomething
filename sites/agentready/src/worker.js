@@ -29,13 +29,16 @@ export default {
     if (url.pathname === "/api/monitor/test") return handleMonitorTest(request, env);
     if (url.pathname === "/api/cron/run") return handleCronRun(request, env);
     if (url.pathname === "/api/billing/webhook") return handleBillingWebhook(request, env);
+    if (url.pathname === "/api/verify") return handleVerify(request, env);
+    if (url.pathname === "/api/verify/status") return handleVerifyStatus(request, env);
+    if (url.pathname.startsWith("/badge/")) return handleBadge(request, env);
     if (url.pathname === "/api/stats") return handleStats(env);
     return env.ASSETS.fetch(request);
   },
 
-  // Cron Trigger: re-scan every saved monitor that is due, alert on regressions.
+  // Cron Trigger: re-scan monitors (alert on regressions) + re-verify badges.
   async scheduled(event, env, ctx) {
-    ctx.waitUntil(runScheduledMonitors(env));
+    ctx.waitUntil((async () => { await runScheduledMonitors(env); await reverifyBadges(env); })());
   },
 };
 
@@ -590,7 +593,8 @@ async function handleCronRun(request, env) {
   const key = new URL(request.url).searchParams.get("key") || request.headers.get("x-cron-key");
   if (env.CRON_SECRET && key !== env.CRON_SECRET) return json({ error: "Unauthorized" }, 401);
   const ran = await runScheduledMonitors(env);
-  return json({ ok: true, scanned: ran });
+  const reverified = await reverifyBadges(env);
+  return json({ ok: true, scanned: ran, reverified });
 }
 
 async function runScheduledMonitors(env) {
@@ -727,9 +731,19 @@ async function handleBillingWebhook(request, env) {
   const email = extractEmail(obj);
   const productId = extractProductId(obj);
 
+  const isBadge = (productId && env.CREEM_BADGE_PRODUCT_ID && productId === env.CREEM_BADGE_PRODUCT_ID)
+    || (obj && obj.metadata && obj.metadata.type === "badge");
+  const paidEvent = /paid|active|complete|success|subscription|checkout/.test(type);
+
+  // Badge purchase → activate the Verified badge for that email.
+  if (isBadge && paidEvent && email) {
+    const badges = await setBadgePaidForEmail(env, email);
+    return json({ ok: true, type, product: "badge", badges });
+  }
+
   let plan = null;
   if (/cancel|expire|refund|revoke/.test(type)) plan = "free";
-  else if (/paid|active|complete|success|subscription|checkout/.test(type)) {
+  else if (paidEvent) {
     if (productId && env.CREEM_TEAM_PRODUCT_ID && productId === env.CREEM_TEAM_PRODUCT_ID) plan = "team";
     else if (productId && env.CREEM_PRO_PRODUCT_ID && productId === env.CREEM_PRO_PRODUCT_ID) plan = "pro";
     else if (obj && obj.metadata && ["pro", "team"].includes(obj.metadata.plan)) plan = obj.metadata.plan;
@@ -784,6 +798,134 @@ async function verifyHmacSha256(raw, secret, sig) {
     for (let i = 0; i < hex.length; i++) diff |= hex.charCodeAt(i) ^ got.charCodeAt(i);
     return diff === 0;
   } catch { return false; }
+}
+
+/* ---------------- Agent-Ready Verified badge ---------------- */
+// Monetizes the scanner's existing pass/score: a paid, embeddable "verified"
+// badge + a public verification page, kept honest by scheduled re-verification
+// (badge de-verifies if the site regresses). Payment via MoR (billing webhook).
+
+const VERIFY_PREFIX = "verified:agentready:";
+const VERIFY_THRESHOLD = 75;          // score needed to be eligible
+const VERIFY_REVERIFY_MS = 7 * 86400e3; // weekly re-check
+const MAX_VERIFY_PER_CRON = 200;
+
+async function handleVerify(request, env) {
+  if (request.method !== "POST") return json({ error: "POST only" }, 405);
+  let email = "", rawUrl = "";
+  try { const b = await request.json(); email = String(b.email || "").trim().toLowerCase(); rawUrl = String(b.url || "").trim(); }
+  catch { return json({ error: "Invalid JSON body" }, 400); }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return json({ error: "Invalid email" }, 400);
+
+  const report = await buildScanReport(rawUrl);
+  if (report.error) return json({ error: report.error }, report.status || 400);
+
+  const eligible = report.score >= VERIFY_THRESHOLD;
+  const id = monitorId(email, report.url);
+  const now = new Date().toISOString();
+  let token, paid = false;
+  if (env.SUBSCRIBERS) {
+    try { const prev = JSON.parse(await env.SUBSCRIBERS.get(VERIFY_PREFIX + id)); if (prev) { token = prev.token; paid = !!prev.paid; } } catch { /* new */ }
+  }
+  if (!token) token = randToken();
+  const record = { id, url: report.url, email, token, paid,
+    score: report.score, grade: report.grade, active: eligible,
+    createdAt: now, lastVerified: now };
+  if (env.SUBSCRIBERS) await env.SUBSCRIBERS.put(VERIFY_PREFIX + id, JSON.stringify(record));
+
+  const failing = eligible ? [] : report.checks.filter((c) => c.earned === 0).map((c) => c.title);
+  return json({
+    ok: true, eligible, score: report.score, grade: report.grade, threshold: VERIFY_THRESHOLD,
+    id, token, paid,
+    badgeUrl: `https://agentready.agiscorecard.com/badge/${id}.svg`,
+    verifyUrl: `https://agentready.agiscorecard.com/verified?id=${id}`,
+    topFixes: failing.slice(0, 5),
+  });
+}
+
+// Public verification status — no email/token exposed.
+async function handleVerifyStatus(request, env) {
+  const id = new URL(request.url).searchParams.get("id") || "";
+  if (!id) return json({ error: "Missing id" }, 400);
+  if (!env.SUBSCRIBERS) return json({ error: "Not found" }, 404);
+  let rec; try { rec = JSON.parse(await env.SUBSCRIBERS.get(VERIFY_PREFIX + id)); } catch { rec = null; }
+  if (!rec) return json({ error: "Not found" }, 404);
+  return json({
+    url: rec.url, score: rec.score, grade: rec.grade,
+    verified: !!(rec.paid && rec.active), paid: !!rec.paid, active: !!rec.active,
+    createdAt: rec.createdAt, lastVerified: rec.lastVerified, threshold: VERIFY_THRESHOLD,
+  });
+}
+
+async function handleBadge(request, env) {
+  const id = new URL(request.url).pathname.replace("/badge/", "").replace(/\.svg$/i, "");
+  let rec = null;
+  if (env.SUBSCRIBERS && id) { try { rec = JSON.parse(await env.SUBSCRIBERS.get(VERIFY_PREFIX + id)); } catch { rec = null; } }
+  let right = "unverified", color = "#9aa4bf";
+  if (rec && rec.paid && rec.active) { right = "verified ✓"; color = "#38d9a9"; }
+  else if (rec && rec.paid && !rec.active) { right = "check failing"; color = "#ff6b6b"; }
+  else if (rec && !rec.paid) { right = "preview"; color = "#8b94b5"; }
+  const svg = renderBadgeSVG("Agent-Ready", right, color);
+  return new Response(svg, {
+    headers: {
+      "Content-Type": "image/svg+xml; charset=utf-8",
+      "Cache-Control": "public, max-age=3600",
+      "Access-Control-Allow-Origin": "*",
+    },
+  });
+}
+
+function renderBadgeSVG(left, right, color) {
+  const lw = 7 * left.length + 20, rw = 7 * right.length + 22, w = lw + rw;
+  const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="20" role="img" aria-label="${esc(left)}: ${esc(right)}">
+<linearGradient id="s" x2="0" y2="100%"><stop offset="0" stop-color="#fff" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/></linearGradient>
+<rect rx="3" width="${w}" height="20" fill="#1b2135"/>
+<rect rx="3" x="${lw}" width="${rw}" height="20" fill="${color}"/>
+<rect rx="3" width="${w}" height="20" fill="url(#s)"/>
+<g fill="#fff" text-anchor="middle" font-family="Verdana,DejaVu Sans,sans-serif" font-size="11">
+<text x="${lw / 2}" y="14">${esc(left)}</text>
+<text x="${lw + rw / 2}" y="14" fill="#08131f">${esc(right)}</text>
+</g></svg>`;
+}
+
+// Scheduled re-verification: keeps badges honest (de-verify on regression).
+async function reverifyBadges(env) {
+  if (!env.SUBSCRIBERS) return 0;
+  const nowMs = Date.now();
+  let cursor, n = 0;
+  do {
+    const page = await env.SUBSCRIBERS.list({ prefix: VERIFY_PREFIX, cursor, limit: 1000 });
+    for (const key of page.keys) {
+      if (n >= MAX_VERIFY_PER_CRON) return n;
+      let rec; try { rec = JSON.parse(await env.SUBSCRIBERS.get(key.name)); } catch { continue; }
+      if (!rec || !rec.url) continue;
+      if (rec.lastVerified && nowMs - Date.parse(rec.lastVerified) < VERIFY_REVERIFY_MS) continue;
+      n++;
+      const fresh = await buildScanReport(rec.url);
+      if (fresh.error) continue;
+      rec.score = fresh.score; rec.grade = fresh.grade;
+      rec.active = fresh.score >= VERIFY_THRESHOLD;
+      rec.lastVerified = new Date(nowMs).toISOString();
+      await env.SUBSCRIBERS.put(key.name, JSON.stringify(rec));
+    }
+    cursor = page.list_complete ? undefined : page.cursor;
+  } while (cursor);
+  return n;
+}
+
+async function setBadgePaidForEmail(env, email) {
+  if (!env.SUBSCRIBERS) return 0;
+  let cursor, n = 0;
+  do {
+    const page = await env.SUBSCRIBERS.list({ prefix: VERIFY_PREFIX, cursor, limit: 1000 });
+    for (const key of page.keys) {
+      let rec; try { rec = JSON.parse(await env.SUBSCRIBERS.get(key.name)); } catch { continue; }
+      if (rec && rec.email === email && !rec.paid) { rec.paid = true; await env.SUBSCRIBERS.put(key.name, JSON.stringify(rec)); n++; }
+    }
+    cursor = page.list_complete ? undefined : page.cursor;
+  } while (cursor);
+  return n;
 }
 
 async function handleStats(env) {

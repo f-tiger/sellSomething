@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agent-Ready Verified — verification</title>
+<meta name="description" content="Public Agent-Ready verification: this store's AI sales-visibility score and verification status, continuously re-checked by AgentReady.">
+<link rel="canonical" href="https://agentready.agiscorecard.com/verified">
+<style>
+:root{--bg:#0a0e1a;--panel:#111629;--panel2:#161d36;--line:#232c4d;--text:#e7ebf7;--dim:#8b94b5;--acc:#5b8cff;--acc2:#38d9a9;--warn:#ffc078;--bad:#ff6b6b;--r:14px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:640px;margin:0 auto;padding:0 24px}
+header{padding:22px 0;display:flex;justify-content:space-between;align-items:center}
+.logo{font-weight:800;font-size:20px;letter-spacing:-.02em;color:var(--text);text-decoration:none}
+.logo span{color:var(--acc)}
+nav a{color:var(--dim);text-decoration:none;margin-left:20px;font-size:14px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:26px;margin:24px 0;text-align:center}
+.seal{font-size:56px;line-height:1}
+h1{font-size:22px;letter-spacing:-.02em;margin:12px 0 2px;word-break:break-all}
+.big{font-size:44px;font-weight:800;line-height:1}
+.muted{color:var(--dim);font-size:14px}
+.chip{display:inline-block;font-size:13px;font-weight:700;border-radius:8px;padding:6px 14px;margin-top:10px}
+.row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:14px}
+.stat{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:13px;color:var(--dim)}
+.stat b{color:var(--text);display:block;font-size:15px}
+.btn{background:var(--panel2);border:1px solid var(--line);color:var(--text);border-radius:10px;padding:10px 18px;font-size:14px;font-weight:700;text-decoration:none;display:inline-block;margin-top:16px}
+section.info{padding:36px 0;border-top:1px solid var(--line);margin-top:24px}
+section.info h2{font-size:18px;margin-bottom:8px}
+section.info p{color:var(--dim);font-size:14px}
+footer{border-top:1px solid var(--line);padding:26px 0;color:var(--dim);font-size:13px;margin-top:24px}
+footer a{color:var(--dim);margin-right:16px}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FZXLMBB5QB"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-FZXLMBB5QB');</script>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="/">Agent<span>Ready</span></a>
+  <nav><a href="/">Scanner</a><a href="/get-verified">Get verified</a></nav>
+</header>
+<div id="app"><div class="panel muted">Loading verification…</div></div>
+<section class="info">
+  <h2>How verification works</h2>
+  <p>AgentReady scans the site's AI sales-visibility — whether AI shopping agents (ChatGPT, Claude, Perplexity, Google AI) can discover and read it: AI-crawler access, llms.txt, schema.org data, sitemap and answer-readiness. A score of 75+ earns the badge, and we re-verify on a schedule so it stays accurate. <a href="/get-verified" style="color:var(--acc)">Get your store verified →</a></p>
+</section>
+<footer>
+  <a href="/">Scanner</a><a href="/get-verified">Get verified</a><a href="/pricing">Monitoring</a>
+  <div style="margin-top:8px">© 2026 AgentReady</div>
+</footer>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function color(sc){return sc>=75?"var(--acc2)":sc>=45?"var(--warn)":"var(--bad)";}
+async function load(){
+  const id=new URLSearchParams(location.search).get("id");
+  const app=$("app");
+  if(!id){app.innerHTML='<div class="panel">No verification id. <a href="/get-verified" style="color:var(--acc)">Get your store verified →</a></div>';return;}
+  try{
+    const r=await fetch("/api/verify/status?id="+encodeURIComponent(id));
+    const d=await r.json();
+    if(!r.ok){app.innerHTML='<div class="panel">Verification not found.</div>';return;}
+    gtag('event','verified_page_view',{value:d.score});
+    const host=(()=>{try{return new URL(d.url).host;}catch{return d.url;}})();
+    let seal,chip,chipbg;
+    if(d.verified){seal="✅";chip="Agent-Ready Verified";chipbg="rgba(56,217,169,.14)";}
+    else if(d.paid&&!d.active){seal="⚠️";chip="Verification lapsed (site regressed)";chipbg="rgba(255,107,107,.14)";}
+    else{seal="🔍";chip="Eligible — not yet activated";chipbg="rgba(139,148,181,.14)";}
+    let html='<div class="panel"><div class="seal">'+seal+'</div>';
+    html+='<h1>'+esc(host)+'</h1><div class="muted">'+esc(d.url)+'</div>';
+    html+='<div class="chip" style="background:'+chipbg+';color:'+(d.verified?"var(--acc2)":d.paid?"var(--bad)":"var(--dim)")+'">'+esc(chip)+'</div>';
+    html+='<div style="margin-top:16px"><span class="big" style="color:'+color(d.score)+'">'+d.score+'</span><span class="muted">/100 · Grade '+esc(d.grade||"")+'</span></div>';
+    html+='<div class="row">'
+      +'<div class="stat">Threshold<b>'+d.threshold+'+</b></div>'
+      +'<div class="stat">First verified<b>'+(d.createdAt?new Date(d.createdAt).toLocaleDateString():"—")+'</b></div>'
+      +'<div class="stat">Last checked<b>'+(d.lastVerified?new Date(d.lastVerified).toLocaleDateString():"—")+'</b></div>'
+      +'</div>';
+    html+='<a class="btn" href="/?url='+encodeURIComponent(d.url)+'">Run the same scan →</a>';
+    html+='</div>';
+    app.innerHTML=html;
+  }catch(e){app.innerHTML='<div class="panel">Network error — refresh.</div>';}
+}
+load();
+</script>
+</body>
+</html>

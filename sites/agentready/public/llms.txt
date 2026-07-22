@@ -12,6 +12,7 @@
 ## Key pages
 - [Home & scanner](/): run a free scan
 - [Pricing & monitoring](/pricing): start free AI-visibility monitoring with email alerts
+- [Get Agent-Ready Verified](/get-verified): earn an embeddable, live-verified badge proving your store is visible to AI shopping agents
 - [Methodology](/#how): what the score measures
 - [FAQ](/#faq): common questions
 

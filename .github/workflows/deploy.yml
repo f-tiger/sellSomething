@@ -57,6 +57,8 @@ jobs:
             "https://tools.agiscorecard.com/well-known-checker" \
             "https://agentready.agiscorecard.com/pricing" \
             "https://agentready.agiscorecard.com/status" \
+            "https://agentready.agiscorecard.com/get-verified" \
+            "https://agentready.agiscorecard.com/verified" \
             "https://glossary.agiscorecard.com/ai-agent" \
             "https://glossary.agiscorecard.com/prompt-injection" \
             "https://glossary.agiscorecard.com/mcp-tool"; do
@@ -97,6 +99,19 @@ jobs:
           check "monitor test (unconfigured)" "https://agentready.agiscorecard.com/api/monitor/test?to=x@example.com"
           # Status endpoint is wired (missing params -> 400, proves it isn't falling through to assets).
           check "monitor status (no params)" "https://agentready.agiscorecard.com/api/monitor/status"
+          # Verify endpoint validates (invalid email -> 400, no scan/write).
+          check "verify (invalid email)" -X POST "https://agentready.agiscorecard.com/api/verify" -H "Content-Type: application/json" -d '{"email":"nope","url":"example.com"}'
+      - name: Verify badge SVG endpoint
+        run: |
+          set -e
+          ok=""
+          for attempt in $(seq 1 6); do
+            ctype=$(curl -s -o /dev/null -w "%{content_type}" --max-time 30 "https://agentready.agiscorecard.com/badge/none.svg" || true)
+            echo "badge content-type: $ctype (attempt $attempt)"
+            echo "$ctype" | grep -q "image/svg" && { ok=1; break; }
+            sleep 10
+          done
+          [ -n "$ok" ] || { echo "::error::badge did not return SVG"; exit 1; }
       - name: Verify scanner API end-to-end
         run: |
           set -e
