@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-07-20",
+  "updatedAt": "2026-07-27",
   "brandCount": 36,
-  "averageScore": 74,
+  "averageScore": 75,
   "results": [
     {
       "name": "Casper",
@@ -60,6 +60,15 @@
     {
       "name": "Our Place",
       "domain": "fromourplace.com",
+      "score": 84,
+      "grade": "B",
+      "failing": [
+        "Product / Offer schema"
+      ]
+    },
+    {
+      "name": "Stanley",
+      "domain": "stanley1913.com",
       "score": 84,
       "grade": "B",
       "failing": [
@@ -212,6 +221,15 @@
       ]
     },
     {
+      "name": "Caraway",
+      "domain": "carawayhome.com",
+      "score": 72,
+      "grade": "C",
+      "failing": [
+        "Product / Offer schema"
+      ]
+    },
+    {
       "name": "Cuts",
       "domain": "cutsclothing.com",
       "score": 72,
@@ -283,16 +301,6 @@
       ]
     },
     {
-      "name": "Nuggets of Wisdom",
-      "domain": "solostove.com",
-      "score": 57,
-      "grade": "C",
-      "failing": [
-        "JSON-LD present",
-        "Product / Offer schema"
-      ]
-    },
-    {
       "name": "Yeti",
       "domain": "yeti.com",
       "score": 57,
@@ -307,16 +315,6 @@
       "domain": "owalalife.com",
       "score": 57,
       "grade": "C",
-      "failing": [
-        "JSON-LD present",
-        "Product / Offer schema"
-      ]
-    },
-    {
-      "name": "Bombas",
-      "domain": "bombas.com",
-      "score": 54,
-      "grade": "D",
       "failing": [
         "JSON-LD present",
         "Product / Offer schema"
