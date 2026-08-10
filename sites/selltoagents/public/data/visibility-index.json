@@ -1,20 +1,11 @@
 {
-  "updatedAt": "2026-08-03",
-  "brandCount": 37,
-  "averageScore": 75,
+  "updatedAt": "2026-08-10",
+  "brandCount": 35,
+  "averageScore": 76,
   "results": [
     {
       "name": "Casper",
       "domain": "casper.com",
-      "score": 84,
-      "grade": "B",
-      "failing": [
-        "Product / Offer schema"
-      ]
-    },
-    {
-      "name": "Ridge",
-      "domain": "ridge.com",
       "score": 84,
       "grade": "B",
       "failing": [
@@ -310,12 +301,11 @@
       ]
     },
     {
-      "name": "Yeti",
-      "domain": "yeti.com",
-      "score": 57,
+      "name": "MVMT",
+      "domain": "mvmt.com",
+      "score": 60,
       "grade": "C",
       "failing": [
-        "JSON-LD present",
         "Product / Offer schema"
       ]
     },
@@ -338,16 +328,6 @@
         "JSON-LD present",
         "Product / Offer schema",
         "Descriptive <title>"
-      ]
-    },
-    {
-      "name": "MVMT",
-      "domain": "mvmt.com",
-      "score": 51,
-      "grade": "D",
-      "failing": [
-        "JSON-LD present",
-        "Product / Offer schema"
       ]
     }
   ]
