@@ -1,37 +1,17 @@
 {
-  "updatedAt": "2026-08-10",
+  "updatedAt": "2026-08-17",
   "scanned": 6,
   "authGated": 23,
   "averageScore": 94,
-  "averageLatencyMs": 167,
+  "averageLatencyMs": 106,
   "results": [
     {
       "name": "Cloudflare Docs",
       "url": "https://docs.mcp.cloudflare.com/mcp",
       "score": 94,
       "grade": "A",
-      "latencyMs": 16,
+      "latencyMs": 14,
       "tools": 2,
-      "describedPct": 100,
-      "failing": []
-    },
-    {
-      "name": "Context7",
-      "url": "https://mcp.context7.com/mcp",
-      "score": 94,
-      "grade": "A",
-      "latencyMs": 27,
-      "tools": 2,
-      "describedPct": 100,
-      "failing": []
-    },
-    {
-      "name": "Hugging Face",
-      "url": "https://huggingface.co/mcp",
-      "score": 94,
-      "grade": "A",
-      "latencyMs": 27,
-      "tools": 4,
       "describedPct": 100,
       "failing": []
     },
@@ -40,17 +20,7 @@
       "url": "https://learn.microsoft.com/api/mcp",
       "score": 94,
       "grade": "A",
-      "latencyMs": 36,
-      "tools": 3,
-      "describedPct": 100,
-      "failing": []
-    },
-    {
-      "name": "DeepWiki",
-      "url": "https://mcp.deepwiki.com/mcp",
-      "score": 94,
-      "grade": "A",
-      "latencyMs": 280,
+      "latencyMs": 63,
       "tools": 3,
       "describedPct": 100,
       "failing": []
@@ -60,8 +30,38 @@
       "url": "https://knowledge-mcp.global.api.aws/mcp",
       "score": 94,
       "grade": "A",
-      "latencyMs": 617,
+      "latencyMs": 81,
       "tools": 5,
+      "describedPct": 100,
+      "failing": []
+    },
+    {
+      "name": "DeepWiki",
+      "url": "https://mcp.deepwiki.com/mcp",
+      "score": 94,
+      "grade": "A",
+      "latencyMs": 93,
+      "tools": 3,
+      "describedPct": 100,
+      "failing": []
+    },
+    {
+      "name": "Hugging Face",
+      "url": "https://huggingface.co/mcp",
+      "score": 94,
+      "grade": "A",
+      "latencyMs": 98,
+      "tools": 4,
+      "describedPct": 100,
+      "failing": []
+    },
+    {
+      "name": "Context7",
+      "url": "https://mcp.context7.com/mcp",
+      "score": 94,
+      "grade": "A",
+      "latencyMs": 287,
+      "tools": 2,
       "describedPct": 100,
       "failing": []
     }
