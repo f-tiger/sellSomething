@@ -1,0 +1,112 @@
+<idea-plugin>
+    <id>com.agiscorecard.llmstxt</id>
+    <name>LLMs.txt &amp; Agents.md Support</name>
+    <vendor url="https://agentready.agiscorecard.com">AGIScorecard</vendor>
+
+    <!-- Paid plugin. release-date placeholder __RELEASE_DATE__ is replaced at build time
+         by the Gradle patchPluginXml task (see productDescriptor in build.gradle.kts);
+         pin it via gradle.properties -> pluginReleaseDate=yyyyMMdd for a real release. -->
+    <product-descriptor code="PLLMSTXT" release-date="__RELEASE_DATE__" release-version="20261"/>
+
+    <description><![CDATA[
+        <p><b>Make your site visible to AI shopping agents — without leaving your IDE.</b></p>
+
+        <p>First-class editor support for <b>llms.txt</b> and <b>agents.md</b>, the emerging
+        AI-agent content standards adopted natively by Shopify and read by ChatGPT, Claude,
+        Perplexity and Gemini crawlers. Built by the team behind the free
+        <a href="https://agentready.agiscorecard.com">AgentReady</a> AI-visibility scanner.</p>
+
+        <ul>
+            <li><b>Syntax highlighting</b> for <code>llms.txt</code>, <code>llms-full.txt</code> and <code>agents.md</code>:
+                title, summary blockquote, section headers and link bullets each get their own color.</li>
+            <li><b>Code completion</b> for canonical llms.txt sections (<code>## Docs</code>, <code>## Products</code>,
+                <code>## Policies</code>, <code>## Optional</code>…) and common agents.md sections
+                (<code>## Setup commands</code>, <code>## Code style</code>, <code>## PR instructions</code>…).</li>
+            <li><b>Live spec validation</b> with quick-fixes: missing H1 title, missing summary blockquote,
+                malformed link bullets, relative (non-absolute) URLs, and empty sections.</li>
+            <li><b>Generators</b>: scaffold a best-practice <code>llms.txt</code> or <code>agents.md</code>
+                from Tools&nbsp;&rarr;&nbsp;LLMs.txt &amp; Agents.md, or from the New file menu.</li>
+            <li><b>AgentReady audit tool window</b>: scan any site's agentic-commerce readiness
+                (robots.txt AI-crawler policy, llms.txt, agents.md, JSON-LD Product/Offer schema,
+                sitemap, meta basics) and get a 0–100 score with a prioritized fix list.</li>
+        </ul>
+
+        <p>Keywords: llms.txt, llms-full.txt, agents.md, AGENTS.md, AI SEO, GEO, generative engine
+        optimization, AI visibility, agentic commerce, ACP, MCP, ChatGPT Shopping, AI crawlers,
+        GPTBot, ClaudeBot, PerplexityBot, structured data, JSON-LD.</p>
+
+        <p>Includes a <b>30-day free trial</b> — licensing is handled by JetBrains Marketplace.</p>
+    ]]></description>
+
+    <change-notes><![CDATA[
+        <h3>2026.1.0</h3>
+        <ul>
+            <li>Initial release: llms.txt / agents.md file types with highlighting.</li>
+            <li>Section completion, spec inspections with quick-fixes.</li>
+            <li>llms.txt and agents.md generators (Tools menu + New file menu).</li>
+            <li>AgentReady site-audit tool window (score, grade, per-check details).</li>
+            <li>Settings page for the default site domain.</li>
+        </ul>
+    ]]></change-notes>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <fileType name="LLMs.txt"
+                  language="LlmsTxt"
+                  implementationClass="com.agiscorecard.llmstxt.lang.LlmsTxtFileType"
+                  fieldName="INSTANCE"
+                  fileNamesCaseInsensitive="llms.txt;llms-full.txt"/>
+        <fileType name="Agents.md"
+                  language="LlmsTxt"
+                  implementationClass="com.agiscorecard.llmstxt.lang.AgentsMdFileType"
+                  fieldName="INSTANCE"
+                  fileNamesCaseInsensitive="agents.md"/>
+
+        <lang.parserDefinition language="LlmsTxt"
+                               implementationClass="com.agiscorecard.llmstxt.lang.LlmsTxtParserDefinition"/>
+        <lang.syntaxHighlighterFactory language="LlmsTxt"
+                                       implementationClass="com.agiscorecard.llmstxt.lang.LlmsTxtSyntaxHighlighterFactory"/>
+
+        <completion.contributor language="LlmsTxt"
+                                implementationClass="com.agiscorecard.llmstxt.completion.LlmsTxtCompletionContributor"/>
+        <annotator language="LlmsTxt"
+                   implementationClass="com.agiscorecard.llmstxt.annotator.LlmsTxtAnnotator"/>
+
+        <toolWindow id="AgentReady Audit"
+                    anchor="right"
+                    icon="/icons/toolWindow.svg"
+                    factoryClass="com.agiscorecard.llmstxt.audit.AuditToolWindowFactory"/>
+
+        <applicationConfigurable parentId="tools"
+                                 instance="com.agiscorecard.llmstxt.settings.LlmsTxtConfigurable"
+                                 id="com.agiscorecard.llmstxt.settings"
+                                 displayName="LLMs.txt &amp; Agents.md"/>
+    </extensions>
+
+    <actions>
+        <group id="LlmsTxt.ToolsGroup"
+               text="LLMs.txt &amp; Agents.md"
+               description="AI-agent visibility tooling"
+               popup="true">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+            <action id="LlmsTxt.GenerateLlmsTxt"
+                    class="com.agiscorecard.llmstxt.actions.GenerateLlmsTxtAction"
+                    text="Generate llms.txt"
+                    description="Scaffold a best-practice llms.txt file for this project">
+                <add-to-group group-id="NewGroup" anchor="last"/>
+            </action>
+            <action id="LlmsTxt.GenerateAgentsMd"
+                    class="com.agiscorecard.llmstxt.actions.GenerateAgentsMdAction"
+                    text="Generate agents.md"
+                    description="Scaffold a best-practice agents.md file for this project">
+                <add-to-group group-id="NewGroup" anchor="last"/>
+            </action>
+            <separator/>
+            <action id="LlmsTxt.AuditSite"
+                    class="com.agiscorecard.llmstxt.actions.AuditSiteAction"
+                    text="Audit Site with AgentReady…"
+                    description="Scan a site's AI-agent visibility with the AgentReady scanner"/>
+        </group>
+    </actions>
+</idea-plugin>

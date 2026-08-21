@@ -1,0 +1,15 @@
+# Gradle (wrapper is bootstrapped locally with `gradle wrapper --gradle-version 8.10`;
+# no binaries are committed to this repo)
+.gradle/
+build/
+gradle/
+gradlew
+gradlew.bat
+
+# IntelliJ Platform Gradle Plugin caches
+.intellijPlatform/
+
+# IDE
+.idea/
+*.iml
+out/
