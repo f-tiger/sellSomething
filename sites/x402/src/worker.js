@@ -1,34 +1,73 @@
 /**
- * x402 — pay-per-call APIs for AI agents (x402 payment-required protocol, v1).
+ * x402 — pay-per-call APIs for AI agents (x402 payment-required protocol, v1 + v2).
  * GET /api/scan?url=<site>       → agent-readiness scan of any website ($0.005 USDC)
  * GET /api/mcp-check?url=<mcp>   → MCP server health check            ($0.005 USDC)
  * GET /.well-known/x402          → machine-readable endpoint catalog
  * Everything else                → static assets
  *
- * Payment flow (x402 v1, "exact" scheme, USDC on Base):
- *   1. Agent calls without X-PAYMENT      → 402 + accepts[] (payment requirements)
- *   2. Agent signs an EIP-3009 USDC transfer authorization, retries with
- *      X-PAYMENT: base64(JSON payment payload)
- *   3. We POST facilitator /verify        → isValid?  serve the result
- *   4. We POST facilitator /settle        → tx broadcast on-chain; the settle
- *      result is returned base64-encoded in the X-PAYMENT-RESPONSE header.
+ * Protocol versions (per coinbase/x402 specs/, verified 2026-08-21):
+ *   v2 (current)  — specs/x402-specification-v2.md + specs/transports-v2/http.md:
+ *     · 402 challenge: base64(PaymentRequired) in the `PAYMENT-REQUIRED` response
+ *       header; the response *body* is "a server implementation concern".
+ *     · PaymentRequired: { x402Version:2, error?, resource:{url,description,mimeType},
+ *       accepts:[PaymentRequirements], extensions? }
+ *     · PaymentRequirements (v2): { scheme, network(CAIP-2, e.g. "eip155:8453"),
+ *       amount, asset, payTo, maxTimeoutSeconds, extra? }   ← `amount`, not
+ *       `maxAmountRequired`; no `resource`/`description`/`mimeType`/`outputSchema`
+ *       (those moved to the top-level ResourceInfo object).
+ *     · Client pays via `PAYMENT-SIGNATURE: base64(PaymentPayload)` where
+ *       PaymentPayload = { x402Version:2, resource?, accepted:PaymentRequirements,
+ *       payload:{signature, authorization}, extensions? }
+ *     · Receipt: base64(SettleResponse) in the `PAYMENT-RESPONSE` header.
+ *   v1 (legacy)   — specs/x402-specification-v1.md + specs/transports-v1/http.md:
+ *     · 402 challenge: JSON body { x402Version:1, error, accepts:[...] };
+ *       requirements use `maxAmountRequired`, network "base", and carry
+ *       resource/description/mimeType/outputSchema inline.
+ *     · Client pays via `X-PAYMENT: base64({x402Version:1, scheme, network, payload})`.
+ *     · Receipt: `X-PAYMENT-RESPONSE` header.
+ *
+ * Dual-version serving (matches the official @x402/fetch client, which reads the
+ * v2 `PAYMENT-REQUIRED` header first and falls back to a v1 JSON body — see
+ * typescript/packages/core/src/http/x402HTTPClient.ts#getPaymentRequiredResponse):
+ *   · Every 402 carries BOTH the v2 header and the v1 body simultaneously.
+ *   · Incoming payments are read from `PAYMENT-SIGNATURE` (v2) or `X-PAYMENT`
+ *     (v1); the payload's own `x402Version` picks the requirements shape sent
+ *     to the facilitator.
+ *   · Receipts are emitted in BOTH `PAYMENT-RESPONSE` and `X-PAYMENT-RESPONSE`
+ *     (the reference client checks them in that order; same base64 bytes).
+ *
+ * Payment flow ("exact" scheme, EIP-3009 USDC transfer authorization on Base):
+ *   1. Agent calls without a payment header → 402 challenge (v2 header + v1 body)
+ *   2. Agent signs and retries with PAYMENT-SIGNATURE (v2) or X-PAYMENT (v1)
+ *   3. We POST facilitator /verify  { x402Version, paymentPayload, paymentRequirements }
+ *      → { isValid, invalidReason?, payer? }  (same shape in v1 and v2)
+ *   4. Upstream scan runs; only on success we POST facilitator /settle (same body
+ *      shape as /verify) → { success, transaction, network, payer?, errorReason? }
  *   Failed upstream work is never settled — callers aren't charged for errors.
  *
  * Env:
- *   PAYTO_ADDRESS   — receiving wallet (0x…) on Base. REQUIRED to charge.
- *                     While unset: ?demo=1 serves free demo results, else 503.
- *   FACILITATOR_URL — optional facilitator base URL. Default
- *                     https://x402.org/facilitator (TESTNET-ONLY — see README).
+ *   PAYTO_ADDRESS      — receiving wallet (0x…) on Base. REQUIRED to charge.
+ *                        While unset: ?demo=1 serves free demo results, else 503.
+ *   FACILITATOR_URL    — optional facilitator base URL. Default
+ *                        https://x402.org/facilitator (TESTNET-ONLY — see README).
+ *   FACILITATOR_URL_V1 — optional separate facilitator for v1 payments, for
+ *                        facilitators that split versions across deployments.
+ *                        Falls back to FACILITATOR_URL.
  */
 
 const FACILITATOR_DEFAULT = "https://x402.org/facilitator";
 const FACILITATOR_TIMEOUT_MS = 10000;
 const UPSTREAM_TIMEOUT_MS = 30000;
 
-const NETWORK = "base"; // x402 v1 network id for Base mainnet (chain id 8453)
+const NETWORK_V1 = "base"; // x402 v1 network id for Base mainnet
+const NETWORK_V2 = "eip155:8453"; // x402 v2 CAIP-2 id for Base mainnet (specs/x402-specification-v2.md §11.1)
 const USDC_BASE = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"; // native USDC, 6 decimals
 // EIP-712 domain of the Base-mainnet USDC contract (needed by "exact" scheme signers).
+// Note: Base *mainnet* native USDC is named "USD Coin"; the spec's examples show
+// "USDC" because they use the Base-Sepolia test deployment, whose domain differs.
 const USDC_EIP712 = { name: "USD Coin", version: "2" };
+
+const MAX_TIMEOUT_SECONDS = 60;
 
 const ENDPOINTS = [
   {
@@ -83,18 +122,60 @@ async function handlePaid(request, env, endpoint) {
     return json({ error: "x402 not configured yet" }, 503);
   }
 
-  const requirements = paymentRequirements(endpoint, url.origin, target, env);
+  const resourceUrl = url.origin + endpoint.path + "?url=" + encodeURIComponent(target);
+  const reqV1 = paymentRequirementsV1(endpoint, resourceUrl, env);
+  const reqV2 = paymentRequirementsV2(endpoint, env);
+  const resourceInfo = {
+    url: resourceUrl,
+    description: endpoint.description,
+    mimeType: "application/json",
+  };
+  const challenge = { reqV1, reqV2, resourceInfo };
 
-  const header = request.headers.get("X-PAYMENT");
-  if (!header) return pay402("X-PAYMENT header is required", requirements);
+  // Detect the client's protocol version from which payment header it used
+  // (v2 clients send PAYMENT-SIGNATURE, v1 clients send X-PAYMENT — see
+  // x402HTTPClient.encodePaymentSignatureHeader in the reference SDK), then
+  // trust the payload's own x402Version field for the facilitator exchange.
+  const headerV2 = request.headers.get("PAYMENT-SIGNATURE");
+  const headerV1 = request.headers.get("X-PAYMENT");
+  const header = headerV2 || headerV1;
+  if (!header) {
+    return pay402("Payment required: send PAYMENT-SIGNATURE (x402 v2) or X-PAYMENT (v1)", challenge);
+  }
 
   const paymentPayload = decodePaymentHeader(header);
   if (!paymentPayload) {
-    return pay402("Invalid X-PAYMENT header — expected base64-encoded JSON payment payload", requirements);
+    return pay402(
+      "Invalid " + (headerV2 ? "PAYMENT-SIGNATURE" : "X-PAYMENT") +
+        " header — expected base64-encoded JSON payment payload",
+      challenge
+    );
+  }
+
+  const version = paymentPayload.x402Version;
+  if (version !== 1 && version !== 2) {
+    return pay402(
+      "invalid_x402_version: this server supports x402Version 1 and 2, got " + JSON.stringify(version),
+      challenge
+    );
+  }
+
+  // v2 payloads carry the chosen requirements in `accepted`; make sure the
+  // client accepted one of ours (the reference server deep-equals against the
+  // advertised accepts — we compare the economically meaningful fields).
+  let requirements;
+  if (version === 2) {
+    const a = paymentPayload.accepted;
+    if (!a || !matchesV2Requirements(a, reqV2)) {
+      return pay402("No matching payment requirements", challenge);
+    }
+    requirements = reqV2;
+  } else {
+    requirements = reqV1;
   }
 
   // 1) Verify the payment with the facilitator.
-  const verify = await facilitatorCall(env, "/verify", paymentPayload, requirements);
+  const verify = await facilitatorCall(env, "/verify", version, paymentPayload, requirements);
   if (verify.unreachable) {
     return json({ error: "Payment facilitator unreachable: " + verify.error }, 502);
   }
@@ -102,7 +183,7 @@ async function handlePaid(request, env, endpoint) {
     const reason =
       (verify.data && (verify.data.invalidReason || verify.data.error)) ||
       "facilitator returned HTTP " + verify.status;
-    return pay402("Payment verification failed: " + reason, requirements);
+    return pay402("Payment verification failed: " + reason, challenge);
   }
 
   // 2) Payment is valid — do the actual work.
@@ -114,11 +195,15 @@ async function handlePaid(request, env, endpoint) {
   }
 
   // 3) Settle (broadcast the transfer). Done after the work succeeded so a
-  //    failed scan never charges; result is surfaced via X-PAYMENT-RESPONSE.
-  const settle = await facilitatorCall(env, "/settle", paymentPayload, requirements);
+  //    failed scan never charges; the receipt is surfaced in both the v2
+  //    PAYMENT-RESPONSE and legacy X-PAYMENT-RESPONSE headers (same bytes —
+  //    the reference client checks them in that order).
+  const settle = await facilitatorCall(env, "/settle", version, paymentPayload, requirements);
   const extra = {};
   if (settle.data) {
-    extra["X-PAYMENT-RESPONSE"] = b64json(settle.data);
+    const receipt = b64json(settle.data);
+    extra["PAYMENT-RESPONSE"] = receipt;
+    extra["X-PAYMENT-RESPONSE"] = receipt;
     if (settle.data.success !== true) {
       console.error("x402: settle failed", endpoint.path, JSON.stringify(settle.data).slice(0, 500));
     }
@@ -128,24 +213,69 @@ async function handlePaid(request, env, endpoint) {
   return json(up.data, 200, extra);
 }
 
-function paymentRequirements(endpoint, origin, target, env) {
+// v1 PaymentRequirements — specs/x402-specification-v1.md (flat object with
+// maxAmountRequired + resource/description/mimeType/outputSchema inline).
+function paymentRequirementsV1(endpoint, resourceUrl, env) {
   return {
     scheme: "exact",
-    network: NETWORK,
+    network: NETWORK_V1,
     maxAmountRequired: endpoint.price,
-    resource: origin + endpoint.path + "?url=" + encodeURIComponent(target),
+    resource: resourceUrl,
     description: endpoint.description,
     mimeType: "application/json",
     outputSchema: null,
     payTo: env.PAYTO_ADDRESS,
-    maxTimeoutSeconds: 60,
+    maxTimeoutSeconds: MAX_TIMEOUT_SECONDS,
     asset: USDC_BASE,
     extra: { name: USDC_EIP712.name, version: USDC_EIP712.version },
   };
 }
 
-function pay402(error, requirements) {
-  return json({ x402Version: 1, error, accepts: [requirements] }, 402);
+// v2 PaymentRequirements — specs/x402-specification-v2.md §5.1.2: `amount`
+// replaces `maxAmountRequired`; CAIP-2 network; resource info lives in the
+// top-level PaymentRequired object, not here.
+function paymentRequirementsV2(endpoint, env) {
+  return {
+    scheme: "exact",
+    network: NETWORK_V2,
+    amount: endpoint.price,
+    asset: USDC_BASE,
+    payTo: env.PAYTO_ADDRESS,
+    maxTimeoutSeconds: MAX_TIMEOUT_SECONDS,
+    extra: { name: USDC_EIP712.name, version: USDC_EIP712.version },
+  };
+}
+
+// Compare a v2 client's `accepted` echo against what we advertise. The
+// reference implementation uses deepEqual; we require the fields that decide
+// who gets paid what, and tolerate cosmetic differences (extra, casing).
+function matchesV2Requirements(accepted, reqV2) {
+  const lc = (s) => String(s || "").toLowerCase();
+  return (
+    accepted.scheme === reqV2.scheme &&
+    accepted.network === reqV2.network &&
+    String(accepted.amount) === reqV2.amount &&
+    lc(accepted.asset) === lc(reqV2.asset) &&
+    lc(accepted.payTo) === lc(reqV2.payTo)
+  );
+}
+
+/**
+ * Dual-version 402 challenge:
+ *   body   = v1 PaymentRequired JSON  (transports-v1/http.md — v1 clients read the body)
+ *   header = PAYMENT-REQUIRED: base64(v2 PaymentRequired)  (transports-v2/http.md —
+ *            v2 clients read the header first and ignore the body)
+ */
+function pay402(error, { reqV1, reqV2, resourceInfo }) {
+  const v2PaymentRequired = {
+    x402Version: 2,
+    error,
+    resource: resourceInfo,
+    accepts: [reqV2],
+  };
+  return json({ x402Version: 1, error, accepts: [reqV1] }, 402, {
+    "PAYMENT-REQUIRED": b64json(v2PaymentRequired),
+  });
 }
 
 // Tolerant decode: base64(JSON) per spec, base64url, or raw JSON.
@@ -171,13 +301,20 @@ function decodePaymentHeader(header) {
 
 /* ---------------- facilitator ---------------- */
 
-async function facilitatorCall(env, path, paymentPayload, requirements) {
-  const base = (env.FACILITATOR_URL || FACILITATOR_DEFAULT).replace(/\/+$/, "");
+/**
+ * POST /verify and /settle share one body shape in both protocol versions
+ * (v2 spec §7.1–7.2; the reference HTTPFacilitatorClient sends
+ * `x402Version: paymentPayload.x402Version` alongside the payload and the
+ * version-matching requirements object):
+ *   { x402Version, paymentPayload, paymentRequirements }
+ */
+async function facilitatorCall(env, path, version, paymentPayload, requirements) {
+  const base = facilitatorBase(env, version);
   try {
     const res = await fetch(base + path, {
       method: "POST",
       headers: { "Content-Type": "application/json", Accept: "application/json" },
-      body: JSON.stringify({ x402Version: 1, paymentPayload, paymentRequirements: requirements }),
+      body: JSON.stringify({ x402Version: version, paymentPayload, paymentRequirements: requirements }),
       signal: AbortSignal.timeout(FACILITATOR_TIMEOUT_MS),
     });
     let data = null;
@@ -190,6 +327,11 @@ async function facilitatorCall(env, path, paymentPayload, requirements) {
   } catch (e) {
     return { ok: false, unreachable: true, status: 0, data: null, error: String((e && e.message) || e) };
   }
+}
+
+function facilitatorBase(env, version) {
+  const url = (version === 1 && env.FACILITATOR_URL_V1) || env.FACILITATOR_URL || FACILITATOR_DEFAULT;
+  return url.replace(/\/+$/, "");
 }
 
 /* ---------------- upstream proxying ---------------- */
@@ -226,24 +368,30 @@ async function fetchUpstream(endpoint, target) {
 
 function handleDiscovery(request, env) {
   const origin = new URL(request.url).origin;
+  const payToConfigured = Boolean(env.PAYTO_ADDRESS);
   return json(
     {
-      x402Version: 1,
+      x402Version: 2,
+      x402Versions: [1, 2], // both protocol versions are accepted on every endpoint
       name: "x402 payable APIs — agiscorecard",
       description:
-        "Pay-per-call scanning APIs for AI agents. No account, no API key: pay $0.005 per call in USDC on Base via the x402 payment-required protocol.",
-      network: NETWORK,
+        "Pay-per-call scanning APIs for AI agents. No account, no API key: pay $0.005 per call in USDC on Base via the x402 payment-required protocol (v2 with CAIP-2 network ids; legacy v1 clients still accepted).",
+      network: NETWORK_V2,
+      networkV1: NETWORK_V1,
       asset: { address: USDC_BASE, symbol: "USDC", decimals: 6, eip712: USDC_EIP712 },
-      payToConfigured: Boolean(env.PAYTO_ADDRESS),
+      payToConfigured,
       endpoints: ENDPOINTS.map((e) => ({
         path: e.path,
         method: "GET",
         resource: origin + e.path,
+        type: "http",
         query: { url: "target URL to scan (required)" },
         price: { amount: e.price, asset: "USDC", decimals: 6, usd: e.priceUsd },
-        network: NETWORK,
+        network: NETWORK_V2,
         description: e.description,
         mimeType: "application/json",
+        // Full v2 PaymentRequirements (spec §5.1.2) once the wallet is live:
+        accepts: payToConfigured ? [paymentRequirementsV2(e, env)] : [],
       })),
       docs: origin + "/",
     },
@@ -258,7 +406,8 @@ const CORS = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET, OPTIONS",
   "Access-Control-Allow-Headers": "*",
-  "Access-Control-Expose-Headers": "X-PAYMENT-RESPONSE",
+  // v2 + v1 receipt headers, and the v2 challenge header, readable cross-origin.
+  "Access-Control-Expose-Headers": "PAYMENT-RESPONSE, X-PAYMENT-RESPONSE, PAYMENT-REQUIRED",
 };
 
 function preflight() {

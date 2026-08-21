@@ -23,7 +23,7 @@
     {
       "@type": "FAQPage",
       "mainEntity": [
-        { "@type": "Question", "name": "What is x402?", "acceptedAnswer": { "@type": "Answer", "text": "x402 is an open protocol that revives HTTP status code 402 Payment Required. A server answers an unpaid request with a 402 and machine-readable payment requirements; the client signs a USDC transfer authorization, retries with an X-PAYMENT header, and gets the resource. No accounts, no API keys, settlement on-chain." } },
+        { "@type": "Question", "name": "What is x402?", "acceptedAnswer": { "@type": "Answer", "text": "x402 is an open protocol that revives HTTP status code 402 Payment Required. A server answers an unpaid request with a 402 and machine-readable payment requirements; the client signs a USDC transfer authorization, retries with a payment header (PAYMENT-SIGNATURE in x402 v2, X-PAYMENT in legacy v1), and gets the resource. No accounts, no API keys, settlement on-chain." } },
         { "@type": "Question", "name": "How much does a call cost?", "acceptedAnswer": { "@type": "Answer", "text": "Each endpoint costs $0.005 per call (5000 atomic USDC units, 6 decimals), paid in USDC on Base." } },
         { "@type": "Question", "name": "Am I charged if the scan fails?", "acceptedAnswer": { "@type": "Answer", "text": "No. Payment is settled only after the scan succeeds. If the upstream scanner errors or the target is unreachable, the payment authorization is never broadcast and you are not charged." } },
         { "@type": "Question", "name": "How do agents discover these endpoints?", "acceptedAnswer": { "@type": "Answer", "text": "GET /.well-known/x402 returns a machine-readable catalog: path, method, price in atomic USDC units, network, and whether payments are live." } }
@@ -120,42 +120,49 @@ footer a{color:var(--dim)}
   <h2>How a paid call works</h2>
   <p>x402 revives the HTTP status code that was reserved for this since 1997 — <b>402 Payment Required</b>:</p>
   <div class="steps">
-    <div class="step"><b>Call the endpoint</b><p>Your agent sends a normal GET request. The server replies <b>402</b> with a JSON <code style="color:var(--acc)">accepts</code> array: price in atomic USDC units, network, receiving address, asset contract.</p></div>
+    <div class="step"><b>Call the endpoint</b><p>Your agent sends a normal GET request. The server replies <b>402</b> with the price both ways at once: the <code style="color:var(--acc)">PAYMENT-REQUIRED</code> header (base64, x402 <b>v2</b>, CAIP-2 network <code style="color:var(--acc)">eip155:8453</code>) and a JSON body (legacy <b>v1</b>) — price in atomic USDC units, receiving address, asset contract.</p></div>
     <div class="step"><b>Sign the payment</b><p>The agent signs an EIP-3009 USDC <i>transferWithAuthorization</i> for exactly $0.005 — an off-chain signature, no gas needed from the agent.</p></div>
-    <div class="step"><b>Retry with X-PAYMENT</b><p>Same request plus an <code style="color:var(--acc)">X-PAYMENT</code> header (base64 payment payload). We verify it with an x402 facilitator, run the scan, and settle on-chain only after the scan succeeds.</p></div>
-    <div class="step"><b>Get result + receipt</b><p>The JSON result arrives with an <code style="color:var(--acc)">X-PAYMENT-RESPONSE</code> header — the base64 settlement receipt including the on-chain transaction hash.</p></div>
+    <div class="step"><b>Retry with the payment header</b><p>Same request plus <code style="color:var(--acc)">PAYMENT-SIGNATURE</code> (v2) or <code style="color:var(--acc)">X-PAYMENT</code> (v1) — a base64 payment payload. We verify it with an x402 facilitator, run the scan, and settle on-chain only after the scan succeeds.</p></div>
+    <div class="step"><b>Get result + receipt</b><p>The JSON result arrives with a <code style="color:var(--acc)">PAYMENT-RESPONSE</code> header (mirrored as <code style="color:var(--acc)">X-PAYMENT-RESPONSE</code> for v1 clients) — the base64 settlement receipt including the on-chain transaction hash.</p></div>
   </div>
 </section>
 
 <section class="info" id="usage">
   <h2>Usage</h2>
   <p>See the price first (no payment needed for the quote):</p>
-  <pre><span class="c"># The 402 response IS the price quote</span>
+  <pre><span class="c"># The 402 response IS the price quote (served in both protocol versions at once)</span>
 curl -i <span class="s">"https://x402.agiscorecard.com/api/scan?url=example.com"</span>
 
 <span class="c"># HTTP/2 402
-# { "x402Version": 1,
-#   "error": "X-PAYMENT header is required",
-#   "accepts": [{ "scheme": "exact", "network": "base",
-#                 "maxAmountRequired": "5000",       ← $0.005 (USDC has 6 decimals)
-#                 "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
-#                 "payTo": "0x…", "maxTimeoutSeconds": 60, … }] }</span></pre>
+# payment-required: eyJ4NDAyVmVyc2lvbiI6Miw…   ← x402 v2: base64 PaymentRequired
+#   → decodes to { "x402Version": 2,
+#                  "resource": { "url": …, "mimeType": "application/json" },
+#                  "accepts": [{ "scheme": "exact", "network": "eip155:8453",
+#                                "amount": "5000",   ← $0.005 (USDC has 6 decimals)
+#                                "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+#                                "payTo": "0x…", "maxTimeoutSeconds": 60, … }] }
+#
+# body (legacy x402 v1 clients read this instead):
+# { "x402Version": 1, "accepts": [{ "network": "base",
+#                                   "maxAmountRequired": "5000", … }] }</span></pre>
 
-  <p style="margin-top:22px">Pay automatically from JavaScript with the x402 client (v1 protocol — matches this server):</p>
-  <pre><span class="c">// npm install x402-fetch viem</span>
-<span class="k">import</span> { wrapFetchWithPayment } <span class="k">from</span> <span class="s">"x402-fetch"</span>;
-<span class="k">import</span> { createWalletClient, http } <span class="k">from</span> <span class="s">"viem"</span>;
+  <p style="margin-top:22px">Pay automatically from JavaScript with the current official client (x402 v2, <code style="color:var(--acc)">@x402/fetch</code>):</p>
+  <pre><span class="c">// npm install @x402/fetch @x402/evm viem</span>
+<span class="k">import</span> { wrapFetchWithPaymentFromConfig } <span class="k">from</span> <span class="s">"@x402/fetch"</span>;
+<span class="k">import</span> { ExactEvmScheme } <span class="k">from</span> <span class="s">"@x402/evm"</span>;
 <span class="k">import</span> { privateKeyToAccount } <span class="k">from</span> <span class="s">"viem/accounts"</span>;
-<span class="k">import</span> { base } <span class="k">from</span> <span class="s">"viem/chains"</span>;
 
 <span class="k">const</span> account = privateKeyToAccount(process.env.AGENT_PRIVATE_KEY);
-<span class="k">const</span> wallet  = createWalletClient({ account, chain: base, transport: http() });
-<span class="k">const</span> payFetch = wrapFetchWithPayment(fetch, wallet);
+<span class="k">const</span> payFetch = wrapFetchWithPaymentFromConfig(fetch, {
+  schemes: [{ network: <span class="s">"eip155:8453"</span> <span class="c">/* Base mainnet (CAIP-2) */</span>, client: <span class="k">new</span> ExactEvmScheme(account) }],
+});
 
 <span class="c">// 402 → sign → retry → 200, handled for you:</span>
 <span class="k">const</span> res  = <span class="k">await</span> payFetch(<span class="s">"https://x402.agiscorecard.com/api/scan?url=example.com"</span>);
 <span class="k">const</span> data = <span class="k">await</span> res.json();
-<span class="c">// settlement receipt: res.headers.get("X-PAYMENT-RESPONSE") (base64 JSON, incl. tx hash)</span></pre>
+<span class="c">// settlement receipt: res.headers.get("PAYMENT-RESPONSE") (base64 JSON, incl. tx hash)</span></pre>
+
+  <p style="margin-top:22px" class="tiny">Legacy v1 clients (npm <code style="color:var(--acc)">x402-fetch</code> + a viem wallet client) keep working unchanged — they read the v1 JSON body of the same 402, send <code style="color:var(--acc)">X-PAYMENT</code>, and get their receipt in <code style="color:var(--acc)">X-PAYMENT-RESPONSE</code>.</p>
 
   <p style="margin-top:22px" class="tiny">Wallet needs a few cents of USDC on Base — that's it. Until the receiving wallet goes live, append <code style="color:var(--acc)">&amp;demo=1</code> to try either endpoint free (result arrives wrapped in <code style="color:var(--acc)">{"demo":true}</code>).</p>
 </section>
@@ -165,10 +172,11 @@ curl -i <span class="s">"https://x402.agiscorecard.com/api/scan?url=example.com"
   <p>Agents shouldn't need to read landing pages. The full catalog — paths, methods, prices in atomic units, network, and whether payments are live — is served as JSON:</p>
   <pre>curl <span class="s">"https://x402.agiscorecard.com/.well-known/x402"</span>
 
-<span class="c"># { "x402Version": 1, "network": "base", "payToConfigured": true,
+<span class="c"># { "x402Version": 2, "x402Versions": [1, 2],
+#   "network": "eip155:8453", "networkV1": "base", "payToConfigured": true,
 #   "endpoints": [
-#     { "path": "/api/scan",      "method": "GET", "price": { "amount": "5000", "usd": "$0.005" }, … },
-#     { "path": "/api/mcp-check", "method": "GET", "price": { "amount": "5000", "usd": "$0.005" }, … } ] }</span></pre>
+#     { "path": "/api/scan",      "method": "GET", "price": { "amount": "5000", "usd": "$0.005" }, "accepts": [ … ], … },
+#     { "path": "/api/mcp-check", "method": "GET", "price": { "amount": "5000", "usd": "$0.005" }, "accepts": [ … ], … } ] }</span></pre>
 </section>
 
 <section class="info" id="faq">
@@ -178,7 +186,7 @@ curl -i <span class="s">"https://x402.agiscorecard.com/api/scan?url=example.com"
     <div class="card"><b>Am I charged for failures?</b><p>No. We verify your payment first, run the scan, and only settle on-chain after a successful result. Failed or unreachable targets cost you nothing.</p></div>
     <div class="card"><b>Why USDC on Base?</b><p>Sub-cent fees, ~2s finality, and native USDC with EIP-3009 gasless transfer authorizations — the de-facto standard pairing for x402 payments.</p></div>
     <div class="card"><b>Is there a subscription?</b><p>No accounts here at all. If you want monitoring and alerts instead of one-off calls, see AgentReady and MCP Pulse below.</p></div>
-    <div class="card"><b>Which x402 version?</b><p>Protocol v1 (<code style="color:var(--acc)">x402Version: 1</code>, network id <code style="color:var(--acc)">base</code>), the widest-deployed revision. v1 clients like <code style="color:var(--acc)">x402-fetch</code> work out of the box.</p></div>
+    <div class="card"><b>Which x402 version?</b><p>Both. v2 (current — <code style="color:var(--acc)">x402Version: 2</code>, CAIP-2 network <code style="color:var(--acc)">eip155:8453</code>, <code style="color:var(--acc)">@x402/fetch</code>) and legacy v1 (<code style="color:var(--acc)">base</code>, <code style="color:var(--acc)">x402-fetch</code>) are served from the same 402 — modern and older agents both pay out of the box.</p></div>
     <div class="card"><b>Rate limits?</b><p>Please self-limit to a few requests per minute per target. Abusive traffic gets blocked.</p></div>
   </div>
 </section>

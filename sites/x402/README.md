@@ -8,7 +8,7 @@ Worker for **x402.agiscorecard.com**. Wraps the family's two scanners as x402-pa
 | `GET /api/mcp-check?url=<mcp>` | mcppulse.agiscorecard.com/api/scan | $0.005 |
 | `GET /.well-known/x402` | — | free (machine-readable catalog) |
 
-Protocol: **x402 v1**, `exact` scheme (EIP-3009 USDC `transferWithAuthorization`), implemented manually in `src/worker.js` — no SDK dependencies. Payment is **settled only after a successful scan**; failed scans are never charged. The settle receipt is returned base64-encoded in the `X-PAYMENT-RESPONSE` header (CORS-exposed).
+Protocol: **x402 v2 + v1 (dual)**, `exact` scheme (EIP-3009 USDC `transferWithAuthorization`), implemented manually in `src/worker.js` — no SDK dependencies. Every 402 challenge is emitted in both versions simultaneously: the **v2** `PaymentRequired` (CAIP-2 network `eip155:8453`, `amount` field) goes base64-encoded into the `PAYMENT-REQUIRED` response header per `specs/transports-v2/http.md`, while the response **body** carries the **v1** JSON (`{x402Version:1, accepts:[…]}`, network `base`, `maxAmountRequired`) per `specs/transports-v1/http.md` — exactly the fallback order the official `@x402/fetch` client implements (header first, then v1 body). Incoming payments are read from `PAYMENT-SIGNATURE` (v2) or `X-PAYMENT` (v1). Payment is **settled only after a successful scan**; failed scans are never charged. The settle receipt is returned base64-encoded in both the `PAYMENT-RESPONSE` (v2) and `X-PAYMENT-RESPONSE` (v1) headers (CORS-exposed, identical bytes).
 
 Deploys like every other site in this repo: push to the default branch, CI runs wrangler for `sites/x402` (once wired in `.github/workflows/deploy.yml`).
 
@@ -54,27 +54,31 @@ The facilitator verifies the signed payment (`POST /verify`) and broadcasts it o
 
 So for real USDC on Base mainnet you **must** set `FACILITATOR_URL` to a production facilitator. Options named in the official docs:
 
-- **Coinbase CDP**: `https://api.cdp.coinbase.com/platform/v2/x402` — the reference production facilitator (fee-free for Base USDC at the time of writing). Historically its `/settle` required CDP API keys sent as auth headers; **this Worker sends no auth headers**, so verify current requirements in the CDP docs before choosing it, or extend `facilitatorCall()` if keys are needed.
-- **PayAI**: `https://facilitator.payai.network` — community production facilitator, listed alongside CDP in the official quickstart.
+- **Coinbase CDP**: `https://api.cdp.coinbase.com/platform/v2/x402` — the reference production facilitator (fee-free for Base USDC at the time of writing), named as the mainnet example in the official quickstart (`docs/getting-started/quickstart-for-sellers.mdx`). Historically its `/settle` required CDP API keys sent as auth headers; **this Worker sends no auth headers**, so verify current requirements in the CDP docs before choosing it, or extend `facilitatorCall()` if keys are needed.
+- **PayAI**: `https://facilitator.payai.network` — community production facilitator, listed alongside CDP in the same quickstart (it also runs its own Bazaar at `…/discovery/resources`).
+- Note: the coinbase/x402 repo's Go v2 examples also use `https://facilitator.x402.org` as the SDK-default facilitator host (same operator as `x402.org/facilitator`); treat it as testnet/dev unless the ecosystem page says otherwise.
 - Full live list: https://www.x402.org/ecosystem?filter=facilitators
 
 ```sh
 npx wrangler secret put FACILITATOR_URL --name x402   # or a plain var
 ```
 
-**Version caveat (accuracy note):** this Worker speaks x402 **v1** (`x402Version: 1`, network id `"base"`), per the frozen v1 spec (`specs/x402-specification-v1.md`). The ecosystem is migrating to v2, which uses CAIP-2 network ids (`eip155:8453`) and the `@x402/*` packages; v1 is deprecated-but-supported (the `x402-fetch` v1 client still receives security patches). Pick a facilitator that still accepts v1 requests, or port this Worker to v2 when v1 support is dropped. The `/verify` & `/settle` request/response shapes implemented here (`isValid`/`invalidReason`, `success`/`errorReason`/`transaction`) are exactly the v1 spec's.
+**Version note (verified against coinbase/x402 `specs/`, 2026-08-21):** this Worker now speaks **both** protocol versions. v2 (`specs/x402-specification-v2.md`) is current: CAIP-2 network ids (`eip155:8453` = Base mainnet), `amount` instead of `maxAmountRequired`, resource metadata moved to a top-level `resource` object, and the HTTP headers `PAYMENT-REQUIRED` / `PAYMENT-SIGNATURE` / `PAYMENT-RESPONSE` (`specs/transports-v2/http.md`). v1 is frozen-but-supported (the legacy `x402-fetch` client still works). The facilitator `/verify` & `/settle` **request body shape is identical in both versions** — `{ x402Version, paymentPayload, paymentRequirements }` — with `x402Version` echoing the client payload's version, and the response shapes (`isValid`/`invalidReason`, `success`/`errorReason`/`transaction`/`network`/`payer`) are shared too; only the `paymentRequirements`/`paymentPayload` internals differ. The Worker sends each payment to the facilitator in the version the client used. **Caveat:** a facilitator deployment may support only one version; if your chosen facilitator rejects v1 traffic, point legacy clients elsewhere via the optional `FACILITATOR_URL_V1` env var (falls back to `FACILITATOR_URL`).
 
-Testnet dry-run: temporarily set `NETWORK = "base-sepolia"` and `USDC_BASE = "0x036CbD53842c5426634e7929541eC2318f3dCF7e"` (Base Sepolia USDC, EIP-712 name `"USDC"`) in `src/worker.js`, keep the default facilitator, and pay with faucet USDC via `x402-fetch`.
+Testnet dry-run: temporarily set `NETWORK_V1 = "base-sepolia"`, `NETWORK_V2 = "eip155:84532"` and `USDC_BASE = "0x036CbD53842c5426634e7929541eC2318f3dCF7e"` (Base Sepolia USDC, EIP-712 name `"USDC"` — note the mainnet contract's name is `"USD Coin"`, so also flip `USDC_EIP712.name`) in `src/worker.js`, keep the default facilitator, and pay with faucet USDC via `@x402/fetch`.
 
 ### 4. Verify end-to-end
 
 ```sh
-# price quote (no payment):
-curl -i "https://x402.agiscorecard.com/api/scan?url=example.com"        # → 402 + accepts[]
+# price quote (no payment) — one 402, two protocol versions:
+curl -i "https://x402.agiscorecard.com/api/scan?url=example.com"
+#   → 402; header `payment-required:` = base64 v2 PaymentRequired (eip155:8453),
+#     body = v1 JSON {x402Version:1, accepts:[…]}
 curl -s "https://x402.agiscorecard.com/.well-known/x402"                # → catalog, payToConfigured:true
-# paid call: use the x402-fetch snippet on the landing page with a wallet
-# holding a few cents of Base USDC; expect 200 + X-PAYMENT-RESPONSE header,
-# then the USDC arriving at PAYTO_ADDRESS (check basescan.org).
+# paid call: use the @x402/fetch snippet on the landing page with a wallet
+# holding a few cents of Base USDC; expect 200 + PAYMENT-RESPONSE (and mirrored
+# X-PAYMENT-RESPONSE) headers, then the USDC arriving at PAYTO_ADDRESS
+# (check basescan.org).
 ```
 
 ### 5. Get discovered
@@ -92,9 +96,9 @@ curl -s "https://x402.agiscorecard.com/.well-known/x402"                # → ca
 ```
 sites/x402/
 ├── wrangler.jsonc        # name "x402", route x402.agiscorecard.com, assets binding
-├── src/worker.js         # x402 v1 gateway: 402 challenge → /verify → scan → /settle
+├── src/worker.js         # x402 v2+v1 gateway: dual 402 challenge → /verify → scan → /settle
 ├── public/
-│   ├── index.html        # landing page (humans + agents): prices, curl/x402-fetch examples
+│   ├── index.html        # landing page (humans + agents): prices, curl/@x402/fetch examples (+ legacy v1 note)
 │   ├── llms.txt          # AI-crawler summary
 │   ├── agents.md         # machine instructions incl. full payment walkthrough
 │   ├── robots.txt        # allow all + AI crawlers, sitemap ref
@@ -103,4 +107,4 @@ sites/x402/
 └── README.md             # this runbook
 ```
 
-Env vars: `PAYTO_ADDRESS` (required to charge), `FACILITATOR_URL` (required for mainnet; defaults to the testnet-only x402.org facilitator).
+Env vars: `PAYTO_ADDRESS` (required to charge), `FACILITATOR_URL` (required for mainnet; defaults to the testnet-only x402.org facilitator), `FACILITATOR_URL_V1` (optional; separate facilitator for legacy v1 payments if your main facilitator is v2-only — falls back to `FACILITATOR_URL`).
