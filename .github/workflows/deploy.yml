@@ -29,7 +29,7 @@ jobs:
         run: |
           set -e
           # Custom-domain DNS may take a couple of minutes right after first attach — retry.
-          for site in agentready selltoagents closecalc mcppulse glossary tools; do
+          for site in agentready selltoagents closecalc mcppulse glossary tools x402; do
             url="https://${site}.agiscorecard.com"
             ok=""
             for attempt in $(seq 1 12); do
@@ -42,6 +42,15 @@ jobs:
             done
             [ -n "$ok" ] || { echo "::error::$site is not healthy after retries"; exit 1; }
           done
+      - name: Verify x402 payment gate is armed
+        run: |
+          set -e
+          body=$(curl -s --retry 6 --retry-delay 10 --retry-all-errors https://x402.agiscorecard.com/.well-known/x402)
+          echo "$body" | head -c 400
+          echo "$body" | grep -q '"payToConfigured": *true' || { echo "::error::x402 payTo not configured in live catalog"; exit 1; }
+          code=$(curl -s -o /dev/null -w "%{http_code}" "https://x402.agiscorecard.com/api/scan?url=https://example.com")
+          [ "$code" = "402" ] || { echo "::error::expected 402 challenge from unpaid /api/scan, got $code"; exit 1; }
+
       - name: Verify key content pages resolve (extensionless routing)
         run: |
           set -e
