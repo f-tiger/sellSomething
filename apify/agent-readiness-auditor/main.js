@@ -278,7 +278,7 @@ function checkAiCrawlerAccess(robots) {
     const out = [];
     let blocked = 0;
     for (const bot of AI_CRAWLERS) {
-        const allowed = isAllowed(rules, bot.agent);
+        const allowed = isAllowedByGroup(matchGroup(rules, bot.agent)?.group);
         if (!allowed) blocked++;
         out.push({
             id: 'bot-' + bot.agent.toLowerCase(),
@@ -308,8 +308,14 @@ function checkAiCrawlerAccess(robots) {
     return out;
 }
 
+// KEEP-IN-SYNC: shared with ../*/main.js — edit all copies together (see apify/README.md)
+// robots.txt parsing + RFC 9309 group matching, shared by llms-txt-extractor
+// and agent-readiness-auditor. Verify parity with `node apify/check-sync.mjs`.
+
+// Parses robots.txt into rule groups [{agents, allows, disallows, crawlDelay}].
+// Agent tokens are lowercased for case-insensitive matching; consecutive
+// User-agent lines share one group; crawl-delay is captured per group.
 function parseRobots(text) {
-    // Returns [{agents: [..], allows: [..], disallows: [..]}] per group.
     const groups = [];
     let current = null;
     for (const rawLine of text.split(/\r?\n/)) {
@@ -321,13 +327,17 @@ function parseRobots(text) {
         const value = m[2].trim();
         if (key === 'user-agent') {
             if (!current || current.closed) {
-                current = { agents: [], allows: [], disallows: [] };
+                current = { agents: [], allows: [], disallows: [], crawlDelay: null };
                 groups.push(current);
             }
             current.agents.push(value.toLowerCase());
         } else if (current && (key === 'allow' || key === 'disallow')) {
             current.closed = true;
             (key === 'allow' ? current.allows : current.disallows).push(value);
+        } else if (current && key === 'crawl-delay') {
+            current.closed = true;
+            const n = Number.parseFloat(value);
+            if (!Number.isNaN(n)) current.crawlDelay = n;
         } else if (current) {
             current.closed = true;
         }
@@ -335,27 +345,39 @@ function parseRobots(text) {
     return groups;
 }
 
-function isAllowed(groups, agent) {
+// Most specific matching group wins (longest matching agent token), per
+// RFC 9309; the wildcard (*) group applies only when no specific token matches.
+function matchGroup(groups, agent) {
     const name = agent.toLowerCase();
-    // Most specific matching group wins (longest matching agent token), per RFC 9309.
     let best = null;
+    let bestToken = '';
     let bestLen = -1;
+    let wildcard = null;
     for (const g of groups) {
         for (const a of g.agents) {
-            const matches = a === '*' ? bestLen < 0 : name.includes(a) || a.includes(name);
-            if (a === '*' && bestLen < 0 && !best) best = g;
-            else if (a !== '*' && matches && a.length > bestLen) {
+            if (a === '*') {
+                if (!wildcard) wildcard = g;
+            } else if ((name.includes(a) || a.includes(name)) && a.length > bestLen) {
                 best = g;
+                bestToken = a;
                 bestLen = a.length;
             }
         }
     }
-    if (!best) return true;
-    // Blocked if the whole site is disallowed for the winning group.
-    const rootBlocked = best.disallows.some((d) => d === '/' || d === '/*');
-    const rootAllowed = best.allows.some((a) => a === '/' || a === '/*');
+    if (best) return { group: best, agentToken: bestToken, wildcard: false };
+    if (wildcard) return { group: wildcard, agentToken: '*', wildcard: true };
+    return null;
+}
+
+// Verdict for the winning group: blocked only when the whole site is
+// disallowed ("/" or "/*") without a counteracting root Allow.
+function isAllowedByGroup(group) {
+    if (!group) return true;
+    const rootBlocked = group.disallows.some((d) => d === '/' || d === '/*');
+    const rootAllowed = group.allows.some((a) => a === '/' || a === '/*');
     return !rootBlocked || rootAllowed;
 }
+// END-KEEP-IN-SYNC
 
 function checkLlmsTxt(llms) {
     const found = !!(llms && llms.ok && llms.body.trim().length > 0 && !/^\s*</.test(llms.body));
@@ -563,6 +585,7 @@ function summarize(score) {
 }
 
 /* ---------------- shared utilities ---------------- */
+// KEEP-IN-SYNC: shared with ../*/main.js — edit all copies together (see apify/README.md)
 
 function normalizeStringList(value) {
     if (!Array.isArray(value)) return [];
@@ -601,12 +624,12 @@ async function pushSafe(item) {
     try {
         await Actor.pushData(item);
     } catch (err) {
-        log.error(`Failed to push dataset item for ${item.url ?? item.input}: ${err?.message || err}`);
+        log.error(`Failed to push dataset item for ${item.url ?? item.domain ?? item.input}: ${err?.message || err}`);
     }
 }
 
 // Charge one PPE event. No-ops gracefully when PPE is not enabled for this
-// actor (e.g. local runs, rented runs, or before monetization is configured).
+// actor (e.g. local runs, or before monetization is configured).
 async function chargeSafe(eventName, stats) {
     try {
         const result = await Actor.charge({ eventName, count: 1 });
@@ -618,3 +641,4 @@ async function chargeSafe(eventName, stats) {
         log.debug(`PPE charge skipped (${eventName}): ${err?.message || err}`);
     }
 }
+// END-KEEP-IN-SYNC

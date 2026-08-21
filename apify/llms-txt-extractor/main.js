@@ -361,7 +361,13 @@ function buildRobotsField(res, origin, opts) {
     return field;
 }
 
-// Ported from the agentready worker, extended to capture crawl-delay.
+// KEEP-IN-SYNC: shared with ../*/main.js — edit all copies together (see apify/README.md)
+// robots.txt parsing + RFC 9309 group matching, shared by llms-txt-extractor
+// and agent-readiness-auditor. Verify parity with `node apify/check-sync.mjs`.
+
+// Parses robots.txt into rule groups [{agents, allows, disallows, crawlDelay}].
+// Agent tokens are lowercased for case-insensitive matching; consecutive
+// User-agent lines share one group; crawl-delay is captured per group.
 function parseRobots(text) {
     const groups = [];
     let current = null;
@@ -392,7 +398,8 @@ function parseRobots(text) {
     return groups;
 }
 
-// Most specific matching group wins (longest matching agent token), per RFC 9309.
+// Most specific matching group wins (longest matching agent token), per
+// RFC 9309; the wildcard (*) group applies only when no specific token matches.
 function matchGroup(groups, agent) {
     const name = agent.toLowerCase();
     let best = null;
@@ -415,12 +422,15 @@ function matchGroup(groups, agent) {
     return null;
 }
 
+// Verdict for the winning group: blocked only when the whole site is
+// disallowed ("/" or "/*") without a counteracting root Allow.
 function isAllowedByGroup(group) {
     if (!group) return true;
     const rootBlocked = group.disallows.some((d) => d === '/' || d === '/*');
     const rootAllowed = group.allows.some((a) => a === '/' || a === '/*');
     return !rootBlocked || rootAllowed;
 }
+// END-KEEP-IN-SYNC
 
 /* ---------------- fetch helpers ---------------- */
 
@@ -477,6 +487,7 @@ function normalizeTarget(raw) {
 }
 
 /* ---------------- shared utilities ---------------- */
+// KEEP-IN-SYNC: shared with ../*/main.js — edit all copies together (see apify/README.md)
 
 function normalizeStringList(value) {
     if (!Array.isArray(value)) return [];
@@ -515,7 +526,7 @@ async function pushSafe(item) {
     try {
         await Actor.pushData(item);
     } catch (err) {
-        log.error(`Failed to push dataset item for ${item.domain ?? item.input}: ${err?.message || err}`);
+        log.error(`Failed to push dataset item for ${item.url ?? item.domain ?? item.input}: ${err?.message || err}`);
     }
 }
 
@@ -532,3 +543,4 @@ async function chargeSafe(eventName, stats) {
         log.debug(`PPE charge skipped (${eventName}): ${err?.message || err}`);
     }
 }
+// END-KEEP-IN-SYNC

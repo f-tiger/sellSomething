@@ -10,6 +10,21 @@ Three pay-per-event (PPE) actors live here, built as vertical niches for the AI-
 
 All three are plain Node 20 + `apify` SDK v3, no browsers, no third-party deps — cheap to run, fast to build.
 
+## Shared code (KEEP-IN-SYNC blocks)
+
+Each actor must stay a **self-contained directory** for `apify push`, so shared logic is deliberately duplicated across the three `main.js` files instead of being imported from a common module. Every duplicated block is fenced with `// KEEP-IN-SYNC: …` / `// END-KEEP-IN-SYNC` markers:
+
+- **robots.txt parsing + RFC 9309 group matching** (`parseRobots`, `matchGroup`, `isAllowedByGroup`) — shared by `agent-readiness-auditor` and `llms-txt-extractor`. Canonical behavior: longest-matching user-agent token wins, wildcard `*` group only applies when no specific token matches, agent matching is case-insensitive, `crawl-delay` is captured per group.
+- **shared utilities** (`normalizeStringList`, `clampInt`, `runPool`, `pushSafe`, `chargeSafe`) — shared by all three actors.
+
+When you touch anything inside a KEEP-IN-SYNC fence, apply the same edit to **every** copy, then verify parity **before every `apify push`**:
+
+```bash
+node apify/check-sync.mjs
+```
+
+The script extracts the fenced function bodies from the three files and exits non-zero if any copies of the same function differ (whitespace-normalized).
+
 ## 1. Prerequisites
 
 ```bash
@@ -35,6 +50,14 @@ apify validate-schema .actor/input_schema.json
 ```
 
 ## 3. Push each actor
+
+First confirm the duplicated KEEP-IN-SYNC blocks are still identical (see "Shared code" above):
+
+```bash
+node apify/check-sync.mjs
+```
+
+Then push:
 
 ```bash
 cd apify/agent-readiness-auditor   && apify push

@@ -132,7 +132,10 @@ async function buildReport(href, opts) {
     } catch (e) {
         return { error: `Could not reach ${href} — ${e.message || 'network error'}` };
     }
-    const latency = Date.now() - started;
+    // Prefer the moment the initialize response was actually parsed (recorded
+    // by rpc), so servers that keep their SSE stream open after answering are
+    // not penalized with the full stream-read/abort duration.
+    const latency = init.latencyMs ?? (Date.now() - started);
     const corsCheck = await checkCors(href, opts);
 
     // Auth-protected endpoint: a valid, secure configuration — report it as such.
@@ -317,6 +320,7 @@ async function rpc(url, sessionId, method, params, id, opts) {
 
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(new Error(`Timed out after ${opts.timeoutMs} ms`)), opts.timeoutMs);
+    const startedAt = Date.now();
     try {
         const res = await fetch(url, {
             method: 'POST',
@@ -330,6 +334,7 @@ async function rpc(url, sessionId, method, params, id, opts) {
             result: null,
             sessionId: res.headers.get('mcp-session-id') || sessionId,
             sse: false,
+            latencyMs: null, // time from request start to a parsed matching response
             wwwAuthenticate: res.headers.get('www-authenticate') || '',
         };
         if (!res.ok) {
@@ -339,22 +344,19 @@ async function rpc(url, sessionId, method, params, id, opts) {
         const ctype = (res.headers.get('content-type') || '').toLowerCase();
         if (ctype.includes('text/event-stream')) {
             out.sse = true;
-            // Stream incrementally: many MCP servers keep the SSE connection
-            // open after answering, so a plain .text() would hang until abort.
-            const text = await readSseUntilResponse(res, id);
-            for (const line of text.split('\n')) {
-                if (!line.startsWith('data:')) continue;
-                try {
-                    const payload = JSON.parse(line.slice(5).trim());
-                    if (payload.id === id && payload.result) { out.result = payload.result; out.ok = true; break; }
-                    if (payload.id === id && payload.error) { out.note = `JSON-RPC error: ${payload.error.message || payload.error.code}`; break; }
-                } catch {
-                    /* partial or non-JSON data line — skip */
-                }
-            }
+            // Parse the SSE stream incrementally: many MCP servers keep the
+            // connection open after answering, so a plain .text() would hang
+            // until the AbortController backstop fires. readSseUntilResponse
+            // resolves the moment the response for our request id is parsed.
+            const found = await readSseUntilResponse(res, id, startedAt);
+            out.latencyMs = found.latencyMs;
+            const payload = found.payload;
+            if (payload && payload.result) { out.result = payload.result; out.ok = true; }
+            else if (payload && payload.error) out.note = `JSON-RPC error: ${payload.error.message || payload.error.code}`;
             if (!out.ok && !out.note) out.note = 'SSE stream ended without a matching JSON-RPC response.';
         } else {
             const text = (await res.text()).slice(0, MAX_BODY_BYTES);
+            out.latencyMs = Date.now() - startedAt;
             try {
                 const payload = JSON.parse(text);
                 if (payload.result) { out.result = payload.result; out.ok = true; }
@@ -369,32 +371,91 @@ async function rpc(url, sessionId, method, params, id, opts) {
     }
 }
 
-// Reads an SSE body chunk by chunk and stops as soon as a complete `data:` line
-// containing our request id has arrived (or the stream ends / aborts).
-async function readSseUntilResponse(res, id) {
-    const idNeedle = `"id":${id}`;
-    const idNeedleSpaced = `"id": ${id}`;
-    let buf = '';
+/* ---------------- incremental SSE response parsing ---------------- */
+
+// Loose JSON-RPC id comparison: some servers echo our numeric request id back
+// as a string. We compare parsed values (numeric and string equality), never
+// raw serialized text, so spacing/formatting differences are irrelevant.
+function idMatches(responseId, requestId) {
+    if (responseId === null || responseId === undefined) return false;
+    return responseId === requestId
+        || Number(responseId) === requestId
+        || String(responseId) === String(requestId);
+}
+
+// Joins the `data:` lines of one raw SSE event (multi-line data is joined with
+// "\n" per the SSE spec) and attempts JSON.parse. Returns the parsed object,
+// or null when the event carries no parseable JSON object.
+function parseSseEventData(rawEvent) {
+    const dataLines = [];
+    for (const line of rawEvent.split(/\r?\n/)) {
+        if (line.startsWith('data:')) dataLines.push(line.slice(5).replace(/^ /, ''));
+    }
+    if (dataLines.length === 0) return null;
+    try {
+        const parsed = JSON.parse(dataLines.join('\n'));
+        return parsed && typeof parsed === 'object' ? parsed : null;
+    } catch {
+        return null; // non-JSON or truncated event
+    }
+}
+
+// Consumes complete events (terminated by a blank line, LF or CRLF) from
+// state.buf and returns the first parsed payload whose JSON-RPC id matches the
+// request id, else null. Incomplete trailing data is left in state.buf so the
+// next chunk can complete it.
+function findMatchingSseEvent(state, requestId) {
+    for (;;) {
+        const boundary = state.buf.match(/\r?\n\r?\n/);
+        if (!boundary) return null;
+        const rawEvent = state.buf.slice(0, boundary.index);
+        state.buf = state.buf.slice(boundary.index + boundary[0].length);
+        const payload = parseSseEventData(rawEvent);
+        if (payload && idMatches(payload.id, requestId)) return payload;
+    }
+}
+
+// Reads an SSE body chunk by chunk, parsing event-by-event, and resolves as
+// soon as the JSON-RPC response for `requestId` has been parsed — so held-open
+// streams neither block the check nor inflate the measured latency. The
+// caller's AbortController timeout remains the backstop for streams that never
+// answer. Returns { payload, latencyMs }; both are null when no match arrived.
+async function readSseUntilResponse(res, requestId, startedAt) {
+    const state = { buf: '' };
     const decoder = new TextDecoder();
     const reader = res.body?.getReader?.();
     if (!reader) {
-        try { return (await res.text()).slice(0, MAX_BODY_BYTES); } catch { return buf; }
+        // No streaming reader available — fall back to reading the whole body
+        // (bounded by the AbortController timeout).
+        try { state.buf = (await res.text()).slice(0, MAX_BODY_BYTES); } catch { /* aborted */ }
+        state.buf += '\n\n';
+        const payload = findMatchingSseEvent(state, requestId);
+        return { payload, latencyMs: payload ? Date.now() - startedAt : null };
     }
+    let received = 0;
+    let payload = null;
     for (;;) {
         let chunk;
         try {
             chunk = await reader.read();
         } catch {
-            break; // aborted or connection dropped — parse what we have
+            break; // aborted or connection dropped — flush what we have
         }
         if (chunk.done) break;
-        buf += decoder.decode(chunk.value, { stream: true });
-        if (buf.length >= MAX_BODY_BYTES) break;
-        const complete = buf.slice(0, buf.lastIndexOf('\n') + 1);
-        if (complete.includes(idNeedle) || complete.includes(idNeedleSpaced)) break;
+        received += chunk.value.byteLength;
+        state.buf += decoder.decode(chunk.value, { stream: true });
+        payload = findMatchingSseEvent(state, requestId);
+        if (payload || received >= MAX_BODY_BYTES) break;
     }
+    if (!payload) {
+        // Stream ended (or size cap hit) — the final event may lack a trailing
+        // blank line, so flush the remainder as one last event.
+        state.buf += '\n\n';
+        payload = findMatchingSseEvent(state, requestId);
+    }
+    const latencyMs = payload ? Date.now() - startedAt : null;
     try { await reader.cancel(); } catch { /* stream already closed */ }
-    return buf.slice(0, MAX_BODY_BYTES);
+    return { payload, latencyMs };
 }
 
 async function rpcNotify(url, sessionId, method, opts) {
@@ -452,6 +513,8 @@ function normalizeTarget(raw) {
     return { href: u.href };
 }
 
+// KEEP-IN-SYNC: shared with ../*/main.js — edit all copies together (see apify/README.md)
+
 function normalizeStringList(value) {
     if (!Array.isArray(value)) return [];
     const seen = new Set();
@@ -489,7 +552,7 @@ async function pushSafe(item) {
     try {
         await Actor.pushData(item);
     } catch (err) {
-        log.error(`Failed to push dataset item for ${item.url ?? item.input}: ${err?.message || err}`);
+        log.error(`Failed to push dataset item for ${item.url ?? item.domain ?? item.input}: ${err?.message || err}`);
     }
 }
 
@@ -506,3 +569,4 @@ async function chargeSafe(eventName, stats) {
         log.debug(`PPE charge skipped (${eventName}): ${err?.message || err}`);
     }
 }
+// END-KEEP-IN-SYNC
