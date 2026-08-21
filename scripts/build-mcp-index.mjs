@@ -52,28 +52,87 @@ async function scan(url) {
   return res.json();
 }
 
+// Auto-discovery: merge public remote servers from the official MCP Registry
+// (registry.modelcontextprotocol.io) into the curated list. The registry is
+// the ecosystem's source of truth, so the index grows on its own each weekly
+// run. Fail-soft: registry unreachable → curated list only.
+const REGISTRY = process.env.MCP_REGISTRY_API || "https://registry.modelcontextprotocol.io";
+const MAX_SERVERS = Math.max(1, Number(process.env.MAX_SERVERS || 150));
+
+async function discoverFromRegistry() {
+  const found = [];
+  for (const base of ["/v0.1/servers", "/v0/servers"]) {
+    try {
+      let cursor = "";
+      for (let page = 0; page < 10 && found.length < MAX_SERVERS * 2; page++) {
+        const u = REGISTRY + base + "?limit=100" + (cursor ? "&cursor=" + encodeURIComponent(cursor) : "");
+        const res = await fetch(u, { signal: AbortSignal.timeout(20000) });
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        const d = await res.json();
+        const items = d.servers || d.data || [];
+        for (const it of items) {
+          const s = it.server || it; // v0.1 wraps entries in {server, _meta}
+          const remotes = s.remotes || [];
+          for (const rm of remotes) {
+            const type = String(rm.type || rm.transport_type || "").toLowerCase();
+            const url = String(rm.url || "");
+            if (!/streamable/.test(type) && type !== "http") continue;
+            if (!/^https:\/\//.test(url)) continue;
+            const name = String(s.title || s.name || "").split("/").pop() || url;
+            found.push([name, url]);
+          }
+        }
+        cursor = (d.metadata && d.metadata.next_cursor) || d.next_cursor || "";
+        if (!cursor || !items.length) break;
+      }
+      if (found.length) { console.log(`Registry discovery (${base}): ${found.length} remote servers`); return found; }
+    } catch (e) {
+      console.warn(`Registry discovery failed on ${base}: ${e.message}`);
+    }
+  }
+  return found;
+}
+
+const discovered = await discoverFromRegistry();
+const seen = new Set();
+const CANDIDATES = [];
+for (const [name, url] of [...SERVERS, ...discovered]) {
+  const key = url.replace(/\/+$/, "").toLowerCase();
+  if (seen.has(key)) continue;
+  seen.add(key);
+  CANDIDATES.push([name, url]);
+  if (CANDIDATES.length >= MAX_SERVERS) break;
+}
+console.log(`Scanning ${CANDIDATES.length} candidate servers (${SERVERS.length} curated + registry discovery, cap ${MAX_SERVERS})`);
+
 const ranked = [];
 const skipped = [];
-for (const [name, url] of SERVERS) {
-  try {
-    const r = await scan(url);
-    if (r.error) { skipped.push({ name, reason: "error" }); console.warn(`SKIP ${name}: ${r.error}`); }
-    else if (r.authProtected) { skipped.push({ name, reason: "auth-gated" }); console.log(`AUTH ${name} (excluded from ranking)`); }
-    else {
-      const failing = r.checks.filter((c) => c.status === "fail").map((c) => c.title);
-      ranked.push({
-        name, url, score: r.score, grade: r.grade, latencyMs: r.latencyMs,
-        tools: r.tools ? r.tools.count : 0, describedPct: r.tools ? r.tools.describedPct : 0,
-        failing: failing.slice(0, 3),
-      });
-      console.log(`${name}: ${r.score} ${r.grade} (${r.latencyMs}ms, ${r.tools ? r.tools.count : 0} tools)`);
+const CONCURRENCY = Math.max(1, Number(process.env.SCAN_CONCURRENCY || 6));
+let next = 0;
+async function worker() {
+  while (next < CANDIDATES.length) {
+    const [name, url] = CANDIDATES[next++];
+    try {
+      const r = await scan(url);
+      if (r.error) { skipped.push({ name, reason: "error" }); console.warn(`SKIP ${name}: ${r.error}`); }
+      else if (r.authProtected) { skipped.push({ name, reason: "auth-gated" }); console.log(`AUTH ${name} (excluded from ranking)`); }
+      else {
+        const failing = r.checks.filter((c) => c.status === "fail").map((c) => c.title);
+        ranked.push({
+          name, url, score: r.score, grade: r.grade, latencyMs: r.latencyMs,
+          tools: r.tools ? r.tools.count : 0, describedPct: r.tools ? r.tools.describedPct : 0,
+          failing: failing.slice(0, 3),
+        });
+        console.log(`${name}: ${r.score} ${r.grade} (${r.latencyMs}ms, ${r.tools ? r.tools.count : 0} tools)`);
+      }
+    } catch (e) {
+      skipped.push({ name, reason: e.message });
+      console.warn(`SKIP ${name}: ${e.message}`);
     }
-  } catch (e) {
-    skipped.push({ name, reason: e.message });
-    console.warn(`SKIP ${name}: ${e.message}`);
+    await new Promise((r) => setTimeout(r, 500)); // be polite to the scan API
   }
-  await new Promise((r) => setTimeout(r, 1500));
 }
+await Promise.all(Array.from({ length: Math.min(CONCURRENCY, CANDIDATES.length) }, worker));
 
 ranked.sort((a, b) => b.score - a.score || a.latencyMs - b.latencyMs);
 const avg = ranked.length ? Math.round(ranked.reduce((s, r) => s + r.score, 0) / ranked.length) : 0;
