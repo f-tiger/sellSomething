@@ -29,6 +29,10 @@ export default {
     if (url.pathname === "/api/monitor/test") return handleMonitorTest(request, env);
     if (url.pathname === "/api/cron/run") return handleCronRun(request, env);
     if (url.pathname === "/api/billing/webhook") return handleBillingWebhook(request, env);
+    if (url.pathname === "/api/billing/paddle") return handlePaddleWebhook(request, env);
+    if (url.pathname === "/api/license/validate") return handleLicenseValidate(request, env);
+    if (url.pathname === "/api/license/admin") return handleLicenseAdmin(request, env);
+    if (url.pathname === "/api/report") return handleAuditReport(request, env);
     if (url.pathname === "/api/verify") return handleVerify(request, env);
     if (url.pathname === "/api/verify/status") return handleVerifyStatus(request, env);
     if (url.pathname.startsWith("/badge/")) return handleBadge(request, env);
@@ -798,6 +802,271 @@ async function verifyHmacSha256(raw, secret, sig) {
     for (let i = 0; i < hex.length; i++) diff |= hex.charCodeAt(i) ^ got.charCodeAt(i);
     return diff === 0;
   } catch { return false; }
+}
+
+/* ---------------- Paddle billing (second MoR rail) ---------------- */
+// Paddle Billing webhook — point a Paddle notification destination at
+// /api/billing/paddle. Verifies `Paddle-Signature: ts=...;h1=...`
+// (HMAC-SHA256 over "<ts>:<raw body>" with PADDLE_WEBHOOK_SECRET), then maps
+// price ids → products. Works alongside the Creem webhook; either rail can be
+// live. Env: PADDLE_WEBHOOK_SECRET (required), PADDLE_API_KEY (optional —
+// customer-email lookup when checkout didn't carry custom_data.email),
+// PADDLE_API_BASE (default https://api.paddle.com; use the sandbox URL while
+// testing), and price ids: PADDLE_PRO_PRICE_ID, PADDLE_TEAM_PRICE_ID,
+// PADDLE_BADGE_PRICE_ID, PADDLE_AUDIT_PRICE_ID, PADDLE_DEVKIT_PRICE_ID.
+async function handlePaddleWebhook(request, env) {
+  if (request.method !== "POST") return json({ error: "POST only" }, 405);
+  if (!env.PADDLE_WEBHOOK_SECRET) return json({ error: "Paddle webhook not configured" }, 400);
+  const raw = await request.text();
+  const sigHeader = request.headers.get("paddle-signature") || "";
+  const parts = {};
+  for (const kv of sigHeader.split(";")) {
+    const i = kv.indexOf("=");
+    if (i > 0) parts[kv.slice(0, i).trim()] = kv.slice(i + 1).trim();
+  }
+  if (!parts.ts || !parts.h1) return json({ error: "Missing signature" }, 401);
+  const ok = await verifyHmacSha256(parts.ts + ":" + raw, env.PADDLE_WEBHOOK_SECRET, parts.h1);
+  if (!ok) return json({ error: "Invalid signature" }, 401);
+
+  let evt = {}; try { evt = JSON.parse(raw || "{}"); } catch { return json({ error: "Invalid JSON" }, 400); }
+  const type = String(evt.event_type || "").toLowerCase();
+  const data = evt.data || {};
+  const priceIds = paddlePriceIds(data);
+  let email = paddleEmail(data);
+  if (!email && data.customer_id && env.PADDLE_API_KEY) email = await paddleLookupEmail(env, data.customer_id);
+
+  const bought = (k) => env[k] && priceIds.includes(env[k]);
+  const paid = /^(transaction\.completed|transaction\.paid|subscription\.activated|subscription\.created)$/.test(type);
+  const ended = /^(subscription\.canceled|subscription\.paused|transaction\.revoked|adjustment\.created)$/.test(type);
+
+  const actions = [];
+  if (email && paid) {
+    if (bought("PADDLE_BADGE_PRICE_ID")) { await setBadgePaidForEmail(env, email); actions.push("badge"); }
+    if (bought("PADDLE_AUDIT_PRICE_ID")) { await issueAuditToken(env, email); actions.push("audit"); }
+    if (bought("PADDLE_DEVKIT_PRICE_ID")) { await issueLicense(env, email, "devkit"); actions.push("devkit"); }
+    if (bought("PADDLE_TEAM_PRICE_ID")) { await setPlanForEmail(env, email, "team"); actions.push("team"); }
+    else if (bought("PADDLE_PRO_PRICE_ID")) { await setPlanForEmail(env, email, "pro"); actions.push("pro"); }
+  } else if (email && ended) {
+    if (bought("PADDLE_DEVKIT_PRICE_ID")) { await revokeLicenses(env, email, "devkit"); actions.push("devkit-revoked"); }
+    if (bought("PADDLE_PRO_PRICE_ID") || bought("PADDLE_TEAM_PRICE_ID") || priceIds.length === 0) {
+      await setPlanForEmail(env, email, "free"); actions.push("plan-free");
+    }
+  }
+  // Tokens/keys are never echoed here (this response lands in Paddle's webhook
+  // logs) — they are emailed to the buyer via Resend, or retrievable by the
+  // owner through /api/license/admin.
+  return json({ ok: true, type, email: email ? maskEmail(email) : "", actions });
+}
+
+function paddlePriceIds(data) {
+  const ids = [];
+  const items = (data && (data.items || (data.details && data.details.line_items))) || [];
+  for (const it of items) {
+    const pid = (it && it.price && it.price.id) || (it && it.price_id);
+    if (pid) ids.push(String(pid));
+  }
+  return ids;
+}
+function paddleEmail(data) {
+  const cands = [data.custom_data && data.custom_data.email, data.customer && data.customer.email,
+    data.billing_details && data.billing_details.email];
+  for (const c of cands) if (c && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(c)) return String(c).trim().toLowerCase();
+  return "";
+}
+async function paddleLookupEmail(env, customerId) {
+  try {
+    const base = env.PADDLE_API_BASE || "https://api.paddle.com";
+    const r = await fetch(base + "/customers/" + encodeURIComponent(customerId), {
+      headers: { Authorization: "Bearer " + env.PADDLE_API_KEY },
+    });
+    if (!r.ok) return "";
+    const d = await r.json();
+    const em = d && d.data && d.data.email;
+    return em && /@/.test(em) ? String(em).trim().toLowerCase() : "";
+  } catch { return ""; }
+}
+function maskEmail(email) { return email.replace(/^(.).*(@.*)$/, "$1***$2"); }
+
+/* ---------------- Licenses (DevKit) & deep-audit tokens ---------------- */
+// DevKit license keys gate the Pro tier of our editor extensions (VS Code /
+// JetBrains). Audit tokens unlock the deep-audit report (up to 3 domains per
+// token). Both are issued by the billing webhooks and emailed via Resend when
+// configured; the owner can always issue/look them up via /api/license/admin.
+
+const LICENSE_PREFIX = "license:agentready:";
+const AUDIT_PREFIX = "audit:agentready:";
+const AUDIT_MAX_DOMAINS = 3;
+
+function randomKey(tag) {
+  const b = new Uint8Array(18);
+  crypto.getRandomValues(b);
+  const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  const s = [...b].map((x) => alphabet[x % 32]).join("");
+  return tag + "-" + s.slice(0, 6) + "-" + s.slice(6, 12) + "-" + s.slice(12, 18);
+}
+
+async function issueLicense(env, email, product) {
+  const key = randomKey("ARDK");
+  await env.SUBSCRIBERS.put(LICENSE_PREFIX + key, JSON.stringify({ email, product: product || "devkit", active: true, at: new Date().toISOString() }));
+  let emailed = false;
+  if (env.RESEND_API_KEY) {
+    const r = await sendEmail(env, email, "Your AgentReady DevKit license key",
+      "Thanks for your purchase!\n\nYour license key:\n\n  " + key +
+      "\n\nActivate: open the LLMs.txt Toolkit extension → “Enter license key”.\n" +
+      "Docs: https://agentready.agiscorecard.com/pricing\n\nQuestions? Just reply to this email.");
+    emailed = !!(r && r.ok);
+  }
+  return { key, emailed };
+}
+
+async function revokeLicenses(env, email, product) {
+  let cursor, n = 0;
+  do {
+    const page = await env.SUBSCRIBERS.list({ prefix: LICENSE_PREFIX, cursor, limit: 1000 });
+    for (const k of page.keys) {
+      try {
+        const rec = JSON.parse(await env.SUBSCRIBERS.get(k.name));
+        if (rec && rec.email === email && (!product || rec.product === product) && rec.active) {
+          rec.active = false;
+          rec.revokedAt = new Date().toISOString();
+          await env.SUBSCRIBERS.put(k.name, JSON.stringify(rec));
+          n++;
+        }
+      } catch { /* ignore malformed */ }
+    }
+    cursor = page.list_complete ? undefined : page.cursor;
+  } while (cursor);
+  return n;
+}
+
+async function handleLicenseValidate(request, env) {
+  const key = (new URL(request.url).searchParams.get("key") || "").trim();
+  if (!key) return json({ valid: false, error: "key required" }, 400);
+  let rec = null;
+  try { rec = JSON.parse(await env.SUBSCRIBERS.get(LICENSE_PREFIX + key)); } catch { /* ignore */ }
+  if (!rec || !rec.active) return json({ valid: false });
+  return json({ valid: true, product: rec.product || "devkit" });
+}
+
+// Owner console (guarded by CRON_SECRET):
+//   GET  /api/license/admin?key=<CRON_SECRET>&email=<buyer>   → their licenses + audit tokens
+//   POST /api/license/admin?key=<CRON_SECRET>  {email, product:"devkit"|"audit"} → issue manually
+async function handleLicenseAdmin(request, env) {
+  const adminKey = new URL(request.url).searchParams.get("key");
+  if (!env.CRON_SECRET || adminKey !== env.CRON_SECRET) return json({ error: "Unauthorized" }, 401);
+  if (request.method === "GET") {
+    const email = (new URL(request.url).searchParams.get("email") || "").trim().toLowerCase();
+    if (!email) return json({ error: "email required" }, 400);
+    const out = { licenses: [], audits: [] };
+    for (const [prefix, field] of [[LICENSE_PREFIX, "licenses"], [AUDIT_PREFIX, "audits"]]) {
+      let cursor;
+      do {
+        const page = await env.SUBSCRIBERS.list({ prefix, cursor, limit: 1000 });
+        for (const k of page.keys) {
+          try {
+            const rec = JSON.parse(await env.SUBSCRIBERS.get(k.name));
+            if (rec && rec.email === email) out[field].push({ key: k.name.slice(prefix.length), ...rec });
+          } catch { /* ignore */ }
+        }
+        cursor = page.list_complete ? undefined : page.cursor;
+      } while (cursor);
+    }
+    return json(out);
+  }
+  if (request.method !== "POST") return json({ error: "GET or POST" }, 405);
+  let b = {};
+  try { b = JSON.parse((await request.text()) || "{}"); } catch { /* ignore */ }
+  const email = String(b.email || "").trim().toLowerCase();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return json({ error: "Provide {email, product:'devkit'|'audit'}" }, 400);
+  if (b.product === "audit") return json({ ok: true, audit: await issueAuditToken(env, email) });
+  return json({ ok: true, license: await issueLicense(env, email, b.product || "devkit") });
+}
+
+/* ---------------- Deep-audit report (paid) ---------------- */
+// One-time purchase → token → /api/report?token=&url= renders a full,
+// printable HTML audit (score, every check, prioritized fix roadmap) for up
+// to AUDIT_MAX_DOMAINS distinct domains. `&format=json` returns JSON.
+
+async function issueAuditToken(env, email) {
+  const token = randomKey("ARAU");
+  await env.SUBSCRIBERS.put(AUDIT_PREFIX + token, JSON.stringify({ email, domains: [], max: AUDIT_MAX_DOMAINS, at: new Date().toISOString() }));
+  let emailed = false;
+  if (env.RESEND_API_KEY) {
+    const r = await sendEmail(env, email, "Your AgentReady deep-audit access",
+      "Thanks for your purchase!\n\nRun your deep audit here (works for up to " + AUDIT_MAX_DOMAINS + " domains):\n\n" +
+      "  https://agentready.agiscorecard.com/api/report?token=" + token + "&url=https://YOUR-STORE.com\n\n" +
+      "Replace YOUR-STORE.com with your site. The report is printable (Cmd/Ctrl+P → save as PDF).\n\nQuestions? Just reply to this email.");
+    emailed = !!(r && r.ok);
+  }
+  return { token, emailed };
+}
+
+async function handleAuditReport(request, env) {
+  const u = new URL(request.url);
+  const token = (u.searchParams.get("token") || "").trim();
+  const rawUrl = u.searchParams.get("url") || "";
+  if (!token) return json({ error: "token required — purchase a deep audit at https://agentready.agiscorecard.com/pricing" }, 401);
+  let rec = null;
+  try { rec = JSON.parse(await env.SUBSCRIBERS.get(AUDIT_PREFIX + token)); } catch { /* ignore */ }
+  if (!rec) return json({ error: "Invalid audit token" }, 401);
+
+  const report = await buildScanReport(rawUrl);
+  if (report.error) return json({ error: report.error }, report.status || 400);
+
+  const host = new URL(report.url).hostname;
+  const domains = Array.isArray(rec.domains) ? rec.domains : [];
+  if (!domains.includes(host)) {
+    if (domains.length >= (rec.max || AUDIT_MAX_DOMAINS)) {
+      return json({ error: "This token already covers " + domains.length + " domains (" + domains.join(", ") + "). Buy another audit for more." }, 403);
+    }
+    domains.push(host);
+    rec.domains = domains;
+    await env.SUBSCRIBERS.put(AUDIT_PREFIX + token, JSON.stringify(rec));
+  }
+
+  if (u.searchParams.get("format") === "json") return json({ ...report, audit: true });
+  return new Response(renderAuditHtml(report), { headers: { "Content-Type": "text/html; charset=utf-8" } });
+}
+
+function escapeHtml(s) {
+  return String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
+
+function renderAuditHtml(report) {
+  const fails = report.checks.filter((c) => c.status === "fail");
+  const warns = report.checks.filter((c) => c.status === "warn");
+  const passes = report.checks.filter((c) => c.status === "pass");
+  const row = (c) => `<tr><td class="st ${c.status}">${c.status.toUpperCase()}</td><td><b>${escapeHtml(c.title)}</b><div class="cat">${escapeHtml(c.category || "")}</div></td><td>${c.earned}/${c.possible}</td><td>${escapeHtml(c.detail || "")}</td></tr>`;
+  const fixItem = (c, i) => `<li><b>${i + 1}. ${escapeHtml(c.title)}</b> <span class="pts">(+${c.possible - c.earned} pts)</span><br>${escapeHtml(c.fix || c.detail || "")}</li>`;
+  const fixes = [...fails, ...warns].filter((c) => c.fix);
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex"><title>Deep Agent-Readiness Audit — ${escapeHtml(report.url)}</title>
+<style>
+body{font:15px/1.6 -apple-system,Segoe UI,Roboto,sans-serif;color:#182033;margin:0;background:#f6f8fb}
+.wrap{max-width:880px;margin:0 auto;padding:32px 20px}
+.card{background:#fff;border:1px solid #e3e8f0;border-radius:12px;padding:24px;margin-bottom:20px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:0 0 12px}
+.score{font-size:52px;font-weight:800}.grade{display:inline-block;padding:2px 12px;border-radius:8px;background:#eef2ff;font-weight:700;font-size:22px;vertical-align:middle;margin-left:10px}
+.muted{color:#66718a;font-size:13px}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+td{padding:8px 10px;border-top:1px solid #edf0f6;vertical-align:top}
+.st{font-weight:700;font-size:11px;white-space:nowrap}
+.st.pass{color:#1a9e6e}.st.warn{color:#c58a00}.st.fail{color:#d23f4c}
+.cat{color:#8892a8;font-size:11px}
+ol.fix{padding-left:18px}ol.fix li{margin-bottom:12px}.pts{color:#1a6ee0;font-weight:600;font-size:12px}
+@media print{body{background:#fff}.card{border:none;padding:12px 0}}
+</style></head><body><div class="wrap">
+<div class="card"><h1>Deep Agent-Readiness Audit</h1>
+<div class="muted">${escapeHtml(report.url)} · generated ${escapeHtml(report.scannedAt || new Date().toISOString())} · AgentReady (agentready.agiscorecard.com)</div>
+<div style="margin-top:14px"><span class="score">${report.score}</span><span class="muted">/100</span><span class="grade">${escapeHtml(report.grade)}</span></div>
+<p>${escapeHtml(report.summary || "")}</p></div>
+<div class="card"><h2>Priority fix roadmap (${fixes.length} items, +${fixes.reduce((s, c) => s + (c.possible - c.earned), 0)} points available)</h2>
+${fixes.length ? `<ol class="fix">${fixes.map(fixItem).join("")}</ol>` : "<p>No outstanding fixes — this site is in excellent shape. Keep monitoring for regressions.</p>"}</div>
+<div class="card"><h2>Every check (${report.checks.length})</h2><table>
+${fails.map(row).join("")}${warns.map(row).join("")}${passes.map(row).join("")}
+</table></div>
+<div class="card muted">How to use this report: work the roadmap top-down — items are ordered by severity, then points. Re-scan free anytime at agentready.agiscorecard.com. This report covers deterministic technical signals; off-site brand mentions also matter for AI visibility. · Print to PDF with Cmd/Ctrl+P.</div>
+</div></body></html>`;
 }
 
 /* ---------------- Agent-Ready Verified badge ---------------- */

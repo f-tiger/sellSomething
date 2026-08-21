@@ -113,6 +113,20 @@ footer a{color:var(--dim)}
       <form id="team-form"><input type="email" id="team-email" placeholder="you@company.com" required><button class="btn ghost" type="submit" style="padding:10px 16px;font-size:14px">Get early access</button></form>
       <p class="note">For agencies & multi-brand.</p>
     </div>
+    <div class="card">
+      <b>Deep Audit</b>
+      <div class="price">$149<span> one-time</span></div>
+      <ul><li>Full check-by-check report</li><li>Prioritized fix roadmap</li><li>Up to 3 domains</li><li>Printable / save as PDF</li><li>Re-run anytime while fixing</li></ul>
+      <form id="audit-form"><input type="email" id="audit-email" placeholder="you@company.com" required><button class="btn ghost" type="submit" style="padding:10px 16px;font-size:14px">Get early access</button></form>
+      <p class="note">Access token delivered by email after purchase.</p>
+    </div>
+    <div class="card">
+      <b>DevKit license</b>
+      <div class="price">$29<span> one-time</span></div>
+      <ul><li>Pro tier of our VS Code extension</li><li>Pro tier of our JetBrains plugin</li><li>In-editor site audits</li><li>Workspace-wide llms.txt validation</li><li>Lifetime key, 1 seat</li></ul>
+      <form id="devkit-form"><input type="email" id="devkit-email" placeholder="you@company.com" required><button class="btn ghost" type="submit" style="padding:10px 16px;font-size:14px">Get early access</button></form>
+      <p class="note">License key delivered by email after purchase.</p>
+    </div>
   </div>
 </section>
 
@@ -123,7 +137,7 @@ footer a{color:var(--dim)}
 
 <footer>
   <div class="links"><a href="/">Scanner</a><a href="/pricing">Pricing</a><a href="https://mcppulse.agiscorecard.com">MCP Pulse</a><a href="https://glossary.agiscorecard.com">Glossary</a><a href="https://tools.agiscorecard.com">Tools</a></div>
-  <div>© 2026 AgentReady · AI sales-visibility monitoring.</div>
+  <div style="margin-bottom:6px"><a href="/terms" style="margin-right:12px">Terms</a><a href="/privacy" style="margin-right:12px">Privacy</a><a href="/refunds">Refunds</a></div><div>© 2026 AgentReady · AI sales-visibility monitoring.</div>
 </footer>
 </div>
 
@@ -147,9 +161,10 @@ $('mon-btn').addEventListener('click',async()=>{
   }catch(e){setOut('Network error — please try again.','err');btn.disabled=false;}
 });
 
-// Creem checkout URLs — paste them here to switch a plan from waitlist to live
-// checkout (see docs/BILLING-SETUP.md). Empty = early-access waitlist mode.
-const CHECKOUT={pro:"",team:""};
+// Checkout URLs (Paddle or Creem — any hosted checkout link works). Paste a
+// URL to switch that product from waitlist to live checkout (see
+// docs/PADDLE-SETUP.md and docs/BILLING-SETUP.md). Empty = waitlist mode.
+const CHECKOUT={pro:"",team:"",audit:"",devkit:""};
 
 function earlyAccess(formId,emailId,plan){
   const form=$(formId);
@@ -180,6 +195,8 @@ function earlyAccess(formId,emailId,plan){
 }
 earlyAccess('pro-form','pro-email','pro');
 earlyAccess('team-form','team-email','team');
+earlyAccess('audit-form','audit-email','audit');
+earlyAccess('devkit-form','devkit-email','devkit');
 </script>
 </body>
 </html>
