@@ -1,0 +1,17 @@
+{
+    "name": "mcp-server-health-checker",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Health, conformance and latency checker for remote MCP servers: JSON-RPC initialize handshake, tools/list, TLS/auth detection, CORS and tool-description scoring. 0-100 health score per server.",
+    "main": "main.js",
+    "scripts": {
+        "start": "node main.js"
+    },
+    "engines": {
+        "node": ">=18.0.0"
+    },
+    "dependencies": {
+        "apify": "^3.2.6"
+    },
+    "license": "ISC"
+}

@@ -1,0 +1,17 @@
+{
+    "name": "agent-readiness-auditor",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Audit websites for AI-agent readiness: AI crawler access, llms.txt, agents.md, JSON-LD structured data, meta basics and sitemap. Score 0-100 with fix recommendations.",
+    "main": "main.js",
+    "scripts": {
+        "start": "node main.js"
+    },
+    "engines": {
+        "node": ">=18.0.0"
+    },
+    "dependencies": {
+        "apify": "^3.2.6"
+    },
+    "license": "ISC"
+}

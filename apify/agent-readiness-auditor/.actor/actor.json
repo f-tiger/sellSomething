@@ -1,0 +1,36 @@
+{
+    "actorSpecification": 1,
+    "name": "agent-readiness-auditor",
+    "title": "Agent Readiness Auditor — AI Visibility Checker",
+    "description": "Bulk agent readiness audit for any website: robots.txt access for GPTBot, ClaudeBot, PerplexityBot & co., llms.txt, agents.md, JSON-LD Product/Offer/FAQ schema, meta basics and sitemap. One 0-100 score, A-F grade and prioritized fix list per site.",
+    "seoTitle": "Agent Readiness Audit — AI Visibility Checker for GPTBot, ClaudeBot, llms.txt & JSON-LD",
+    "seoDescription": "Run an agent readiness audit on any list of websites. This AI visibility checker tests AI crawler access (GPTBot, ClaudeBot, PerplexityBot), llms.txt, agents.md, JSON-LD Product schema and sitemaps — returning a 0-100 AI readiness score with fixes. Pay per site audited.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "storages": {
+        "dataset": {
+            "actorSpecification": 1,
+            "views": {
+                "overview": {
+                    "title": "Audit overview",
+                    "transformation": {
+                        "fields": ["url", "ok", "score", "grade", "summary", "error"]
+                    },
+                    "display": {
+                        "component": "table",
+                        "properties": {
+                            "url": { "label": "Website", "format": "link" },
+                            "ok": { "label": "Audited", "format": "boolean" },
+                            "score": { "label": "Score (0-100)", "format": "number" },
+                            "grade": { "label": "Grade", "format": "text" },
+                            "summary": { "label": "Summary", "format": "text" },
+                            "error": { "label": "Error", "format": "text" }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

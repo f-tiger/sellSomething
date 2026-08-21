@@ -1,0 +1,26 @@
+{
+  "name": "x402",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-07-01",
+  "routes": [
+    { "pattern": "x402.agiscorecard.com", "custom_domain": true }
+  ],
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "not_found_handling": "404-page"
+  },
+  "observability": {
+    "enabled": true
+  }
+  // Payment config (see README.md):
+  //   PAYTO_ADDRESS   — receiving wallet (0x…) on Base. Set as a plain var here
+  //                     or via: npx wrangler secret put PAYTO_ADDRESS --name x402
+  //                     Until it is set, endpoints return 503 (or free results with ?demo=1).
+  //   FACILITATOR_URL — optional. Default https://x402.org/facilitator is TESTNET-ONLY
+  //                     (Base Sepolia); set a mainnet facilitator for real USDC.
+  // "vars": {
+  //   "PAYTO_ADDRESS": "0xYourBaseWallet",
+  //   "FACILITATOR_URL": "https://api.cdp.coinbase.com/platform/v2/x402"
+  // }
+}

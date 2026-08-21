@@ -1,0 +1,7 @@
+{
+    "server-checked": {
+        "eventTitle": "MCP server checked",
+        "eventDescription": "Charged once for every MCP server that returns a completed health report (0-100 score, grade, latency, auth mode, per-check results and issues). Auth-protected servers (401/403) count as completed reports. Unreachable servers are pushed with an error field but are never charged.",
+        "eventPriceUsd": 0.008
+    }
+}

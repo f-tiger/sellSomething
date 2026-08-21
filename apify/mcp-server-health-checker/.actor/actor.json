@@ -1,0 +1,38 @@
+{
+    "actorSpecification": 1,
+    "name": "mcp-server-health-checker",
+    "title": "MCP Server Health Checker & Monitor",
+    "description": "Check any list of remote MCP servers: JSON-RPC initialize handshake (streamable HTTP + SSE), tools/list, handshake latency, TLS, auth mode (open/bearer/OAuth), CORS and tool-description quality. One 0-100 health score, grade and issue list per server.",
+    "seoTitle": "MCP Server Monitor — Health, Uptime & Conformance Checker for Model Context Protocol Servers",
+    "seoDescription": "Monitor MCP server health in bulk: JSON-RPC initialize handshake over streamable HTTP/SSE, tools/list validation, latency measurement, TLS & OAuth auth detection, CORS headers and tool description scoring. Get a 0-100 MCP health score with fixes. Pay per server checked.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "storages": {
+        "dataset": {
+            "actorSpecification": 1,
+            "views": {
+                "overview": {
+                    "title": "Health overview",
+                    "transformation": {
+                        "fields": ["url", "ok", "score", "grade", "latencyMs", "authMode", "summary", "error"]
+                    },
+                    "display": {
+                        "component": "table",
+                        "properties": {
+                            "url": { "label": "MCP endpoint", "format": "link" },
+                            "ok": { "label": "Checked", "format": "boolean" },
+                            "score": { "label": "Health (0-100)", "format": "number" },
+                            "grade": { "label": "Grade", "format": "text" },
+                            "latencyMs": { "label": "Handshake ms", "format": "number" },
+                            "authMode": { "label": "Auth", "format": "text" },
+                            "summary": { "label": "Summary", "format": "text" },
+                            "error": { "label": "Error", "format": "text" }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

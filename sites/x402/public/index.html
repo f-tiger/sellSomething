@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>x402 APIs — pay-per-call scanning APIs for AI agents (USDC on Base)</title>
+<meta name="description" content="APIs that AI agents can pay for with no account and no API key: $0.005 per call in USDC on Base via the x402 payment-required protocol. Agent-readiness scans and MCP server health checks, machine-discoverable at /.well-known/x402.">
+<link rel="canonical" href="https://x402.agiscorecard.com/">
+<meta property="og:title" content="x402 APIs — pay per call in USDC, no account">
+<meta property="og:description" content="HTTP 402 done right: agents pay $0.005 in USDC on Base per API call. No signup, no API keys. Agent-readiness scans + MCP health checks.">
+<meta property="og:type" content="website">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebAPI",
+      "name": "x402 payable APIs",
+      "description": "Pay-per-call scanning APIs for AI agents using the x402 payment-required protocol: USDC on Base, no account, no API key.",
+      "documentation": "https://x402.agiscorecard.com/",
+      "termsOfService": "https://x402.agiscorecard.com/"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "What is x402?", "acceptedAnswer": { "@type": "Answer", "text": "x402 is an open protocol that revives HTTP status code 402 Payment Required. A server answers an unpaid request with a 402 and machine-readable payment requirements; the client signs a USDC transfer authorization, retries with an X-PAYMENT header, and gets the resource. No accounts, no API keys, settlement on-chain." } },
+        { "@type": "Question", "name": "How much does a call cost?", "acceptedAnswer": { "@type": "Answer", "text": "Each endpoint costs $0.005 per call (5000 atomic USDC units, 6 decimals), paid in USDC on Base." } },
+        { "@type": "Question", "name": "Am I charged if the scan fails?", "acceptedAnswer": { "@type": "Answer", "text": "No. Payment is settled only after the scan succeeds. If the upstream scanner errors or the target is unreachable, the payment authorization is never broadcast and you are not charged." } },
+        { "@type": "Question", "name": "How do agents discover these endpoints?", "acceptedAnswer": { "@type": "Answer", "text": "GET /.well-known/x402 returns a machine-readable catalog: path, method, price in atomic USDC units, network, and whether payments are live." } }
+      ]
+    }
+  ]
+}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FZXLMBB5QB"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-FZXLMBB5QB');</script>
+<style>
+:root{--bg:#0b0a12;--panel:#141221;--panel2:#1a1730;--line:#2a2547;--text:#efecff;--dim:#a49cc9;--acc:#f0b429;--acc2:#8b7cf6;--good:#a3e635;--warn:#fbbf24;--bad:#f87171;--r:14px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:960px;margin:0 auto;padding:0 24px}
+header{padding:22px 0;display:flex;justify-content:space-between;align-items:center}
+.logo{font-weight:800;font-size:20px;letter-spacing:-.02em}
+.logo span{color:var(--acc)}
+nav a{color:var(--dim);text-decoration:none;margin-left:22px;font-size:14px}
+nav a:hover{color:var(--text)}
+.hero{padding:60px 0 40px;text-align:center}
+h1{font-size:clamp(30px,5.5vw,50px);line-height:1.12;letter-spacing:-.03em;font-weight:800}
+h1 em{font-style:normal;background:linear-gradient(90deg,var(--acc),var(--acc2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--dim);max-width:680px;margin:18px auto 0;font-size:18px}
+.tiny{color:#6b628f;font-size:13px;margin-top:14px}
+.pills{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:26px}
+.pill{background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-size:13.5px;color:var(--dim)}
+.pill b{color:var(--acc)}
+pre{background:#080711;border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow-x:auto;font-size:13px;line-height:1.55;font-family:ui-monospace,Menlo,Consolas,monospace;color:#cfc8f2}
+pre .c{color:#6b628f}
+pre .k{color:var(--acc)}
+pre .s{color:#a3e635}
+section.info{padding:52px 0;border-top:1px solid var(--line);margin-top:40px}
+section.info h2{font-size:28px;letter-spacing:-.02em;margin-bottom:12px}
+section.info>p{color:var(--dim);max-width:720px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-top:26px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:26px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:20px}
+.card b{font-size:16px}
+.card p{font-size:14px;margin-top:6px;color:var(--dim)}
+.card .price{font-size:26px;font-weight:800;color:var(--text);margin:10px 0 2px}
+.card .price span{font-size:13px;color:var(--dim);font-weight:400}
+.card code{font-family:ui-monospace,Menlo,monospace;font-size:12.5px;color:var(--acc);background:#080711;border:1px solid var(--line);border-radius:6px;padding:2px 7px;display:inline-block;margin-top:10px;word-break:break-all}
+.steps{counter-reset:s;margin-top:26px;display:grid;gap:12px}
+.step{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px 16px 58px;position:relative}
+.step::before{counter-increment:s;content:counter(s);position:absolute;left:16px;top:16px;width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#171226;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:14px}
+.step b{font-size:15px}
+.step p{color:var(--dim);font-size:14px;margin-top:2px}
+footer{border-top:1px solid var(--line);padding:34px 0;color:var(--dim);font-size:13px;margin-top:60px}
+footer .links{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:12px}
+footer a{color:var(--dim)}
+@media(max-width:560px){nav a{margin-left:12px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="logo">x<span>402</span>&nbsp;APIs</div>
+  <nav><a href="#endpoints">Endpoints</a><a href="#how">How it works</a><a href="#usage">Usage</a><a href="#discovery">Discovery</a><a href="#faq">FAQ</a></nav>
+</header>
+
+<section class="hero">
+  <h1>APIs your agent can <em>pay for itself</em></h1>
+  <p class="sub">No account. No API key. No credit-card form. Your AI agent hits the endpoint, gets an HTTP <b>402</b> with the price, pays <b>$0.005 in USDC on Base</b>, and gets the result — all in one automated round-trip via the open <b>x402</b> protocol.</p>
+  <div class="pills">
+    <div class="pill"><b>$0.005</b> per call</div>
+    <div class="pill">USDC · <b>Base</b></div>
+    <div class="pill">x402 <b>“exact”</b> scheme</div>
+    <div class="pill">Failed scans <b>never charged</b></div>
+  </div>
+  <div class="tiny">Machine-readable catalog at <a href="/.well-known/x402" style="color:var(--acc)">/.well-known/x402</a></div>
+</section>
+
+<section class="info" id="endpoints">
+  <h2>Endpoints</h2>
+  <p>Two scanners, both battle-tested on their free sister sites, now callable by autonomous agents that carry a wallet instead of a login:</p>
+  <div class="grid2">
+    <div class="card">
+      <b>Agent-readiness scan</b>
+      <div class="price">$0.005 <span>/ call</span></div>
+      <p>Is a website visible to AI shopping agents? Checks AI-crawler access in robots.txt, llms.txt, agents.md, JSON-LD/Product structured data, meta basics and sitemap — returns a 0–100 score with itemized checks and fixes.</p>
+      <code>GET /api/scan?url=example.com</code>
+    </div>
+    <div class="card">
+      <b>MCP server health check</b>
+      <div class="price">$0.005 <span>/ call</span></div>
+      <p>Is a remote MCP server actually healthy? Performs a real JSON-RPC initialize + tools/list handshake: protocol version, serverInfo, capabilities, tool description quality, latency, TLS and auth posture — scored 0–100.</p>
+      <code>GET /api/mcp-check?url=your-server.com/mcp</code>
+    </div>
+  </div>
+</section>
+
+<section class="info" id="how">
+  <h2>How a paid call works</h2>
+  <p>x402 revives the HTTP status code that was reserved for this since 1997 — <b>402 Payment Required</b>:</p>
+  <div class="steps">
+    <div class="step"><b>Call the endpoint</b><p>Your agent sends a normal GET request. The server replies <b>402</b> with a JSON <code style="color:var(--acc)">accepts</code> array: price in atomic USDC units, network, receiving address, asset contract.</p></div>
+    <div class="step"><b>Sign the payment</b><p>The agent signs an EIP-3009 USDC <i>transferWithAuthorization</i> for exactly $0.005 — an off-chain signature, no gas needed from the agent.</p></div>
+    <div class="step"><b>Retry with X-PAYMENT</b><p>Same request plus an <code style="color:var(--acc)">X-PAYMENT</code> header (base64 payment payload). We verify it with an x402 facilitator, run the scan, and settle on-chain only after the scan succeeds.</p></div>
+    <div class="step"><b>Get result + receipt</b><p>The JSON result arrives with an <code style="color:var(--acc)">X-PAYMENT-RESPONSE</code> header — the base64 settlement receipt including the on-chain transaction hash.</p></div>
+  </div>
+</section>
+
+<section class="info" id="usage">
+  <h2>Usage</h2>
+  <p>See the price first (no payment needed for the quote):</p>
+  <pre><span class="c"># The 402 response IS the price quote</span>
+curl -i <span class="s">"https://x402.agiscorecard.com/api/scan?url=example.com"</span>
+
+<span class="c"># HTTP/2 402
+# { "x402Version": 1,
+#   "error": "X-PAYMENT header is required",
+#   "accepts": [{ "scheme": "exact", "network": "base",
+#                 "maxAmountRequired": "5000",       ← $0.005 (USDC has 6 decimals)
+#                 "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+#                 "payTo": "0x…", "maxTimeoutSeconds": 60, … }] }</span></pre>
+
+  <p style="margin-top:22px">Pay automatically from JavaScript with the x402 client (v1 protocol — matches this server):</p>
+  <pre><span class="c">// npm install x402-fetch viem</span>
+<span class="k">import</span> { wrapFetchWithPayment } <span class="k">from</span> <span class="s">"x402-fetch"</span>;
+<span class="k">import</span> { createWalletClient, http } <span class="k">from</span> <span class="s">"viem"</span>;
+<span class="k">import</span> { privateKeyToAccount } <span class="k">from</span> <span class="s">"viem/accounts"</span>;
+<span class="k">import</span> { base } <span class="k">from</span> <span class="s">"viem/chains"</span>;
+
+<span class="k">const</span> account = privateKeyToAccount(process.env.AGENT_PRIVATE_KEY);
+<span class="k">const</span> wallet  = createWalletClient({ account, chain: base, transport: http() });
+<span class="k">const</span> payFetch = wrapFetchWithPayment(fetch, wallet);
+
+<span class="c">// 402 → sign → retry → 200, handled for you:</span>
+<span class="k">const</span> res  = <span class="k">await</span> payFetch(<span class="s">"https://x402.agiscorecard.com/api/scan?url=example.com"</span>);
+<span class="k">const</span> data = <span class="k">await</span> res.json();
+<span class="c">// settlement receipt: res.headers.get("X-PAYMENT-RESPONSE") (base64 JSON, incl. tx hash)</span></pre>
+
+  <p style="margin-top:22px" class="tiny">Wallet needs a few cents of USDC on Base — that's it. Until the receiving wallet goes live, append <code style="color:var(--acc)">&amp;demo=1</code> to try either endpoint free (result arrives wrapped in <code style="color:var(--acc)">{"demo":true}</code>).</p>
+</section>
+
+<section class="info" id="discovery">
+  <h2>Machine discovery</h2>
+  <p>Agents shouldn't need to read landing pages. The full catalog — paths, methods, prices in atomic units, network, and whether payments are live — is served as JSON:</p>
+  <pre>curl <span class="s">"https://x402.agiscorecard.com/.well-known/x402"</span>
+
+<span class="c"># { "x402Version": 1, "network": "base", "payToConfigured": true,
+#   "endpoints": [
+#     { "path": "/api/scan",      "method": "GET", "price": { "amount": "5000", "usd": "$0.005" }, … },
+#     { "path": "/api/mcp-check", "method": "GET", "price": { "amount": "5000", "usd": "$0.005" }, … } ] }</span></pre>
+</section>
+
+<section class="info" id="faq">
+  <h2>FAQ</h2>
+  <div class="grid3">
+    <div class="card"><b>Why pay per call?</b><p>Agents can't fill signup forms or manage API-key vaults at scale. A wallet + x402 turns any HTTP call into a self-contained transaction: quote, pay, result.</p></div>
+    <div class="card"><b>Am I charged for failures?</b><p>No. We verify your payment first, run the scan, and only settle on-chain after a successful result. Failed or unreachable targets cost you nothing.</p></div>
+    <div class="card"><b>Why USDC on Base?</b><p>Sub-cent fees, ~2s finality, and native USDC with EIP-3009 gasless transfer authorizations — the de-facto standard pairing for x402 payments.</p></div>
+    <div class="card"><b>Is there a subscription?</b><p>No accounts here at all. If you want monitoring and alerts instead of one-off calls, see AgentReady and MCP Pulse below.</p></div>
+    <div class="card"><b>Which x402 version?</b><p>Protocol v1 (<code style="color:var(--acc)">x402Version: 1</code>, network id <code style="color:var(--acc)">base</code>), the widest-deployed revision. v1 clients like <code style="color:var(--acc)">x402-fetch</code> work out of the box.</p></div>
+    <div class="card"><b>Rate limits?</b><p>Please self-limit to a few requests per minute per target. Abusive traffic gets blocked.</p></div>
+  </div>
+</section>
+
+<footer>
+  <div class="links">
+    <a href="/llms.txt">llms.txt</a>
+    <a href="/agents.md">agents.md</a>
+    <a href="/.well-known/x402">/.well-known/x402</a>
+    <a href="https://agentready.agiscorecard.com">AgentReady (free scanner)</a>
+    <a href="https://mcppulse.agiscorecard.com">MCP Pulse (free MCP check)</a>
+    <a href="https://selltoagents.agiscorecard.com">Agentic commerce guides</a>
+    <a href="https://closecalc.agiscorecard.com">Sales calculators</a>
+    <a href="https://agiscorecard.com">AGI Scorecard</a>
+  </div>
+  <div>© 2026 x402 APIs · Part of the agiscorecard family. Machines pay machines; we just take HTTP 402 seriously.</div>
+</footer>
+</div>
+</body>
+</html>

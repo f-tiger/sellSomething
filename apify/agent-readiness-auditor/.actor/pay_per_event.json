@@ -1,0 +1,7 @@
+{
+    "site-audited": {
+        "eventTitle": "Website audited",
+        "eventDescription": "Charged once for every website that returns a completed agent-readiness audit (0-100 score, A-F grade, full per-check results and fix recommendations). Unreachable or failed sites are pushed to the dataset with an error field but are never charged.",
+        "eventPriceUsd": 0.01
+    }
+}

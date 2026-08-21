@@ -1,0 +1,48 @@
+{
+    "title": "MCP Server Health Checker input",
+    "description": "Provide the list of remote MCP endpoints (streamable HTTP) to health-check. Each server gets a JSON-RPC initialize handshake, tools/list call, latency measurement and TLS/auth/CORS analysis.",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "serverUrls": {
+            "title": "MCP server URLs",
+            "type": "array",
+            "description": "Remote MCP endpoint URLs (the URL you would paste into an MCP client), one per line. Auth-protected servers (401/403) are still scored — requiring auth counts as a pass.",
+            "editor": "stringList",
+            "prefill": [
+                "https://mcp.deepwiki.com/mcp",
+                "https://mcp.apify.com"
+            ],
+            "items": {
+                "type": "string"
+            }
+        },
+        "maxConcurrency": {
+            "title": "Max concurrency",
+            "type": "integer",
+            "description": "How many servers to check in parallel.",
+            "default": 5,
+            "minimum": 1,
+            "maximum": 20,
+            "editor": "number"
+        },
+        "timeoutSecs": {
+            "title": "Request timeout (seconds)",
+            "type": "integer",
+            "description": "Per-request timeout for the handshake, tools/list and CORS probes. Servers that exceed it are reported as unreachable (and not charged).",
+            "default": 10,
+            "minimum": 3,
+            "maximum": 60,
+            "editor": "number"
+        },
+        "userAgent": {
+            "title": "User-Agent override",
+            "type": "string",
+            "description": "Optional custom User-Agent header. Leave empty for the default MCPServerHealthChecker UA.",
+            "editor": "textfield",
+            "sectionCaption": "Advanced",
+            "sectionDescription": "Options most runs never need to touch."
+        }
+    },
+    "required": ["serverUrls"]
+}

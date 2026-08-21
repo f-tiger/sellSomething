@@ -1,0 +1,49 @@
+{
+    "title": "Agent Readiness Auditor input",
+    "description": "Provide the list of websites to audit for AI-agent readiness. Each site is fetched (homepage + robots.txt + llms.txt + agents.md + sitemap.xml) and scored 0-100.",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "websites": {
+            "title": "Websites to audit",
+            "type": "array",
+            "description": "Website URLs to audit, one per line. The scheme is optional — 'example.com' is treated as 'https://example.com'. Private/local addresses are rejected.",
+            "editor": "stringList",
+            "prefill": [
+                "https://www.apify.com",
+                "https://www.shopify.com",
+                "https://example.com"
+            ],
+            "items": {
+                "type": "string"
+            }
+        },
+        "maxConcurrency": {
+            "title": "Max concurrency",
+            "type": "integer",
+            "description": "How many websites to audit in parallel. Each audit makes 5 lightweight HTTP requests.",
+            "default": 5,
+            "minimum": 1,
+            "maximum": 20,
+            "editor": "number"
+        },
+        "fetchTimeoutSecs": {
+            "title": "Fetch timeout (seconds)",
+            "type": "integer",
+            "description": "Per-request timeout. Slow sites that exceed it are reported as unreachable (and not charged).",
+            "default": 10,
+            "minimum": 3,
+            "maximum": 60,
+            "editor": "number"
+        },
+        "userAgent": {
+            "title": "User-Agent override",
+            "type": "string",
+            "description": "Optional custom User-Agent header sent with every request. Leave empty for the default AgentReadinessAuditor UA.",
+            "editor": "textfield",
+            "sectionCaption": "Advanced",
+            "sectionDescription": "Options most runs never need to touch."
+        }
+    },
+    "required": ["websites"]
+}
