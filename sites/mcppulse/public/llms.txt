@@ -24,7 +24,7 @@
 
 ## MCP server (connect your agent directly)
 - Endpoint: `POST https://mcppulse.agiscorecard.com/mcp` (streamable HTTP, JSON-RPC 2.0, no auth). Listed in the official MCP Registry as `io.github.f-tiger/agentic-commerce-tools`.
-- Tools: `check_mcp_server {url}` (live 0-100 MCP health/conformance scan), `agent_readiness_scan {url}` (website AI-agent readiness score via AgentReady), `get_public_mcp_index {}` (weekly public MCP server ranking).
+- 7 tools: `check_mcp_server {url}` (live 0-100 MCP health/conformance scan), `agent_readiness_scan {url}` (website AI-agent readiness score via AgentReady), `check_wellknown_discovery {url}` (agent-discovery file audit: ai-catalog.json, MCP server card, A2A agent card, llms.txt, agents.md, robots.txt), `generate_llms_txt {site_name, summary, sections}` (renders a spec-correct llms.txt), `define_term {term}` (agentic-commerce/MCP glossary definitions with citable URLs), `get_public_mcp_index {}` (weekly public MCP server ranking), `get_visibility_index {}` (DTC AI Visibility Index of ~37 leading brands).
 - Descriptor: [/.well-known/mcp.json](/.well-known/mcp.json). Free — self-limit to a few calls per minute; high-volume pay-per-call ($0.005 via the x402 protocol, USDC on Base, no account) at [x402.agiscorecard.com](https://x402.agiscorecard.com).
 
 ## Audience

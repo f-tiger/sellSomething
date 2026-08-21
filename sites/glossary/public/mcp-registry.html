@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What is MCP Registry? Definition &amp; how it works (2026)</title>
+<meta name="description" content="The MCP Registry is the official open catalog of Model Context Protocol servers at registry.modelcontextprotocol.io, where developers publish servers under">
+<link rel="canonical" href="https://glossary.agiscorecard.com/mcp-registry">
+<meta property="og:title" content="What is MCP Registry? Definition &amp; how it works (2026)">
+<meta property="og:description" content="The MCP Registry is the official open catalog of Model Context Protocol servers at registry.modelcontextprotocol.io, where developers publish servers under">
+<meta property="og:type" content="article">
+<link rel="stylesheet" href="/style.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FZXLMBB5QB"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-FZXLMBB5QB');</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"DefinedTerm","name":"MCP Registry","description":"The MCP Registry is the official open catalog of Model Context Protocol servers at registry.modelcontextprotocol.io, where developers publish servers under verified namespaces (like io.github.username) so MCP clients and subregistries can discover them from one canonical source.","inDefinedTermSet":"https://glossary.agiscorecard.com"},{"@type":"Article","headline":"What is MCP Registry?","datePublished":"2026-08-21","author":{"@type":"Organization","name":"Agent Glossary"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is MCP Registry?","acceptedAnswer":{"@type":"Answer","text":"The MCP Registry is the official open catalog of Model Context Protocol servers at registry.modelcontextprotocol.io, where developers publish servers under verified namespaces (like io.github.username) so MCP clients and subregistries can discover them from one canonical source."}},{"@type":"Question","name":"How do I publish my MCP server to the registry?","acceptedAnswer":{"@type":"Answer","text":"Verify a namespace (easiest: io.github.you via GitHub auth, or OIDC from GitHub Actions), write a server.json describing your server, and publish with the mcp-publisher CLI. Then make sure the server itself passes a health check — clients skip broken servers."}}]}]}
+</script>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="/">Agent<span>Glossary</span></a>
+  <nav><a href="/">All terms</a><a href="https://agentready.agiscorecard.com">AgentReady</a><a href="https://mcppulse.agiscorecard.com">MCP Pulse</a></nav>
+</header>
+<span class="tag">Model Context Protocol</span>
+<h1>What is MCP Registry?</h1>
+<div class="answer"><b>Definition:</b> The MCP Registry is the official open catalog of Model Context Protocol servers at registry.modelcontextprotocol.io, where developers publish servers under verified namespaces (like io.github.username) so MCP clients and subregistries can discover them from one canonical source.</div>
+<p>Launched in preview in September 2025 by the MCP open-source community (with Anthropic, GitHub, PulseMCP and Microsoft involved), the registry is the single source of truth that downstream catalogs — including the GitHub MCP Registry — build on. It passed several thousand listed servers within its first year.</p>
+<p>Publishing is namespace-verified: <code>io.github.*</code> names require GitHub login (or GitHub Actions OIDC, which lets CI publish with zero stored secrets), and custom reverse-DNS namespaces are verified via DNS or HTTP. Each entry is a <code>server.json</code> describing where the <a href="/mcp-server">server</a> lives and how to run or reach it. For agents, the registry is becoming what package registries were for code: the default place to resolve trusted tools.</p>
+<h2>How do I publish my MCP server to the registry?</h2><p>Verify a namespace (easiest: io.github.you via GitHub auth, or OIDC from GitHub Actions), write a server.json describing your server, and publish with the mcp-publisher CLI. Then make sure the server itself passes a health check — clients skip broken servers.</p>
+<div class="cta"><h3>Put it into practice</h3><a class="btn" href="https://mcppulse.agiscorecard.com">Health-check your server before publishing →</a></div>
+<h3>Related terms</h3>
+<div class="related"><a href="/mcp">Model Context Protocol (MCP)</a><a href="/mcp-server">MCP server</a><a href="/mcp-tool">MCP tool</a><a href="/streamable-http">Streamable HTTP (MCP transport)</a></div>
+<footer>
+  <div class="links"><a href="/">All terms</a><a href="/llms.txt">llms.txt</a><a href="https://selltoagents.agiscorecard.com">SellToAgents</a><a href="https://agentready.agiscorecard.com">AgentReady</a><a href="https://mcppulse.agiscorecard.com">MCP Pulse</a></div>
+  <div>© 2026 Agent Glossary · Plain-English definitions for the AI-agent era. Cite freely with a link.</div>
+</footer>
+</div>
+</body>
+</html>

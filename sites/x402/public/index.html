@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>x402 APIs — pay-per-call scanning APIs for AI agents (USDC on Base)</title>
-<meta name="description" content="APIs that AI agents can pay for with no account and no API key: $0.005 per call in USDC on Base via the x402 payment-required protocol. Agent-readiness scans and MCP server health checks, machine-discoverable at /.well-known/x402.">
+<title>x402 APIs — pay-per-call APIs for AI agents (USDC on Base)</title>
+<meta name="description" content="Six APIs that AI agents can pay for with no account and no API key: $0.005–$0.02 per call in USDC on Base via the x402 payment-required protocol. Agent-readiness scans (single + batch), MCP health checks, well-known discovery audits, llms.txt extraction and the Public MCP Server Index, machine-discoverable at /.well-known/x402.">
 <link rel="canonical" href="https://x402.agiscorecard.com/">
 <meta property="og:title" content="x402 APIs — pay per call in USDC, no account">
-<meta property="og:description" content="HTTP 402 done right: agents pay $0.005 in USDC on Base per API call. No signup, no API keys. Agent-readiness scans + MCP health checks.">
+<meta property="og:description" content="HTTP 402 done right: agents pay $0.005–$0.02 in USDC on Base per API call. No signup, no API keys. Agent-readiness scans, MCP health checks, discovery audits, llms.txt extraction and the MCP index.">
 <meta property="og:type" content="website">
 <script type="application/ld+json">
 {
@@ -24,7 +24,7 @@
       "@type": "FAQPage",
       "mainEntity": [
         { "@type": "Question", "name": "What is x402?", "acceptedAnswer": { "@type": "Answer", "text": "x402 is an open protocol that revives HTTP status code 402 Payment Required. A server answers an unpaid request with a 402 and machine-readable payment requirements; the client signs a USDC transfer authorization, retries with a payment header (PAYMENT-SIGNATURE in x402 v2, X-PAYMENT in legacy v1), and gets the resource. No accounts, no API keys, settlement on-chain." } },
-        { "@type": "Question", "name": "How much does a call cost?", "acceptedAnswer": { "@type": "Answer", "text": "Each endpoint costs $0.005 per call (5000 atomic USDC units, 6 decimals), paid in USDC on Base." } },
+        { "@type": "Question", "name": "How much does a call cost?", "acceptedAnswer": { "@type": "Answer", "text": "Calls cost $0.005 to $0.02 depending on the endpoint (5000–20000 atomic USDC units, 6 decimals), paid in USDC on Base. Single scans, health checks, discovery audits and llms.txt extraction are $0.005; the full MCP index is $0.01; a 5-URL batch scan is $0.02." } },
         { "@type": "Question", "name": "Am I charged if the scan fails?", "acceptedAnswer": { "@type": "Answer", "text": "No. Payment is settled only after the scan succeeds. If the upstream scanner errors or the target is unreachable, the payment authorization is never broadcast and you are not charged." } },
         { "@type": "Question", "name": "How do agents discover these endpoints?", "acceptedAnswer": { "@type": "Answer", "text": "GET /.well-known/x402 returns a machine-readable catalog: path, method, price in atomic USDC units, network, and whether payments are live." } }
       ]
@@ -87,9 +87,10 @@ footer a{color:var(--dim)}
 
 <section class="hero">
   <h1>APIs your agent can <em>pay for itself</em></h1>
-  <p class="sub">No account. No API key. No credit-card form. Your AI agent hits the endpoint, gets an HTTP <b>402</b> with the price, pays <b>$0.005 in USDC on Base</b>, and gets the result — all in one automated round-trip via the open <b>x402</b> protocol.</p>
+  <p class="sub">No account. No API key. No credit-card form. Your AI agent hits the endpoint, gets an HTTP <b>402</b> with the price, pays <b>from $0.005 in USDC on Base</b>, and gets the result — all in one automated round-trip via the open <b>x402</b> protocol.</p>
   <div class="pills">
-    <div class="pill"><b>$0.005</b> per call</div>
+    <div class="pill">from <b>$0.005</b> per call</div>
+    <div class="pill"><b>6</b> endpoints</div>
     <div class="pill">USDC · <b>Base</b></div>
     <div class="pill">x402 <b>“exact”</b> scheme</div>
     <div class="pill">Failed scans <b>never charged</b></div>
@@ -99,20 +100,13 @@ footer a{color:var(--dim)}
 
 <section class="info" id="endpoints">
   <h2>Endpoints</h2>
-  <p>Two scanners, both battle-tested on their free sister sites, now callable by autonomous agents that carry a wallet instead of a login:</p>
+  <p>Six payable endpoints, built on scanners battle-tested on their free sister sites, callable by autonomous agents that carry a wallet instead of a login:</p>
   <div class="grid2">
-    <div class="card">
-      <b>Agent-readiness scan</b>
-      <div class="price">$0.005 <span>/ call</span></div>
-      <p>Is a website visible to AI shopping agents? Checks AI-crawler access in robots.txt, llms.txt, agents.md, JSON-LD/Product structured data, meta basics and sitemap — returns a 0–100 score with itemized checks and fixes.</p>
-      <code>GET /api/scan?url=example.com</code>
-    </div>
-    <div class="card">
-      <b>MCP server health check</b>
-      <div class="price">$0.005 <span>/ call</span></div>
-      <p>Is a remote MCP server actually healthy? Performs a real JSON-RPC initialize + tools/list handshake: protocol version, serverInfo, capabilities, tool description quality, latency, TLS and auth posture — scored 0–100.</p>
-      <code>GET /api/mcp-check?url=your-server.com/mcp</code>
-    </div>
+    <!--X402_ENDPOINTS_START-->
+    <!-- Endpoint cards are injected at serve time by src/worker.js from its
+         ENDPOINTS table — the same single source that drives the 402
+         challenges and the /.well-known/x402 catalog. Do not list them here. -->
+    <!--X402_ENDPOINTS_END-->
   </div>
 </section>
 
@@ -121,7 +115,7 @@ footer a{color:var(--dim)}
   <p>x402 revives the HTTP status code that was reserved for this since 1997 — <b>402 Payment Required</b>:</p>
   <div class="steps">
     <div class="step"><b>Call the endpoint</b><p>Your agent sends a normal GET request. The server replies <b>402</b> with the price both ways at once: the <code style="color:var(--acc)">PAYMENT-REQUIRED</code> header (base64, x402 <b>v2</b>, CAIP-2 network <code style="color:var(--acc)">eip155:8453</code>) and a JSON body (legacy <b>v1</b>) — price in atomic USDC units, receiving address, asset contract.</p></div>
-    <div class="step"><b>Sign the payment</b><p>The agent signs an EIP-3009 USDC <i>transferWithAuthorization</i> for exactly $0.005 — an off-chain signature, no gas needed from the agent.</p></div>
+    <div class="step"><b>Sign the payment</b><p>The agent signs an EIP-3009 USDC <i>transferWithAuthorization</i> for exactly the quoted amount ($0.005–$0.02 depending on the endpoint) — an off-chain signature, no gas needed from the agent.</p></div>
     <div class="step"><b>Retry with the payment header</b><p>Same request plus <code style="color:var(--acc)">PAYMENT-SIGNATURE</code> (v2) or <code style="color:var(--acc)">X-PAYMENT</code> (v1) — a base64 payment payload. We verify it with an x402 facilitator, run the scan, and settle on-chain only after the scan succeeds.</p></div>
     <div class="step"><b>Get result + receipt</b><p>The JSON result arrives with a <code style="color:var(--acc)">PAYMENT-RESPONSE</code> header (mirrored as <code style="color:var(--acc)">X-PAYMENT-RESPONSE</code> for v1 clients) — the base64 settlement receipt including the on-chain transaction hash.</p></div>
   </div>
@@ -164,7 +158,7 @@ curl -i <span class="s">"https://x402.agiscorecard.com/api/scan?url=example.com"
 
   <p style="margin-top:22px" class="tiny">Legacy v1 clients (npm <code style="color:var(--acc)">x402-fetch</code> + a viem wallet client) keep working unchanged — they read the v1 JSON body of the same 402, send <code style="color:var(--acc)">X-PAYMENT</code>, and get their receipt in <code style="color:var(--acc)">X-PAYMENT-RESPONSE</code>.</p>
 
-  <p style="margin-top:22px" class="tiny">Wallet needs a few cents of USDC on Base — that's it. Until the receiving wallet goes live, append <code style="color:var(--acc)">&amp;demo=1</code> to try either endpoint free (result arrives wrapped in <code style="color:var(--acc)">{"demo":true}</code>).</p>
+  <p style="margin-top:22px" class="tiny">Wallet needs a few cents of USDC on Base — that's it. Until the receiving wallet goes live, append <code style="color:var(--acc)">&amp;demo=1</code> to try any endpoint free (result arrives wrapped in <code style="color:var(--acc)">{"demo":true}</code>).</p>
 </section>
 
 <section class="info" id="discovery">
@@ -175,8 +169,12 @@ curl -i <span class="s">"https://x402.agiscorecard.com/api/scan?url=example.com"
 <span class="c"># { "x402Version": 2, "x402Versions": [1, 2],
 #   "network": "eip155:8453", "networkV1": "base", "payToConfigured": true,
 #   "endpoints": [
-#     { "path": "/api/scan",      "method": "GET", "price": { "amount": "5000", "usd": "$0.005" }, "accepts": [ … ], … },
-#     { "path": "/api/mcp-check", "method": "GET", "price": { "amount": "5000", "usd": "$0.005" }, "accepts": [ … ], … } ] }</span></pre>
+#     { "path": "/api/scan",         "method": "GET", "price": { "amount": "5000",  "usd": "$0.005" }, "accepts": [ … ], … },
+#     { "path": "/api/mcp-check",    "method": "GET", "price": { "amount": "5000",  "usd": "$0.005" }, "accepts": [ … ], … },
+#     { "path": "/api/wellknown",    "method": "GET", "price": { "amount": "5000",  "usd": "$0.005" }, "accepts": [ … ], … },
+#     { "path": "/api/llms-extract", "method": "GET", "price": { "amount": "5000",  "usd": "$0.005" }, "accepts": [ … ], … },
+#     { "path": "/api/scan-batch",   "method": "GET", "price": { "amount": "20000", "usd": "$0.02"  }, "accepts": [ … ], … },
+#     { "path": "/api/mcp-index",    "method": "GET", "price": { "amount": "10000", "usd": "$0.01"  }, "accepts": [ … ], … } ] }</span></pre>
 </section>
 
 <section class="info" id="faq">

@@ -6,10 +6,14 @@ Instructions for AI agents interacting with this site.
 MCP Pulse is a free health, conformance and latency scanner for remote MCP (Model Context Protocol) servers.
 
 ## How to use it programmatically
-- **Preferred: connect over MCP.** `POST /mcp` is a streamable-HTTP MCP server (JSON-RPC 2.0, no auth, stateless). Registry name: `io.github.f-tiger/agentic-commerce-tools`. Tools:
+- **Preferred: connect over MCP.** `POST /mcp` is a streamable-HTTP MCP server (JSON-RPC 2.0, no auth, stateless). Registry name: `io.github.f-tiger/agentic-commerce-tools`. 7 tools:
   - `check_mcp_server {url}` — live 0-100 health/conformance/latency scan of any remote MCP server, with per-check fixes.
   - `agent_readiness_scan {url}` — 0-100 AI-agent readiness score for any website (robots.txt AI-crawler access, llms.txt, agents.md, JSON-LD, meta, sitemap).
+  - `check_wellknown_discovery {url}` — audit of a site's agent-discovery files: /.well-known/ai-catalog.json, MCP server card, A2A agent card, llms.txt, agents.md, robots.txt AI-crawler access.
+  - `generate_llms_txt {site_name, summary, sections}` — renders a spec-correct llms.txt (H1, blockquote summary, H2 link sections) ready to publish.
+  - `define_term {term}` — plain-English agentic-commerce/MCP glossary definitions (25 terms) with canonical citation URLs; fuzzy-matched, instant.
   - `get_public_mcp_index {}` — weekly ranking of popular public MCP servers.
+  - `get_visibility_index {}` — DTC AI Visibility Index: ~37 leading DTC brands scored on AI-agent visibility.
   Machine-readable descriptor at `/.well-known/mcp.json`.
 - Plain REST: `GET /api/scan?url=<mcp endpoint>` returns a JSON conformance report: `{ url, score, grade, latencyMs, tools, checks[], summary }`. Self-limit to a few requests per minute.
 - The scanner performs a real JSON-RPC initialize + tools/list handshake over streamable HTTP (SSE responses supported).

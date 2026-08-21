@@ -16,6 +16,7 @@ const OUT = new URL("../sites/glossary/public/", import.meta.url);
 const AGENTREADY = "https://agentready.agiscorecard.com";
 const MCPPULSE = "https://mcppulse.agiscorecard.com";
 const SELLTOAGENTS = "https://selltoagents.agiscorecard.com";
+const X402TOOL = "https://x402.agiscorecard.com";
 
 // category -> ordering weight for the index
 const CATS = ["AI agents & concepts", "Agentic commerce", "AI visibility (GEO/AEO)", "Model Context Protocol", "Agent payments"];
@@ -32,10 +33,10 @@ const TERMS = [
   },
   {
     slug: "acp", term: "Agentic Commerce Protocol (ACP)", cat: "Agentic commerce",
-    answer: "The Agentic Commerce Protocol (ACP) is an open protocol from OpenAI and Stripe that lets AI agents discover merchant products and complete purchases. It powers ChatGPT Shopping.",
-    body: `<p>ACP defines how a shopping agent finds products (via structured merchant feeds), shortlists them against a buyer's constraints, and completes checkout — either through delegated payment on Stripe rails or by handing off to the merchant's own checkout.</p>
-<p>Under delegated checkout the merchant stays the seller of record: you process the order, own fulfillment and own the post-purchase relationship. The agent is a new demand channel, similar to how a marketplace refers buyers.</p>`,
-    related: ["agentic-commerce", "ucp", "ai-shopping-agent", "agentic-payments"],
+    answer: "The Agentic Commerce Protocol (ACP) is an open standard, maintained by OpenAI and Stripe, for connecting buyers, their AI agents and businesses to complete purchases. It powers product discovery in ChatGPT; after OpenAI retired Instant Checkout in March 2026, checkout itself hands off to the merchant's own environment.",
+    body: `<p>ACP defines how a shopping agent finds products — via structured merchant feeds — and shortlists them against a buyer's constraints. The spec (still in beta, date-versioned; the 2026-04-17 snapshot added cart, feed, orders, auth and MCP compatibility) is developed openly on GitHub, with PayPal joining Stripe as a payment provider.</p>
+<p>Know the history: OpenAI's in-chat <em>Instant Checkout</em> launched September 2025 but was retired in March 2026 after weak merchant uptake, and ChatGPT shopping pivoted discovery-first — agents surface your products, then send buyers to <strong>your</strong> checkout. That makes structured feeds and machine-readable product data, not a checkout integration, the thing that decides whether you're surfaced. The merchant stays seller of record and owns fulfillment and the customer relationship.</p>`,
+    related: ["agentic-commerce", "ucp", "agentic-checkout", "ai-shopping-agent", "agentic-payments"],
     faq: [["How do I get my products into ChatGPT Shopping?", "Shopify merchants are largely auto-enrolled. Others should keep a clean structured product feed, ship schema.org Product/Offer markup, and allow OAI-SearchBot in robots.txt."]],
     cta: [SELLTOAGENTS + "/acp-guide", "Read the full ACP merchant guide →"],
   },
@@ -105,7 +106,7 @@ const TERMS = [
     answer: "The Model Context Protocol (MCP) is an open standard from Anthropic that lets AI applications connect to external tools and data through a common interface. It's often described as \"USB-C for AI\" — one protocol, many integrations.",
     body: `<p>MCP standardizes how an AI client (Claude, Cursor, an agent framework) talks to an <a href="/mcp-server">MCP server</a> that exposes tools, resources and prompts. Messages use JSON-RPC 2.0 over a transport (today <a href="/streamable-http">streamable HTTP</a> for remote servers, or stdio locally).</p>
 <p>The ecosystem passed 5,800+ community servers in the official registry, with Google and Microsoft shipping their own agent registries — making MCP one of the fastest-growing developer ecosystems of the AI era.</p>`,
-    related: ["mcp-server", "streamable-http", "agentic-payments"],
+    related: ["mcp-server", "mcp-registry", "streamable-http", "agentic-payments"],
     faq: [["What does MCP actually standardize?", "The handshake and message format between an AI client and a tool server: initialize, capability negotiation, and how tools/resources/prompts are listed and called — so any compliant client can use any compliant server."]],
     cta: [MCPPULSE, "Health-check any MCP server free →"],
   },
@@ -128,19 +129,20 @@ const TERMS = [
   },
   {
     slug: "x402", term: "x402", cat: "Agent payments",
-    answer: "x402 is an open protocol (originated by Coinbase) that revives the HTTP 402 \"Payment Required\" status so AI agents and apps can pay for API calls or content programmatically, typically with stablecoins, in a single request-response.",
-    body: `<p>x402 lets a server respond to a request with a 402 and payment terms; the client pays (often in stablecoins on a network like Base) and retries with proof, unlocking the resource — no accounts or manual checkout. It's aimed at machine-to-machine and agent payments.</p>
-<p>Adoption grew fast (hundreds of millions of transactions across tens of thousands of agents by 2026), though a large share looks like testing. The rails themselves are backed by large players; the solo-viable layer is tooling, monitoring and content around them.</p>`,
-    related: ["ap2", "agentic-payments", "acp"],
-    faq: [["What is HTTP 402?", "402 Payment Required is a long-reserved HTTP status code that was never standardized for general use. x402 gives it a concrete meaning for programmatic, agent-driven payments."]],
-    cta: [SELLTOAGENTS, "How agent payments fit agentic commerce →"],
+    answer: "x402 is an open protocol that revives the HTTP 402 \"Payment Required\" status so AI agents and apps can pay for API calls or content programmatically, typically in stablecoins, in a single request-response. Created by Coinbase, it is now governed by the x402 Foundation under the Linux Foundation.",
+    body: `<p>x402 lets a server respond to a request with payment terms (an HTTP 402); the client signs a payment locally (commonly USDC on a network like Base) and retries with proof, unlocking the resource — no accounts or manual checkout. It's aimed at machine-to-machine and agent payments.</p>
+<p>The v2 spec, launched in early 2026, moved payment data into HTTP headers (<code>PAYMENT-REQUIRED</code>, <code>PAYMENT-SIGNATURE</code>, <code>PAYMENT-RESPONSE</code>), identifies networks with <a href="/x402-facilitator">facilitator</a>-pluggable CAIP-2 IDs (e.g. <code>eip155:8453</code> for Base, plus Solana), and added discovery and wallet-based identity. Governance moved to the Linux Foundation's x402 Foundation (operational July 2026), whose 40 members include Coinbase, Cloudflare, Google, Stripe, Visa, Mastercard and AWS. Coinbase reported 100M+ transactions through the protocol's first six months.</p>`,
+    related: ["x402-facilitator", "http-402", "eip-3009", "ap2", "agentic-payments", "monetization-gateway"],
+    faq: [["What is HTTP 402?", "402 Payment Required is a long-reserved HTTP status code that was never standardized for general use. x402 gives it a concrete meaning for programmatic, agent-driven payments."],
+      ["What changed in x402 v2?", "Payment data moved into HTTP headers, networks are identified by CAIP-2 IDs (EVM and non-EVM), facilitators and payment schemes became pluggable, and the protocol added API discovery and wallet-based identity."]],
+    cta: [X402TOOL, "Try pay-per-call x402 APIs live →"],
   },
   {
     slug: "ap2", term: "AP2 (Agent Payments Protocol)", cat: "Agent payments",
-    answer: "AP2 (Agent Payments Protocol) is Google's open protocol for agent-initiated payments, using cryptographically signed \"mandates\" that prove a user authorized an agent to make a specific purchase within set limits.",
-    body: `<p>AP2 focuses on trust and authorization: a mandate is a signed record of what the user permitted (what, how much, for whom), so a merchant or payment network can verify an agent's purchase was genuinely authorized. It launched with dozens of corporate collaborators.</p>
-<p>AP2 (authorization) and <a href="/x402">x402</a> (settlement rails) are complementary rather than competing — different layers of the agent-payment stack.</p>`,
-    related: ["x402", "agentic-payments", "acp"],
+    answer: "AP2 (Agent Payments Protocol) is an open protocol for agent-initiated payments, initiated by Google and donated to the FIDO Alliance in April 2026. It uses cryptographically signed \"mandates\" that prove a user authorized an agent to make a specific purchase within set limits.",
+    body: `<p>AP2 focuses on trust and authorization: a <a href="/ap2-mandate">mandate</a> is a signed record of what the user permitted (what, how much, for whom), so a merchant or payment network can verify an agent's purchase was genuinely authorized. It launched in September 2025 with dozens of corporate collaborators.</p>
+<p>On April 28, 2026 Google donated AP2 to the FIDO Alliance — the standards body behind passkeys — to keep it platform-neutral, alongside a verifiable-intent framework co-developed with Mastercard; around sixty organizations backed the move. AP2 v0.2 added support for "human not present" payments, letting agents transact autonomously under pre-authorized instructions. AP2 (authorization) and <a href="/x402">x402</a> (settlement rails) are complementary rather than competing — different layers of the agent-payment stack.</p>`,
+    related: ["ap2-mandate", "x402", "agentic-payments", "agentic-checkout", "acp"],
     faq: [["Is AP2 competing with x402?", "Not directly. AP2 handles authorization via signed mandates; x402 handles programmatic settlement. They can compose in a single agent transaction."]],
     cta: [SELLTOAGENTS, "Read the agentic commerce guides →"],
   },
@@ -149,7 +151,7 @@ const TERMS = [
     answer: "Agentic payments are payments initiated and completed by AI agents on a user's behalf, using protocols like x402 (settlement) and AP2 (authorization) so an agent can pay for goods, APIs or content without manual checkout.",
     body: `<p>As agents move from answering to transacting, they need to pay — for the products they buy in <a href="/agentic-commerce">agentic commerce</a>, and for the APIs and data they consume. Agentic payment protocols provide the authorization and settlement rails to do it safely and programmatically.</p>
 <p>The payment rails are dominated by large players (Coinbase, Google, Visa, Mastercard, Stripe). For builders, the open opportunity is the surrounding layer: readiness tooling, monitoring, discovery and education.</p>`,
-    related: ["x402", "ap2", "acp", "agentic-commerce"],
+    related: ["x402", "ap2", "agentic-checkout", "agent-wallet", "acp", "agentic-commerce"],
     faq: [["Do agentic payments require crypto?", "Not necessarily. x402 commonly uses stablecoins, but agent-payment authorization (AP2) and card-network schemes (Visa, Mastercard) also support fiat rails. The common thread is programmatic, agent-initiated payment."]],
     cta: [SELLTOAGENTS, "Where agent payments meet commerce →"],
   },
@@ -224,8 +226,8 @@ const TERMS = [
   },
   {
     slug: "chatgpt-shopping", term: "ChatGPT Shopping", cat: "Agentic commerce",
-    answer: "ChatGPT Shopping is OpenAI's feature that lets ChatGPT recommend products and, via the Agentic Commerce Protocol, surface merchant items and support purchases directly in the conversation.",
-    body: `<p>When a user asks ChatGPT for product help, it can present a shortlist drawn from merchant feeds through <a href="/acp">ACP</a>. Over a million Shopify merchants are auto-enrolled; the question isn't whether you participate but whether your product data is structured well enough to be selected.</p>`,
+    answer: "ChatGPT Shopping is OpenAI's feature that lets ChatGPT recommend products drawn from merchant feeds via the Agentic Commerce Protocol. Since OpenAI retired in-chat Instant Checkout in March 2026, ChatGPT surfaces and shortlists products, then hands buyers off to the merchant's own checkout.",
+    body: `<p>When a user asks ChatGPT for product help, it can present a shortlist drawn from merchant feeds through <a href="/acp">ACP</a>. Over a million Shopify merchants are auto-enrolled; the question isn't whether you participate but whether your product data is structured well enough to be selected. The March 2026 pivot to discovery-first (checkout completes on your site) makes feed and schema quality — not a payments integration — the deciding factor.</p>`,
     related: ["acp", "ai-shopping-agent", "agentic-commerce", "citation-share"],
     faq: [["How do I appear in ChatGPT Shopping?", "Keep a clean structured product feed, ship Product/Offer schema, and allow OAI-SearchBot in robots.txt. Shopify stores are largely enrolled automatically."]],
     cta: [AGENTREADY, "Are you visible in ChatGPT Shopping? Scan →"],
@@ -237,6 +239,108 @@ const TERMS = [
     related: ["mcp-server", "mcp", "function-calling"],
     faq: [["Why won't the model call my MCP tool?", "Almost always the description: agents select tools by their name and description. Vague, empty or duplicate descriptions make a tool invisible — even if it works perfectly."]],
     cta: [MCPPULSE, "See your tool-description coverage →"],
+  },
+  /* ---- added 2026-08-21: agent-payments / agentic-commerce wave ---- */
+  {
+    slug: "x402-facilitator", term: "x402 facilitator", cat: "Agent payments", published: "2026-08-21",
+    answer: "An x402 facilitator is a service that verifies and settles payments on behalf of servers using the x402 protocol — it checks that a client's signed payment matches the server's requirements, then broadcasts the transaction on-chain, so sellers never need blockchain infrastructure of their own.",
+    body: `<p>In an <a href="/x402">x402</a> flow, the resource server can outsource the two hard steps to a facilitator: <code>POST /verify</code> confirms a signed payment payload meets the declared payment requirements (without touching the chain), and <code>POST /settle</code> submits the validated payment on-chain and watches for confirmation. A <code>GET /supported</code> endpoint advertises which schemes and networks the facilitator handles.</p>
+<p>Facilitators are optional but recommended — they're why an API seller can accept stablecoins with a few lines of middleware. Well-known facilitators include Coinbase's CDP facilitator (fee-free settlement on Base and Solana) and PayAI (Solana-first, multi-network). In the v2 spec, facilitators and payment schemes are pluggable, so new networks can be added without changing the protocol.</p>`,
+    related: ["x402", "eip-3009", "http-402", "monetization-gateway", "agent-wallet"],
+    faq: [["Do I need a facilitator to accept x402 payments?", "No — a server can verify and settle payments itself. But a facilitator removes the need to run blockchain infrastructure, which is why most x402 sellers use one (e.g. Coinbase CDP or PayAI)."],
+      ["What's the difference between verify and settle?", "Verify checks the signed payment payload against the server's payment requirements off-chain; settle actually broadcasts the transaction to the blockchain and monitors it until confirmed."]],
+    cta: [X402TOOL, "See x402 payments in action →"],
+  },
+  {
+    slug: "http-402", term: "HTTP 402 (Payment Required)", cat: "Agent payments", published: "2026-08-21",
+    answer: "HTTP 402 \"Payment Required\" is a status code reserved in the HTTP spec since the 1990s but never standardized — until the AI-agent era. Protocols like x402 and products like Cloudflare's Pay Per Crawl now use a 402 response to tell a machine caller exactly what a resource costs and how to pay for it programmatically.",
+    body: `<p>A 402 response turns a paywall into an API: instead of a human-oriented checkout page, the server returns machine-readable payment terms; the client (often an AI agent) pays and retries. <a href="/x402">x402</a> standardizes this exchange — in its HTTP transport, payment terms and proofs travel in headers such as <code>PAYMENT-REQUIRED</code>, <code>PAYMENT-SIGNATURE</code> and <code>PAYMENT-RESPONSE</code>.</p>
+<p>The code went from curiosity to infrastructure fast: Cloudflare's <a href="/pay-per-crawl">Pay Per Crawl</a> answers unpaid AI crawlers with 402s at network scale, and its <a href="/monetization-gateway">Monetization Gateway</a> extends the same model to APIs, datasets and MCP tools.</p>`,
+    related: ["x402", "pay-per-crawl", "monetization-gateway", "x402-facilitator"],
+    faq: [["Why was HTTP 402 never used before?", "It was explicitly \"reserved for future use\" — there was no standard way for a machine to pay. Programmatic stablecoin payments and AI agents that need to buy access finally supplied both the rails and the demand."]],
+    cta: [X402TOOL, "Call a real 402-gated API →"],
+  },
+  {
+    slug: "eip-3009", term: "EIP-3009 (transferWithAuthorization)", cat: "Agent payments", published: "2026-08-21",
+    answer: "EIP-3009 is an Ethereum token standard that lets a holder authorize a one-time, recipient-specific stablecoin transfer with an off-chain signature (transferWithAuthorization), which anyone can then submit on-chain. It's how x402 payments work on EVM chains: the paying agent signs; a facilitator submits and pays the gas.",
+    body: `<p>Instead of sending a transaction, the payer signs an EIP-712 message authorizing a specific transfer — amount, recipient, a one-time nonce and a validity window. A relayer (in <a href="/x402">x402</a>, the <a href="/x402-facilitator">facilitator</a>) submits <code>transferWithAuthorization</code> on-chain and covers gas. The payer never needs ETH.</p>
+<p>USDC implements EIP-3009 natively, which is why x402's "exact" payment scheme uses it on EVM networks like Base — an agent holding only USDC can pay for an API call with a single signature. On Solana, the equivalent role is played by SPL-token <code>TransferChecked</code> instructions.</p>`,
+    related: ["x402", "x402-facilitator", "agent-wallet", "http-402"],
+    faq: [["Why does x402 use EIP-3009 instead of a normal transfer?", "Because it makes payment a signature, not a transaction: the agent authorizes exactly one transfer and the facilitator handles gas and submission. That removes the need for the payer to hold native gas tokens and fits a single request-response cycle."]],
+    cta: [X402TOOL, "Pay a real API with USDC on Base →"],
+  },
+  {
+    slug: "monetization-gateway", term: "Monetization Gateway (Cloudflare)", cat: "Agent payments", published: "2026-08-21",
+    answer: "The Monetization Gateway is a Cloudflare product (waitlist opened July 2, 2026) that lets anyone charge for resources behind Cloudflare — web pages, APIs, datasets, files or MCP tool calls — using the x402 protocol, with payments settling in stablecoins and Cloudflare verifying payment and enforcing access at the edge.",
+    body: `<p>The seller defines which resources cost money and how much; Cloudflare answers unpaid requests with <a href="/x402">x402</a> payment terms, verifies payments, and unlocks access — no payment infrastructure to build. It generalizes <a href="/pay-per-crawl">Pay Per Crawl</a> (which covered publisher content) to anything an agent might consume: API endpoints, data feeds and <a href="/mcp-tool">MCP tools</a>.</p>
+<p>It's part of Cloudflare's 2026 agentic-payments push alongside <a href="/agent-wallet">Cloudflare Wallets</a> (the buyer side, announced the following month) and its role as a premier member of the Linux Foundation's x402 Foundation.</p>`,
+    related: ["x402", "pay-per-crawl", "agent-wallet", "http-402", "agentic-payments"],
+    faq: [["What can I charge for with the Monetization Gateway?", "Any resource served through Cloudflare — pages, API routes, datasets, file downloads, or MCP tool calls. You set the price; Cloudflare handles the x402 payment flow and enforcement at the edge."]],
+    cta: [X402TOOL, "See a pay-per-call API built on x402 →"],
+  },
+  {
+    slug: "pay-per-crawl", term: "Pay per crawl", cat: "Agent payments", published: "2026-08-21",
+    answer: "Pay per crawl is a Cloudflare feature (part of AI Crawl Control) that lets website owners charge AI crawlers for access to their content: a crawler either presents payment intent in its request headers and gets the page, or receives an HTTP 402 Payment Required response with the price.",
+    body: `<p>Launched in private beta in July 2025 and folded into the AI Crawl Control console, pay per crawl gives publishers a third option beyond "allow" and "block": <em>charge</em>. The site owner sets a price; verified AI crawlers that agree to pay get HTTP 200 and content, others get a <a href="/http-402">402</a> with payment terms.</p>
+<p>It reframes the crawler standoff as a market: AI companies get legitimate access to content for training, search and agents; publishers get paid per request instead of trading traffic for nothing as <a href="/zero-click-search">zero-click</a> answers grow. Stack Overflow was an early named adopter, and the model was later generalized by Cloudflare's <a href="/monetization-gateway">Monetization Gateway</a>.</p>`,
+    related: ["http-402", "monetization-gateway", "x402", "zero-click-search", "llms-txt"],
+    faq: [["How is pay per crawl different from blocking AI bots in robots.txt?", "robots.txt is a voluntary allow/deny signal. Pay per crawl is enforced at Cloudflare's edge and adds a price: crawlers that pay get access, crawlers that don't get a 402 — turning crawl access into revenue rather than an all-or-nothing choice."]],
+    cta: [AGENTREADY, "Check how AI crawlers see your site →"],
+  },
+  {
+    slug: "agent-wallet", term: "Agent wallet (programmable wallet)", cat: "Agent payments", published: "2026-08-21",
+    answer: "An agent wallet is a programmable wallet built for an AI agent rather than a human: the agent gets its own payment credentials and identity, but every spend is constrained by human-set policies — spending caps, per-transaction limits and scoped permissions. Examples include Coinbase's CDP Agentic Wallets and Cloudflare Wallets.",
+    body: `<p>Agents can't open bank accounts or click "Sign up with Google." Agent wallets solve this with programmable custody: keys held in secure infrastructure (MPC or enclaves), stablecoin balances, native <a href="/x402">x402</a> support for machine-to-machine payments, and guardrails the owner defines in code.</p>
+<p>Two 2026 landmarks: Coinbase launched <strong>CDP Agentic Wallets</strong> (February 2026) — MPC-secured wallets with session caps, per-transaction limits and gasless settlement on Base, installable via CLI or an MCP server. Cloudflare announced <strong>Cloudflare Wallets</strong> with cloudflare.pay identity handles (August 4, 2026), giving agents deployed on Cloudflare a stable identity and human-set spending limits on x402 rails; handle reservations opened first, with wallet infrastructure rolling out over the following months.</p>`,
+    related: ["x402", "agentic-payments", "eip-3009", "monetization-gateway", "ai-agent"],
+    faq: [["How is an agent wallet different from a normal crypto wallet?", "Policy is the product: a human owner sets spending caps, transaction limits and scopes, and the agent transacts autonomously only inside them. Keys stay in secure infrastructure (MPC/enclaves) rather than with the agent itself."],
+      ["Do agent wallets only hold crypto?", "Today they're mostly stablecoin wallets on x402 rails (e.g. USDC on Base or Solana), but the same pattern — scoped, delegated payment credentials — also exists on card rails via network tokens like Stripe's Shared Payment Tokens or Mastercard's Agentic Tokens."]],
+    cta: [X402TOOL, "What an agent can buy with a wallet →"],
+  },
+  {
+    slug: "shared-payment-token", term: "Shared Payment Token (SPT)", cat: "Agent payments", published: "2026-08-21",
+    answer: "A Shared Payment Token (SPT) is a Stripe payment primitive for agentic commerce: it lets an AI agent initiate a payment using a customer's permitted payment method without ever exposing the underlying card or credentials, with scope and amount controlled by the merchant and platform.",
+    body: `<p>SPTs answer the scariest question in agentic commerce — "does the agent hold my card?" — with no. The buyer's payment method stays vaulted; the agent platform passes a token that can only be used within the agreed scope, and the merchant charges it like a normal payment.</p>
+<p>Stripe introduced SPTs alongside the <a href="/acp">Agentic Commerce Protocol</a> and later broadened agentic checkout beyond cards to additional payment methods. It's the card-rail sibling of crypto-native approaches like <a href="/x402">x402</a>, and one of several delegated-credential schemes (Visa's Intelligent Commerce and Mastercard's Agent Pay tokens play similar roles on their networks).</p>`,
+    related: ["acp", "agentic-checkout", "agentic-payments", "ap2-mandate"],
+    faq: [["Does an AI agent see my card number when using an SPT?", "No. The card stays vaulted with the payment provider; the agent only carries a scoped token that authorizes a specific kind of charge, so a compromised agent can't reuse or exfiltrate your credentials."]],
+    cta: [SELLTOAGENTS, "How agent payments reach your store →"],
+  },
+  {
+    slug: "ap2-mandate", term: "Mandate (AP2)", cat: "Agent payments", published: "2026-08-21",
+    answer: "A mandate, in the Agent Payments Protocol (AP2), is a cryptographically signed digital record proving what a user authorized their AI agent to do — what to buy, under which limits — giving merchants and payment networks verifiable, auditable evidence that an agent-initiated purchase was genuinely approved.",
+    body: `<p>Mandates are AP2's core trust primitive. When you tell an agent "buy these shoes if they drop under $100," that authorization is captured as a signed mandate; when the agent later transacts, the merchant can verify the purchase traces back to real user intent — and disputes have a non-repudiable audit trail.</p>
+<p>AP2 v0.2 extended mandates to "human not present" payments, where an agent executes autonomously under pre-authorized instructions — the foundation for delegated commerce at scale. Since <a href="/ap2">AP2</a> was donated to the FIDO Alliance in April 2026, mandates sit in the same standards family as passkeys: cryptographic proof of who authorized what.</p>`,
+    related: ["ap2", "agentic-payments", "agentic-checkout", "shared-payment-token"],
+    faq: [["Why do agent payments need mandates?", "Because in agentic commerce the buyer isn't present at checkout. A signed mandate lets everyone downstream — merchant, processor, network — verify the agent acted within what the human actually authorized, and assigns accountability if it didn't."]],
+    cta: [SELLTOAGENTS, "Prepare your store for agent buyers →"],
+  },
+  {
+    slug: "agentic-checkout", term: "Agentic checkout", cat: "Agentic commerce", published: "2026-08-21",
+    answer: "Agentic checkout is the completion step of agentic commerce: how an AI agent actually pays and places an order on a buyer's behalf. In 2026 it spans two models — handoff (the agent shortlists, the buyer completes checkout on the merchant's site) and delegated payment (the agent pays directly using scoped credentials like tokens or mandates).",
+    body: `<p>Discovery gets the attention, but checkout is where agentic commerce becomes real money. The stack settled into layers during 2026: open protocols (<a href="/acp">ACP</a> for merchant feeds and orders, <a href="/ap2">AP2</a> for authorization), card networks (Visa Intelligent Commerce, Mastercard Agent Pay with its scoped Agentic Tokens), processors (Stripe's <a href="/shared-payment-token">Shared Payment Tokens</a>), and crypto rails (<a href="/x402">x402</a> for machine-to-machine payments).</p>
+<p>The market spoke on which model leads for retail: after OpenAI retired in-chat Instant Checkout in March 2026, handoff — agent discovers and shortlists, merchant hosts the checkout — became the dominant pattern, with fully delegated payment growing fastest in machine-to-machine contexts (APIs, data, tools) rather than consumer carts.</p>`,
+    related: ["agentic-commerce", "acp", "ap2", "shared-payment-token", "x402", "agentic-payments"],
+    faq: [["Can AI agents actually complete purchases today?", "Yes, but mostly via handoff or tightly scoped credentials. Consumer flows typically end on the merchant's checkout; autonomous payment is furthest along for machine-to-machine purchases like API calls, where x402-style rails settle in stablecoins."]],
+    cta: [AGENTREADY, "Is your store ready for agent buyers? →"],
+  },
+  {
+    slug: "mcp-registry", term: "MCP Registry", cat: "Model Context Protocol", published: "2026-08-21",
+    answer: "The MCP Registry is the official open catalog of Model Context Protocol servers at registry.modelcontextprotocol.io, where developers publish servers under verified namespaces (like io.github.username) so MCP clients and subregistries can discover them from one canonical source.",
+    body: `<p>Launched in preview in September 2025 by the MCP open-source community (with Anthropic, GitHub, PulseMCP and Microsoft involved), the registry is the single source of truth that downstream catalogs — including the GitHub MCP Registry — build on. It passed several thousand listed servers within its first year.</p>
+<p>Publishing is namespace-verified: <code>io.github.*</code> names require GitHub login (or GitHub Actions OIDC, which lets CI publish with zero stored secrets), and custom reverse-DNS namespaces are verified via DNS or HTTP. Each entry is a <code>server.json</code> describing where the <a href="/mcp-server">server</a> lives and how to run or reach it. For agents, the registry is becoming what package registries were for code: the default place to resolve trusted tools.</p>`,
+    related: ["mcp", "mcp-server", "mcp-tool", "streamable-http"],
+    faq: [["How do I publish my MCP server to the registry?", "Verify a namespace (easiest: io.github.you via GitHub auth, or OIDC from GitHub Actions), write a server.json describing your server, and publish with the mcp-publisher CLI. Then make sure the server itself passes a health check — clients skip broken servers."]],
+    cta: [MCPPULSE, "Health-check your server before publishing →"],
+  },
+  {
+    slug: "proof-of-personhood", term: "Proof of personhood", cat: "AI agents & concepts", published: "2026-08-21",
+    answer: "Proof of personhood is a way to verify that an online actor is a unique human — not a bot, a duplicate account, or an AI agent — without necessarily revealing who they are. As AI agents flood the internet, it's becoming core infrastructure for fair airdrops, governance, and telling delegated agents apart from fake users.",
+    body: `<p>Approaches range from biometric (World's iris-scanning Orb) to aggregate signals: <strong>Human Passport</strong> (formerly Gitcoin Passport, acquired by Holonym's human.tech in late 2024) lets users collect verifiable "stamps" from web2 and web3 accounts into a Unique Humanity Score that apps can gate on — proving humanity without exposing identity.</p>
+<p>In the agent economy the point isn't to exclude agents — it's to bind them to humans. An <a href="/ai-agent">agent</a> acting for a verified person (with a <a href="/ap2-mandate">mandate</a> or an <a href="/agent-wallet">agent wallet</a>) is a customer; a swarm of agents pretending to be thousands of people is a Sybil attack. Proof of personhood is the anchor that keeps one human behind each delegated identity.</p>`,
+    related: ["ai-agent", "agent-wallet", "ap2-mandate", "prompt-injection"],
+    faq: [["Does proof of personhood block AI agents?", "No — it distinguishes them. A delegated agent can act under a verified human's identity and authorization; what proof of personhood blocks is one operator masquerading as many humans (Sybil attacks) in votes, airdrops and reward programs."]],
+    cta: [SELLTOAGENTS, "Understand the agent-era trust stack →"],
   },
 ];
 
@@ -285,7 +389,7 @@ function termPage(t) {
     "@context": "https://schema.org",
     "@graph": [
       { "@type": "DefinedTerm", name: t.term, description: t.answer, inDefinedTermSet: SITE },
-      { "@type": "Article", headline: `What is ${t.term}?`, datePublished: "2026-07-21", author: { "@type": "Organization", name: "Agent Glossary" } },
+      { "@type": "Article", headline: `What is ${t.term}?`, datePublished: t.published || "2026-07-21", author: { "@type": "Organization", name: "Agent Glossary" } },
       { "@type": "FAQPage", mainEntity: [{ "@type": "Question", name: `What is ${t.term}?`, acceptedAnswer: { "@type": "Answer", text: t.answer } },
         ...t.faq.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } }))] },
     ],
@@ -334,10 +438,11 @@ fs.mkdirSync(OUT, { recursive: true });
 for (const t of TERMS) fs.writeFileSync(new URL(`./${t.slug}.html`, OUT), termPage(t));
 fs.writeFileSync(new URL("./index.html", OUT), indexPage());
 
-const urls = [`${SITE}/`, ...TERMS.map((t) => `${SITE}/${t.slug}`)];
+const urls = [{ loc: `${SITE}/`, mod: "2026-08-21" },
+  ...TERMS.map((t) => ({ loc: `${SITE}/${t.slug}`, mod: t.published || "2026-07-21" }))];
 fs.writeFileSync(new URL("./sitemap.xml", OUT),
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
-  urls.map((u) => `  <url><loc>${u}</loc><lastmod>2026-07-21</lastmod></url>`).join("\n") + `\n</urlset>\n`);
+  urls.map((u) => `  <url><loc>${u.loc}</loc><lastmod>${u.mod}</lastmod></url>`).join("\n") + `\n</urlset>\n`);
 
 const llms = `# Agent Glossary\n\n> Plain-English definitions for the AI-agent era: agentic commerce, the Model Context Protocol (MCP), GEO/AEO, and agent payments (x402, AP2). Each term is answered in one sentence, then explained, with links to free tools.\n\n## Terms\n` +
   TERMS.map((t) => `- [${t.term}](/${t.slug}): ${t.answer}`).join("\n") +

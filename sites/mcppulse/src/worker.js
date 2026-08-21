@@ -365,7 +365,310 @@ const MCP_TOOLS = [
       additionalProperties: false,
     },
   },
+  {
+    name: "check_wellknown_discovery",
+    title: "Agent-discovery well-known file audit",
+    description:
+      "Audit any website's agent-discovery surface in one call (free, via tools.agiscorecard.com). Checks the " +
+      "six files the agentic web uses to find and describe a business: /.well-known/ai-catalog.json (Agentic " +
+      "Resource Discovery manifest), /.well-known/mcp/server-card.json (MCP Server Card), " +
+      "/.well-known/agent-card.json (A2A Agent Card), /llms.txt, /agents.md, and robots.txt AI-crawler access " +
+      "(GPTBot, OAI-SearchBot, PerplexityBot, ClaudeBot & co.). Returns a 0-100 discoverability score, " +
+      "per-file pass/warn/fail status with JSON validity checks, and a free generator link for every missing " +
+      "file. Use it to audit a merchant or SaaS site before agent integration, compare competitors' agent " +
+      "readiness, or produce a fix list. Complements agent_readiness_scan (page-level signals) with the " +
+      "well-known discovery layer. Free tier: please self-limit to a few calls per minute. High-volume / " +
+      "production agent use: pay-per-call APIs via the x402 payment protocol at https://x402.agiscorecard.com " +
+      "($0.005 per call in USDC on Base — no account, no API key).",
+    inputSchema: {
+      type: "object",
+      properties: {
+        url: {
+          type: "string",
+          description:
+            "The website URL (or bare domain) to audit, e.g. https://example-store.com or example-store.com. " +
+            "https:// is assumed when the scheme is omitted; only the origin is checked.",
+        },
+      },
+      required: ["url"],
+      additionalProperties: false,
+    },
+  },
+  {
+    name: "generate_llms_txt",
+    title: "llms.txt generator (spec-correct)",
+    description:
+      "Generate a complete, spec-correct llms.txt file from structured input — the generator counterpart to " +
+      "this server's checkers. You supply the site name, a one-paragraph summary and optional sections of " +
+      "curated links; the tool renders canonical llms.txt markdown: an H1 with the site name, a blockquote " +
+      "summary, then one H2 per section with '- [name](url): description' link bullets. The result is returned " +
+      "as ready-to-publish text (serve it at https://yourdomain.com/llms.txt as plain text) plus structured " +
+      "metadata (byte size, section/link counts). llms.txt is the curated site map AI systems read first — " +
+      "Shopify serves one natively, and AI-readiness scanners (including agent_readiness_scan and " +
+      "check_wellknown_discovery on this server) check for it. Pure function: no network calls, deterministic, " +
+      "free, unlimited within fair use. Related free web tools and pay-per-call agent APIs (x402 protocol, " +
+      "$0.005/call, USDC on Base, no account) at https://x402.agiscorecard.com.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        site_name: {
+          type: "string",
+          description: "The site or business name — becomes the H1 title, e.g. 'Acme Outdoor Gear'.",
+        },
+        summary: {
+          type: "string",
+          description:
+            "One-paragraph plain-text summary of what the site is and offers — becomes the blockquote " +
+            "directly under the H1. Keep it factual; agents quote it.",
+        },
+        sections: {
+          type: "array",
+          description:
+            "Optional list of sections, each rendered as an H2 heading followed by link bullets. " +
+            "Typical sections: 'Key pages', 'Products', 'Docs', 'Policies'.",
+          items: {
+            type: "object",
+            properties: {
+              title: { type: "string", description: "Section heading, e.g. 'Key pages'." },
+              links: {
+                type: "array",
+                description: "Links in this section, rendered as '- [name](url): description'.",
+                items: {
+                  type: "object",
+                  properties: {
+                    name: { type: "string", description: "Link text, e.g. 'Pricing'." },
+                    url: { type: "string", description: "Absolute or root-relative URL, e.g. /pricing." },
+                    description: { type: "string", description: "Optional one-line description appended after a colon." },
+                  },
+                  required: ["name", "url"],
+                  additionalProperties: false,
+                },
+              },
+            },
+            required: ["title", "links"],
+            additionalProperties: false,
+          },
+        },
+      },
+      required: ["site_name", "summary"],
+      additionalProperties: false,
+    },
+  },
+  {
+    name: "define_term",
+    title: "Agentic-commerce & MCP glossary lookup",
+    description:
+      "Look up a plain-English definition of any agentic-commerce, MCP, AI-visibility or agent-payments term " +
+      "from the Agent Glossary (glossary.agiscorecard.com) — 25 terms including agentic commerce, ACP, UCP, " +
+      "MCP, MCP server, MCP tool, streamable HTTP, llms.txt, agents.md, GEO, AEO, citation share, AI " +
+      "Overviews, zero-click search, structured data, ChatGPT Shopping, x402, AP2, agentic payments, AI " +
+      "agent, RAG, function calling, A2A and prompt injection. Returns a one-paragraph citable definition " +
+      "plus the canonical glossary URL to link as the source. Matching is forgiving: case-insensitive and " +
+      "hyphen/space tolerant ('Streamable HTTP', 'streamable-http' and 'streamable_http' all resolve); an " +
+      "unknown term returns the full list of available terms. Answered inline from an embedded snapshot — " +
+      "no network round-trip, instant, free, unlimited within fair use. More agent tooling: free scanners on " +
+      "this server, pay-per-call APIs (x402 protocol, $0.005/call, USDC on Base, no account) at " +
+      "https://x402.agiscorecard.com.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        term: {
+          type: "string",
+          description:
+            "The term to define, by name or slug — e.g. 'agentic commerce', 'ACP', 'llms.txt', " +
+            "'streamable-http', 'x402'. Case-insensitive; spaces, hyphens and underscores are interchangeable.",
+        },
+      },
+      required: ["term"],
+      additionalProperties: false,
+    },
+  },
+  {
+    name: "get_visibility_index",
+    title: "DTC AI Visibility Index",
+    description:
+      "Return the DTC AI Visibility Index: a recurring audit of well-known direct-to-consumer brands " +
+      "(Casper, Ridge, Away, Rothy's and ~35 more) scored 0-100 on AI-agent visibility — robots.txt AI-crawler " +
+      "access, llms.txt, agents.md, Product/Offer structured data, meta quality and sitemap — using the same " +
+      "checks as agent_readiness_scan. Includes per-brand score, grade and failing checks, plus aggregate " +
+      "stats (brand count, average score, last update date). Use it to benchmark a merchant against named DTC " +
+      "brands, cite ecosystem statistics ('X% of leading DTC brands still lack Product schema'), or find " +
+      "outreach targets with visibility gaps. Published by SellToAgents (selltoagents.agiscorecard.com), " +
+      "fetched live server-side. Free, no parameters, no auth. To score an arbitrary site on the same rubric " +
+      "call agent_readiness_scan (free) or the pay-per-call x402 API at https://x402.agiscorecard.com " +
+      "($0.005 per call, USDC on Base, no account, no API key) for high-volume agent pipelines.",
+    inputSchema: {
+      type: "object",
+      properties: {},
+      additionalProperties: false,
+    },
+  },
 ];
+
+/* Compact glossary snapshot for define_term — generated from scripts/gen-glossary.mjs
+ * (the source of truth for glossary.agiscorecard.com). Re-generate when TERMS changes there. */
+const GLOSSARY = {
+  "agentic-commerce": {
+    term: "Agentic commerce",
+    def: "Agentic commerce is delegated shopping: a person states intent and constraints, and an AI agent searches, compares and completes part or all of a purchase on their behalf. Unlike a chatbot, an agent transacts — it produces an order.",
+    url: "https://glossary.agiscorecard.com/agentic-commerce",
+  },
+  "acp": {
+    term: "Agentic Commerce Protocol (ACP)",
+    def: "The Agentic Commerce Protocol (ACP) is an open protocol from OpenAI and Stripe that lets AI agents discover merchant products and complete purchases. It powers ChatGPT Shopping.",
+    url: "https://glossary.agiscorecard.com/acp",
+  },
+  "ucp": {
+    term: "Universal Commerce Protocol (UCP)",
+    def: "The Universal Commerce Protocol (UCP) is Google's agentic-commerce standard, launched at NRF 2026, covering the full journey from product discovery to post-purchase across Google's AI surfaces.",
+    url: "https://glossary.agiscorecard.com/ucp",
+  },
+  "ai-shopping-agent": {
+    term: "AI shopping agent",
+    def: "An AI shopping agent is an AI assistant that discovers, compares and can purchase products on a buyer's behalf — for example ChatGPT Shopping, Perplexity, or Google AI Mode acting on a shopping request.",
+    url: "https://glossary.agiscorecard.com/ai-shopping-agent",
+  },
+  "citation-share": {
+    term: "Citation share",
+    def: "Citation share is how often an AI assistant cites or recommends your brand when answering a relevant query — the AI-era replacement for search rankings. If SEO was about ranking a link, citation share is about being part of the answer.",
+    url: "https://glossary.agiscorecard.com/citation-share",
+  },
+  "geo": {
+    term: "Generative Engine Optimization (GEO)",
+    def: "Generative Engine Optimization (GEO) is the practice of optimizing content and data so AI systems (ChatGPT, Perplexity, Google AI Overviews) cite you in their synthesized answers. It's SEO for the AI-answer era.",
+    url: "https://glossary.agiscorecard.com/geo",
+  },
+  "aeo": {
+    term: "Answer Engine Optimization (AEO)",
+    def: "Answer Engine Optimization (AEO) is optimizing content to be the direct answer an AI or search engine returns — often used interchangeably with GEO, with a slightly stronger focus on Q&A-style extraction and featured answers.",
+    url: "https://glossary.agiscorecard.com/aeo",
+  },
+  "llms-txt": {
+    term: "llms.txt",
+    def: "llms.txt is a plain-markdown file served at a site's root (/llms.txt) that gives AI systems a curated summary of the site — what it is, its key pages, and important facts like pricing and policies.",
+    url: "https://glossary.agiscorecard.com/llms-txt",
+  },
+  "agents-md": {
+    term: "agents.md",
+    def: "agents.md is an emerging convention: a markdown file that tells AI agents how to interact with your site or repository — what it is, how to use it, and what they may do. Shopify serves one natively for stores.",
+    url: "https://glossary.agiscorecard.com/agents-md",
+  },
+  "mcp": {
+    term: "Model Context Protocol (MCP)",
+    def: "The Model Context Protocol (MCP) is an open standard from Anthropic that lets AI applications connect to external tools and data through a common interface. It's often described as \"USB-C for AI\" — one protocol, many integrations.",
+    url: "https://glossary.agiscorecard.com/mcp",
+  },
+  "mcp-server": {
+    term: "MCP server",
+    def: "An MCP server is a program that exposes tools, resources or prompts to AI clients over the Model Context Protocol. Clients discover its tools via a tools/list call and invoke them through JSON-RPC.",
+    url: "https://glossary.agiscorecard.com/mcp-server",
+  },
+  "streamable-http": {
+    term: "Streamable HTTP (MCP transport)",
+    def: "Streamable HTTP is the current transport for remote MCP servers: a single HTTPS endpoint that accepts POSTed JSON-RPC and replies with either a plain JSON response or a Server-Sent-Events stream, with optional sessions via the Mcp-Session-Id header.",
+    url: "https://glossary.agiscorecard.com/streamable-http",
+  },
+  "x402": {
+    term: "x402",
+    def: "x402 is an open protocol (originated by Coinbase) that revives the HTTP 402 \"Payment Required\" status so AI agents and apps can pay for API calls or content programmatically, typically with stablecoins, in a single request-response.",
+    url: "https://glossary.agiscorecard.com/x402",
+  },
+  "ap2": {
+    term: "AP2 (Agent Payments Protocol)",
+    def: "AP2 (Agent Payments Protocol) is Google's open protocol for agent-initiated payments, using cryptographically signed \"mandates\" that prove a user authorized an agent to make a specific purchase within set limits.",
+    url: "https://glossary.agiscorecard.com/ap2",
+  },
+  "agentic-payments": {
+    term: "Agentic payments",
+    def: "Agentic payments are payments initiated and completed by AI agents on a user's behalf, using protocols like x402 (settlement) and AP2 (authorization) so an agent can pay for goods, APIs or content without manual checkout.",
+    url: "https://glossary.agiscorecard.com/agentic-payments",
+  },
+  "ai-agent": {
+    term: "AI agent",
+    def: "An AI agent is a system that uses a large language model to pursue a goal autonomously — deciding on steps, calling tools or APIs, and acting on the results — rather than just answering a single prompt.",
+    url: "https://glossary.agiscorecard.com/ai-agent",
+  },
+  "rag": {
+    term: "RAG (Retrieval-Augmented Generation)",
+    def: "RAG (Retrieval-Augmented Generation) is a technique where an AI model retrieves relevant documents from an external knowledge source and uses them as context to generate a more accurate, grounded answer — reducing hallucination.",
+    url: "https://glossary.agiscorecard.com/rag",
+  },
+  "function-calling": {
+    term: "Function calling (tool calling)",
+    def: "Function calling (or tool calling) is a capability where an AI model, given a set of tool definitions, outputs a structured request to invoke one — with arguments — so an application can run it and return the result to the model.",
+    url: "https://glossary.agiscorecard.com/function-calling",
+  },
+  "a2a": {
+    term: "A2A (Agent2Agent protocol)",
+    def: "A2A (Agent2Agent) is an open protocol, introduced by Google, that lets independent AI agents discover each other and collaborate — delegating tasks and exchanging results — across different vendors and frameworks.",
+    url: "https://glossary.agiscorecard.com/a2a",
+  },
+  "prompt-injection": {
+    term: "Prompt injection",
+    def: "Prompt injection is an attack where malicious instructions hidden in content an AI reads (a web page, document, tool output) trick the model into ignoring its original task and following the attacker's instructions instead.",
+    url: "https://glossary.agiscorecard.com/prompt-injection",
+  },
+  "ai-overviews": {
+    term: "AI Overviews",
+    def: "AI Overviews are Google's AI-generated answer summaries shown at the top of search results. They synthesize an answer from multiple sources and cite them, often reducing clicks to the underlying websites.",
+    url: "https://glossary.agiscorecard.com/ai-overviews",
+  },
+  "zero-click-search": {
+    term: "Zero-click search",
+    def: "A zero-click search is a search where the user gets their answer directly on the results page — from an AI Overview, featured snippet or knowledge panel — without clicking through to any website.",
+    url: "https://glossary.agiscorecard.com/zero-click-search",
+  },
+  "structured-data": {
+    term: "Structured data (schema markup)",
+    def: "Structured data is machine-readable markup (usually schema.org JSON-LD) added to a web page that describes its content — a product's price, an FAQ, an organization — so search engines and AI agents can understand and use it reliably.",
+    url: "https://glossary.agiscorecard.com/structured-data",
+  },
+  "chatgpt-shopping": {
+    term: "ChatGPT Shopping",
+    def: "ChatGPT Shopping is OpenAI's feature that lets ChatGPT recommend products and, via the Agentic Commerce Protocol, surface merchant items and support purchases directly in the conversation.",
+    url: "https://glossary.agiscorecard.com/chatgpt-shopping",
+  },
+  "mcp-tool": {
+    term: "MCP tool",
+    def: "An MCP tool is a single callable function exposed by an MCP server — with a name, a description and a JSON-Schema for its inputs — that an AI agent can discover via tools/list and invoke to perform an action.",
+    url: "https://glossary.agiscorecard.com/mcp-tool",
+  },
+};
+
+// "Streamable HTTP", "streamable-http", "streamable_http", "llms.txt" → "streamable-http" / "llms-txt"
+function glossaryKey(raw) {
+  return String(raw).trim().toLowerCase()
+    .replace(/[\s_.]+/g, "-")
+    .replace(/[^a-z0-9-]/g, "")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+function findGlossaryEntry(raw) {
+  const key = glossaryKey(raw);
+  if (!key) return null;
+  if (GLOSSARY[key]) return { slug: key, ...GLOSSARY[key] };
+  for (const [slug, entry] of Object.entries(GLOSSARY)) {
+    if (glossaryKey(entry.term) === key) return { slug, ...entry };
+  }
+  return null;
+}
+
+// Renders spec-correct llms.txt: H1, blockquote summary, H2 sections with link bullets.
+function renderLlmsTxt(siteName, summary, sections) {
+  const clean = (s) => String(s).replace(/\s+/g, " ").trim();
+  let out = "# " + clean(siteName) + "\n\n> " + clean(summary) + "\n";
+  for (const section of Array.isArray(sections) ? sections : []) {
+    if (!section || typeof section !== "object" || !section.title) continue;
+    out += "\n## " + clean(section.title) + "\n";
+    for (const link of Array.isArray(section.links) ? section.links : []) {
+      if (!link || typeof link !== "object" || !link.name || !link.url) continue;
+      out += "- [" + clean(link.name) + "](" + clean(link.url) + ")" +
+        (link.description ? ": " + clean(link.description) : "") + "\n";
+    }
+  }
+  return out;
+}
 
 const MCP_CORS = {
   "Access-Control-Allow-Origin": "*",
@@ -520,6 +823,103 @@ async function handleMcpToolCall(id, params, env, request) {
     }
   }
 
+  if (name === "check_wellknown_discovery") {
+    if (typeof args.url !== "string" || !args.url.trim()) {
+      return rpcError(id, -32602, "Invalid params: 'url' (string) is required for check_wellknown_discovery.");
+    }
+    try {
+      const res = await fetch("https://tools.agiscorecard.com/api/wellknown?url=" + encodeURIComponent(args.url.trim()), {
+        headers: { "Accept": "application/json", "User-Agent": "MCPPulse-MCP/1.0 (+https://mcppulse.agiscorecard.com/mcp)" },
+        signal: AbortSignal.timeout(20000),
+      });
+      const data = await res.json().catch(() => null);
+      if (!res.ok || !data) {
+        return toolErr("Well-known discovery audit failed (HTTP " + res.status + ")" + (data && data.error ? ": " + data.error : "."));
+      }
+      return toolOk(data);
+    } catch (e) {
+      return toolErr("Well-known discovery audit errored: " + (e && e.message ? e.message : "network error"));
+    }
+  }
+
+  if (name === "generate_llms_txt") {
+    if (typeof args.site_name !== "string" || !args.site_name.trim()) {
+      return rpcError(id, -32602, "Invalid params: 'site_name' (string) is required for generate_llms_txt.");
+    }
+    if (typeof args.summary !== "string" || !args.summary.trim()) {
+      return rpcError(id, -32602, "Invalid params: 'summary' (string) is required for generate_llms_txt.");
+    }
+    if (args.sections !== undefined && !Array.isArray(args.sections)) {
+      return rpcError(id, -32602, "Invalid params: 'sections' must be an array when provided.");
+    }
+    const text = renderLlmsTxt(args.site_name, args.summary, args.sections);
+    const sections = Array.isArray(args.sections) ? args.sections : [];
+    const data = {
+      llmsTxt: text,
+      bytes: new TextEncoder().encode(text).length,
+      sectionCount: sections.length,
+      linkCount: sections.reduce((n, s) => n + (s && Array.isArray(s.links) ? s.links.length : 0), 0),
+      howToPublish: "Serve this verbatim at https://yourdomain.com/llms.txt with Content-Type: text/plain. " +
+        "Verify it with the agent_readiness_scan or check_wellknown_discovery tool on this server.",
+    };
+    return rpcResult(id, {
+      content: [{ type: "text", text }],
+      structuredContent: data,
+      isError: false,
+    });
+  }
+
+  if (name === "define_term") {
+    if (typeof args.term !== "string" || !args.term.trim()) {
+      return rpcError(id, -32602, "Invalid params: 'term' (string) is required for define_term.");
+    }
+    const entry = findGlossaryEntry(args.term);
+    if (!entry) {
+      const available = Object.keys(GLOSSARY);
+      const data = {
+        found: false,
+        query: args.term.trim(),
+        message: "No glossary entry for \"" + args.term.trim() + "\". Available terms: " + available.join(", ") + ".",
+        availableTerms: available,
+        glossary: "https://glossary.agiscorecard.com",
+      };
+      return rpcResult(id, {
+        content: [{ type: "text", text: data.message }],
+        structuredContent: data,
+        isError: false,
+      });
+    }
+    const data = {
+      found: true,
+      term: entry.term,
+      slug: entry.slug,
+      definition: entry.def,
+      url: entry.url,
+      cite: entry.term + " — " + entry.url + " (Agent Glossary)",
+    };
+    return rpcResult(id, {
+      content: [{ type: "text", text: entry.term + ": " + entry.def + "\n\nSource: " + entry.url }],
+      structuredContent: data,
+      isError: false,
+    });
+  }
+
+  if (name === "get_visibility_index") {
+    try {
+      const res = await fetch("https://selltoagents.agiscorecard.com/data/visibility-index.json", {
+        headers: { "Accept": "application/json", "User-Agent": "MCPPulse-MCP/1.0 (+https://mcppulse.agiscorecard.com/mcp)" },
+        signal: AbortSignal.timeout(15000),
+      });
+      const data = await res.json().catch(() => null);
+      if (!res.ok || !data) {
+        return toolErr("Visibility index unavailable (HTTP " + res.status + "). Try https://selltoagents.agiscorecard.com/data/visibility-index.json directly.");
+      }
+      return toolOk(data);
+    } catch (e) {
+      return toolErr("Could not read the visibility index: " + (e && e.message ? e.message : "network error"));
+    }
+  }
+
   return rpcError(id, -32602, "Unknown tool: " + name);
 }
 
@@ -534,7 +934,7 @@ function handleWellKnownMcp() {
     name: MCP_SERVER_INFO.name,
     title: MCP_SERVER_INFO.title,
     description:
-      "Free MCP tools for the agentic-commerce stack: live MCP server health/conformance scans, website AI-agent readiness scoring, and a weekly public MCP server index.",
+      "Free MCP tools for the agentic-commerce stack (7 tools): live MCP server health/conformance scans, website AI-agent readiness scoring, agent-discovery well-known file audits, a spec-correct llms.txt generator, an agentic-commerce/MCP glossary, a weekly public MCP server index, and the DTC AI Visibility Index.",
     version: MCP_SERVER_INFO.version,
     endpoint: "https://mcppulse.agiscorecard.com/mcp",
     transport: "streamable-http",

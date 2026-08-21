@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What is x402 facilitator? Definition &amp; how it works (2026)</title>
+<meta name="description" content="An x402 facilitator is a service that verifies and settles payments on behalf of servers using the x402 protocol — it checks that a client's signed payment">
+<link rel="canonical" href="https://glossary.agiscorecard.com/x402-facilitator">
+<meta property="og:title" content="What is x402 facilitator? Definition &amp; how it works (2026)">
+<meta property="og:description" content="An x402 facilitator is a service that verifies and settles payments on behalf of servers using the x402 protocol — it checks that a client's signed payment">
+<meta property="og:type" content="article">
+<link rel="stylesheet" href="/style.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FZXLMBB5QB"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-FZXLMBB5QB');</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"DefinedTerm","name":"x402 facilitator","description":"An x402 facilitator is a service that verifies and settles payments on behalf of servers using the x402 protocol — it checks that a client's signed payment matches the server's requirements, then broadcasts the transaction on-chain, so sellers never need blockchain infrastructure of their own.","inDefinedTermSet":"https://glossary.agiscorecard.com"},{"@type":"Article","headline":"What is x402 facilitator?","datePublished":"2026-08-21","author":{"@type":"Organization","name":"Agent Glossary"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is x402 facilitator?","acceptedAnswer":{"@type":"Answer","text":"An x402 facilitator is a service that verifies and settles payments on behalf of servers using the x402 protocol — it checks that a client's signed payment matches the server's requirements, then broadcasts the transaction on-chain, so sellers never need blockchain infrastructure of their own."}},{"@type":"Question","name":"Do I need a facilitator to accept x402 payments?","acceptedAnswer":{"@type":"Answer","text":"No — a server can verify and settle payments itself. But a facilitator removes the need to run blockchain infrastructure, which is why most x402 sellers use one (e.g. Coinbase CDP or PayAI)."}},{"@type":"Question","name":"What's the difference between verify and settle?","acceptedAnswer":{"@type":"Answer","text":"Verify checks the signed payment payload against the server's payment requirements off-chain; settle actually broadcasts the transaction to the blockchain and monitors it until confirmed."}}]}]}
+</script>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="/">Agent<span>Glossary</span></a>
+  <nav><a href="/">All terms</a><a href="https://agentready.agiscorecard.com">AgentReady</a><a href="https://mcppulse.agiscorecard.com">MCP Pulse</a></nav>
+</header>
+<span class="tag">Agent payments</span>
+<h1>What is x402 facilitator?</h1>
+<div class="answer"><b>Definition:</b> An x402 facilitator is a service that verifies and settles payments on behalf of servers using the x402 protocol — it checks that a client's signed payment matches the server's requirements, then broadcasts the transaction on-chain, so sellers never need blockchain infrastructure of their own.</div>
+<p>In an <a href="/x402">x402</a> flow, the resource server can outsource the two hard steps to a facilitator: <code>POST /verify</code> confirms a signed payment payload meets the declared payment requirements (without touching the chain), and <code>POST /settle</code> submits the validated payment on-chain and watches for confirmation. A <code>GET /supported</code> endpoint advertises which schemes and networks the facilitator handles.</p>
+<p>Facilitators are optional but recommended — they're why an API seller can accept stablecoins with a few lines of middleware. Well-known facilitators include Coinbase's CDP facilitator (fee-free settlement on Base and Solana) and PayAI (Solana-first, multi-network). In the v2 spec, facilitators and payment schemes are pluggable, so new networks can be added without changing the protocol.</p>
+<h2>Do I need a facilitator to accept x402 payments?</h2><p>No — a server can verify and settle payments itself. But a facilitator removes the need to run blockchain infrastructure, which is why most x402 sellers use one (e.g. Coinbase CDP or PayAI).</p>
+<h2>What's the difference between verify and settle?</h2><p>Verify checks the signed payment payload against the server's payment requirements off-chain; settle actually broadcasts the transaction to the blockchain and monitors it until confirmed.</p>
+<div class="cta"><h3>Put it into practice</h3><a class="btn" href="https://x402.agiscorecard.com">See x402 payments in action →</a></div>
+<h3>Related terms</h3>
+<div class="related"><a href="/x402">x402</a><a href="/eip-3009">EIP-3009 (transferWithAuthorization)</a><a href="/http-402">HTTP 402 (Payment Required)</a><a href="/monetization-gateway">Monetization Gateway (Cloudflare)</a><a href="/agent-wallet">Agent wallet (programmable wallet)</a></div>
+<footer>
+  <div class="links"><a href="/">All terms</a><a href="/llms.txt">llms.txt</a><a href="https://selltoagents.agiscorecard.com">SellToAgents</a><a href="https://agentready.agiscorecard.com">AgentReady</a><a href="https://mcppulse.agiscorecard.com">MCP Pulse</a></div>
+  <div>© 2026 Agent Glossary · Plain-English definitions for the AI-agent era. Cite freely with a link.</div>
+</footer>
+</div>
+</body>
+</html>

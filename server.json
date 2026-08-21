@@ -2,13 +2,13 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.f-tiger/agentic-commerce-tools",
   "title": "Agentic Commerce Tools",
-  "description": "MCP server health/conformance scans, website AI-agent readiness scores, public MCP server index.",
+  "description": "7 free tools: MCP health scans, AI-readiness scores, llms.txt generator, glossary, indexes.",
   "repository": {
     "url": "https://github.com/f-tiger/sellSomething",
     "source": "github",
     "subfolder": "sites/mcppulse"
   },
-  "version": "1.0.0",
+  "version": "1.1.0",
   "websiteUrl": "https://mcppulse.agiscorecard.com",
   "remotes": [
     {

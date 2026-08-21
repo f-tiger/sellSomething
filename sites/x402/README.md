@@ -1,11 +1,15 @@
 # x402 — pay-per-call APIs for AI agents
 
-Worker for **x402.agiscorecard.com**. Wraps the family's two scanners as x402-payable endpoints — agents pay **$0.005/call in USDC on Base**, no account, no API key:
+Worker for **x402.agiscorecard.com**. Serves the family's scanners and datasets as x402-payable endpoints — agents pay **$0.005–$0.02/call in USDC on Base**, no account, no API key. All six payable endpoints live in one `ENDPOINTS` table in `src/worker.js` (`{path, price, description, validate, work}`); the 402 challenges, the `/.well-known/x402` catalog and the landing page's endpoint cards all derive from that single table:
 
-| Endpoint | Upstream | Price |
+| Endpoint | Work | Price |
 |---|---|---|
-| `GET /api/scan?url=<site>` | agentready.agiscorecard.com/api/scan | $0.005 (`"5000"` atomic USDC) |
-| `GET /api/mcp-check?url=<mcp>` | mcppulse.agiscorecard.com/api/scan | $0.005 |
+| `GET /api/scan?url=<site>` | proxy → agentready.agiscorecard.com/api/scan | $0.005 (`"5000"` atomic USDC) |
+| `GET /api/mcp-check?url=<mcp>` | proxy → mcppulse.agiscorecard.com/api/scan | $0.005 |
+| `GET /api/wellknown?url=<site>` | proxy → tools.agiscorecard.com/api/wellknown | $0.005 |
+| `GET /api/llms-extract?url=<site>` | inline: llms.txt/agents.md/ai.txt/robots.txt fetch + parse (SSRF-guarded, ported from apify/llms-txt-extractor) | $0.005 |
+| `GET /api/scan-batch?urls=<a,b,c>` | ≤5 concurrent agentready scans (>5 → free 400 before any challenge) | $0.02 (`"20000"`) |
+| `GET /api/mcp-index` | proxy → mcppulse.agiscorecard.com/data/mcp-index.json (free weekly summary on mcppulse) | $0.01 (`"10000"`) |
 | `GET /.well-known/x402` | — | free (machine-readable catalog) |
 
 Protocol: **x402 v2 + v1 (dual)**, `exact` scheme (EIP-3009 USDC `transferWithAuthorization`), implemented manually in `src/worker.js` — no SDK dependencies. Every 402 challenge is emitted in both versions simultaneously: the **v2** `PaymentRequired` (CAIP-2 network `eip155:8453`, `amount` field) goes base64-encoded into the `PAYMENT-REQUIRED` response header per `specs/transports-v2/http.md`, while the response **body** carries the **v1** JSON (`{x402Version:1, accepts:[…]}`, network `base`, `maxAmountRequired`) per `specs/transports-v1/http.md` — exactly the fallback order the official `@x402/fetch` client implements (header first, then v1 body). Incoming payments are read from `PAYMENT-SIGNATURE` (v2) or `X-PAYMENT` (v1). Payment is **settled only after a successful scan**; failed scans are never charged. The settle receipt is returned base64-encoded in both the `PAYMENT-RESPONSE` (v2) and `X-PAYMENT-RESPONSE` (v1) headers (CORS-exposed, identical bytes).
