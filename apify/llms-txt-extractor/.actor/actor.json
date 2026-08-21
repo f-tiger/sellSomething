@@ -1,0 +1,38 @@
+{
+    "actorSpecification": 1,
+    "name": "llms-txt-extractor",
+    "title": "llms.txt Extractor & AI Crawler Policy Parser",
+    "description": "Bulk-extract and parse llms.txt, agents.md, ai.txt and robots.txt AI-crawler directives from any list of domains. Structured JSON output: llms.txt sections and links, per-AI-bot allow/deny (GPTBot, ClaudeBot, PerplexityBot, CCBot…), sitemaps and adoption signals.",
+    "seoTitle": "llms.txt Parser — Extract llms.txt, agents.md & robots.txt AI Bot Rules at Scale",
+    "seoDescription": "The llms.txt parser for AI-agent ecosystem analysis: fetch and parse llms.txt sections and links, agents.md, ai.txt and robots.txt AI-crawler directives (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, CCBot) into structured JSON for thousands of domains. Pay per domain.",
+    "version": "0.1",
+    "buildTag": "latest",
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile",
+    "storages": {
+        "dataset": {
+            "actorSpecification": 1,
+            "views": {
+                "overview": {
+                    "title": "Extraction overview",
+                    "transformation": {
+                        "fields": ["domain", "ok", "signals.hasLlmsTxt", "signals.hasAgentsMd", "signals.hasAiTxt", "signals.aiBotsBlocked", "signals.aiPolicyStance", "error"]
+                    },
+                    "display": {
+                        "component": "table",
+                        "properties": {
+                            "domain": { "label": "Domain", "format": "text" },
+                            "ok": { "label": "Extracted", "format": "boolean" },
+                            "signals.hasLlmsTxt": { "label": "llms.txt", "format": "boolean" },
+                            "signals.hasAgentsMd": { "label": "agents.md", "format": "boolean" },
+                            "signals.hasAiTxt": { "label": "ai.txt", "format": "boolean" },
+                            "signals.aiBotsBlocked": { "label": "AI bots blocked", "format": "number" },
+                            "signals.aiPolicyStance": { "label": "Policy stance", "format": "text" },
+                            "error": { "label": "Error", "format": "text" }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

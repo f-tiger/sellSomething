@@ -1,0 +1,17 @@
+{
+    "name": "llms-txt-extractor",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Fetch and parse llms.txt, agents.md, ai.txt and robots.txt AI-crawler directives from any list of domains into structured JSON: sections, links, and per-AI-bot allow/deny rules.",
+    "main": "main.js",
+    "scripts": {
+        "start": "node main.js"
+    },
+    "engines": {
+        "node": ">=18.0.0"
+    },
+    "dependencies": {
+        "apify": "^3.2.6"
+    },
+    "license": "ISC"
+}

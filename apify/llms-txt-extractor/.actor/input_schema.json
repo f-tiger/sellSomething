@@ -1,0 +1,55 @@
+{
+    "title": "llms.txt Extractor input",
+    "description": "Provide the list of domains to extract AI-agent policy files from. For each domain, /llms.txt, /agents.md, /ai.txt and /robots.txt are fetched and parsed into structured fields.",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "domains": {
+            "title": "Domains",
+            "type": "array",
+            "description": "Domains (or URLs — only the origin is used), one per line. The scheme is optional: 'stripe.com' is treated as 'https://stripe.com'.",
+            "editor": "stringList",
+            "prefill": [
+                "anthropic.com",
+                "vercel.com",
+                "stripe.com"
+            ],
+            "items": {
+                "type": "string"
+            }
+        },
+        "maxConcurrency": {
+            "title": "Max concurrency",
+            "type": "integer",
+            "description": "How many domains to process in parallel. Each domain makes 4 lightweight HTTP requests.",
+            "default": 5,
+            "minimum": 1,
+            "maximum": 20,
+            "editor": "number"
+        },
+        "fetchTimeoutSecs": {
+            "title": "Fetch timeout (seconds)",
+            "type": "integer",
+            "description": "Per-request timeout. Domains where every request times out are reported as unreachable (and not charged).",
+            "default": 10,
+            "minimum": 3,
+            "maximum": 60,
+            "editor": "number"
+        },
+        "includeRawContent": {
+            "title": "Include raw file contents",
+            "type": "boolean",
+            "description": "When enabled, each dataset item also carries the raw text of every found file (up to 500 KB each). Leave off for compact, analysis-ready items.",
+            "default": false,
+            "sectionCaption": "Advanced",
+            "sectionDescription": "Options most runs never need to touch."
+        },
+        "userAgent": {
+            "title": "User-Agent override",
+            "type": "string",
+            "description": "Optional custom User-Agent header. Leave empty for the default LlmsTxtExtractor UA.",
+            "editor": "textfield"
+        }
+    },
+    "required": ["domains"]
+}

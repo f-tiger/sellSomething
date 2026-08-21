@@ -1,0 +1,5 @@
+# Local apify-cli run artifacts and dependencies (per-actor)
+node_modules/
+storage/
+apify_storage/
+.DS_Store

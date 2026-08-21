@@ -1,0 +1,7 @@
+{
+    "domain-extracted": {
+        "eventTitle": "Domain extracted",
+        "eventDescription": "Charged once for every domain that is successfully reached and parsed (llms.txt sections and links, agents.md, ai.txt, robots.txt per-AI-bot allow/deny rules and adoption signals). A reachable domain with none of the files present is still a valid, charged data point (adoption = false). Domains where every request failed at the network level are pushed with an error field but are never charged.",
+        "eventPriceUsd": 0.005
+    }
+}
