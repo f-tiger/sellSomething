@@ -22,6 +22,11 @@
 - `GET /api/scan?url=<mcp endpoint>` returns a JSON report: { url, score, grade, latencyMs, tools, checks[], summary }. Please self-limit to a few requests per minute.
 - `GET /api/badge?url=<mcp endpoint>` returns an SVG score badge for embedding in READMEs.
 
+## MCP server (connect your agent directly)
+- Endpoint: `POST https://mcppulse.agiscorecard.com/mcp` (streamable HTTP, JSON-RPC 2.0, no auth). Listed in the official MCP Registry as `io.github.f-tiger/agentic-commerce-tools`.
+- Tools: `check_mcp_server {url}` (live 0-100 MCP health/conformance scan), `agent_readiness_scan {url}` (website AI-agent readiness score via AgentReady), `get_public_mcp_index {}` (weekly public MCP server ranking).
+- Descriptor: [/.well-known/mcp.json](/.well-known/mcp.json). Free — self-limit to a few calls per minute; high-volume pay-per-call ($0.005 via the x402 protocol, USDC on Base, no account) at [x402.agiscorecard.com](https://x402.agiscorecard.com).
+
 ## Audience
 MCP server developers, agent platform builders, and teams monetizing MCP servers who need uptime and conformance monitoring.
 

@@ -1,0 +1,57 @@
+# Publish this repo's remote MCP server (server.json at repo root) to the official
+# MCP Registry at https://registry.modelcontextprotocol.io — zero-cost, zero-secret
+# distribution: authentication is GitHub Actions OIDC (id-token: write), which grants
+# the io.github.f-tiger/* namespace automatically. No registry account or PAT needed.
+#
+# Flow verified 2026-08-21 against the registry's own docs (modelcontextprotocol/registry@main):
+#   - docs/modelcontextprotocol-io/github-actions.mdx   (OIDC workflow: install binary from
+#     latest release, `mcp-publisher login github-oidc`, then `mcp-publisher publish`)
+#   - docs/modelcontextprotocol-io/remote-servers.mdx   (remotes: [{type: streamable-http, url}])
+#   - docs/modelcontextprotocol-io/quickstart.mdx       (schema 2025-12-11, namespace rules)
+#   - docs/reference/cli/commands.md                    (login github-oidc requires id-token: write)
+name: Publish MCP server to registry
+
+on:
+  push:
+    # Same branch list as deploy.yml — the repo's default branch is the claude/* one.
+    branches: [main, master, "claude/sales-website-research-plan-7i7rc2"]
+    paths: ["server.json", ".github/workflows/mcp-publish.yml"]
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write # required for `mcp-publisher login github-oidc`
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Install the official publisher CLI from the registry's latest release
+      # (exact command from docs/modelcontextprotocol-io/github-actions.mdx).
+      - name: Install mcp-publisher
+        run: |
+          curl -fsSL "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/').tar.gz" | tar xz mcp-publisher
+          ./mcp-publisher --help >/dev/null
+
+      - name: Validate server.json
+        run: ./mcp-publisher validate
+
+      - name: Authenticate to MCP Registry (GitHub OIDC, no secrets)
+        run: ./mcp-publisher login github-oidc
+
+      - name: Publish server to MCP Registry
+        run: ./mcp-publisher publish
+
+      # Non-fatal post-check: confirm the server is searchable. Indexing can lag,
+      # so a miss is a warning, not a failure.
+      - name: Verify listing
+        run: |
+          sleep 10
+          if curl -fsS "https://registry.modelcontextprotocol.io/v0.1/servers?search=io.github.f-tiger/agentic-commerce-tools" | grep -q "agentic-commerce-tools"; then
+            echo "Server is listed in the official MCP Registry."
+          else
+            echo "::warning::Publish succeeded but the server is not searchable yet (indexing may lag)."
+          fi
