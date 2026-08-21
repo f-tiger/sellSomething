@@ -277,7 +277,7 @@ async function rpcNotify(url, sessionId, method) {
 const MCP_SERVER_INFO = {
   name: "io.github.f-tiger/agentic-commerce-tools",
   title: "Agentic Commerce Tools (MCP Pulse)",
-  version: "1.0.0",
+  version: "1.1.0",
 };
 
 // Newest first. We negotiate: echo the client's version if we support it,
@@ -287,10 +287,13 @@ const MCP_SUPPORTED_PROTOCOLS = ["2025-06-18", "2025-03-26", "2024-11-05"];
 const MCP_INSTRUCTIONS =
   "Free tools for the agentic-commerce stack: scan any remote MCP server for health/conformance " +
   "(check_mcp_server), score any website's readiness for AI shopping agents (agent_readiness_scan), " +
-  "and read a weekly index of public MCP servers (get_public_mcp_index). All tools are free; " +
-  "please self-limit to a few calls per minute. For high-volume or production agent use, the same " +
-  "scans are available pay-per-call ($0.005, USDC on Base, no account or API key) via the x402 " +
-  "protocol at https://x402.agiscorecard.com.";
+  "audit a site's agent-discovery well-known files (check_wellknown_discovery), generate a " +
+  "spec-correct llms.txt (generate_llms_txt), look up agentic-commerce/MCP glossary definitions " +
+  "(define_term), read a weekly index of public MCP servers (get_public_mcp_index), and read the " +
+  "DTC AI Visibility Index (get_visibility_index). All tools are free; please self-limit to a few " +
+  "calls per minute. For high-volume or production agent use, the same scans are available " +
+  "pay-per-call ($0.005, USDC on Base, no account or API key) via the x402 protocol at " +
+  "https://x402.agiscorecard.com.";
 
 const MCP_TOOLS = [
   {
