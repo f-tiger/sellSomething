@@ -12,15 +12,13 @@
   },
   "observability": {
     "enabled": true
+  },
+  // Payment config (see README.md). PAYTO_ADDRESS is the owner's self-custody
+  // EVM wallet (public info — same key controls it on Base). FACILITATOR_URL:
+  // the x402.org default is TESTNET-ONLY, so we use PayAI's account-free
+  // mainnet facilitator; switch to CDP later if desired.
+  "vars": {
+    "PAYTO_ADDRESS": "0x21d148385855B06114e83b25276070a399F882F9",
+    "FACILITATOR_URL": "https://facilitator.payai.network"
   }
-  // Payment config (see README.md):
-  //   PAYTO_ADDRESS   — receiving wallet (0x…) on Base. Set as a plain var here
-  //                     or via: npx wrangler secret put PAYTO_ADDRESS --name x402
-  //                     Until it is set, endpoints return 503 (or free results with ?demo=1).
-  //   FACILITATOR_URL — optional. Default https://x402.org/facilitator is TESTNET-ONLY
-  //                     (Base Sepolia); set a mainnet facilitator for real USDC.
-  // "vars": {
-  //   "PAYTO_ADDRESS": "0xYourBaseWallet",
-  //   "FACILITATOR_URL": "https://api.cdp.coinbase.com/platform/v2/x402"
-  // }
 }
