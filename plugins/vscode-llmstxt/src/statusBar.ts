@@ -3,7 +3,7 @@
  * llmstxt.enterLicense.
  */
 import * as vscode from "vscode";
-import { getCachedLicense, isPro, isProCached, onLicenseChanged } from "./license";
+import { FREE_MODE, getCachedLicense, isPro, isProCached, onLicenseChanged } from "./license";
 
 export function registerStatusBar(context: vscode.ExtensionContext): void {
   const item = vscode.window.createStatusBarItem("llmstxt.tier", vscode.StatusBarAlignment.Right, 90);
@@ -12,6 +12,14 @@ export function registerStatusBar(context: vscode.ExtensionContext): void {
   context.subscriptions.push(item);
 
   const render = (pro: boolean): void => {
+    if (FREE_MODE && !pro) {
+      item.text = "$(check-all) llms.txt Toolkit";
+      item.tooltip =
+        "LLMs.txt & Agents.md Toolkit — all features currently free (site audits, workspace validation, generators).";
+      item.backgroundColor = undefined;
+      item.show();
+      return;
+    }
     if (pro) {
       const product = getCachedLicense(context)?.product;
       item.text = "$(verified) llms.txt Pro";

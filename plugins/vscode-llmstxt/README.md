@@ -28,7 +28,9 @@ audit any site's **AI visibility** and **agent readiness** end to end.
 ![Editing llms.txt with live diagnostics](images/screenshot-diagnostics.png)
 *(screenshot placeholder — live diagnostics on llms.txt)*
 
-### Pro — $29 one-time
+### Pro tools — currently free for everyone
+
+> **Launch promo:** every Pro feature below is unlocked for all users right now — no license needed. A one-time license may be introduced later; early users keep free access to what they already use.
 
 | Feature | What it does |
 | --- | --- |
@@ -38,8 +40,7 @@ audit any site's **AI visibility** and **agent readiness** end to end.
 ![Site audit report](images/screenshot-audit.png)
 *(screenshot placeholder — AI-visibility audit panel)*
 
-**[Get a Pro license → agentready.agiscorecard.com/pricing](https://agentready.agiscorecard.com/pricing)**
-$29, one-time, per person. No subscription. Activate with
+**Everything is free during launch.** If a paid tier is introduced later, keys will be sold at [agentready.agiscorecard.com/pricing](https://agentready.agiscorecard.com/pricing) and activated with
 `LLMs.txt: Enter License Key` (or click the `llms.txt Free` status bar item).
 
 ---

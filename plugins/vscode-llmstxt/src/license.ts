@@ -149,11 +149,18 @@ export async function enterLicenseCommand(context: vscode.ExtensionContext): Pro
 }
 
 /**
+ * While no self-serve checkout is live, every feature ships free — the
+ * extension's job is distribution for the AgentReady scanner. Flip to false to
+ * re-arm the license gate (the key plumbing below stays functional).
+ */
+export const FREE_MODE = true;
+
+/**
  * Gate for Pro commands. Returns true when Pro is active; otherwise shows an
  * upsell message with "Enter license key" / "Get a license" actions.
  */
 export async function requirePro(context: vscode.ExtensionContext, featureName: string): Promise<boolean> {
-  if (await isPro(context)) {
+  if (FREE_MODE || (await isPro(context))) {
     return true;
   }
   const enterAction = "Enter license key";
