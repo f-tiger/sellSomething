@@ -1,0 +1,52 @@
+name: JetBrains plugin CI
+
+on:
+  push:
+    paths:
+      - "plugins/jetbrains-llmstxt/**"
+      - ".github/workflows/plugin-jetbrains.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: plugins/jetbrains-llmstxt
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.10"
+
+      - name: Bootstrap Gradle wrapper (no binaries in repo)
+        run: gradle wrapper --gradle-version 8.10
+
+      - name: Build and verify plugin
+        run: ./gradlew buildPlugin verifyPlugin --no-daemon
+
+      - name: Upload plugin zip
+        uses: actions/upload-artifact@v4
+        with:
+          name: jetbrains-llmstxt-plugin
+          path: plugins/jetbrains-llmstxt/build/distributions/*.zip
+          if-no-files-found: error
+
+      - name: Upload verifier report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: plugin-verifier-report
+          path: plugins/jetbrains-llmstxt/build/reports/pluginVerifier/**
+          if-no-files-found: ignore

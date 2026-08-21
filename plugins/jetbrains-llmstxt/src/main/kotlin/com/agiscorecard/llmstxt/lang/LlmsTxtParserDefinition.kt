@@ -34,9 +34,9 @@ class LlmsTxtParser : PsiParser {
 }
 
 class LlmsTxtParserDefinition : ParserDefinition {
-    override fun createLexer(project: Project?): Lexer = LlmsTxtLexer()
+    override fun createLexer(project: Project): Lexer = LlmsTxtLexer()
 
-    override fun createParser(project: Project?): PsiParser = LlmsTxtParser()
+    override fun createParser(project: Project): PsiParser = LlmsTxtParser()
 
     override fun getFileNodeType(): IFileElementType = FILE
 
