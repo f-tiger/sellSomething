@@ -13,5 +13,8 @@ AgentReady is a free AI sales-visibility scanner. It scores any website 0–100 
 - Methodology and FAQ on the homepage (`/`).
 - Our own `/llms.txt` summarizes the product and pricing.
 
+## Machine-payable APIs
+Sister service [x402 APIs](https://x402.agiscorecard.com) exposes a pay-per-call version of this scan for autonomous agents: $0.005/call in USDC on Base via the x402 protocol, no account or API key.
+
 ## Contact
 Waitlist signups via the homepage form. No other write endpoints exist.

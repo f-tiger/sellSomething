@@ -10,3 +10,6 @@ The formulas and benchmarks on `/commission`, `/pipeline-coverage`, `/cold-email
 
 ## Interaction
 All calculators run client-side. No accounts, no API, no data collection.
+
+## Machine-payable APIs
+Sister service [x402 APIs](https://x402.agiscorecard.com): agents can pay per call in USDC via the x402 protocol ($0.005/call, no account) for site and MCP scans.

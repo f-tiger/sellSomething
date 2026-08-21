@@ -14,6 +14,10 @@ Early-access product. Free for the first 100 stores on the waitlist.
 - [Catalog API](/api/catalog): JSON product catalog — the format agents consume. Open, no auth.
 - [agents.txt](/agents.txt): Declared agent capabilities for this site.
 
+## Machine-payable APIs
+
+- [x402 APIs](https://x402.agiscorecard.com): sister service — agents pay per call in USDC via the x402 protocol ($0.005/call, no account) for site and MCP scans.
+
 ## Sister sites
 
 - [AgentReady](https://agentready.agiscorecard.com/): Free AI sales-visibility scanner for any website.

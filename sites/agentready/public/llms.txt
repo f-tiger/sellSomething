@@ -22,5 +22,8 @@
 - Pro $19/mo (early access): up to 3 stores, daily re-scans, 90-day history, shareable reports
 - Team $49/mo (early access): up to 25 stores, Slack + email alerts, white-label reports, CSV/API
 
+## Machine-payable APIs
+- [x402 APIs](https://x402.agiscorecard.com): pay-per-call version of this scan for autonomous agents — $0.005/call in USDC via the x402 protocol, no account or API key
+
 ## Audience
 E-commerce merchants, DTC brands, and agencies preparing for agentic commerce (ACP, UCP, MCP).

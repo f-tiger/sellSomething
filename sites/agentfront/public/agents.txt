@@ -17,3 +17,6 @@ deny: purchase             # x402/ACP checkout is in early access
 catalog: /api/catalog
 llms: /llms.txt
 contact: via waitlist form
+
+# Machine-payable sister APIs (x402 protocol, $0.005/call in USDC, no account)
+related: https://x402.agiscorecard.com

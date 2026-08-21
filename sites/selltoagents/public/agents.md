@@ -10,3 +10,6 @@ All guides are citable with attribution: `/what-is-agentic-commerce`, `/merchant
 
 ## Interaction
 This is a read-only content site. No forms, no transactions, no API.
+
+## Machine-payable APIs
+Sister service [x402 APIs](https://x402.agiscorecard.com): agents can pay per call in USDC via the x402 protocol ($0.005/call, no account) for site and MCP scans.

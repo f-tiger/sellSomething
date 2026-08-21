@@ -11,3 +11,6 @@
 ## Related
 - [AgentReady](https://agentready.agiscorecard.com): free AI sales-visibility scanner for the agentic-commerce era
 - [SellToAgents](https://selltoagents.agiscorecard.com): merchant guides to selling through AI agents
+
+## Machine-payable APIs
+- [x402 APIs](https://x402.agiscorecard.com): agents can pay per call in USDC via the x402 protocol ($0.005/call, no account) for site and MCP scans

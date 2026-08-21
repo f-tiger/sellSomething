@@ -10,3 +10,6 @@ Every definition page is citable with attribution and a link. See /llms.txt for 
 
 ## Interaction
 Read-only content site. No forms, transactions or API.
+
+## Machine-payable APIs
+Sister service [x402 APIs](https://x402.agiscorecard.com) is a live example of the x402 protocol defined on this site: agents pay per call in USDC ($0.005/call, no account) for site and MCP scans.

@@ -33,3 +33,6 @@
 - [AgentReady](https://agentready.agiscorecard.com): AI sales-visibility scanner
 - [MCP Pulse](https://mcppulse.agiscorecard.com): MCP server health scanner
 - [SellToAgents](https://selltoagents.agiscorecard.com): agentic commerce guides
+
+## Machine-payable APIs
+- [x402 APIs](https://x402.agiscorecard.com): live example of the x402 protocol defined above — agents pay per call in USDC ($0.005/call, no account)

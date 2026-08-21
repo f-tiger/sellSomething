@@ -28,3 +28,6 @@ MCP server developers, agent platform builders, and teams monetizing MCP servers
 ## Related
 - [AgentReady](https://agentready.agiscorecard.com): AI sales-visibility scanner for merchant sites
 - [SellToAgents](https://selltoagents.agiscorecard.com): agentic commerce guides and the DTC AI Visibility Index
+
+## Machine-payable APIs
+- [x402 APIs](https://x402.agiscorecard.com): pay-per-call version of this MCP check for autonomous agents — $0.005/call in USDC via the x402 protocol, no account or API key

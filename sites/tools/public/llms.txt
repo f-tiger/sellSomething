@@ -20,3 +20,6 @@
 - [AgentReady](https://agentready.agiscorecard.com): AI sales-visibility scanner (+ llms.txt generator)
 - [MCP Pulse](https://mcppulse.agiscorecard.com): MCP server health scanner
 - [Agent Glossary](https://glossary.agiscorecard.com): plain-English definitions for the AI-agent era
+
+## Machine-payable APIs
+- [x402 APIs](https://x402.agiscorecard.com): agents can pay per call in USDC via the x402 protocol ($0.005/call, no account) for site and MCP scans

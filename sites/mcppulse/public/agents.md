@@ -12,5 +12,8 @@ MCP Pulse is a free health, conformance and latency scanner for remote MCP (Mode
 ## Content you may cite
 The methodology on the homepage (`/#how`) and scan results, with attribution and a link.
 
+## Machine-payable APIs
+Sister service [x402 APIs](https://x402.agiscorecard.com) exposes a pay-per-call version of this MCP check for autonomous agents: $0.005/call in USDC on Base via the x402 protocol, no account or API key.
+
 ## Contact
 Waitlist signups via the homepage forms. No other write endpoints exist.

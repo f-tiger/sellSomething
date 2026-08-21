@@ -3,6 +3,10 @@
  * GET  /api/scan?url=<mcp endpoint>   → JSON health report (JSON-RPC over streamable HTTP)
  * GET  /api/badge?url=<mcp endpoint>  → SVG score badge (embed in your README)
  * POST /api/subscribe                 → Pro-monitoring waitlist (shared SUBSCRIBERS KV)
+ * POST /mcp                           → this site's own MCP server (streamable HTTP,
+ *                                       JSON-RPC 2.0, no SDK) — listed in the official
+ *                                       MCP Registry as io.github.f-tiger/agentic-commerce-tools
+ * GET  /.well-known/mcp.json          → machine-readable MCP server descriptor
  */
 
 const TIMEOUT_MS = 10000;
@@ -14,6 +18,8 @@ export default {
     if (url.pathname === "/api/scan") return handleScan(request);
     if (url.pathname === "/api/badge") return handleBadge(request);
     if (url.pathname === "/api/subscribe") return handleSubscribe(request, env);
+    if (url.pathname === "/mcp") return handleMcp(request, env);
+    if (url.pathname === "/.well-known/mcp.json") return handleWellKnownMcp();
     return env.ASSETS.fetch(request);
   },
 };

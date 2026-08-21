@@ -1,0 +1,12 @@
+{
+  "name": "agentic-commerce-tools",
+  "version": "0.1.0",
+  "description": "Agentic-commerce readiness tools: scan any website for AI-agent visibility and health-check remote MCP servers, via the agiscorecard remote MCP endpoint.",
+  "contextFileName": "GEMINI.md",
+  "mcpServers": {
+    "agentic-commerce-tools": {
+      "httpUrl": "https://mcppulse.agiscorecard.com/mcp",
+      "timeout": 30000
+    }
+  }
+}
