@@ -1,0 +1,48 @@
+# CI for the VS Code extension in plugins/vscode-llmstxt.
+# Typechecks, bundles and packages a .vsix artifact on every push that touches
+# the extension (publishing stays manual — see the runbook in its README.md).
+name: plugin-vscode
+
+on:
+  push:
+    paths:
+      - "plugins/vscode-llmstxt/**"
+      - ".github/workflows/plugin-vscode.yml"
+  pull_request:
+    paths:
+      - "plugins/vscode-llmstxt/**"
+      - ".github/workflows/plugin-vscode.yml"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: plugins/vscode-llmstxt
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: plugins/vscode-llmstxt/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Bundle
+        run: npm run build
+
+      - name: Package .vsix
+        run: npx @vscode/vsce package --no-dependencies
+
+      - name: Upload .vsix artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: llmstxt-toolkit-vsix
+          path: plugins/vscode-llmstxt/*.vsix
+          if-no-files-found: error

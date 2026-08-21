@@ -1,0 +1,111 @@
+{
+  "name": "llmstxt-toolkit",
+  "displayName": "LLMs.txt & Agents.md Toolkit",
+  "description": "Language support, validation, generators and AI-visibility site audits for llms.txt and agents.md — make your site readable by AI agents.",
+  "version": "0.1.0",
+  "publisher": "agiscorecard",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Linters",
+    "Other"
+  ],
+  "keywords": [
+    "llms.txt",
+    "agents.md",
+    "AI visibility",
+    "agent readiness",
+    "agentic commerce",
+    "AI SEO",
+    "GEO",
+    "llms-full.txt"
+  ],
+  "homepage": "https://agentready.agiscorecard.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/f-tiger/sellSomething"
+  },
+  "bugs": {
+    "url": "https://agentready.agiscorecard.com"
+  },
+  "galleryBanner": {
+    "color": "#1b2135",
+    "theme": "dark"
+  },
+  "main": "./dist/extension.js",
+  "activationEvents": [],
+  "contributes": {
+    "languages": [
+      {
+        "id": "llmstxt",
+        "aliases": [
+          "llms.txt",
+          "LLMs.txt"
+        ],
+        "filenames": [
+          "llms.txt",
+          "llms-full.txt"
+        ],
+        "configuration": "./language-configuration.json"
+      },
+      {
+        "id": "markdown",
+        "filenames": [
+          "agents.md",
+          "AGENTS.md"
+        ]
+      }
+    ],
+    "grammars": [
+      {
+        "language": "llmstxt",
+        "scopeName": "text.llmstxt",
+        "path": "./syntaxes/llmstxt.tmLanguage.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "llmstxt.generate",
+        "title": "Generate llms.txt from Workspace",
+        "category": "LLMs.txt"
+      },
+      {
+        "command": "llmstxt.generateAgentsMd",
+        "title": "Generate agents.md from Workspace",
+        "category": "LLMs.txt"
+      },
+      {
+        "command": "llmstxt.auditSite",
+        "title": "Audit Site AI Visibility (Pro)",
+        "category": "LLMs.txt"
+      },
+      {
+        "command": "llmstxt.validateWorkspace",
+        "title": "Validate All llms.txt / agents.md in Workspace (Pro)",
+        "category": "LLMs.txt"
+      },
+      {
+        "command": "llmstxt.enterLicense",
+        "title": "Enter License Key",
+        "category": "LLMs.txt"
+      }
+    ]
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "node esbuild.js",
+    "watch": "node esbuild.js --watch",
+    "vscode:prepublish": "node esbuild.js --production",
+    "package": "vsce package --no-dependencies"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^2.32.0",
+    "esbuild": "^0.21.5",
+    "typescript": "^5.4.5"
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "llms.txt",
+  "scopeName": "text.llmstxt",
+  "patterns": [
+    { "include": "#h1" },
+    { "include": "#h2" },
+    { "include": "#blockquote" },
+    { "include": "#linkBullet" },
+    { "include": "#plainBullet" },
+    { "include": "#inlineLink" },
+    { "include": "#emphasis" }
+  ],
+  "repository": {
+    "h1": {
+      "name": "markup.heading.1.llmstxt",
+      "match": "^(#)\\s+(.*)$",
+      "captures": {
+        "1": { "name": "punctuation.definition.heading.llmstxt" },
+        "2": { "name": "entity.name.section.llmstxt" }
+      }
+    },
+    "h2": {
+      "name": "markup.heading.2.llmstxt",
+      "match": "^(##)\\s+(.*)$",
+      "captures": {
+        "1": { "name": "punctuation.definition.heading.llmstxt" },
+        "2": { "name": "entity.name.section.llmstxt" }
+      }
+    },
+    "blockquote": {
+      "name": "markup.quote.llmstxt",
+      "match": "^(>)\\s?(.*)$",
+      "captures": {
+        "1": { "name": "punctuation.definition.quote.begin.llmstxt" },
+        "2": { "name": "markup.quote.content.llmstxt" }
+      }
+    },
+    "linkBullet": {
+      "match": "^(\\s*)(-)\\s+(\\[)([^\\]]*)(\\])(\\()([^)\\s]*)(\\))(?:(:)\\s*(.*))?$",
+      "captures": {
+        "2": { "name": "punctuation.definition.list.begin.llmstxt" },
+        "3": { "name": "punctuation.definition.link.title.begin.llmstxt" },
+        "4": { "name": "string.other.link.title.llmstxt" },
+        "5": { "name": "punctuation.definition.link.title.end.llmstxt" },
+        "6": { "name": "punctuation.definition.link.begin.llmstxt" },
+        "7": { "name": "markup.underline.link.llmstxt" },
+        "8": { "name": "punctuation.definition.link.end.llmstxt" },
+        "9": { "name": "punctuation.separator.description.llmstxt" },
+        "10": { "name": "comment.line.description.llmstxt" }
+      }
+    },
+    "plainBullet": {
+      "match": "^(\\s*)(-|\\*)\\s+(.*)$",
+      "captures": {
+        "2": { "name": "punctuation.definition.list.begin.llmstxt" },
+        "3": { "name": "invalid.deprecated.non-link-bullet.llmstxt" }
+      }
+    },
+    "inlineLink": {
+      "match": "(\\[)([^\\]]+)(\\])(\\()([^)\\s]+)(\\))",
+      "captures": {
+        "1": { "name": "punctuation.definition.link.title.begin.llmstxt" },
+        "2": { "name": "string.other.link.title.llmstxt" },
+        "3": { "name": "punctuation.definition.link.title.end.llmstxt" },
+        "4": { "name": "punctuation.definition.link.begin.llmstxt" },
+        "5": { "name": "markup.underline.link.llmstxt" },
+        "6": { "name": "punctuation.definition.link.end.llmstxt" }
+      }
+    },
+    "emphasis": {
+      "patterns": [
+        {
+          "name": "markup.bold.llmstxt",
+          "match": "\\*\\*[^*]+\\*\\*"
+        },
+        {
+          "name": "markup.italic.llmstxt",
+          "match": "(?<!\\*)\\*[^*\\s][^*]*\\*(?!\\*)"
+        },
+        {
+          "name": "markup.inline.raw.llmstxt",
+          "match": "`[^`]+`"
+        }
+      ]
+    }
+  }
+}
