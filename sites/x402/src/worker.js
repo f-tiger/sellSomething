@@ -199,18 +199,19 @@ async function handlePaid(request, env, endpoint) {
   //    PAYMENT-RESPONSE and legacy X-PAYMENT-RESPONSE headers (same bytes —
   //    the reference client checks them in that order).
   const settle = await facilitatorCall(env, "/settle", version, paymentPayload, requirements);
-  const extra = {};
-  if (settle.data) {
-    const receipt = b64json(settle.data);
-    extra["PAYMENT-RESPONSE"] = receipt;
-    extra["X-PAYMENT-RESPONSE"] = receipt;
-    if (settle.data.success !== true) {
-      console.error("x402: settle failed", endpoint.path, JSON.stringify(settle.data).slice(0, 500));
-    }
-  } else {
-    console.error("x402: settle call errored", endpoint.path, settle.error || "HTTP " + settle.status);
+  // The paid result is released ONLY when settlement actually succeeded.
+  // Serving on a failed settle would let one signed authorization be replayed
+  // for unlimited free calls (verify passes until the nonce is spent on-chain);
+  // the v2 reference server also 402s here. We eat the wasted upstream compute.
+  if (!settle.data || settle.data.success !== true) {
+    console.error("x402: settle failed, result withheld", endpoint.path,
+      settle.data ? JSON.stringify(settle.data).slice(0, 500) : (settle.error || "HTTP " + settle.status));
+    return pay402("Payment settlement failed" +
+      (settle.data && settle.data.errorReason ? ": " + settle.data.errorReason : "") +
+      " — obtain a fresh payment authorization and retry.", challenge);
   }
-  return json(up.data, 200, extra);
+  const receipt = b64json(settle.data);
+  return json(up.data, 200, { "PAYMENT-RESPONSE": receipt, "X-PAYMENT-RESPONSE": receipt });
 }
 
 // v1 PaymentRequirements — specs/x402-specification-v1.md (flat object with

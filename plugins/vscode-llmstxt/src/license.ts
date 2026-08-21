@@ -103,7 +103,7 @@ export async function enterLicenseCommand(context: vscode.ExtensionContext): Pro
     prompt: "Paste the license key you received after purchase",
     value: existing?.key ?? "",
     ignoreFocusOut: true,
-    placeHolder: "e.g. AGR-XXXX-XXXX-XXXX",
+    placeHolder: "e.g. ARDK-XXXXXX-XXXXXX-XXXXXX",
     validateInput: (v) => (v.trim().length < 4 ? "That key looks too short." : undefined),
   });
   if (input === undefined) {

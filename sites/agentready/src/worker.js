@@ -819,14 +819,24 @@ async function handlePaddleWebhook(request, env) {
   if (!env.PADDLE_WEBHOOK_SECRET) return json({ error: "Paddle webhook not configured" }, 400);
   const raw = await request.text();
   const sigHeader = request.headers.get("paddle-signature") || "";
-  const parts = {};
+  // During secret rotation Paddle may send several h1 entries — accept if ANY
+  // verifies. Reject events whose timestamp is older than 10 minutes (replay).
+  let ts = "";
+  const h1s = [];
   for (const kv of sigHeader.split(";")) {
     const i = kv.indexOf("=");
-    if (i > 0) parts[kv.slice(0, i).trim()] = kv.slice(i + 1).trim();
+    if (i <= 0) continue;
+    const k = kv.slice(0, i).trim(), v = kv.slice(i + 1).trim();
+    if (k === "ts") ts = v;
+    else if (k === "h1") h1s.push(v);
   }
-  if (!parts.ts || !parts.h1) return json({ error: "Missing signature" }, 401);
-  const ok = await verifyHmacSha256(parts.ts + ":" + raw, env.PADDLE_WEBHOOK_SECRET, parts.h1);
-  if (!ok) return json({ error: "Invalid signature" }, 401);
+  if (!ts || !h1s.length) return json({ error: "Missing signature" }, 401);
+  if (Math.abs(Date.now() / 1000 - Number(ts)) > 600) return json({ error: "Stale webhook timestamp" }, 401);
+  let sigOk = false;
+  for (const h1 of h1s) {
+    if (await verifyHmacSha256(ts + ":" + raw, env.PADDLE_WEBHOOK_SECRET, h1)) { sigOk = true; break; }
+  }
+  if (!sigOk) return json({ error: "Invalid signature" }, 401);
 
   let evt = {}; try { evt = JSON.parse(raw || "{}"); } catch { return json({ error: "Invalid JSON" }, 400); }
   const type = String(evt.event_type || "").toLowerCase();
@@ -837,10 +847,23 @@ async function handlePaddleWebhook(request, env) {
 
   const bought = (k) => env[k] && priceIds.includes(env[k]);
   const paid = /^(transaction\.completed|transaction\.paid|subscription\.activated|subscription\.created)$/.test(type);
-  const ended = /^(subscription\.canceled|subscription\.paused|transaction\.revoked|adjustment\.created)$/.test(type);
+  // adjustment.created (refunds/credits) is deliberately NOT here: its payload
+  // carries no price ids, so acting on it would touch unrelated products (e.g.
+  // downgrade a live Pro plan over a refunded one-time audit). Handle refunds
+  // issued as adjustments manually via /api/license/admin.
+  const ended = /^(subscription\.canceled|subscription\.paused|transaction\.revoked)$/.test(type);
 
   const actions = [];
   if (email && paid) {
+    // One purchase fires both transaction.paid and transaction.completed (plus
+    // retries): dedupe deliveries on the entity id so a buyer never gets two
+    // license keys / audit tokens for one payment.
+    const entityId = String(data.id || evt.event_id || "");
+    if (entityId) {
+      const dedupeKey = "pdltxn:agentready:" + entityId;
+      if (await env.SUBSCRIBERS.get(dedupeKey)) return json({ ok: true, type, deduped: true });
+      await env.SUBSCRIBERS.put(dedupeKey, new Date().toISOString(), { expirationTtl: 90 * 86400 });
+    }
     if (bought("PADDLE_BADGE_PRICE_ID")) { await setBadgePaidForEmail(env, email); actions.push("badge"); }
     if (bought("PADDLE_AUDIT_PRICE_ID")) { await issueAuditToken(env, email); actions.push("audit"); }
     if (bought("PADDLE_DEVKIT_PRICE_ID")) { await issueLicense(env, email, "devkit"); actions.push("devkit"); }
@@ -848,7 +871,7 @@ async function handlePaddleWebhook(request, env) {
     else if (bought("PADDLE_PRO_PRICE_ID")) { await setPlanForEmail(env, email, "pro"); actions.push("pro"); }
   } else if (email && ended) {
     if (bought("PADDLE_DEVKIT_PRICE_ID")) { await revokeLicenses(env, email, "devkit"); actions.push("devkit-revoked"); }
-    if (bought("PADDLE_PRO_PRICE_ID") || bought("PADDLE_TEAM_PRICE_ID") || priceIds.length === 0) {
+    if (bought("PADDLE_PRO_PRICE_ID") || bought("PADDLE_TEAM_PRICE_ID")) {
       await setPlanForEmail(env, email, "free"); actions.push("plan-free");
     }
   }

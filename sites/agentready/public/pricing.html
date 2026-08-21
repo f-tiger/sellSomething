@@ -164,6 +164,9 @@ $('mon-btn').addEventListener('click',async()=>{
 // Checkout URLs (Paddle or Creem — any hosted checkout link works). Paste a
 // URL to switch that product from waitlist to live checkout (see
 // docs/PADDLE-SETUP.md and docs/BILLING-SETUP.md). Empty = waitlist mode.
+// ⚠️ Before going live with `devkit`: set FREE_MODE=false in
+// plugins/vscode-llmstxt/src/license.ts and publish a new extension version —
+// otherwise buyers pay for features the shipped extension already gives free.
 const CHECKOUT={pro:"",team:"",audit:"",devkit:""};
 
 function earlyAccess(formId,emailId,plan){

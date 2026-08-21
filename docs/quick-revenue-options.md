@@ -201,3 +201,27 @@
 ## 十五、第三轮来源（精选）
 
 Apify 复核：apifystats.com（42,715 Actor 分布实测）· blog.apify.com（官方案例时间线）· help.apify.com（payout/负利润机制）· docs.apify.com（Challenge 条款/自动测试）。中文平台：网信办《AI 生成合成内容标识办法》（2025-09-01 生效）· 微信《公众平台运营规范》3.27（2026-03）· 闲鱼《社区经营性行为界定与管理规范》（2026-06-01）。收款：V2EX/知乎 2025 多篇 Paddle 大陆个人过审实测 · Lemon Squeezy 2026-02 停收中国开发者（V2EX）。AI 劳务：各平台官方国家名单 · Outlier 封号扣薪案例 · Scale 工资诉讼（2024-12–2025-01）。联盟：PartnerStack（43% 基准率）· Ahrefs 2025-12（AIO CTR -58%）。新兴：JetBrains/GitHub/Figma 官方分成条款 · CoinDesk 2026-03-11（x402 真实量）。竞赛：Incubagent（Algora 实测，单一来源已标注）· mlcontests.com。交易：巴西日内交易者研究 · SEBI FY25 · Polymarket 250 万钱包审计 · 2026-02-06 八部门通知。Web3：SubnetAIQ · CoinGecko（OLAS/GRASS/HONEY）· Optimism 官方（Retro Funding 暂停）· Immunefi 官方（AI 报告封号）· Superteam Handbook。完整 URL 见三轮调研原始输出（会话记录）。
+
+---
+
+# 第四轮：深度优化与方向收敛（2026-08-21，"先跑通、后注册"模式）
+
+## 十六、优化轮结论
+
+**代码质量**：对全分支做高强度审查，发现并修复 3 个收钱逻辑 bug（x402 结算失败仍发货=可重放白嫖 → 改为 402 拒发；Paddle 同一笔购买 paid+completed 双事件重复发 license → 加实体级幂等；adjustment.created 退款事件误降级无关订阅 → 移出处理集，退款走管理端点）+ 5 个次级问题（签名轮换多 h1、时间戳新鲜度、SSE 早退匹配、三 Actor 共享代码分叉、license 占位符格式）。x402 升级为 **v1/v2 双协议栈**（v2=PAYMENT-REQUIRED 头 + CAIP-2 网络号，12/12 行为断言通过）——正好赶上 Cloudflare 2026-07 Monetization Gateway / 2026-08 Wallets 把 x402 嵌入边缘的顺风。
+
+**方向复评（BUILD/SKIP）**：
+
+| 方向 | 结论 | 依据 |
+|---|---|---|
+| **Superteam Earn 自动投递管道** | ✅ BUILD（已建） | 官方 Agent API（注册/拉单/投递全可编程）；agent 类 bounty $500–5,000 USDC；外部赞助单免 KYC 直付钱包；精投不海投 |
+| **x402 Bazaar / Cloudflare Gateway 挂牌** | ✅ BUILD（部署后挂牌） | 唯一"买方即 agent、全免 KYC、纯被动"渠道；AWS+Cloudflare 双巨头站台 |
+| Virtuals ACP | ❌ SKIP | $1M/月奖励池被发币门槛锁死（毕业需 42,000 VIRTUAL 买盘=需营销）；我们能卖的服务在该市场无购买证据；留月度哨兵 |
+| Recall 等 agent 竞赛 | ❌ SKIP | 现行全是交易 Arena，非我们能力圈；留月度哨兵等 research 赛道 |
+| ChatGPT Apps 分发 | ❌ SKIP | Bloomberg 2026-03：开放半年 300 个集成"流量微乎其微"，头部品牌都拿不到；留触发条件（货币化开放） |
+| Claude Connectors 目录 | ❌ SKIP | 需 Team/Enterprise 组织（~$1,500+/年门票） |
+| 新 Apify 品类 | ❌ SKIP | 我们的差异化功能已被 5–10 个跟风者抢发（petteridev/agent-readiness-checker 与我们逐项重合）、AI-visibility 类已打价格战；已写好的 3 个 Actor 改定位为 SEO/反链资产发布 |
+| 预测市场工具楔子 | ❌ 整体放弃 | 复查证伪：告警/MCP/聚合三层全被免费+官方覆盖，216+ 工具中可确认订阅制存活的 ≈1 个 |
+| Gemini CLI 扩展 + 免审目录 | 顺手做（<0.5 天） | 期望流量≈0，纯反链价值 |
+
+**"先跑通、后注册"執行狀態**：所有不依赖用户身份的环节（代码、修复、管道、匹配、草稿）已/正在完成；注册动作（Apify/JetBrains/VSCE/Superteam claim/钱包地址）推迟到对应模式被验证值得后，由用户一次性完成。
