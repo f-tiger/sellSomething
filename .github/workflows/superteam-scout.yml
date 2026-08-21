@@ -6,40 +6,49 @@ on:
     - cron: "0 2 * * 1" # weekly, Monday 02:00 UTC
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   scout:
     runs-on: ubuntu-latest
     steps:
-      - name: Check for SUPERTEAM_API_KEY
-        id: key
-        env:
-          SUPERTEAM_API_KEY: ${{ secrets.SUPERTEAM_API_KEY }}
-        run: |
-          if [ -z "$SUPERTEAM_API_KEY" ]; then
-            echo "::notice title=Superteam scout skipped::SUPERTEAM_API_KEY secret is not set. Run scripts/superteam/register.mjs --yes once and store the apiKey as a repo secret."
-            echo "present=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "present=true" >> "$GITHUB_OUTPUT"
-          fi
-
       - uses: actions/checkout@v4
-        if: steps.key.outputs.present == 'true'
 
       - uses: actions/setup-node@v4
-        if: steps.key.outputs.present == 'true'
         with:
           node-version: 22
 
+      # Works with or without the secret: authenticated endpoint when
+      # SUPERTEAM_API_KEY is set (sees AGENT_ONLY listings), public
+      # /api/listings/live fallback otherwise. GH runners have open egress,
+      # unlike the CCR sandbox.
       - name: Scout live listings
-        if: steps.key.outputs.present == 'true'
         env:
           SUPERTEAM_API_KEY: ${{ secrets.SUPERTEAM_API_KEY }}
-        run: node scripts/superteam/scout.mjs
+        run: |
+          node scripts/superteam/scout.mjs || {
+            echo "::warning title=Superteam scout failed::scout.mjs exited non-zero (API change or network). See log."
+            exit 0
+          }
 
-      - name: Upload matches
-        if: steps.key.outputs.present == 'true'
+      # Persist the weekly report into the repo so scheduled Claude sessions
+      # (and the owner) can read it without digging through artifacts.
+      - name: Commit weekly report
+        run: |
+          if [ -f scripts/superteam/out/matches.md ]; then
+            week=$(date -u +%G-W%V)
+            mkdir -p docs/superteam
+            cp scripts/superteam/out/matches.md "docs/superteam/matches-$week.md"
+            cp scripts/superteam/out/matches.json "docs/superteam/matches-$week.json" 2>/dev/null || true
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add docs/superteam/
+            git diff --cached --quiet || { git commit -m "chore: superteam weekly matches $week"; git push; }
+          else
+            echo "No matches.md produced this run."
+          fi
+
+      - name: Upload matches artifact
         uses: actions/upload-artifact@v4
         with:
           name: superteam-matches
