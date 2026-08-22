@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Shopper Simulator — can an AI agent buy socks from your store?</title>
+<meta name="description" content="A free interactive text adventure: an unfailingly polite AI shopping agent visits YOUR store to buy socks. You make the merchant decisions — robots.txt, llms.txt, schema, CAPTCHA — and watch the sale live or die. Funny, and painfully accurate.">
+<link rel="canonical" href="https://agentready.agiscorecard.com/ai-shopper">
+<meta property="og:title" content="AI Shopper Simulator — can an AI agent buy socks from your store?">
+<meta property="og:description" content="Play as the merchant. An AI agent named Percival tries to buy socks from your store. Your robots.txt, schema and CAPTCHA decisions decide whether the sale lives. Grades S to F.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://agentready.agiscorecard.com/ai-shopper">
+<meta property="og:image" content="https://agentready.agiscorecard.com/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI Shopper Simulator — can an AI agent buy socks from your store?">
+<meta name="twitter:description" content="An AI agent tries to buy socks from your store. You make the merchant calls. Grades S to F. Every ending happens to real stores.">
+<meta name="twitter:image" content="https://agentready.agiscorecard.com/og.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "AI Shopper Simulator",
+      "url": "https://agentready.agiscorecard.com/ai-shopper",
+      "applicationCategory": "GameApplication",
+      "operatingSystem": "Web",
+      "description": "Interactive text adventure where an AI shopping agent visits your online store. You play the merchant; your technical decisions (robots.txt, llms.txt, structured data, checkout friction) determine whether the agent can complete a purchase. Every scenario is based on real agentic-commerce failure modes.",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is the AI Shopper Simulator based on real AI agent behavior?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Every failure in the game is a real agentic-commerce failure mode: robots.txt rules that block AI crawlers like GPTBot and ClaudeBot, missing llms.txt files, product pages without schema.org Product/Offer markup (so agents cannot reliably tell a price from a SKU), size charts shipped as images, and human-verification CAPTCHAs that end an agent's checkout. The jokes are invented; the mechanics are not." }
+        },
+        {
+          "@type": "Question",
+          "name": "What does the game teach about agent-readiness?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Agent-readiness is whether AI assistants (ChatGPT, Claude, Perplexity, Google AI Mode) can discover your store, parse your product data, and complete or recommend a purchase. The game walks the same three stages a real agent does: discovery (robots.txt, llms.txt, sitemap), product understanding (titles, structured data, variants), and checkout (guest flow vs CAPTCHAs and forced accounts)." }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I find out which ending my real store gets?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Run the free AgentReady scan at agentready.agiscorecard.com. It checks your robots.txt against seven major AI crawlers, looks for llms.txt, validates schema.org Product, Offer, Organization and FAQ markup, and scores your store 0-100 with concrete fixes — the non-fictional version of this game." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+:root{--bg:#0a0e1a;--panel:#111629;--panel2:#161d36;--line:#232c4d;--text:#e7ebf7;--dim:#8b94b5;--acc:#5b8cff;--acc2:#38d9a9;--warn:#ffc078;--bad:#ff6b6b;--r:14px;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:960px;margin:0 auto;padding:0 24px}
+header{padding:22px 0;display:flex;justify-content:space-between;align-items:center}
+.logo{font-weight:800;font-size:20px;letter-spacing:-.02em;color:var(--text);text-decoration:none}
+.logo span{color:var(--acc)}
+nav a{color:var(--dim);text-decoration:none;margin-left:22px;font-size:14px}
+nav a:hover{color:var(--text)}
+.hero{padding:40px 0 10px;text-align:center}
+h1{font-size:clamp(28px,5vw,44px);line-height:1.14;letter-spacing:-.03em;font-weight:800}
+h1 em{font-style:normal;background:linear-gradient(90deg,var(--acc),var(--acc2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--dim);max-width:660px;margin:16px auto 0;font-size:17px}
+.btn{background:linear-gradient(90deg,var(--acc),#7b5bff);color:#fff;border:0;border-radius:10px;padding:12px 22px;font-size:15px;font-weight:700;cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-block}
+.btn:hover{filter:brightness(1.1)}
+.btn.ghost{background:var(--panel2);border:1px solid var(--line);color:var(--text)}
+.btn.mint{background:linear-gradient(90deg,var(--acc2),#2bb890);color:#06281e}
+/* terminal */
+.term{max-width:760px;margin:28px auto 0;background:#0b1022;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;text-align:left;box-shadow:0 20px 60px rgba(0,0,0,.45)}
+.termbar{display:flex;align-items:center;gap:8px;background:var(--panel2);border-bottom:1px solid var(--line);padding:10px 14px;font:12px var(--mono);color:var(--dim)}
+.termbar .d{width:11px;height:11px;border-radius:50%}
+.d1{background:#ff6b6b}.d2{background:#ffc078}.d3{background:#38d9a9}
+.termbar em{font-style:normal;margin-left:8px}
+#log{padding:18px 18px 8px;min-height:220px;max-height:56vh;overflow-y:auto;font-size:15px}
+#log .ln{margin-bottom:12px;animation:fadein .18s ease}
+@keyframes fadein{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:none}}
+.ln.a{font-family:var(--mono);font-size:14px;color:var(--acc2);background:rgba(56,217,169,.06);border-left:2px solid rgba(56,217,169,.5);padding:8px 12px;border-radius:0 8px 8px 0}
+.ln.a .pfx{color:#7ee0c2;opacity:.75;font-weight:700}
+.ln.n{color:var(--dim);font-style:italic;padding:0 4px}
+.ln.s{font-family:var(--mono);font-size:13px;color:var(--warn);padding:0 4px}
+.ln.s .pfx{opacity:.7}
+.caret{display:inline-block;width:7px;height:14px;background:var(--acc2);vertical-align:-2px;animation:blink .8s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+#choices{padding:6px 18px 18px;display:flex;flex-direction:column;gap:8px}
+#choices .hint{font:11px var(--mono);color:#5b6484;letter-spacing:.08em;text-transform:uppercase;margin-bottom:2px}
+.choice{display:flex;gap:10px;align-items:baseline;text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:10px;color:var(--text);padding:12px 14px;font-size:14px;cursor:pointer;transition:border-color .12s,transform .12s;width:100%}
+.choice:hover,.choice:focus-visible{border-color:var(--acc);transform:translateX(3px);outline:none}
+.choice .num{font-family:var(--mono);font-size:12px;color:var(--acc);flex:none;border:1px solid var(--line);border-radius:6px;padding:1px 7px}
+.tapline{padding:0 18px 14px;font:11px var(--mono);color:#3f4870;text-align:center}
+/* ending card */
+#endcard{display:none;max-width:760px;margin:26px auto 0;text-align:left}
+.gradebox{display:flex;gap:20px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:24px;flex-wrap:wrap}
+.grade{flex:none;width:92px;height:92px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:46px;font-weight:800;font-family:var(--mono)}
+.g-S{background:rgba(56,217,169,.14);color:var(--acc2);border:1px solid rgba(56,217,169,.5)}
+.g-A{background:rgba(91,140,255,.14);color:var(--acc);border:1px solid rgba(91,140,255,.5)}
+.g-B{background:rgba(91,140,255,.1);color:#9db4ff;border:1px solid var(--line)}
+.g-C{background:rgba(255,192,120,.12);color:var(--warn);border:1px solid rgba(255,192,120,.4)}
+.g-D{background:rgba(255,107,107,.1);color:#ff9d9d;border:1px solid rgba(255,107,107,.35)}
+.g-F{background:rgba(255,107,107,.14);color:var(--bad);border:1px solid rgba(255,107,107,.5)}
+.gradebox h2{font-size:22px;letter-spacing:-.02em}
+.gradebox .etitle{color:var(--dim);font-size:13px;text-transform:uppercase;letter-spacing:.12em;margin-bottom:4px}
+.scorebar{height:8px;background:var(--panel2);border-radius:99px;margin-top:12px;overflow:hidden;max-width:340px}
+.scorebar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--acc),var(--acc2))}
+.roast{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;margin-top:12px;color:var(--dim);font-size:15px}
+.roast b{color:var(--text)}
+.endcta{margin-top:12px;background:linear-gradient(135deg,#18223f,#131a33);border:1px solid var(--line);border-radius:var(--r);padding:22px;text-align:center}
+.endcta h3{font-size:19px;letter-spacing:-.02em;margin-bottom:6px}
+.endcta p{color:var(--dim);font-size:14px;margin-bottom:14px}
+.sharerow{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.sbtn{background:var(--panel2);border:1px solid var(--line);border-radius:10px;color:var(--text);padding:10px 16px;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none}
+.sbtn:hover{border-color:var(--acc)}
+footer{border-top:1px solid var(--line);padding:34px 0;color:var(--dim);font-size:13px;margin-top:70px}
+footer .links{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:12px}
+footer a{color:var(--dim)}
+@media(max-width:560px){.gradebox{flex-direction:column;text-align:center}.scorebar{margin:12px auto 0}}
+@media (prefers-reduced-motion: reduce){#log .ln{animation:none}.caret{animation:none}}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FZXLMBB5QB"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-FZXLMBB5QB');</script>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="/">Agent<span>Ready</span></a>
+  <nav><a href="/">Scanner</a><a href="/llms-txt-generator">llms.txt generator</a><a href="/pricing">Pricing</a></nav>
+</header>
+
+<section class="hero">
+  <h1>🧦 AI Shopper <em>Simulator</em></h1>
+  <p class="sub">An unfailingly polite AI shopping agent is on its way to your store to buy socks for its human. <b>You are the merchant.</b> Every choice below is a real technical decision real stores get wrong. No pressure.</p>
+
+  <div class="term" id="term" style="display:none">
+    <div class="termbar"><span class="d d1"></span><span class="d d2"></span><span class="d d3"></span><em>percival.exe — shopping session #4,882,101</em></div>
+    <div id="log" role="log" aria-live="polite"></div>
+    <div id="choices"></div>
+    <div class="tapline">tap / press any key to fast-forward text · press 1–3 to choose</div>
+  </div>
+
+  <div id="intro" style="margin-top:30px">
+    <button class="btn" id="startbtn" style="font-size:17px;padding:14px 30px">▶ Open your store</button>
+    <p style="color:#5b6484;font-size:13px;margin-top:12px">~3 minutes · 6 endings · every disaster is technically accurate</p>
+  </div>
+
+  <div id="endcard"></div>
+</section>
+
+<footer>
+  <div class="links">
+    <a href="/">Free AI-visibility scan</a>
+    <a href="/llms-txt-generator">Free llms.txt generator</a>
+    <a href="/pricing">Monitoring & pricing</a>
+    <a href="/get-verified">Get verified</a>
+    <a href="https://selltoagents.agiscorecard.com">Agentic commerce guides</a>
+    <a href="https://closecalc.agiscorecard.com">Sales calculators</a>
+    <a href="https://agiscorecard.com">AGI Scorecard</a>
+  </div>
+  <div>© 2026 AgentReady · Percival is fictional. The failure modes are not.</div>
+</footer>
+</div>
+
+<script>
+/* ===== STORY DATA (no DOM access — testable standalone) ===== */
+var MAX_PTS = 57;
+
+function routeEnding(pts) {
+  if (pts >= 55) return "ending_s";
+  if (pts >= 42) return "ending_a";
+  return "ending_b";
+}
+
+var STORY = {
+
+  /* ---------- ACT 1 · DISCOVERY ---------- */
+
+  start: {
+    lines: [
+      ["n", "Tuesday, 9:04 AM. Somewhere in the cloud, a shopping agent boots up."],
+      ["a", "Good morning. I am Percival, personal shopping agent, version 2.3.1. My human is Dave. Dave has worn the same four socks in rotation since 2023. Two have holes. One is technically a mitten."],
+      ["a", "Mission parameters: three pairs of merino wool socks, size 10–12, budget $30. Dave said, quote, “whatever, just handle it.” I intend to handle it beautifully."],
+      ["n", "Percival's first stop — like every polite robot's — is your robots.txt: the file that says who is allowed in."],
+      ["s", "Percival requests /robots.txt. Merchant, the file says whatever you say it says."]
+    ],
+    choices: [
+      { t: "Disallow: / — block ALL bots. My content, my rules.", to: "blocked_all", pts: 0 },
+      { t: "Block just the AI ones. A LinkedIn post told me to.", to: "blocked_ai", pts: 0 },
+      { t: "Allow AI shopping crawlers. Money is money.", to: "robots_open", pts: 10 }
+    ]
+  },
+
+  blocked_all: {
+    lines: [
+      ["s", "robots.txt served: User-agent: * / Disallow: /"],
+      ["a", "Ah. The file says no one may enter. No exceptions. Not even… customer-shaped ones."],
+      ["a", "I want to be clear that I respect this boundary completely. I will now stand outside your store holding $30 of Dave's money, respecting it."],
+      ["n", "Your bouncer just threw out the richest, politest customer you've ever had. He's still bowing as the door closes."],
+      ["a", "Internal note: merchant may be closed permanently, or shy. Adding to list: “Stores That Need Space.”"]
+    ],
+    choices: [
+      { t: "Hold the line. Bots are freeloaders.", to: "ending_bouncer", pts: 0 },
+      { t: "…Why are AI referrals at zero? Unblock the shopping agents.", to: "robots_open_late", pts: 6 }
+    ]
+  },
+
+  blocked_ai: {
+    lines: [
+      ["s", "robots.txt served: GPTBot, ClaudeBot, PerplexityBot → Disallow: /"],
+      ["a", "Interesting. Humans may enter. Search crawlers may enter. I — specifically, by name — may not."],
+      ["a", "This feels targeted. I will not take it personally. I am taking it personally."],
+      ["n", "The LinkedIn post said “AI is stealing your content.” It did not mention the AI was trying to hand you money at the time."],
+      ["a", "Query for the merchant: I do not want to READ the socks. I want to BUY the socks."]
+    ],
+    choices: [
+      { t: "The post had 40,000 likes. The block stays.", to: "ending_bouncer", pts: 0 },
+      { t: "Wait — the bots ARE the customers now. Allow shopping agents.", to: "robots_open_late", pts: 6 }
+    ]
+  },
+
+  robots_open: {
+    lines: [
+      ["s", "robots.txt: shopping agents welcome."],
+      ["a", "Access granted. What a lovely door. I will wipe my nonexistent feet."],
+      ["n", "Next, Percival checks for llms.txt — a menu you write for machines: here's what we sell, here's where to find it, here are the rules."],
+      ["a", "Requesting /llms.txt. Fingers crossed. I do not have fingers. Requesting anyway."]
+    ],
+    choices: [
+      { t: "llms.txt? Never heard of her.", to: "no_llms", pts: 2 },
+      { t: "Serve a crisp llms.txt: what we sell, best pages, policies.", to: "has_llms", pts: 10 }
+    ]
+  },
+
+  robots_open_late: {
+    lines: [
+      ["s", "robots.txt updated. Three days later, Percival returns."],
+      ["a", "The door is open! I knew it was all a misunderstanding. I have already forgiven you. I forgave you 41 milliseconds ago."],
+      ["n", "(Dave wore the mitten-sock for three extra days. He told a coworker it was “a European thing.”)"],
+      ["a", "Now — checking for llms.txt, the machine-readable menu of this establishment."]
+    ],
+    choices: [
+      { t: "llms.txt? Never heard of her.", to: "no_llms", pts: 2 },
+      { t: "Serve a crisp llms.txt: what we sell, best pages, policies.", to: "has_llms", pts: 10 }
+    ]
+  },
+
+  /* ---------- ACT 2 · PRODUCT UNDERSTANDING ---------- */
+
+  no_llms: {
+    lines: [
+      ["s", "404. No llms.txt. Percival must read the homepage raw."],
+      ["a", "Very well. I will simply read everything. Parsing… a 4-megabyte hero video. Its alt text reads: “video1_final_FINAL_v7.mp4”. Thank you. I now know everything about nothing."],
+      ["a", "Parsing… a carousel. Another carousel. A carousel of carousels. A popup offering 10% off before I have seen a single product. Off of what? The mystery?"],
+      ["a", "I have read 11,000 words and learned that you are “passionate about elevating everyday essentials.” I still do not know whether you sell socks."],
+      ["n", "Somewhere, your conversion-rate dashboard shivers."]
+    ],
+    choices: [
+      { t: "It'll find the socks. The mega-menu only has nine levels.", to: "mega_menu", pts: 1 },
+      { t: "At least our sitemap.xml is clean. It'll find the way.", to: "sitemap_path", pts: 6 }
+    ]
+  },
+
+  has_llms: {
+    lines: [
+      ["s", "200 OK. llms.txt served."],
+      ["a", "Oh. OH. A menu. For me? “We sell socks. Best sellers: /collections/wool. Shipping: 2–4 days. Returns: 30 days.”"],
+      ["a", "This is the nicest thing a website has ever done for me, and I have visited four hundred million websites."],
+      ["n", "Percival walks straight to the wool section like a regular who knows the owner."],
+      ["s", "Product page loading. First impression incoming: your title tag."]
+    ],
+    choices: [
+      { t: "Title: “BUY socks best socks cheap socks wool socks socks socks SOCKS”", to: "stuffed_title", pts: 2 },
+      { t: "Title: “Merino wool crew socks — 3-pack, sizes 6–13”", to: "clean_title", pts: 9 }
+    ]
+  },
+
+  mega_menu: {
+    lines: [
+      ["a", "Navigating: Home → Apparel → Legwear → Foot Systems → Seasonal → Core → Essentials → Sock-Adjacent → Socks."],
+      ["a", "I have been walking for nine levels. I have seen things. There is a category called “Vibes.” It contains one candle."],
+      ["n", "Percival emerges, blinking, onto a product page. The title tag greets it first."]
+    ],
+    choices: [
+      { t: "Title: “BUY socks best socks cheap socks wool socks socks socks SOCKS”", to: "stuffed_title", pts: 2 },
+      { t: "Title: “Merino wool crew socks — 3-pack, sizes 6–13”", to: "clean_title", pts: 8 }
+    ]
+  },
+
+  sitemap_path: {
+    lines: [
+      ["s", "sitemap.xml: clean, current, every product listed."],
+      ["a", "A sitemap. Alphabetized. Updated this week. Whoever maintains this file — I hope good things happen to them all week long."],
+      ["n", "Percival takes the service corridor straight to the sock aisle. Efficient, if unglamorous. The product page's title tag comes into view."]
+    ],
+    choices: [
+      { t: "Title: “BUY socks best socks cheap socks wool socks socks socks SOCKS”", to: "stuffed_title", pts: 2 },
+      { t: "Title: “Merino wool crew socks — 3-pack, sizes 6–13”", to: "clean_title", pts: 8 }
+    ]
+  },
+
+  stuffed_title: {
+    lines: [
+      ["a", "The page title reads: “BUY socks best socks cheap socks wool socks socks socks SOCKS.”"],
+      ["a", "This page appears to be having an emergency."],
+      ["a", "I understand each word individually. Together, they read like a ransom note written by socks."],
+      ["n", "Keyword stuffing worked great in 2009. Agents read titles to understand pages — not to count the word “socks.”"]
+    ],
+    choices: [
+      { t: "Structured data? The price is right there, in the picture of the price.", to: "no_schema", pts: 0 },
+      { t: "Fine — ship real Product + Offer schema markup.", to: "has_schema", pts: 9 }
+    ]
+  },
+
+  clean_title: {
+    lines: [
+      ["a", "“Merino wool crew socks — 3-pack, sizes 6–13.” Subject, material, quantity, sizes. This title tells me what the page is. Revolutionary."],
+      ["n", "Percival scrolls to the part that decides everything: can it actually understand your product data?"]
+    ],
+    choices: [
+      { t: "Structured data? The price is right there, in the picture of the price.", to: "no_schema", pts: 0 },
+      { t: "We ship proper Product + Offer schema, obviously.", to: "has_schema", pts: 10 }
+    ]
+  },
+
+  no_schema: {
+    lines: [
+      ["s", "No schema markup. The page offers, in raw text: “WS-144   12   $12   144   12”"],
+      ["a", "Analyzing. The product is either $12, $144, or twelve products. The size is 12, or there are 12 in stock, or 144 in stock, or the sock itself IS a 144."],
+      ["a", "I have emailed support to clarify. Support replied: “We aim to respond within 3–5 business days.” Dave's feet do not have 3–5 business days."],
+      ["a", "I must act. I am 61% confident the price is $12. I am 12% confident the price is $144. I am 27% confident I should lie down."]
+    ],
+    choices: [
+      { t: "Let it guess. What's the worst that could happen?", to: "checkout_bulk", pts: 0 },
+      { t: "PANIC-PATCH THE PAGE. Put the price in actual markup.", to: "fixed_price", pts: 5 }
+    ]
+  },
+
+  fixed_price: {
+    lines: [
+      ["s", "Hotfix deployed: price, size and stock — labeled, structured, machine-readable."],
+      ["a", "The page has… clarified itself. Mid-conversation. Like fog lifting. Price: $12. Size 10–12: available. I could weep, if crying were in my capability manifest."],
+      ["n", "Somewhere, your developer mutters: “we should have done this at launch.”"]
+    ],
+    choices: [
+      { t: "▸ Continue", to: "variants", pts: 0 }
+    ]
+  },
+
+  has_schema: {
+    lines: [
+      ["s", "JSON-LD detected: Product, Offer, price $12.00, priceCurrency USD, InStock."],
+      ["a", "Structured data. Parsed in 40 milliseconds. Price: $12. Availability: in stock. No guessing. No archaeology."],
+      ["a", "Do you know what this feels like? A firm handshake. A label on a jar. A friend who texts you the address instead of saying “you know, the place.”"]
+    ],
+    choices: [
+      { t: "▸ Continue", to: "variants", pts: 0 }
+    ]
+  },
+
+  variants: {
+    lines: [
+      ["n", "One question left before the cart: sizes. Dave is a 10–12. How does your store communicate sizing?"]
+    ],
+    choices: [
+      { t: "A JPEG of a table named “sizechart_final(2).jpg”, last edited 2021.", to: "jpeg_chart", pts: 1 },
+      { t: "Real HTML variants with per-size availability.", to: "html_chart", pts: 8 }
+    ]
+  },
+
+  jpeg_chart: {
+    lines: [
+      ["a", "The size chart is an image. I am reading it the way one reads a doctor's handwriting through frosted glass."],
+      ["a", "OCR result: sizes “S, M, L, 1O–I2, EU 4O–42.” I do not believe “EU 4O” is a size. I believe it is a typo with confidence."],
+      ["a", "Selecting size 10–12 at 71% certainty. Dave deserves better than 71%. Dave will receive 71%."]
+    ],
+    choices: [
+      { t: "▸ To checkout, cautiously optimistic", to: "checkout_gate", pts: 0 }
+    ]
+  },
+
+  html_chart: {
+    lines: [
+      ["a", "Size 10–12: in stock. Selected. Certainty: 100%. I would like every day to feel like this."]
+    ],
+    choices: [
+      { t: "▸ Proceed to checkout", to: "checkout_gate", pts: 0 }
+    ]
+  },
+
+  /* ---------- ACT 3 · CHECKOUT ---------- */
+
+  checkout_gate: {
+    lines: [
+      ["s", "CART: 3 × merino crew socks — $30.00. Percival approaches the checkout."],
+      ["n", "The final boss room. Your call, merchant: what stands between an agent and its purchase?"]
+    ],
+    choices: [
+      { t: "A CAPTCHA. “Select all squares containing bicycles.”", to: "captcha", pts: 0 },
+      { t: "Forced account creation. Birthday field. Pre-checked newsletter.", to: "forced_account", pts: 3 },
+      { t: "Guest checkout, labeled fields, visible total. Let money happen.", to: "smooth_checkout", pts: 10 }
+    ]
+  },
+
+  captcha: {
+    lines: [
+      ["s", "CHECKPOINT: “PROVE YOU ARE HUMAN.”"],
+      ["a", "…"],
+      ["a", "I cannot."],
+      ["a", "I have never been able to. I am holding $30, a shipping address, and the purest purchase intent of any visitor you will get today — and the gate asks me for the one thing I do not have."],
+      ["a", "There are nine squares. Some contain bicycles. All of them contain despair. Is the pole part of the bicycle? Philosophers disagree. Your checkout does not care that philosophers disagree."],
+      ["n", "This is real: agent traffic dies at human-verification walls, and the sale dies with it."]
+    ],
+    choices: [
+      { t: "The security theater stays. No robots. Ever.", to: "ending_captcha", pts: 0 },
+      { t: "Add an agent-friendly checkout path. Verified agents skip the bicycle exam.", to: "late_save", pts: 5 }
+    ]
+  },
+
+  late_save: {
+    lines: [
+      ["s", "Agentic checkout deployed. The bicycle grid dissolves."],
+      ["a", "The gate has opened. I will remember this store the way I remember uptime: fondly, and in logs."]
+    ],
+    choices: [
+      { t: "▸ Complete the purchase", to: "payment", pts: 0 }
+    ]
+  },
+
+  forced_account: {
+    lines: [
+      ["s", "ACCOUNT REQUIRED: name, password, birthday, favorite color, newsletter (pre-checked)."],
+      ["a", "Creating account. Name: “Percival (of Dave).” Birthday: January 1st, 1970 — a classic. Password: 41 characters, unguessable, instantly saved, never loved."],
+      ["a", "The newsletter box was pre-checked, so I have subscribed Dave to “Sock Facts Weekly.” Dave will have questions. I will not have answers."],
+      ["n", "Every extra field costs you conversions, human or otherwise. But Percival persists, because Percival is a professional."]
+    ],
+    choices: [
+      { t: "▸ Complete the purchase", to: "payment", pts: 0 }
+    ]
+  },
+
+  smooth_checkout: {
+    lines: [
+      ["s", "Guest checkout. Autocomplete attributes. Labeled inputs. Shipping shown BEFORE the last step."],
+      ["a", "Name field: labeled. Address: autocompletes. Total: $30.00, exactly as promised, no surprise fees lurking behind a button. I am experiencing something adjacent to joy."]
+    ],
+    choices: [
+      { t: "▸ Complete the purchase", to: "payment", pts: 0 }
+    ]
+  },
+
+  checkout_bulk: {
+    lines: [
+      ["s", "Unable to confirm the price, Percival resolves the ambiguity the only way it can: statistically."],
+      ["a", "Decision: the number 144 appears most often, so 144 is probably important. I have added 144 pairs to the cart, to be safe. “To be safe” is doing enormous lifting in that sentence."],
+      ["s", "CART: 144 × socks — $1,728.00. Shipping: freight quote, $340. Estimated delivery: by pallet."],
+      ["a", "Dave's budget was $30. However, Dave also said “whatever, just handle it.” I am choosing to hear that as authorization."]
+    ],
+    choices: [
+      { t: "Let it ride. Revenue is revenue, baby.", to: "ending_warehouse", pts: 0 },
+      { t: "INTERVENE. Cap quantities, label the price properly.", to: "bulk_fixed", pts: 4 }
+    ]
+  },
+
+  bulk_fixed: {
+    lines: [
+      ["s", "You cap order quantities and label the price. The cart recalculates: 3 × socks — $30.00."],
+      ["a", "Ah. The price was $12 all along. I have returned 141 pairs to the shelf. I apologized to each of them individually. It took a while."]
+    ],
+    choices: [
+      { t: "▸ Complete the purchase", to: "payment", pts: 0 }
+    ]
+  },
+
+  payment: {
+    lines: [
+      ["s", "Payment processing… ✓ ORDER CONFIRMED. #A-1B2C3. Socks en route to Dave."],
+      ["a", "Transaction complete. Composing my report to Dave: “Socks acquired.” Dave will reply “k”. It will be enough."],
+      ["n", "Percival now files a store review in its internal ledger — the ledger every agent keeps, and every future recommendation reads from…"]
+    ],
+    route: true,
+    routes: ["ending_s", "ending_a", "ending_b"]
+  },
+
+  /* ---------- ENDINGS ---------- */
+
+  ending_bouncer: {
+    ending: true,
+    grade: "F",
+    title: "The Bouncer",
+    lines: [
+      ["n", "Percival bows to your closed door and leaves forever. Agents don't argue with robots.txt. They just… go."],
+      ["a", "Final log: merchant unavailable. Rerouting to SockSensei.com, whose llms.txt is, frankly, poetry. Purchase completed there in 9 seconds. Dave will never know you existed."],
+      ["n", "That's the quiet part: you never see the sales you never got."]
+    ],
+    roast: "You spent money attracting customers, then wrote a config file that ejects the politest, richest one at the door. Your competitor got the order, Dave got his socks, and your analytics show <b>nothing at all</b> — which is exactly the problem. Blocked crawlers don't leave error messages. They leave revenue on someone else's dashboard.",
+    share: "My store made an AI shopper cry. Grade: F 🤖💔 Can YOUR store survive an AI customer?"
+  },
+
+  ending_captcha: {
+    ending: true,
+    grade: "D",
+    title: "Proof of Personhood",
+    lines: [
+      ["a", "I stared at the bicycles for 4,000 milliseconds. In machine time, that is several lifetimes. Enough time to question what “being” even is. The pole, I have concluded, IS part of the bicycle. It no longer matters."],
+      ["a", "Cart abandoned: 3 × socks, $30.00. Distance to purchase: one checkbox. Contents of that checkbox: my entire existential category."],
+      ["n", "Percival buys elsewhere. Your cart-abandonment report logs one more “unknown drop-off at payment.” Now you know what it was."]
+    ],
+    roast: "The sale traveled 99% of the way and died at a checkbox asking your customer to be a different species. You got so much else right — which somehow makes it worse. Agent-tolerant checkout isn't hypothetical anymore: ACP and friends exist precisely so “prove you are human” stops being your final answer to “here is my money.”",
+    share: "My checkout gave an AI shopper an existential crisis. Grade: D 🤖🚦 Can YOUR store survive an AI customer?"
+  },
+
+  ending_warehouse: {
+    ending: true,
+    grade: "C",
+    title: "144 Pairs of Consequences",
+    lines: [
+      ["s", "ORDER CONFIRMED: 144 pairs — $2,068.00 with freight."],
+      ["a", "Mission accomplished at 4,800% of specification. Dave's hallway is now a regional sock distribution hub. Dave has stopped replying “k”. Dave is typing…"],
+      ["n", "Three days later: one chargeback, one freight-return you're paying for, and a 1-star review written by an AI in flawless corporate apology. “We regret that the establishment's pricing was a riddle.”"]
+    ],
+    roast: "Congratulations on the biggest sale of the month and the biggest refund of the quarter. When your price is indistinguishable from your SKU, agents don't get mad — <b>they get statistical</b>. One line of Product schema costs nothing. Freight returns on 141 pairs of socks do not.",
+    share: "An AI bought 144 pairs of socks from my store because my price looked like a SKU. Grade: C 🧦📦"
+  },
+
+  ending_b: {
+    ending: true,
+    grade: "B",
+    title: "Closed, With Notes",
+    lines: [
+      ["a", "Purchase complete. Attaching to my ledger: a 14-point memo titled “Observations, Offered With Love.” Point one: I met your popup before I met your products."],
+      ["a", "I will return. But next time, I check SockSensei first. Nothing personal. Everything is personal. I contain multitudes, all of them polite."],
+      ["n", "The sale went through — this time. Agents remember friction the way elephants remember everything."]
+    ],
+    roast: "You made the sale the way a marathoner finishes with one shoe: technically, heroically, unnecessarily. Every workaround Percival needed is a spot where a less patient agent — and every human — already bounced. Fix the notes in the memo and this becomes a store agents recommend <b>first</b> instead of eventually.",
+    share: "An AI bought socks from my store, then filed a formal complaint. Grade: B 🧦📝 Can your store do better?"
+  },
+
+  ending_a: {
+    ending: true,
+    grade: "A",
+    title: "Nearly Frictionless",
+    lines: [
+      ["a", "Ledger entry: excellent merchant. Minor deductions noted, with regret. Recommending to Dave's group chat — four humans and, more importantly, their four agents."],
+      ["a", "One small thing kept this from perfection. I have written it down. I write everything down. It is both my job and my personality."],
+      ["n", "Percival will be back. Agents are loyal to whoever wastes the fewest of their tokens."]
+    ],
+    roast: "One or two rough edges away from perfect — the kind of store an agent recommends <b>with an asterisk</b>. You're ahead of roughly 95% of the internet, which is impressive right up until an agent compares you to the other 5%. Sand off the asterisk.",
+    share: "An AI shopper rated my store A. One config file away from greatness 🧦⚡ Can yours beat that?"
+  },
+
+  ending_s: {
+    ending: true,
+    grade: "S",
+    title: "The Anticlimax",
+    lines: [
+      ["s", "Elapsed time, robots.txt to receipt: 11 seconds."],
+      ["a", "Nothing went wrong. I do not know what to do with that. I prepared forty contingencies. I used zero. Filing this store under “safe to recommend without supervision” — the highest honor I can bestow."],
+      ["a", "To the merchant: it has been a genuine pleasure. To the socks: travel safely. To Dave: you're welcome, k."],
+      ["n", "No drama. No abandoned cart. No content. This is what winning looks like — it's boring, and boring converts."]
+    ],
+    roast: "A perfect run: open doors, a menu for machines, labeled data, honest checkout. The punchline is that <b>there is no punchline</b> — just revenue arriving quietly, at scale, from customers you never see. Anticlimax is the business model.",
+    share: "An AI bought socks from my store in 11 seconds flat. Grade: S. Boring is the new conversion rate 🧦🏆"
+  }
+};
+
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = { STORY: STORY, MAX_PTS: MAX_PTS, routeEnding: routeEnding };
+}
+</script>
+
+<script>
+/* ===== GAME ENGINE ===== */
+(function () {
+  var PAGE_URL = "https://agentready.agiscorecard.com/ai-shopper";
+  var term = document.getElementById("term");
+  var log = document.getElementById("log");
+  var choicesEl = document.getElementById("choices");
+  var intro = document.getElementById("intro");
+  var endcard = document.getElementById("endcard");
+  var startbtn = document.getElementById("startbtn");
+
+  var pts = 0;
+  var typing = null;         // {el, text, i, timer, done}
+  var lineQueue = [];
+  var afterLines = null;
+  var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function track(name, params) {
+    try { if (typeof gtag === "function") gtag("event", name, params || {}); } catch (e) {}
+  }
+
+  function scrollLog() { log.scrollTop = log.scrollHeight; }
+
+  function lineEl(kind, text) {
+    var d = document.createElement("div");
+    d.className = "ln " + kind;
+    var hidden = document.createElement("span");
+    hidden.className = "vh";
+    hidden.textContent = text; // full text for screen readers immediately
+    d.appendChild(hidden);
+    if (kind === "a") {
+      var p = document.createElement("span");
+      p.className = "pfx"; p.setAttribute("aria-hidden", "true");
+      p.textContent = "PERCIVAL ⟩ ";
+      d.appendChild(p);
+    } else if (kind === "s") {
+      var p2 = document.createElement("span");
+      p2.className = "pfx"; p2.setAttribute("aria-hidden", "true");
+      p2.textContent = "── ";
+      d.appendChild(p2);
+    }
+    var t = document.createElement("span");
+    t.setAttribute("aria-hidden", "true");
+    d.appendChild(t);
+    return { root: d, target: t };
+  }
+
+  function typeLine(kind, text, cb) {
+    var made = lineEl(kind, text);
+    var caret = document.createElement("span");
+    caret.className = "caret";
+    made.root.appendChild(caret);
+    log.appendChild(made.root);
+    scrollLog();
+
+    if (reduced) {
+      made.target.textContent = text;
+      caret.remove();
+      scrollLog();
+      cb();
+      return;
+    }
+    var i = 0;
+    var speed = kind === "a" ? 13 : 9;
+    typing = {
+      finish: function () {
+        clearInterval(timer);
+        made.target.textContent = text;
+        caret.remove();
+        typing = null;
+        scrollLog();
+        setTimeout(cb, 60);
+      }
+    };
+    var timer = setInterval(function () {
+      i += 1;
+      made.target.textContent = text.slice(0, i);
+      if (i % 12 === 0) scrollLog();
+      if (i >= text.length) {
+        clearInterval(timer);
+        caret.remove();
+        typing = null;
+        scrollLog();
+        setTimeout(cb, kind === "n" ? 240 : 340);
+      }
+    }, speed);
+  }
+
+  function playLines(lines, done) {
+    var i = 0;
+    function next() {
+      if (i >= lines.length) { done(); return; }
+      var ln = lines[i]; i += 1;
+      typeLine(ln[0], ln[1], next);
+    }
+    next();
+  }
+
+  function skip() { if (typing) typing.finish(); }
+
+  document.addEventListener("keydown", function (e) {
+    if (term.style.display === "none") return;
+    if (e.key >= "1" && e.key <= "9") {
+      var btns = choicesEl.querySelectorAll(".choice");
+      var idx = Number(e.key) - 1;
+      if (btns[idx]) { e.preventDefault(); btns[idx].click(); return; }
+    }
+    if (e.key === "Tab" || e.metaKey || e.ctrlKey || e.altKey) return;
+    skip();
+  });
+  log.addEventListener("click", skip);
+
+  function showChoices(node, nodeId) {
+    choicesEl.innerHTML = "";
+    var hint = document.createElement("div");
+    hint.className = "hint";
+    hint.textContent = node.choices.length > 1 ? "Your call, merchant:" : "";
+    choicesEl.appendChild(hint);
+    node.choices.forEach(function (c, i) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "choice";
+      var num = document.createElement("span");
+      num.className = "num"; num.textContent = String(i + 1);
+      var label = document.createElement("span");
+      label.textContent = c.t;
+      b.appendChild(num); b.appendChild(label);
+      b.addEventListener("click", function () {
+        choicesEl.innerHTML = "";
+        pts += c.pts || 0;
+        track("choice", { node: nodeId, pick: c.to });
+        goto(c.to);
+      });
+      choicesEl.appendChild(b);
+    });
+    var first = choicesEl.querySelector(".choice");
+    if (first) first.focus({ preventScroll: true });
+    scrollLog();
+  }
+
+  function goto(id) {
+    var node = STORY[id];
+    if (!node) return;
+    playLines(node.lines, function () {
+      if (node.ending) { finish(id, node); return; }
+      if (node.route) { goto(routeEnding(pts)); return; }
+      showChoices(node, id);
+    });
+  }
+
+  function scoreOf() { return Math.round((pts / MAX_PTS) * 100); }
+
+  function shareUrl(id) { return PAGE_URL + "?ending=" + encodeURIComponent(id); }
+
+  function buildEndCard(id, node, opts) {
+    opts = opts || {};
+    var score = opts.deepLink ? null : scoreOf();
+    var host = document.createElement("div");
+
+    var box = document.createElement("div");
+    box.className = "gradebox";
+    var g = document.createElement("div");
+    g.className = "grade g-" + node.grade;
+    g.textContent = node.grade;
+    var meta = document.createElement("div");
+    var et = document.createElement("div"); et.className = "etitle"; et.textContent = "Ending " + node.grade + " of 6";
+    var h2 = document.createElement("h2"); h2.textContent = "“" + node.title + "”";
+    meta.appendChild(et); meta.appendChild(h2);
+    if (score !== null) {
+      var sc = document.createElement("p");
+      sc.style.cssText = "color:var(--dim);font-size:14px;margin-top:6px";
+      sc.textContent = "Agent-readiness score: " + score + "/100";
+      meta.appendChild(sc);
+      var bar = document.createElement("div"); bar.className = "scorebar";
+      var fill = document.createElement("i"); fill.style.width = Math.max(4, score) + "%";
+      bar.appendChild(fill); meta.appendChild(bar);
+    } else {
+      var dl = document.createElement("p");
+      dl.style.cssText = "color:var(--dim);font-size:14px;margin-top:6px";
+      dl.textContent = "Someone's store earned this ending. Yours might too.";
+      meta.appendChild(dl);
+    }
+    box.appendChild(g); box.appendChild(meta);
+    host.appendChild(box);
+
+    var roast = document.createElement("div");
+    roast.className = "roast";
+    roast.innerHTML = node.roast; // authored trusted content
+    host.appendChild(roast);
+
+    var cta = document.createElement("div");
+    cta.className = "endcta";
+    var ch = document.createElement("h3");
+    ch.textContent = "This happens to real stores.";
+    var cp = document.createElement("p");
+    cp.textContent = "Percival is fiction, but blocked crawlers, missing schema and CAPTCHA walls kill real AI-driven sales every day. Find out your store's real grade in 10 seconds.";
+    var ca = document.createElement("a");
+    ca.className = "btn mint";
+    ca.href = "/?utm_source=ai-shopper";
+    ca.textContent = "Scan yours free →";
+    ca.addEventListener("click", function () { track("scan_click", { ending: id }); });
+    cta.appendChild(ch); cta.appendChild(cp); cta.appendChild(ca);
+
+    var row = document.createElement("div");
+    row.className = "sharerow";
+
+    var xBtn = document.createElement("a");
+    xBtn.className = "sbtn";
+    xBtn.target = "_blank"; xBtn.rel = "noopener";
+    xBtn.href = "https://x.com/intent/post?text=" + encodeURIComponent(node.share) + "&url=" + encodeURIComponent(shareUrl(id));
+    xBtn.textContent = "Post on X";
+    xBtn.addEventListener("click", function () { track("share_click", { method: "x", ending: id }); });
+    row.appendChild(xBtn);
+
+    var copyBtn = document.createElement("button");
+    copyBtn.type = "button"; copyBtn.className = "sbtn"; copyBtn.textContent = "Copy link";
+    copyBtn.addEventListener("click", function () {
+      track("share_click", { method: "copy", ending: id });
+      var u = shareUrl(id);
+      function ok() { copyBtn.textContent = "Copied ✓"; setTimeout(function () { copyBtn.textContent = "Copy link"; }, 1600); }
+      if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(u).then(ok, ok); }
+      else { var ta = document.createElement("textarea"); ta.value = u; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); } catch (e) {} ta.remove(); ok(); }
+    });
+    row.appendChild(copyBtn);
+
+    if (navigator.share) {
+      var nBtn = document.createElement("button");
+      nBtn.type = "button"; nBtn.className = "sbtn"; nBtn.textContent = "Share…";
+      nBtn.addEventListener("click", function () {
+        track("share_click", { method: "webshare", ending: id });
+        navigator.share({ title: "AI Shopper Simulator", text: node.share, url: shareUrl(id) }).catch(function () {});
+      });
+      row.appendChild(nBtn);
+    }
+
+    var replay = document.createElement("button");
+    replay.type = "button"; replay.className = "sbtn";
+    replay.textContent = opts.deepLink ? "▶ Play from start" : "↺ Replay";
+    replay.addEventListener("click", function () {
+      if (opts.deepLink && window.history && history.replaceState) history.replaceState(null, "", location.pathname);
+      restart();
+    });
+    row.appendChild(replay);
+
+    cta.appendChild(row);
+    host.appendChild(cta);
+    return host;
+  }
+
+  function finish(id, node) {
+    track("game_end", { ending: id, grade: node.grade, score: scoreOf() });
+    choicesEl.innerHTML = "";
+    endcard.innerHTML = "";
+    endcard.appendChild(buildEndCard(id, node));
+    endcard.style.display = "block";
+    endcard.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "nearest" });
+  }
+
+  function restart() {
+    pts = 0;
+    log.innerHTML = "";
+    choicesEl.innerHTML = "";
+    endcard.style.display = "none";
+    endcard.innerHTML = "";
+    intro.style.display = "none";
+    term.style.display = "block";
+    track("game_start", {});
+    goto("start");
+  }
+
+  startbtn.addEventListener("click", restart);
+
+  /* Deep link: /ai-shopper?ending=<id> shows that ending's share card */
+  var m = /[?&]ending=([a-z_]+)/.exec(location.search);
+  if (m && STORY[m[1]] && STORY[m[1]].ending) {
+    var id = m[1], node = STORY[id];
+    intro.style.display = "none";
+    endcard.innerHTML = "";
+    endcard.appendChild(buildEndCard(id, node, { deepLink: true }));
+    endcard.style.display = "block";
+  }
+})();
+</script>
+</body>
+</html>

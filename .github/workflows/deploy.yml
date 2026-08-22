@@ -65,6 +65,8 @@ jobs:
             "https://tools.agiscorecard.com/json-ld-rich-results-checker" \
             "https://tools.agiscorecard.com/well-known-checker" \
             "https://agentready.agiscorecard.com/pricing" \
+            "https://agentready.agiscorecard.com/ai-shopper" \
+            "https://selltoagents.agiscorecard.com/brand-battle" \
             "https://agentready.agiscorecard.com/status" \
             "https://agentready.agiscorecard.com/get-verified" \
             "https://agentready.agiscorecard.com/verified" \
