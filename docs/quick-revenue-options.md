@@ -225,3 +225,34 @@ Apify 复核：apifystats.com（42,715 Actor 分布实测）· blog.apify.com（
 | Gemini CLI 扩展 + 免审目录 | 顺手做（<0.5 天） | 期望流量≈0，纯反链价值 |
 
 **"先跑通、后注册"執行狀態**：所有不依赖用户身份的环节（代码、修复、管道、匹配、草稿）已/正在完成；注册动作（Apify/JetBrains/VSCE/Superteam claim/钱包地址）推迟到对应模式被验证值得后，由用户一次性完成。
+
+## 第十七节：实时趋势监控上线 + 差异化与营收链路（2026-08-22）
+
+用户指令："可以监控谷歌trends，不做盲目调研，实时化。另外差异化和如何创造营收？"
+
+### 已上线的自动化（0 人工依赖）
+
+- `scripts/trends-monitor.mjs`：每日拉取 Google Trends 热搜 RSS（US/GB/CA/AU）+ Google News 六组 agentic-commerce 关键词 RSS，与 122 品牌可见性索引做全词匹配、与利基关键词图谱做话题匹配。无账号、无 API key、fail-soft（任一数据源挂掉保留上次数据）。
+- `.github/workflows/trends-monitor.yml`：每日 05:40 UTC 自动运行 → 提交 `trending.json` + `docs/trends/latest.md` → 直接 wrangler 部署。
+- `selltoagents.agiscorecard.com/trending`：实时渲染digest；趋势品牌卡片直接深链 ⚔️ Brand Battle 和品牌报告页。
+
+### 差异化（我们有而别人没有的交叉点）
+
+单独看，趋势聚合站、品牌数据库、SEO 工具都挤满了免费巨头。我们的差异化不在任何单一资产，而在**独家数据交叉**：
+
+1. **趋势 × 自有扫描数据**：Google Trends 谁都能看；"这个正在被百万人搜索的品牌，AI 购物代理今天却读不到它的价格" 这个结论只有我们能自动产出（122 品牌每周真实扫描）。
+2. **机器可读的分发面**：同样的数据同时通过 llms.txt / MCP 工具 / OpenAPI / x402 API 暴露给 AI 代理本身——竞品做给人看，我们做给人和代理两个受众。
+3. **病毒游戏做记忆点**：Brandle / Brand Battle / AI-or-Human / AI Shopper 把同一套数据变成可分享内容，趋势页给游戏供给"今日弹药"（趋势品牌→当日对战链接）。
+
+### 营收链路（每条趋势信号的转化路径，不编造数字）
+
+```
+Google 趋势品牌命中
+  → /trending 页（SEO/分享入口，每日更新=爬虫友好）
+  → ⚔️ Battle / 品牌报告页（社交分享 + IndexNow 推送）
+  → "你的店呢？" 免费扫描漏斗（utm_source=trending）
+  → 转化面：x402 付费 API（USDC 直入钱包，已上线）
+         / Pro 等待名单（KV SUBSCRIBERS，待用户开收款后变现）
+```
+
+结构性事实：趋势监控本身不直接产生收入，它是**内容新鲜度引擎**——让静态站群每天有新页面内容可被索引和分享，把"调研"变成持续运转的获客资产。收款端仍是两条已就位的轨道：x402（即时、已通）与法币（等用户决定开 Paddle）。

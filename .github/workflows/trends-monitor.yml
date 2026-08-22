@@ -1,0 +1,39 @@
+name: Trends monitor
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "40 5 * * *" # daily 05:40 UTC, after Google's trending feeds refresh
+
+permissions:
+  contents: write
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: claude/sales-website-research-plan-7i7rc2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Pull trends + news and rebuild digest
+        run: node scripts/trends-monitor.mjs
+      - name: Commit updated digest
+        run: |
+          git config user.name "trends-monitor-bot"
+          git config user.email "actions@github.com"
+          git add sites/selltoagents/public/data/trending.json docs/trends/latest.md
+          git diff --cached --quiet && echo "No changes" || git commit -m "chore: refresh daily trend digest"
+          for i in 1 2 3 4; do
+            git push && break
+            git pull --rebase && continue || { git rebase --abort 2>/dev/null; sleep $((i*2)); git pull --rebase; }
+          done
+      # Pushes from GITHUB_TOKEN don't retrigger the deploy workflow, so deploy here directly.
+      - uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: sites/selltoagents
+          wranglerVersion: "4.112.0"
