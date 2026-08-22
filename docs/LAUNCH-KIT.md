@@ -143,3 +143,20 @@
 5. **Pricing thoughts** — $0.005/call: below the friction cost of an account; per-call stablecoin vs subscription for machine customers.
 6. **Try it** — curl the 402 yourself, `?demo=1` note if applicable, links to the free browser versions; honest closing: this is an experiment, no traction numbers to report yet.
 
+
+---
+
+## Viral game assets（2026-08-22 新增，owner 手发；两页均已上线且 CI 冒烟覆盖）
+
+分享型互动资产，适合社交/社区分发（发帖时直接玩给人看，别硬广）：
+
+- **⚔️ Brand Battle** — https://selltoagents.agiscorecard.com/brand-battle
+  真实周更数据驱动的品牌 AI 可见性对战；深链格式 `?a=nike.com&b=adidas.com` 可预设任意对局。
+  X 发帖角度：挑一场当日有话题性的对局（如两家正在打广告战的品牌），配一句结果 + 链接；
+  r/ecommerce 角度："We scanned 122 DTC brands weekly for AI-agent visibility — here's a head-to-head tool"（附方法论页链接，先给数据再给玩具）。
+- **🧦 AI Shopper Simulator** — https://agentready.agiscorecard.com/ai-shopper
+  喜剧文字冒险：AI 买家 Percival 在你的店里因缺 llms.txt/schema 连环受挫；6 个评级结局各带专属分享文案。
+  X 发帖角度：直接发自己玩出的 F 结局分享卡（自嘲式最有效）；
+  HN 角度：不适合单发（游戏帖难过审），可作为 x402/agent-readiness 主帖的附注链接。
+- **📊 Brand reports hub** — https://selltoagents.agiscorecard.com/brands/
+  122 个品牌各自的程序化报告页；社区答题时可直接引用具体品牌页（比引用首页更可信）。
