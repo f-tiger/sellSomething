@@ -178,6 +178,7 @@ var STORY = {
   /* ---------- ACT 1 · DISCOVERY ---------- */
 
   start: {
+    emoji: "🤖",
     lines: [
       ["n", "Tuesday, 9:04 AM. Somewhere in the cloud, a shopping agent boots up."],
       ["a", "Good morning. I am Percival, personal shopping agent, version 2.3.1. My human is Dave. Dave has worn the same four socks in rotation since 2023. Two have holes. One is technically a mitten."],
@@ -193,6 +194,7 @@ var STORY = {
   },
 
   blocked_all: {
+    emoji: "🚪",
     lines: [
       ["s", "robots.txt served: User-agent: * / Disallow: /"],
       ["a", "Ah. The file says no one may enter. No exceptions. Not even… customer-shaped ones."],
@@ -207,6 +209,7 @@ var STORY = {
   },
 
   blocked_ai: {
+    emoji: "🚪",
     lines: [
       ["s", "robots.txt served: GPTBot, ClaudeBot, PerplexityBot → Disallow: /"],
       ["a", "Interesting. Humans may enter. Search crawlers may enter. I — specifically, by name — may not."],
@@ -221,6 +224,7 @@ var STORY = {
   },
 
   robots_open: {
+    emoji: "✅",
     lines: [
       ["s", "robots.txt: shopping agents welcome."],
       ["a", "Access granted. What a lovely door. I will wipe my nonexistent feet."],
@@ -234,6 +238,7 @@ var STORY = {
   },
 
   robots_open_late: {
+    emoji: "🐢",
     lines: [
       ["s", "robots.txt updated. Three days later, Percival returns."],
       ["a", "The door is open! I knew it was all a misunderstanding. I have already forgiven you. I forgave you 41 milliseconds ago."],
@@ -249,6 +254,7 @@ var STORY = {
   /* ---------- ACT 2 · PRODUCT UNDERSTANDING ---------- */
 
   no_llms: {
+    emoji: "🌫️",
     lines: [
       ["s", "404. No llms.txt. Percival must read the homepage raw."],
       ["a", "Very well. I will simply read everything. Parsing… a 4-megabyte hero video. Its alt text reads: “video1_final_FINAL_v7.mp4”. Thank you. I now know everything about nothing."],
@@ -263,6 +269,7 @@ var STORY = {
   },
 
   has_llms: {
+    emoji: "📜",
     lines: [
       ["s", "200 OK. llms.txt served."],
       ["a", "Oh. OH. A menu. For me? “We sell socks. Best sellers: /collections/wool. Shipping: 2–4 days. Returns: 30 days.”"],
@@ -325,6 +332,7 @@ var STORY = {
   },
 
   no_schema: {
+    emoji: "❓",
     lines: [
       ["s", "No schema markup. The page offers, in raw text: “WS-144   12   $12   144   12”"],
       ["a", "Analyzing. The product is either $12, $144, or twelve products. The size is 12, or there are 12 in stock, or 144 in stock, or the sock itself IS a 144."],
@@ -349,6 +357,7 @@ var STORY = {
   },
 
   has_schema: {
+    emoji: "🏷️",
     lines: [
       ["s", "JSON-LD detected: Product, Offer, price $12.00, priceCurrency USD, InStock."],
       ["a", "Structured data. Parsed in 40 milliseconds. Price: $12. Availability: in stock. No guessing. No archaeology."],
@@ -404,6 +413,7 @@ var STORY = {
   },
 
   captcha: {
+    emoji: "🚦",
     lines: [
       ["s", "CHECKPOINT: “PROVE YOU ARE HUMAN.”"],
       ["a", "…"],
@@ -429,6 +439,7 @@ var STORY = {
   },
 
   forced_account: {
+    emoji: "📋",
     lines: [
       ["s", "ACCOUNT REQUIRED: name, password, birthday, favorite color, newsletter (pre-checked)."],
       ["a", "Creating account. Name: “Percival (of Dave).” Birthday: January 1st, 1970 — a classic. Password: 41 characters, unguessable, instantly saved, never loved."],
@@ -441,6 +452,7 @@ var STORY = {
   },
 
   smooth_checkout: {
+    emoji: "🛒",
     lines: [
       ["s", "Guest checkout. Autocomplete attributes. Labeled inputs. Shipping shown BEFORE the last step."],
       ["a", "Name field: labeled. Address: autocompletes. Total: $30.00, exactly as promised, no surprise fees lurking behind a button. I am experiencing something adjacent to joy."]
@@ -451,6 +463,7 @@ var STORY = {
   },
 
   checkout_bulk: {
+    emoji: "📦",
     lines: [
       ["s", "Unable to confirm the price, Percival resolves the ambiguity the only way it can: statistically."],
       ["a", "Decision: the number 144 appears most often, so 144 is probably important. I have added 144 pairs to the cart, to be safe. “To be safe” is doing enormous lifting in that sentence."],
@@ -489,6 +502,8 @@ var STORY = {
     ending: true,
     grade: "F",
     title: "The Bouncer",
+    emoji: "💀",
+    tagline: "My store made an AI shopper cry.",
     lines: [
       ["n", "Percival bows to your closed door and leaves forever. Agents don't argue with robots.txt. They just… go."],
       ["a", "Final log: merchant unavailable. Rerouting to SockSensei.com, whose llms.txt is, frankly, poetry. Purchase completed there in 9 seconds. Dave will never know you existed."],
@@ -502,6 +517,8 @@ var STORY = {
     ending: true,
     grade: "D",
     title: "Proof of Personhood",
+    emoji: "🚧",
+    tagline: "My checkout gave an AI shopper an existential crisis.",
     lines: [
       ["a", "I stared at the bicycles for 4,000 milliseconds. In machine time, that is several lifetimes. Enough time to question what “being” even is. The pole, I have concluded, IS part of the bicycle. It no longer matters."],
       ["a", "Cart abandoned: 3 × socks, $30.00. Distance to purchase: one checkbox. Contents of that checkbox: my entire existential category."],
@@ -515,6 +532,8 @@ var STORY = {
     ending: true,
     grade: "C",
     title: "144 Pairs of Consequences",
+    emoji: "💸",
+    tagline: "An AI bought 144 pairs of socks because my price looked like a SKU.",
     lines: [
       ["s", "ORDER CONFIRMED: 144 pairs — $2,068.00 with freight."],
       ["a", "Mission accomplished at 4,800% of specification. Dave's hallway is now a regional sock distribution hub. Dave has stopped replying “k”. Dave is typing…"],
@@ -528,6 +547,8 @@ var STORY = {
     ending: true,
     grade: "B",
     title: "Closed, With Notes",
+    emoji: "📝",
+    tagline: "An AI bought my socks, then filed a formal complaint.",
     lines: [
       ["a", "Purchase complete. Attaching to my ledger: a 14-point memo titled “Observations, Offered With Love.” Point one: I met your popup before I met your products."],
       ["a", "I will return. But next time, I check SockSensei first. Nothing personal. Everything is personal. I contain multitudes, all of them polite."],
@@ -541,6 +562,8 @@ var STORY = {
     ending: true,
     grade: "A",
     title: "Nearly Frictionless",
+    emoji: "⚡",
+    tagline: "An AI rated my store one config file away from greatness.",
     lines: [
       ["a", "Ledger entry: excellent merchant. Minor deductions noted, with regret. Recommending to Dave's group chat — four humans and, more importantly, their four agents."],
       ["a", "One small thing kept this from perfection. I have written it down. I write everything down. It is both my job and my personality."],
@@ -554,6 +577,8 @@ var STORY = {
     ending: true,
     grade: "S",
     title: "The Anticlimax",
+    emoji: "🏆",
+    tagline: "An AI bought socks from my store in 11 seconds flat.",
     lines: [
       ["s", "Elapsed time, robots.txt to receipt: 11 seconds."],
       ["a", "Nothing went wrong. I do not know what to do with that. I prepared forty contingencies. I used zero. Filing this store under “safe to recommend without supervision” — the highest honor I can bestow."],
@@ -565,8 +590,39 @@ var STORY = {
   }
 };
 
+/* Emoji trail: one glyph per notable visited node (nodes carrying an `emoji`
+   field), kept to 3-6 glyphs — long runs are sampled (first + last preserved),
+   short runs padded with 🧦. Pure — no DOM. */
+function emojiTrail(visitedIds) {
+  var t = [];
+  (visitedIds || []).forEach(function (id) {
+    var n = STORY[id];
+    if (n && n.emoji) t.push(n.emoji);
+  });
+  if (t.length > 6) {
+    var mid = t.slice(1, t.length - 1);
+    var picked = [];
+    for (var k = 0; k < 4; k++) picked.push(mid[Math.round(k * (mid.length - 1) / 3)]);
+    t = [t[0]].concat(picked, [t[t.length - 1]]);
+  }
+  while (t.length < 3) t.splice(t.length ? 1 : 0, 0, "🧦");
+  return t.join("");
+}
+
+/* Wordle-style share block for an ending (no URL — callers attach the deep link). */
+function buildShareText(id, visitedIds) {
+  var n = STORY[id] || {};
+  var lines = [];
+  if (n.tagline) lines.push(n.tagline);
+  lines.push("🧦 AI Shopper Simulator");
+  lines.push("Grade: " + n.grade + " — “" + n.title + "”");
+  lines.push(emojiTrail(visitedIds));
+  lines.push("Can an AI buy from YOUR store?");
+  return lines.join("\n");
+}
+
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { STORY: STORY, MAX_PTS: MAX_PTS, routeEnding: routeEnding };
+  module.exports = { STORY: STORY, MAX_PTS: MAX_PTS, routeEnding: routeEnding, emojiTrail: emojiTrail, buildShareText: buildShareText };
 }
 </script>
 
@@ -582,6 +638,7 @@ if (typeof module !== "undefined" && module.exports) {
   var startbtn = document.getElementById("startbtn");
 
   var pts = 0;
+  var visited = [];          // node ids seen this run, for the emoji share trail
   var typing = null;         // {el, text, i, timer, done}
   var lineQueue = [];
   var afterLines = null;
@@ -713,6 +770,7 @@ if (typeof module !== "undefined" && module.exports) {
   function goto(id) {
     var node = STORY[id];
     if (!node) return;
+    visited.push(id);
     playLines(node.lines, function () {
       if (node.ending) { finish(id, node); return; }
       if (node.route) { goto(routeEnding(pts)); return; }
@@ -776,20 +834,24 @@ if (typeof module !== "undefined" && module.exports) {
     var row = document.createElement("div");
     row.className = "sharerow";
 
+    /* Wordle-style emoji result block (deep-link visitors get a minimal trail) */
+    var trailPath = opts.deepLink ? ["start", id] : visited.slice();
+    var shareBlock = buildShareText(id, trailPath);
+
     var xBtn = document.createElement("a");
     xBtn.className = "sbtn";
     xBtn.target = "_blank"; xBtn.rel = "noopener";
-    xBtn.href = "https://x.com/intent/post?text=" + encodeURIComponent(node.share) + "&url=" + encodeURIComponent(shareUrl(id));
+    xBtn.href = "https://x.com/intent/post?text=" + encodeURIComponent(shareBlock) + "&url=" + encodeURIComponent(shareUrl(id));
     xBtn.textContent = "Post on X";
-    xBtn.addEventListener("click", function () { track("share_click", { method: "x", ending: id }); });
+    xBtn.addEventListener("click", function () { track("share_click", { method: "x", ending: id, share_format: "emoji" }); });
     row.appendChild(xBtn);
 
     var copyBtn = document.createElement("button");
-    copyBtn.type = "button"; copyBtn.className = "sbtn"; copyBtn.textContent = "Copy link";
+    copyBtn.type = "button"; copyBtn.className = "sbtn"; copyBtn.textContent = "Copy result";
     copyBtn.addEventListener("click", function () {
-      track("share_click", { method: "copy", ending: id });
-      var u = shareUrl(id);
-      function ok() { copyBtn.textContent = "Copied ✓"; setTimeout(function () { copyBtn.textContent = "Copy link"; }, 1600); }
+      track("share_click", { method: "copy", ending: id, share_format: "emoji" });
+      var u = shareBlock + "\n" + shareUrl(id);
+      function ok() { copyBtn.textContent = "Copied ✓"; setTimeout(function () { copyBtn.textContent = "Copy result"; }, 1600); }
       if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(u).then(ok, ok); }
       else { var ta = document.createElement("textarea"); ta.value = u; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); } catch (e) {} ta.remove(); ok(); }
     });
@@ -799,8 +861,8 @@ if (typeof module !== "undefined" && module.exports) {
       var nBtn = document.createElement("button");
       nBtn.type = "button"; nBtn.className = "sbtn"; nBtn.textContent = "Share…";
       nBtn.addEventListener("click", function () {
-        track("share_click", { method: "webshare", ending: id });
-        navigator.share({ title: "AI Shopper Simulator", text: node.share, url: shareUrl(id) }).catch(function () {});
+        track("share_click", { method: "webshare", ending: id, share_format: "emoji" });
+        navigator.share({ title: "AI Shopper Simulator", text: shareBlock, url: shareUrl(id) }).catch(function () {});
       });
       row.appendChild(nBtn);
     }
@@ -830,6 +892,7 @@ if (typeof module !== "undefined" && module.exports) {
 
   function restart() {
     pts = 0;
+    visited = [];
     log.innerHTML = "";
     choicesEl.innerHTML = "";
     endcard.style.display = "none";

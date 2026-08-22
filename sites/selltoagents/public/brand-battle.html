@@ -92,7 +92,7 @@
 #skiphint{text-align:center;color:#6b7891;font-size:12px;margin:6px 0 0}
 #resultcard{display:none;background:var(--panel2);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;margin-top:18px;cursor:auto}
 #resultcard.show{display:block}
-#sharetext{font-size:15px;line-height:1.6}
+#sharetext{font-size:15px;line-height:1.6;white-space:pre-line}
 .sharerow{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
 .sharerow a,.sharerow button{background:var(--panel);border:1px solid var(--line);color:var(--text);border-radius:10px;padding:10px 16px;font:inherit;font-size:14px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block}
 .sharerow a:hover,.sharerow button:hover{border-color:var(--acc2)}
@@ -156,7 +156,7 @@
     <div id="sharetext"></div>
     <div class="sharerow">
       <a id="shareX" href="#" target="_blank" rel="noopener">Share on 𝕏</a>
-      <button id="copyLink">Copy link</button>
+      <button id="copyLink">Copy result</button>
       <button id="webShare" style="display:none">Share…</button>
       <button id="rematch">↩ New battle</button>
     </div>
@@ -254,14 +254,24 @@ var BBCore = (function () {
     if (b.score > a.score) return { winner: b, loser: a, tie: false };
     return { winner: null, loser: null, tie: true };
   }
+  /* Wordle-style 10-cell score bar: ▓ filled per 10 points, ░ empty. */
+  function scoreBar(score) {
+    var filled = Math.max(0, Math.min(10, Math.round(Number(score) / 10)));
+    var bar = '';
+    for (var i = 0; i < 10; i++) bar += (i < filled ? '▓' : '░');
+    return bar;
+  }
+  /* Wordle-style emoji result block (no URL — callers append/attach the deep link). */
   function shareText(a, b) {
     var v = decideWinner(a, b);
-    if (v.tie) {
-      return '🤝 ' + a.name + ' ' + a.score + ' vs ' + b.name + ' ' + b.score +
-        ' — a dead heat! AI shoppers squint at both equally. Who wins your matchup?';
-    }
-    return '🏆 ' + v.winner.name + ' ' + v.winner.score + ' vs ' + v.loser.name + ' ' + v.loser.score +
-      ' — AI shoppers see ' + v.winner.name + ' first. Who wins your matchup?';
+    var first = v.tie ? a : v.winner;
+    var second = v.tie ? b : v.loser;
+    var e1 = v.tie ? '🤝' : '🏆';
+    var e2 = v.tie ? '🤝' : '💀';
+    return '⚔️ Brand Battle\n' +
+      e1 + ' ' + first.name + ' ' + first.score + ' ' + scoreBar(first.score) + '\n' +
+      e2 + ' ' + second.name + ' ' + second.score + ' ' + scoreBar(second.score) + '\n' +
+      'Who do AI shoppers see first?';
   }
   function battleUrl(a, b) {
     return 'https://selltoagents.agiscorecard.com/brand-battle?a=' +
@@ -271,7 +281,7 @@ var BBCore = (function () {
     hashStr: hashStr, dailyPair: dailyPair, utcDateStr: utcDateStr,
     normalizeDomain: normalizeDomain, findBrand: findBrand,
     checkUniverse: checkUniverse, buildChecks: buildChecks,
-    decideWinner: decideWinner, shareText: shareText, battleUrl: battleUrl
+    decideWinner: decideWinner, scoreBar: scoreBar, shareText: shareText, battleUrl: battleUrl
   };
 })();
 if (typeof module !== 'undefined' && module.exports) module.exports = BBCore;
@@ -493,24 +503,24 @@ if (typeof module !== 'undefined' && module.exports) module.exports = BBCore;
       var ws = $('webShare');
       ws.style.display = 'inline-block';
       ws.onclick = function () {
-        track('share_click', { method: 'web_share' });
+        track('share_click', { method: 'web_share', share_format: 'emoji' });
         navigator.share({ title: 'Brand Battle', text: text, url: url }).catch(function () {});
       };
     }
   }
 
-  $('shareX').addEventListener('click', function () { track('share_click', { method: 'x' }); });
+  $('shareX').addEventListener('click', function () { track('share_click', { method: 'x', share_format: 'emoji' }); });
   $('copyLink').addEventListener('click', function () {
     if (!current) return;
-    var url = C.battleUrl(current.a, current.b);
+    var block = C.shareText(current.a, current.b) + '\n' + C.battleUrl(current.a, current.b);
     var done = function () {
       $('copyLink').textContent = 'Copied ✓';
-      setTimeout(function () { $('copyLink').textContent = 'Copy link'; }, 1600);
+      setTimeout(function () { $('copyLink').textContent = 'Copy result'; }, 1600);
     };
-    track('share_click', { method: 'copy' });
+    track('share_click', { method: 'copy', share_format: 'emoji' });
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(url).then(done).catch(function () { fallbackCopy(url); done(); });
-    } else { fallbackCopy(url); done(); }
+      navigator.clipboard.writeText(block).then(done).catch(function () { fallbackCopy(block); done(); });
+    } else { fallbackCopy(block); done(); }
   });
   function fallbackCopy(url) {
     var ta = document.createElement('textarea');

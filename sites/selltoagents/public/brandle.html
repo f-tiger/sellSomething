@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brandle — the daily AI-visibility brand guessing game</title>
+<meta name="description" content="Wordle for AI visibility: guess the mystery DTC brand in 6 clues drawn from real AI-shopping scan data — category, grade, failing checks, score and rank. New puzzle every day at midnight UTC.">
+<link rel="canonical" href="https://selltoagents.agiscorecard.com/brandle">
+<meta property="og:title" content="🟩 Brandle — guess the daily brand from its AI-visibility clues">
+<meta property="og:description" content="6 guesses, 6 clues from real AI-shopping scan data. Same puzzle for everyone, new at midnight UTC. Keep your streak alive.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://selltoagents.agiscorecard.com/brandle">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="🟩 Brandle — guess the daily brand from its AI-visibility clues">
+<meta name="twitter:description" content="6 guesses, 6 clues from real AI-shopping scan data. Same puzzle for everyone, new at midnight UTC.">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Brandle",
+      "url": "https://selltoagents.agiscorecard.com/brandle",
+      "applicationCategory": "GameApplication",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "description": "A daily guessing game: identify the mystery DTC brand in six guesses from progressively revealed AI-visibility clues (category, grade, failing checks, score and rank) sourced from the DTC AI Visibility Index.",
+      "publisher": { "@type": "Organization", "name": "SellToAgents" }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How is the daily Brandle brand chosen?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The daily brand is picked deterministically by hashing the current UTC date over the DTC AI Visibility Index roster, so every player worldwide gets the same puzzle. A new one appears at midnight UTC, and your streak counts consecutive daily wins." }
+        },
+        {
+          "@type": "Question",
+          "name": "Where do the Brandle clues come from?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Every clue is real data from the DTC AI Visibility Index: each brand's homepage is scanned by the free AgentReady scanner across 19 machine-readable signals AI shopping agents rely on, producing the category, grade, failing checks, score and rank the game reveals." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I play Brandle more than once a day?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The daily puzzle is one per UTC day, but after finishing it you can play unlimited practice rounds with randomly chosen brands. Practice rounds never affect your daily streak." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+.game-panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:22px;margin:22px 0}
+#loadstate{color:#6b7891;font-size:13.5px}
+.topline{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.puzzletag{color:var(--warn);font-weight:800;font-size:14px;letter-spacing:.04em}
+.streakline{color:var(--dim);font-size:13px}
+.streakline b{color:var(--text)}
+#clues{margin:4px 0 14px}
+.clue{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:baseline;border-top:1px solid var(--line);padding:10px 0;font-size:15px;opacity:0;transform:translateY(6px);transition:opacity .35s ease,transform .35s ease}
+.clue.show{opacity:1;transform:none}
+.clue .cnum{color:var(--acc);font-weight:800;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.clue .ctext b{color:var(--warn)}
+.clue .ctext .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.12em;color:var(--text);font-weight:700}
+.squares{font-size:22px;letter-spacing:3px;line-height:1;margin:2px 0 14px;user-select:none}
+.guessform{display:flex;gap:10px;flex-wrap:wrap}
+.guessform input{flex:1 1 220px;min-width:0;background:var(--panel2);border:1px solid var(--line);border-radius:10px;color:var(--text);font:inherit;font-size:15px;padding:12px 14px}
+.guessform input:focus{outline:none;border-color:var(--acc2)}
+.guess-btn{flex:0 1 auto;background:linear-gradient(90deg,var(--acc),#2bb890);color:#04110c;border:none;border-radius:10px;padding:12px 22px;font:inherit;font-weight:800;font-size:15px;letter-spacing:.03em;cursor:pointer}
+.guess-btn:hover{filter:brightness(1.08)}
+.guess-btn:disabled{opacity:.5;cursor:not-allowed}
+.ghost-btn{background:var(--panel2);border:1px solid var(--line);color:var(--dim);border-radius:10px;padding:11px 16px;font:inherit;font-size:14px;cursor:pointer}
+.ghost-btn:hover{color:var(--text);border-color:var(--acc2)}
+.gamenote{color:var(--warn);font-size:13.5px;margin-top:10px;min-height:1em}
+.history{margin-top:12px;font-size:14px;color:var(--dim)}
+.history .wrongguess{color:#ff6b6b;font-weight:700}
+#endcard{display:none;background:var(--panel2);border:1px solid var(--line);border-radius:var(--r);padding:20px;margin-top:18px}
+#endcard.show{display:block;animation:pop .45s cubic-bezier(.2,1.6,.4,1)}
+@keyframes pop{0%{transform:scale(.92);opacity:0}100%{transform:scale(1);opacity:1}}
+#endhead{font-weight:800;font-size:clamp(19px,4vw,25px);letter-spacing:-.02em;margin-bottom:6px}
+#endsub{color:var(--dim);font-size:14px}
+#endsub a{font-weight:700}
+#gridpreview{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:14px 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:14px;white-space:pre-wrap;line-height:1.7}
+.sharerow{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
+.sharerow a,.sharerow button{background:var(--panel);border:1px solid var(--line);color:var(--text);border-radius:10px;padding:10px 16px;font:inherit;font-size:14px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block}
+.sharerow a:hover,.sharerow button:hover{border-color:var(--acc2)}
+.copy-btn{background:linear-gradient(90deg,var(--acc),#2bb890)!important;color:#04110c!important;border:none!important;font-weight:800!important}
+#countdown{color:var(--dim);font-size:13.5px;margin-top:12px}
+#countdown b{color:var(--text);font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+#funnel{margin-top:14px;border-top:1px solid var(--line);padding-top:12px;font-size:14px;color:var(--dim)}
+#funnel a{font-weight:700}
+#practicebar{margin-top:14px}
+@media (max-width:520px){.guessform{flex-direction:column}.guess-btn{width:100%}}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FZXLMBB5QB"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-FZXLMBB5QB');</script>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="/">Sell<span>To</span>Agents</a>
+  <nav><a href="/ai-visibility-index">Index</a><a href="/brand-battle">⚔️ Battle</a><a href="https://agentready.agiscorecard.com">Scanner</a></nav>
+</header>
+
+<p class="meta">Daily game · Powered by the <a href="/ai-visibility-index">DTC AI Visibility Index</a> (real weekly scan data)</p>
+<h1>🟩 Brandle</h1>
+<p class="lead">Guess the mystery DTC brand in 6 tries. Each wrong guess unlocks a new clue from its real AI-visibility scan — category, grade, failing checks, score and rank. Same puzzle for everyone, new at midnight UTC.</p>
+
+<div class="game-panel" id="gamepanel" aria-live="polite">
+  <p id="loadstate">Loading today's puzzle…</p>
+  <div id="game" style="display:none">
+    <div class="topline">
+      <span class="puzzletag" id="puzzletag"></span>
+      <span class="streakline" id="streakline"></span>
+    </div>
+    <div class="squares" id="squares"></div>
+    <div id="clues"></div>
+    <form class="guessform" id="guessform" autocomplete="off">
+      <input id="guessinput" list="brandlist" placeholder="Type a brand name or domain…" autocomplete="off" autocapitalize="off" spellcheck="false">
+      <datalist id="brandlist"></datalist>
+      <button type="submit" class="guess-btn" id="guessBtn">Guess</button>
+      <button type="button" class="ghost-btn" id="skipBtn" title="Give up this guess and reveal the next clue">Skip →</button>
+    </form>
+    <p class="gamenote" id="gamenote"></p>
+    <div class="history" id="history"></div>
+
+    <div id="endcard">
+      <div id="endhead"></div>
+      <div id="endsub"></div>
+      <div id="gridpreview"></div>
+      <div class="sharerow">
+        <button class="copy-btn" id="copyResult">Copy result</button>
+        <a id="shareX" href="#" target="_blank" rel="noopener">Share on 𝕏</a>
+        <button id="webShare" style="display:none">Share…</button>
+      </div>
+      <div id="countdown"></div>
+      <div id="funnel"></div>
+      <div id="practicebar">
+        <button class="ghost-btn" id="practiceBtn">🎲 Practice round (random brand — no streak)</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2>How to play</h2>
+<ol>
+  <li>One clue starts you off. Type a brand from the index (name or domain) and hit Enter.</li>
+  <li>Every wrong guess — or a skip — burns one of your 6 tries and reveals the next clue.</li>
+  <li>Solve it early for bragging rights, copy your emoji grid, and come back tomorrow to grow your streak.</li>
+</ol>
+
+<h2>FAQ</h2>
+<h3>How is the daily brand chosen?</h3>
+<p>By hashing the current UTC date over the <a href="/ai-visibility-index">DTC AI Visibility Index</a> roster — deterministic, so every player worldwide gets the same puzzle. A fresh one drops at midnight UTC, and your streak counts consecutive daily wins.</p>
+<h3>Where do the clues come from?</h3>
+<p>Every clue is real data: each brand's homepage is scanned by the free <a href="https://agentready.agiscorecard.com">AgentReady</a> scanner across 19 machine-readable signals AI shopping agents rely on — that scan produces the category, grade, failing checks, score and rank the game reveals.</p>
+<h3>Can I play more than once a day?</h3>
+<p>The daily puzzle is one per UTC day, but after finishing it you can play unlimited practice rounds with random brands. Practice never touches your streak.</p>
+
+<div class="cta">
+  <h3>Could AI shoppers guess <em>your</em> brand?</h3>
+  <p>Run the same free 10-second AI-visibility scan every Brandle clue is built from.</p>
+  <a class="btn" href="https://agentready.agiscorecard.com/?url=" id="cta-scan">Scan my store free →</a>
+</div>
+
+<footer>
+  <div class="links"><a href="/">All guides</a><a href="/ai-visibility-index">Full Visibility Index</a><a href="/brand-battle">⚔️ Brand Battle</a><a href="/data/visibility-index.json">Dataset</a><a href="https://agentready.agiscorecard.com">AgentReady</a></div>
+  <div>© 2026 SellToAgents · New puzzle every day at midnight UTC.</div>
+</footer>
+</div>
+
+<script id="brandle-core">
+/* Pure Brandle logic — no DOM. Node-testable via module.exports. */
+var BRCore = (function () {
+  var EPOCH = '2026-08-22'; /* puzzle #1 */
+  var SITE = 'https://selltoagents.agiscorecard.com';
+  var MAX_GUESSES = 6;
+
+  function hashStr(s) { /* FNV-1a 32-bit */
+    var h = 0x811c9dc5;
+    for (var i = 0; i < s.length; i++) {
+      h ^= s.charCodeAt(i);
+      h = Math.imul(h, 0x01000193) >>> 0;
+    }
+    return h >>> 0;
+  }
+  function utcDateStr(d) {
+    d = d || new Date();
+    return d.toISOString().slice(0, 10);
+  }
+  /* Drop degenerate entries so every clue can be built. */
+  function cleanRoster(list) {
+    return (list || []).filter(function (r) {
+      return r && typeof r.name === 'string' && r.name.trim().length >= 2 &&
+        typeof r.domain === 'string' && r.domain.indexOf('.') > 0 &&
+        typeof r.score === 'number' && isFinite(r.score);
+    });
+  }
+  /* Deterministic daily pick: same index for every visitor on a given UTC day.
+     Skips degenerate answers (names under 4 letters, which clue 6 would fully reveal)
+     by walking forward from the hashed index — still deterministic. */
+  function dailyIndex(dateStr, n) {
+    if (!n || n < 1) return -1;
+    return hashStr('brandle:' + dateStr) % n;
+  }
+  function dailyPick(dateStr, list) {
+    var n = list.length;
+    if (!n) return -1;
+    var i = dailyIndex(dateStr, n);
+    for (var step = 0; step < n; step++) {
+      var k = (i + step) % n;
+      if (maskName(list[k].name, 0).count >= 4) return k;
+    }
+    return i; /* every name is short — fall back to the raw hash */
+  }
+  function puzzleNumber(dateStr) {
+    var days = Math.round((Date.parse(dateStr + 'T00:00:00Z') - Date.parse(EPOCH + 'T00:00:00Z')) / 86400000);
+    return days + 1;
+  }
+  function normName(s) {
+    return String(s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+  }
+  function normDomain(s) {
+    return String(s || '').trim().toLowerCase()
+      .replace(/^https?:\/\//, '').replace(/^www\./, '').replace(/\/.*$/, '');
+  }
+  /* Match a guess against the roster by name (punctuation/case tolerant) or domain. */
+  function matchBrand(list, q) {
+    var nq = normName(q);
+    var nd = normDomain(q);
+    if (!nq && !nd) return null;
+    for (var i = 0; i < list.length; i++) {
+      var r = list[i];
+      if ((nq && normName(r.name) === nq) || (nd && normDomain(r.domain) === nd)) return r;
+    }
+    return null;
+  }
+  /* Mask a brand name: first letter + `extra` more alphanumerics revealed, rest as _ ; spaces/punctuation kept. */
+  function maskName(name, extra) {
+    var reveal = 1 + (extra || 0);
+    var out = '', shown = 0, count = 0;
+    for (var i = 0; i < name.length; i++) {
+      var c = name.charAt(i);
+      if (/[A-Za-z0-9]/.test(c)) {
+        count++;
+        if (shown < reveal) { out += c.toUpperCase(); shown++; }
+        else out += '_';
+      } else out += c;
+    }
+    return { masked: out, count: count };
+  }
+  /* Rank neighborhood within the score-sorted roster. */
+  function rankInfo(list, brand) {
+    var sorted = list.slice().sort(function (a, b) {
+      return b.score - a.score || a.name.localeCompare(b.name);
+    });
+    var idx = -1;
+    for (var i = 0; i < sorted.length; i++) {
+      if (sorted[i].domain === brand.domain) { idx = i; break; }
+    }
+    var above = idx > 0 ? sorted[idx - 1] : null;
+    var below = idx >= 0 && idx < sorted.length - 1 ? sorted[idx + 1] : null;
+    return { rank: idx + 1, total: sorted.length, above: above, below: below };
+  }
+  /* The six progressive clues, as plain strings. */
+  function clueList(brand, list) {
+    var cat = brand.category || 'e-commerce brand';
+    var m1 = maskName(brand.name, 0);
+    var m2 = maskName(brand.name, 2);
+    var failTxt = (brand.failing && brand.failing.length)
+      ? 'One check it fails: "' + brand.failing[hashStr(brand.domain) % brand.failing.length] + '"'
+      : 'It passes every check we scan — a clean sheet.';
+    var ri = rankInfo(list, brand);
+    var where;
+    if (ri.rank === 1) where = 'ranks #1 of ' + ri.total + (ri.below ? ', just ahead of ' + ri.below.name : '');
+    else if (ri.rank === ri.total) where = 'ranks last of ' + ri.total + (ri.above ? ', just behind ' + ri.above.name : '');
+    else where = 'ranks #' + ri.rank + ' of ' + ri.total + ', between ' + (ri.above ? ri.above.name : '?') + ' and ' + (ri.below ? ri.below.name : '?');
+    return [
+      'Category: ' + cat,
+      'Name: ' + m1.masked + ' (' + m1.count + ' letters)',
+      'AI-visibility grade: ' + (brand.grade || '—'),
+      failTxt,
+      'Scores ' + brand.score + '/100 — ' + where,
+      'More letters: ' + m2.masked + ' (' + m2.count + ' letters)'
+    ];
+  }
+  /* Emoji grid: one 🟥 per wrong guess, 🟩 if solved, ⬜ for unused tries. */
+  function emojiGrid(guessCount, won) {
+    var wrong = won ? guessCount - 1 : guessCount;
+    var s = '';
+    for (var i = 0; i < wrong; i++) s += '🟥';
+    if (won) s += '🟩';
+    var used = wrong + (won ? 1 : 0);
+    for (var j = used; j < MAX_GUESSES; j++) s += '⬜';
+    return s;
+  }
+  function shareMessage(puzzleNo, guessCount, won) {
+    return 'Brandle #' + puzzleNo + ' ' + (won ? guessCount : 'X') + '/6\n' +
+      emojiGrid(guessCount, won) + '\n' + SITE + '/brandle';
+  }
+  /* Streak: consecutive UTC days won. A loss resets; a day already recorded is a no-op. */
+  function updateStreak(prev, dateStr, won) {
+    var s = (prev && typeof prev === 'object')
+      ? { last: prev.last || null, current: +prev.current || 0, max: +prev.max || 0 }
+      : { last: null, current: 0, max: 0 };
+    if (s.last === dateStr) return s;
+    if (won) {
+      var yest = new Date(Date.parse(dateStr + 'T00:00:00Z') - 86400000).toISOString().slice(0, 10);
+      s.current = (s.last === yest) ? s.current + 1 : 1;
+    } else {
+      s.current = 0;
+    }
+    if (s.current > s.max) s.max = s.current;
+    s.last = dateStr;
+    return s;
+  }
+  function msToNextUtcMidnight(now) {
+    var d = new Date(now);
+    return Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate() + 1) - now;
+  }
+  function fmtCountdown(ms) {
+    var t = Math.max(0, Math.floor(ms / 1000));
+    var h = Math.floor(t / 3600), m = Math.floor((t % 3600) / 60), s = t % 60;
+    var p = function (n) { return (n < 10 ? '0' : '') + n; };
+    return p(h) + ':' + p(m) + ':' + p(s);
+  }
+  function brandSlug(domain) {
+    return String(domain || '').toLowerCase().replace(/\./g, '-');
+  }
+  return {
+    MAX_GUESSES: MAX_GUESSES, SITE: SITE, EPOCH: EPOCH,
+    hashStr: hashStr, utcDateStr: utcDateStr, cleanRoster: cleanRoster,
+    dailyIndex: dailyIndex, dailyPick: dailyPick, puzzleNumber: puzzleNumber,
+    normName: normName, normDomain: normDomain, matchBrand: matchBrand,
+    maskName: maskName, rankInfo: rankInfo, clueList: clueList,
+    emojiGrid: emojiGrid, shareMessage: shareMessage, updateStreak: updateStreak,
+    msToNextUtcMidnight: msToNextUtcMidnight, fmtCountdown: fmtCountdown, brandSlug: brandSlug
+  };
+})();
+if (typeof module !== 'undefined' && module.exports) module.exports = BRCore;
+</script>
+
+<script id="brandle-ui">
+(function () {
+  'use strict';
+  var C = BRCore;
+  var $ = function (id) { return document.getElementById(id); };
+  var LS_KEY = 'brandle-v1';
+
+  var roster = [];        /* cleaned index */
+  var answer = null;      /* current puzzle brand */
+  var clues = [];         /* six clue strings */
+  var guesses = [];       /* wrong guesses so far (brand names or raw skips) */
+  var done = false;
+  var won = false;
+  var mode = 'daily';     /* 'daily' | 'practice' */
+  var today = C.utcDateStr();
+  var puzzleNo = C.puzzleNumber(today);
+  var cdTimer = null;
+
+  function track(name, params) {
+    try { if (typeof gtag === 'function') gtag('event', name, params || {}); } catch (e) {}
+  }
+  function esc(s) { var d = document.createElement('div'); d.textContent = String(s); return d.innerHTML; }
+  function note(msg) { $('gamenote').textContent = msg || ''; }
+
+  function loadState() {
+    try { return JSON.parse(localStorage.getItem(LS_KEY)) || {}; } catch (e) { return {}; }
+  }
+  function saveState(st) {
+    try { localStorage.setItem(LS_KEY, JSON.stringify(st)); } catch (e) {}
+  }
+  function saveDay() {
+    if (mode !== 'daily') return;
+    var st = loadState();
+    st.day = { date: today, guesses: guesses.slice(), done: done, won: won };
+    saveState(st);
+  }
+
+  fetch('/data/visibility-index.json')
+    .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(function (d) {
+      roster = C.cleanRoster(d.results);
+      if (roster.length < 3) throw new Error('roster too small');
+      var dl = $('brandlist');
+      roster.forEach(function (r) {
+        var o = document.createElement('option');
+        o.value = r.name;
+        o.label = r.domain + ' · ' + (r.category || 'DTC');
+        dl.appendChild(o);
+      });
+      $('loadstate').style.display = 'none';
+      $('game').style.display = 'block';
+      startDaily();
+    })
+    .catch(function () {
+      $('loadstate').textContent = 'Could not load today’s puzzle — please refresh, or browse the full index instead.';
+    });
+
+  function startDaily() {
+    mode = 'daily';
+    answer = roster[C.dailyPick(today, roster)];
+    clues = C.clueList(answer, roster);
+    guesses = []; done = false; won = false;
+    var st = loadState();
+    var saved = st.day && st.day.date === today ? st.day : null;
+    $('puzzletag').textContent = 'Brandle #' + puzzleNo;
+    renderStreak();
+    resetBoard();
+    if (saved) {
+      guesses = (saved.guesses || []).slice(0, C.MAX_GUESSES);
+      for (var i = 0; i < guesses.length; i++) revealClue(i + 1, true);
+      renderSquares(); renderHistory();
+      if (saved.done) { done = true; won = !!saved.won; finish(true); return; }
+    } else {
+      track('brandle_start', { puzzle: puzzleNo });
+    }
+    focusInput();
+  }
+
+  function startPractice() {
+    mode = 'practice';
+    var i;
+    do { i = Math.floor(Math.random() * roster.length); } while (roster[i].domain === answer.domain && roster.length > 1);
+    answer = roster[i];
+    clues = C.clueList(answer, roster);
+    guesses = []; done = false; won = false;
+    $('puzzletag').textContent = 'Practice round';
+    renderStreak();
+    resetBoard();
+    track('brandle_start', { puzzle: 'practice' });
+    $('gamepanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    focusInput();
+  }
+
+  function resetBoard() {
+    $('clues').innerHTML = '';
+    $('history').innerHTML = '';
+    $('endcard').className = '';
+    $('guessform').style.display = 'flex';
+    $('guessinput').value = '';
+    note('');
+    revealClue(0, false);
+    renderSquares();
+  }
+
+  function revealClue(n, instant) {
+    if (n >= clues.length) return;
+    var host = $('clues');
+    if (host.children.length > n) return;
+    var div = document.createElement('div');
+    div.className = 'clue';
+    var txt = esc(clues[n]);
+    if (n === 1 || n === 5) txt = txt.replace(/: (.+) \(/, ': <span class="mono">$1</span> (');
+    div.innerHTML = '<span class="cnum">Clue ' + (n + 1) + '/6</span><span class="ctext">' + txt + '</span>';
+    host.appendChild(div);
+    if (instant) div.classList.add('show');
+    else requestAnimationFrame(function () { requestAnimationFrame(function () { div.classList.add('show'); }); });
+  }
+
+  function renderSquares() {
+    $('squares').textContent = C.emojiGrid(won ? guesses.length + 1 : guesses.length, won);
+  }
+  function renderHistory() {
+    $('history').innerHTML = guesses.length
+      ? 'Wrong guesses: ' + guesses.map(function (g) { return '<span class="wrongguess">' + esc(g) + '</span>'; }).join(' · ')
+      : '';
+  }
+  function renderStreak() {
+    var s = loadState().streak || { current: 0, max: 0 };
+    $('streakline').innerHTML = '🔥 streak <b>' + (+s.current || 0) + '</b> · best <b>' + (+s.max || 0) + '</b>';
+  }
+  function focusInput() {
+    try { $('guessinput').focus(); } catch (e) {}
+  }
+
+  $('guessform').addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    if (done) return;
+    var q = $('guessinput').value;
+    if (!q.trim()) { note('Type a brand name or domain first.'); return; }
+    var hit = C.matchBrand(roster, q);
+    if (!hit) { note('"' + q.trim() + '" isn’t in the index — pick a suggestion from the list. (Doesn’t cost a guess.)'); return; }
+    note('');
+    submitGuess(hit.name, hit.domain === answer.domain);
+  });
+
+  $('skipBtn').addEventListener('click', function () {
+    if (done) return;
+    submitGuess('(skipped)', false);
+  });
+
+  function submitGuess(label, correct) {
+    track('brandle_guess', { n: guesses.length + 1, mode: mode });
+    $('guessinput').value = '';
+    if (correct) {
+      won = true; done = true;
+      renderSquares();
+      finish(false);
+      return;
+    }
+    guesses.push(label);
+    renderSquares(); renderHistory();
+    if (guesses.length >= C.MAX_GUESSES) {
+      done = true; won = false;
+      finish(false);
+    } else {
+      revealClue(guesses.length, false);
+      saveDay();
+      focusInput();
+    }
+  }
+
+  function finish(restored) {
+    var used = won ? guesses.length + 1 : guesses.length;
+    $('guessform').style.display = 'none';
+    note('');
+    /* reveal everything so the answer's stats are on screen */
+    for (var i = 0; i < clues.length; i++) revealClue(i, true);
+
+    if (!restored) {
+      track('brandle_end', { result: won ? 'win' : 'loss', guesses: used, mode: mode });
+      if (mode === 'daily') {
+        var st = loadState();
+        st.streak = C.updateStreak(st.streak, today, won);
+        saveState(st);
+      }
+      saveDay();
+    }
+    renderStreak();
+
+    var slug = C.brandSlug(answer.domain);
+    $('endhead').textContent = won
+      ? '🟩 Got it in ' + used + '/6 — ' + answer.name + '!'
+      : '🟥 Out of guesses — it was ' + answer.name + '.';
+    $('endsub').innerHTML = 'Score ' + answer.score + '/100, grade ' + esc(answer.grade || '—') +
+      '. Full weekly report: <a href="/brands/' + esc(slug) + '" id="reportLink">' + esc(answer.name) + ' AI-visibility report →</a>';
+    $('reportLink').addEventListener('click', function () { track('report_click', { brand: answer.domain, from: 'brandle' }); });
+
+    var msg = mode === 'daily'
+      ? C.shareMessage(puzzleNo, used, won)
+      : 'Brandle practice ' + (won ? used : 'X') + '/6\n' + C.emojiGrid(used, won) + '\n' + C.SITE + '/brandle';
+    $('gridpreview').textContent = msg;
+    $('shareX').href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(msg);
+
+    $('funnel').innerHTML =
+      '<a href="/brand-battle?a=' + encodeURIComponent(answer.domain) + '" id="battleLink">⚔️ Battle today’s brand</a>' +
+      ' · <a href="/ai-visibility-index">See the full index</a>' +
+      ' · Is <b>YOUR</b> store visible to AI shoppers? <a href="https://agentready.agiscorecard.com/?url=" id="funnel-scan">Free scan →</a>';
+    $('funnel-scan').addEventListener('click', function () { track('scan_click', { from: 'brandle' }); });
+
+    $('copyResult').onclick = function () {
+      track('share_click', { method: 'copy' });
+      var okUi = function () {
+        $('copyResult').textContent = 'Copied ✓';
+        setTimeout(function () { $('copyResult').textContent = 'Copy result'; }, 1600);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(msg).then(okUi).catch(function () { fallbackCopy(msg); okUi(); });
+      } else { fallbackCopy(msg); okUi(); }
+    };
+    if (navigator.share) {
+      var ws = $('webShare');
+      ws.style.display = 'inline-block';
+      ws.onclick = function () {
+        track('share_click', { method: 'web_share' });
+        navigator.share({ title: 'Brandle', text: msg }).catch(function () {});
+      };
+    }
+
+    if (cdTimer) { clearInterval(cdTimer); cdTimer = null; }
+    var tick = function () {
+      $('countdown').innerHTML = 'Next Brandle in <b>' + C.fmtCountdown(C.msToNextUtcMidnight(Date.now())) + '</b> (midnight UTC)';
+    };
+    tick();
+    cdTimer = setInterval(tick, 1000);
+
+    $('endcard').className = 'show';
+    $('endcard').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function fallbackCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+
+  $('shareX').addEventListener('click', function () { track('share_click', { method: 'x' }); });
+  $('practiceBtn').addEventListener('click', startPractice);
+  $('cta-scan').addEventListener('click', function () { track('scan_click', { from: 'brandle-cta' }); });
+})();
+</script>
+</body>
+</html>
