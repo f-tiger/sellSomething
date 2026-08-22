@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI or Human? — the daily prose-detection quiz</title>
+<meta name="description" content="A daily 5-round quiz: read a short passage and decide whether it was written by a classic human author or by an AI. Same puzzle for everyone, new at midnight UTC. Keep your detection streak alive.">
+<link rel="canonical" href="https://agentready.agiscorecard.com/ai-or-human">
+<meta property="og:title" content="🧠 AI or Human? — can you tell AI prose from the classics?">
+<meta property="og:description" content="5 passages a day. Some are Thoreau, Darwin and Twain; some were written by an AI. Guess which is which, share your score grid, keep your streak.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://agentready.agiscorecard.com/ai-or-human">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="🧠 AI or Human? — can you tell AI prose from the classics?">
+<meta name="twitter:description" content="5 passages a day. Some are Thoreau, Darwin and Twain; some were written by an AI. Same puzzle for everyone, new at midnight UTC.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "AI or Human?",
+      "url": "https://agentready.agiscorecard.com/ai-or-human",
+      "applicationCategory": "GameApplication",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "description": "A daily prose-detection quiz: five short passages per day, each either lightly adapted from public-domain nonfiction by classic authors (Thoreau, Darwin, Twain, Muir and others) or written by an AI for this game. Players guess the origin of each passage and share a spoiler-free emoji score grid.",
+      "publisher": { "@type": "Organization", "name": "AgentReady" }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Where do the human passages in AI or Human? come from?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Every human passage is drawn from public-domain nonfiction — writers like Henry David Thoreau, Charles Darwin, Mark Twain, John Muir, Isabella Bird and Benjamin Franklin — lightly adapted for length. The reveal after each round names the author and work. The AI passages were written by an AI specifically for this game in 2026 and are labeled as such." }
+        },
+        {
+          "@type": "Question",
+          "name": "How is the daily AI or Human? puzzle chosen?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The five daily passages are picked deterministically by hashing the current UTC date over the passage pool, with two or three AI passages per day, so every player worldwide gets the same puzzle. A new one appears at midnight UTC, and your streak counts consecutive days scoring 4/5 or better." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does the shared emoji grid spoil the answers?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. The share grid shows only whether each of your five guesses was right (🟩) or wrong (🟥) — never which passages were AI and which were human — so sharing your result on X or in a group chat never spoils the day's puzzle for anyone else." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+:root{--bg:#0a0e1a;--panel:#111629;--panel2:#161d36;--line:#232c4d;--text:#e7ebf7;--dim:#8b94b5;--acc:#5b8cff;--acc2:#38d9a9;--warn:#ffc078;--bad:#ff6b6b;--r:14px;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:960px;margin:0 auto;padding:0 24px}
+header{padding:22px 0;display:flex;justify-content:space-between;align-items:center}
+.logo{font-weight:800;font-size:20px;letter-spacing:-.02em;color:var(--text);text-decoration:none}
+.logo span{color:var(--acc)}
+nav a{color:var(--dim);text-decoration:none;margin-left:22px;font-size:14px}
+nav a:hover{color:var(--text)}
+a{color:var(--acc)}
+h1{font-size:clamp(28px,5vw,44px);line-height:1.14;letter-spacing:-.03em;font-weight:800;margin:26px 0 0}
+h1 em{font-style:normal;background:linear-gradient(90deg,var(--acc),var(--acc2));-webkit-background-clip:text;background-clip:text;color:transparent}
+h2{font-size:22px;letter-spacing:-.02em;margin:44px 0 10px}
+h3{font-size:16px;margin:18px 0 4px}
+.lead{color:var(--dim);max-width:680px;margin:14px 0 0;font-size:17px}
+.meta{color:var(--dim);font-size:13px;margin-top:24px}
+ol,p{color:var(--dim)}
+ol{padding-left:22px;margin:8px 0}
+ol li{margin:6px 0}
+p{margin:8px 0}
+p b{color:var(--text)}
+.game-panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:22px;margin:24px 0}
+.topline{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.puzzletag{color:var(--warn);font-weight:800;font-size:14px;letter-spacing:.04em}
+.streakline{color:var(--dim);font-size:13px}
+.streakline b{color:var(--text)}
+.roundline{color:var(--acc);font-weight:800;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
+.squares{font-size:22px;letter-spacing:3px;line-height:1;margin:2px 0 14px;user-select:none}
+blockquote.passage{background:var(--panel2);border:1px solid var(--line);border-left:3px solid var(--acc);border-radius:10px;padding:18px 20px;font-size:16.5px;line-height:1.75;color:var(--text);font-family:Georgia,"Times New Roman",serif;margin:0 0 16px}
+.guessrow{display:flex;gap:12px;flex-wrap:wrap}
+.guessrow button{flex:1 1 180px;border:1px solid var(--line);border-radius:12px;padding:16px 18px;font:inherit;font-size:16px;font-weight:800;cursor:pointer;transition:transform .12s,border-color .12s}
+.guessrow button:hover{transform:translateY(-2px)}
+#guessAI{background:rgba(91,140,255,.12);color:var(--acc);border-color:rgba(91,140,255,.45)}
+#guessAI:hover{border-color:var(--acc)}
+#guessHuman{background:rgba(56,217,169,.12);color:var(--acc2);border-color:rgba(56,217,169,.45)}
+#guessHuman:hover{border-color:var(--acc2)}
+#reveal{display:none;border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin-top:16px;background:var(--panel2)}
+#reveal.show{display:block;animation:pop .35s cubic-bezier(.2,1.6,.4,1)}
+#reveal.good{border-color:rgba(56,217,169,.5)}
+#reveal.badge-wrong{border-color:rgba(255,107,107,.5)}
+@keyframes pop{0%{transform:scale(.96);opacity:0}100%{transform:scale(1);opacity:1}}
+#revhead{font-weight:800;font-size:17px;margin-bottom:4px}
+#revsrc{color:var(--warn);font-size:13.5px}
+#revnote{color:var(--dim);font-size:13.5px;margin-top:6px}
+.next-btn{margin-top:14px;background:linear-gradient(90deg,var(--acc),#7b5bff);color:#fff;border:none;border-radius:10px;padding:12px 24px;font:inherit;font-weight:800;font-size:15px;cursor:pointer}
+.next-btn:hover{filter:brightness(1.1)}
+.ghost-btn{background:var(--panel2);border:1px solid var(--line);color:var(--dim);border-radius:10px;padding:11px 16px;font:inherit;font-size:14px;cursor:pointer}
+.ghost-btn:hover{color:var(--text);border-color:var(--acc)}
+#loadstate{color:#6b7891;font-size:13.5px}
+#endcard{display:none;background:var(--panel2);border:1px solid var(--line);border-radius:var(--r);padding:20px;margin-top:18px}
+#endcard.show{display:block;animation:pop .45s cubic-bezier(.2,1.6,.4,1)}
+#endhead{font-weight:800;font-size:clamp(19px,4vw,25px);letter-spacing:-.02em;margin-bottom:6px}
+#endsub{color:var(--dim);font-size:14px}
+#gridpreview{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:14px 0;font-family:var(--mono);font-size:14px;white-space:pre-wrap;line-height:1.7;color:var(--text)}
+.sharerow{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
+.sharerow a,.sharerow button{background:var(--panel);border:1px solid var(--line);color:var(--text);border-radius:10px;padding:10px 16px;font:inherit;font-size:14px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block}
+.sharerow a:hover,.sharerow button:hover{border-color:var(--acc)}
+.copy-btn{background:linear-gradient(90deg,var(--acc2),#2bb890)!important;color:#06281e!important;border:none!important;font-weight:800!important}
+#countdown{color:var(--dim);font-size:13.5px;margin-top:12px}
+#countdown b{color:var(--text);font-family:var(--mono)}
+#funnel{margin-top:14px;border-top:1px solid var(--line);padding-top:12px;font-size:14px;color:var(--dim)}
+#funnel a{font-weight:700}
+#practicebar{margin-top:14px}
+.cta{background:linear-gradient(135deg,#18223f,#131a33);border:1px solid var(--line);border-radius:var(--r);padding:24px;margin:40px 0;text-align:center}
+.cta h3{font-size:19px;margin:0 0 6px}
+.cta p{font-size:14px;margin-bottom:14px}
+.btn{background:linear-gradient(90deg,var(--acc),#7b5bff);color:#fff;border:0;border-radius:10px;padding:12px 22px;font-size:15px;font-weight:700;cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-block}
+.btn:hover{filter:brightness(1.1)}
+footer{border-top:1px solid var(--line);padding:34px 0;color:var(--dim);font-size:13px;margin-top:70px}
+footer .links{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:12px}
+footer a{color:var(--dim)}
+@media (max-width:520px){.guessrow{flex-direction:column}.guessrow button{width:100%}}
+@media (prefers-reduced-motion: reduce){#reveal.show,#endcard.show{animation:none}}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FZXLMBB5QB"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-FZXLMBB5QB');</script>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="/">Agent<span>Ready</span></a>
+  <nav><a href="/">Scanner</a><a href="/ai-shopper">🧦 AI Shopper</a><a href="/pricing">Pricing</a></nav>
+</header>
+
+<p class="meta">Daily game · From the team behind the free <a href="/">AI-visibility scanner</a></p>
+<h1>🧠 AI or <em>Human?</em></h1>
+<p class="lead">Five short passages a day. Some were written by classic authors — Thoreau, Darwin, Twain, Muir. Some were written by an AI for this game. Read each one and call it. Same puzzle for everyone, new at midnight UTC.</p>
+
+<div class="game-panel" id="gamepanel" aria-live="polite">
+  <p id="loadstate">Loading today's passages…</p>
+  <div id="game" style="display:none">
+    <div class="topline">
+      <span class="puzzletag" id="puzzletag"></span>
+      <span class="streakline" id="streakline"></span>
+    </div>
+    <div class="squares" id="squares"></div>
+    <div class="roundline" id="roundline"></div>
+    <blockquote class="passage" id="passage"></blockquote>
+    <div class="guessrow" id="guessrow">
+      <button id="guessAI" type="button">🤖 Written by AI</button>
+      <button id="guessHuman" type="button">🧑 Written by a human</button>
+    </div>
+    <div id="reveal">
+      <div id="revhead"></div>
+      <div id="revsrc"></div>
+      <div id="revnote"></div>
+      <button class="next-btn" id="nextBtn">Next passage →</button>
+    </div>
+
+    <div id="endcard">
+      <div id="endhead"></div>
+      <div id="endsub"></div>
+      <div id="gridpreview"></div>
+      <div class="sharerow">
+        <button class="copy-btn" id="copyResult">Copy result</button>
+        <a id="shareX" href="#" target="_blank" rel="noopener">Share on 𝕏</a>
+        <button id="webShare" style="display:none">Share…</button>
+      </div>
+      <div id="countdown"></div>
+      <div id="funnel"></div>
+      <div id="practicebar">
+        <button class="ghost-btn" id="practiceBtn">🎲 Practice round (random passages — no streak)</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2>How to play</h2>
+<ol>
+  <li>Read the passage. Decide: classic human author, or AI?</li>
+  <li>After each guess the true origin is revealed — with the author and work for human passages, and the tell to look for when an AI wrote it.</li>
+  <li>Score 4/5 or better to keep your streak. Copy your spoiler-free emoji grid and challenge someone.</li>
+</ol>
+
+<h2>Where the passages come from</h2>
+<p><b>Human passages</b> are drawn from public-domain nonfiction — Henry David Thoreau, Ralph Waldo Emerson, Charles Darwin, John Muir, Mark Twain, Benjamin Franklin, Isabella Bird, Mary Kingsley, Gilbert White, G.K. Chesterton and others — lightly adapted for length. The reveal names the author and work every time.</p>
+<p><b>AI passages</b> were written by an AI specifically for this game in 2026, on deliberately timeless topics, and are labeled as AI-written on reveal. Nothing here pretends to be something it isn't — the whole game is about learning to notice the difference.</p>
+
+<h2>FAQ</h2>
+<h3>How is the daily puzzle chosen?</h3>
+<p>By hashing the current UTC date over the passage pool — two or three AI passages per day, deterministically, so every player worldwide gets the same five. A fresh set drops at midnight UTC.</p>
+<h3>Does sharing my grid spoil the game?</h3>
+<p>No. The grid shows only right (🟩) and wrong (🟥) — never which passages were AI — so your share can't leak the answer key.</p>
+<h3>Why does this exist on a scanner site?</h3>
+<p>Because telling AI from human is exactly what AI shopping agents do to <em>your store's pages</em> every day — in reverse. If your product pages read ambiguously to machines, agents skip them. That's what the <a href="/">free AgentReady scan</a> measures.</p>
+
+<div class="cta">
+  <h3>AI agents are reading your store the way you just read these passages.</h3>
+  <p>Find out in 10 seconds whether ChatGPT, Claude and Perplexity can actually parse your pages.</p>
+  <a class="btn" href="/?utm_source=ai-or-human&utm_medium=game&utm_campaign=viral" id="cta-scan">Scan my site free →</a>
+</div>
+
+<footer>
+  <div class="links">
+    <a href="/">Free AI-visibility scan</a>
+    <a href="/ai-shopper">🧦 AI Shopper Simulator</a>
+    <a href="https://selltoagents.agiscorecard.com/brandle">🟩 Brandle</a>
+    <a href="https://selltoagents.agiscorecard.com/brand-battle">⚔️ Brand Battle</a>
+    <a href="/llms-txt-generator">Free llms.txt generator</a>
+    <a href="/pricing">Monitoring &amp; pricing</a>
+    <a href="https://agiscorecard.com">AGI Scorecard</a>
+  </div>
+  <div>© 2026 AgentReady · Human passages are public-domain nonfiction, lightly adapted and always attributed. AI passages were written by an AI for this game.</div>
+</footer>
+</div>
+
+<script id="aoh-core">
+/* Pure AI-or-Human logic — no DOM. Node-testable via module.exports. */
+var AOHCore = (function () {
+  var EPOCH = '2026-08-22'; /* puzzle #1 */
+  var SITE = 'https://agentready.agiscorecard.com';
+  var ROUNDS = 5;
+
+  /* The passage pool. type 'human' = public-domain nonfiction, lightly adapted
+     for length, always attributed. type 'ai' = written by an AI for this game
+     (2026), on deliberately timeless topics, labeled as such on reveal. */
+  var DATA = [
+    { id: 'h01', type: 'human', src: 'Henry David Thoreau, Walden (1854) · public domain, lightly adapted',
+      text: 'I went to the woods because I wished to live deliberately, to front only the essential facts of life, and see if I could not learn what it had to teach, and not, when I came to die, discover that I had not lived. I did not wish to live what was not life, living is so dear.' },
+    { id: 'h02', type: 'human', src: 'Ralph Waldo Emerson, Nature (1836) · public domain, lightly adapted',
+      text: 'If the stars should appear one night in a thousand years, how would men believe and adore; and preserve for many generations the remembrance of the city of God which had been shown! But every night come out these envoys of beauty, and light the universe with their admonishing smile.' },
+    { id: 'h03', type: 'human', src: 'Charles Darwin, On the Origin of Species (1859) · public domain, lightly adapted',
+      text: 'There is grandeur in this view of life, with its several powers, having been originally breathed into a few forms or into one; and that, whilst this planet has gone cycling on according to the fixed law of gravity, from so simple a beginning endless forms most beautiful and most wonderful have been, and are being, evolved.' },
+    { id: 'h04', type: 'human', src: 'Charles Darwin, The Voyage of the Beagle (1839) · public domain, lightly adapted',
+      text: 'A gun is here almost superfluous; for with the muzzle of one I pushed a hawk off the branch of a tree. All of the birds are so tame that they may be approached within a few feet, and some near enough to have a hat thrown over them. They have not yet learnt a salutary dread of man.' },
+    { id: 'h05', type: 'human', src: 'John Muir, My First Summer in the Sierra (1911) · public domain, lightly adapted',
+      text: 'When we try to pick out anything by itself, we find it hitched to everything else in the Universe. One fancies a heart like our own must be beating in every crystal and cell, and we feel like stopping to speak to the plants and animals as friendly fellow-mountaineers.' },
+    { id: 'h06', type: 'human', src: 'John Muir, The Mountains of California (1894) · public domain, lightly adapted',
+      text: 'The trees rocked and swirled in the passionate torrent, bending and swaying, each with a gesture of its own. The sounds of the storm corresponded gloriously with this wild exuberance of light and motion: the profound bass of the naked branches booming like waterfalls, and the quick, tense vibrations of the pine needles rising at times to a shrill, whistling hiss.' },
+    { id: 'h07', type: 'human', src: 'Mark Twain, Life on the Mississippi (1883) · public domain, lightly adapted',
+      text: 'The face of the water, in time, became a wonderful book — a book that was a dead language to the uneducated passenger, but which told its mind to me without reserve, delivering its most cherished secrets as clearly as if it uttered them with a voice. And it was not a book to be read once and thrown aside, for it had a new story to tell every day.' },
+    { id: 'h08', type: 'human', src: 'Mark Twain, Roughing It (1872) · public domain, lightly adapted',
+      text: 'Three months of camp life on Lake Tahoe would restore an Egyptian mummy to his pristine vigor and give him an appetite like an alligator. The air up there in the clouds is very pure and fine, bracing and delicious. And why should it not be? — it is the same the angels breathe.' },
+    { id: 'h09', type: 'human', src: 'Gilbert White, The Natural History of Selborne (1789) · public domain, lightly adapted',
+      text: 'The swift is almost continually on the wing; and as it never settles on the ground, on trees, or on the roofs of houses, it would seem to eat, drink, and even sleep in the air. It leaves us early, the first of all its congeners, while food is yet abundant — a circumstance for which I can give no reason.' },
+    { id: 'h10', type: 'human', src: 'Benjamin Franklin, Autobiography (1791) · public domain, lightly adapted',
+      text: 'Then I walked up the street, gazing about, till near the market-house I met a boy with bread. I bade him give me three-penny worth of any sort. He gave me three great puffy rolls. I was surprised at the quantity, but took it, and, having no room in my pockets, walked off with a roll under each arm, eating the other.' },
+    { id: 'h11', type: 'human', src: "Isabella Bird, A Lady's Life in the Rocky Mountains (1879) · public domain, lightly adapted",
+      text: 'Estes Park is mine by right of love, appropriation, and appreciation; by the seizure of its peerless sunrises and sunsets, its glorious afterglow, its blazing noons, its hurricanes sharp and furious, its wild auroras, its glories of mountain and forest, of canyon, lake, and river.' },
+    { id: 'h12', type: 'human', src: 'Mary Kingsley, Travels in West Africa (1897) · public domain, lightly adapted',
+      text: 'On one occasion a mighty crocodile chose to get his front paws over the stern of my canoe, and endeavored to improve our acquaintance. I had to retire to the bows, to keep the balance right, and fetch him a clip on the snout with a paddle, when he withdrew, and I paddled into the very middle of the lagoon, hoping the water there was too deep for him.' },
+    { id: 'h13', type: 'human', src: 'Henry Walter Bates, The Naturalist on the River Amazons (1863) · public domain, lightly adapted',
+      text: 'The number and beauty of the butterflies were so great that I could scarcely walk a dozen yards without seeing some new species. About eighty were found within ten minutes’ walk of our house — a number which will convey some idea of the wonderful exuberance of insect life in these regions.' },
+    { id: 'h14', type: 'human', src: 'G.K. Chesterton, Tremendous Trifles (1909) · public domain, lightly adapted',
+      text: 'The world will never starve for want of wonders; but only for want of wonder. We may scale the heavens and find new stars innumerable, but there is still the one star we have hardly begun to explore — the one on which we happen to have been born.' },
+    { id: 'h15', type: 'human', src: 'Washington Irving, The Sketch Book (1819) · public domain, lightly adapted',
+      text: 'To an American visiting Europe, the long voyage he has to make is an excellent preparative. The vast space of waters that separates the hemispheres is like a blank page in existence. There is no gradual transition by which, as in Europe, the features and population of one country blend almost imperceptibly with those of another.' },
+    { id: 'h16', type: 'human', src: 'Charles Dickens, American Notes (1842) · public domain, lightly adapted',
+      text: 'Then, when I felt how near to my Creator I was standing, the first effect, and the enduring one — instant and lasting — of the tremendous spectacle, was peace. Peace of mind, tranquillity, calm recollections of the dead, great thoughts of eternal rest and happiness: nothing of gloom or terror.' },
+    { id: 'h17', type: 'human', src: 'Celia Thaxter, An Island Garden (1894) · public domain, lightly adapted',
+      text: 'When the poppy flower unfolds, the two green sepals drop off and leave the petals free, crumpled like crushed silk, to smooth themselves out in the sun. It is held upright upon its stem like a cup of color, a flower of dreams, and no other blossom that grows carries itself with such an air.' },
+    { id: 'h18', type: 'human', src: 'Richard Jefferies, The Pageant of Summer (1883) · public domain, lightly adapted',
+      text: 'Green rushes, long and thick, standing up above the edge of the ditch, told the hour of the year as distinctly as the shadow on the dial. Green and thick and sappy to the touch, they gave the impression of a great vigour of life; the hours of the sun seemed poured into them as into a cup.' },
+    { id: 'h19', type: 'human', src: 'Theodore Roosevelt, Hunting Trips of a Ranchman (1885) · public domain, lightly adapted',
+      text: 'Nowhere, not even at sea, does a man feel more lonely than when riding over the far-reaching, seemingly never-ending plains; and after a man has lived a little while on or near them, their very vastness and loneliness and their melancholy monotony have a strong fascination for him.' },
+    { id: 'h20', type: 'human', src: 'John Burroughs, Wake-Robin (1871) · public domain, lightly adapted',
+      text: 'The birds do indeed begin with the day. The farmer who is in the field at work while he can yet see stars catches their first matin hymns. In the longest June days the robin strikes up about half-past three o’clock, and is quickly followed by the song sparrow, the oriole, the catbird, and all the rest of the tuneful choir.' },
+    { id: 'h21', type: 'human', src: 'Henry David Thoreau, Walden (1854) · public domain, lightly adapted',
+      text: 'The morning wind forever blows, the poem of creation is uninterrupted; but few are the ears that hear it. Olympus is but the outside of the earth everywhere. Little is to be expected of that day, if it can be called a day, to which we are not awakened by our own newly acquired force and aspirations from within.' },
+    { id: 'h22', type: 'human', src: 'Walt Whitman, Specimen Days (1882) · public domain, lightly adapted',
+      text: 'The trick is, I find, to tone your wants and tastes low down enough, and make much of negatives, and of mere daylight and the skies. After you have exhausted what there is in business, politics, conviviality, and so on — have found that none of these finally satisfy — what remains? Nature remains.' },
+    { id: 'h23', type: 'human', src: 'Charles Dudley Warner, My Summer in a Garden (1870) · public domain, lightly adapted',
+      text: 'What a man needs in gardening is a cast-iron back, with a hinge in it. The hoe is an ingenious instrument, calculated to call out a great deal of strength at a great disadvantage; yet what a man wants with his garden is not so much vegetables as the pleasure of seeing things grow.' },
+    { id: 'h24', type: 'human', src: 'Henry David Thoreau, Walden (1854) · public domain, lightly adapted',
+      text: 'Time is but the stream I go a-fishing in. I drink at it; but while I drink I see the sandy bottom and detect how shallow it is. Its thin current slides away, but eternity remains. I would drink deeper; fish in the sky, whose bottom is pebbly with stars.' },
+
+    { id: 'a01', type: 'ai', src: 'Written by an AI for this game (2026)',
+      note: 'The "aren’t just X — they’re Y" upgrade move is one of the most reliable AI tells in the wild.',
+      text: 'There’s something quietly magical about a farmers’ market on a Saturday morning. The tomatoes aren’t just red — they’re a celebration of the season. Vendors greet you not as a customer but as a neighbor, and every stall tells a story. In a world of one-click convenience, the market reminds us that the best things still take time.' },
+    { id: 'a02', type: 'ai', src: 'Written by an AI for this game (2026)',
+      note: 'Note the tidy three-part list ("executives, students, and night-shift nurses") — AI prose loves triads.',
+      text: 'The commuter train is a small democracy in motion. Executives, students, and night-shift nurses all surrender to the same timetable, the same rhythm of stops and starts. Nobody is in charge, yet everyone knows the rules: bags off seats, voices low, eyes mostly elsewhere. For twenty-six minutes, strangers agree to be predictable together.' },
+    { id: 'a03', type: 'ai', src: 'Written by an AI for this game (2026)',
+      text: 'A tidepool is an ecosystem with a deadline. Twice a day the ocean withdraws its protection, leaving anemones, hermit crabs, and sculpins to manage on their own in a puddle the size of a kitchen sink. Everything here is a specialist in waiting. When the water returns, the pool simply dissolves back into the sea, as if the whole drama had never happened.' },
+    { id: 'a04', type: 'ai', src: 'Written by an AI for this game (2026)',
+      note: 'The closing "It is not just food. It is proof of patience." is the classic AI mic-drop cadence.',
+      text: 'Sourdough is less a recipe than a relationship. The starter must be fed, watched, and forgiven; it sulks in cold kitchens and grows ambitious in warm ones. Bakers talk about their starters the way gardeners talk about weather — with equal parts affection and resignation. The bread that results is not just food. It is proof of patience.' },
+    { id: 'a05', type: 'ai', src: 'Written by an AI for this game (2026)',
+      text: 'Lighthouses are perhaps the most honest buildings ever made. They exist for one purpose: to be seen. Every element of their design — the height, the stripes, the sweeping beam — serves visibility. In an age of GPS, most are no longer strictly necessary, yet we keep them lit and painted. It turns out we need the symbol as much as sailors needed the signal.' },
+    { id: 'a06', type: 'ai', src: 'Written by an AI for this game (2026)',
+      text: 'A public library is one of the last places you can enter without being expected to buy anything. It asks nothing of you except quiet. Within its walls, a retiree researching family history sits beside a teenager avoiding one, and both are equally welcome. The library’s radical proposition is simple: knowledge, like shelter from the rain, should be free.' },
+    { id: 'a07', type: 'ai', src: 'Written by an AI for this game (2026)',
+      note: 'Human essayists rarely stay this evenly balanced for four straight sentences.',
+      text: 'Autumn rain has a different vocabulary than summer rain. It doesn’t announce itself with thunder; it settles in, patient and administrative, as if working through a long list. The gutters fill with leaves, the windows blur, and the whole afternoon takes on the gray productivity of a well-run office. It is weather for finishing things.' },
+    { id: 'a08', type: 'ai', src: 'Written by an AI for this game (2026)',
+      text: 'A paper map never recalculates. It offers no route, no arrival time, no confident voice — only the entire landscape at once, indifferent to your plans. Reading one is a collaboration: you supply the intention, the map supplies the possibilities. Getting lost with a paper map feels like your own fault, which is oddly liberating.' },
+    { id: 'a09', type: 'ai', src: 'Written by an AI for this game (2026)',
+      text: 'Cycling to work converts a commute into a negotiation with physics. Every hill is a debt, every descent a repayment with interest. You arrive knowing the day’s weather not as a forecast but as a fact experienced at twenty kilometers per hour. The car commuter and the cyclist travel the same road, but only one of them has been outside.' },
+    { id: 'a10', type: 'ai', src: 'Written by an AI for this game (2026)',
+      text: 'A honeybee colony runs on consensus without meetings. Scout bees returning from promising flowers dance their coordinates on the comb, and the vigor of the dance is the argument. Other bees verify the claim before the colony commits. It is peer review, performed in the dark, by insects, and it has worked for millions of years.' },
+    { id: 'a11', type: 'ai', src: 'Written by an AI for this game (2026)',
+      note: 'The neat summary sentence at the end — "a matter of patience" — is a structural tell: AI paragraphs love to file their own conclusions.',
+      text: 'Stargazing rewards the underprepared. You don’t need a telescope, an app, or a plan — just darkness and the willingness to let your eyes adjust. After twenty minutes, stars you would have sworn weren’t there begin to arrive, as if the sky were gradually raising its resolution. The universe, it turns out, is mostly a matter of patience.' },
+    { id: 'a12', type: 'ai', src: 'Written by an AI for this game (2026)',
+      text: 'Secondhand bookshops operate on a logic no algorithm can replicate. The inventory is whatever people happened to give up; the organization is aspirational at best. You cannot search, you can only browse — and so you leave with a book you didn’t know existed, inscribed to a stranger in 1974. No recommendation engine has ever been that specific.' },
+    { id: 'a13', type: 'ai', src: 'Written by an AI for this game (2026)',
+      text: 'The ferry is the only form of transit that encourages you to leave your seat. Passengers drift to the railings, coffee in hand, to watch the water do essentially nothing. There is no scenery in the conventional sense — just wake, gulls, and the slow approach of the far shore. Yet nobody looks at their phone. The ferry has solved something.' },
+    { id: 'a14', type: 'ai', src: 'Written by an AI for this game (2026)',
+      text: 'The first snow of the year performs a kind of civic editing. Overnight it deletes the lawn clutter, the road markings, the difference between tidy yards and neglected ones. Sound itself is muffled, as if the volume of the world had been turned down out of respect. By afternoon the edit will be reversed — but for one morning, everything is a draft again.' },
+    { id: 'a15', type: 'ai', src: 'Written by an AI for this game (2026)',
+      text: 'A greenhouse is an argument with the calendar. Inside its glass walls, tomatoes ripen in defiance of frost warnings, and February smells like June. The gardener who steps inside sheds winter at the door. It is a small, humid rebellion — climate control in the most literal sense — and every seedling on the bench is a co-conspirator.' },
+    { id: 'a16', type: 'ai', src: 'Written by an AI for this game (2026)',
+      text: 'A mechanical clock does not know what time it is. It only knows how to be consistent — to divide the day into equal, audible pieces and to trust that consistency will pass for truth. Wind it, and it resumes without complaint. In a drawer, unwound, it remains a clock the way a closed piano remains an instrument: entirely, and not at all.' },
+    { id: 'a17', type: 'ai', src: 'Written by an AI for this game (2026)',
+      text: 'Flying a kite is a conversation conducted through a single string. The wind proposes; you counter; the kite translates. Too much tension and it dives, too little and it wilts. Children assume the goal is altitude, but veterans know the real prize is equilibrium — that long moment when the string goes quiet and the sky agrees to hold your kite for you.' },
+    { id: 'a18', type: 'ai', src: 'Written by an AI for this game (2026)',
+      note: 'Calling ordinary routine a "ceremony" and cataloguing it in three steps is textbook AI lyricism.',
+      text: 'The first coffee of the morning is less about caffeine than about ceremony. The kettle’s rising grumble, the bloom of the grounds, the specific mug — each step is a small verification that the day has, in fact, begun. Instant coffee delivers the same molecule in a fraction of the time, which is precisely why it feels like cheating.' },
+    { id: 'a19', type: 'ai', src: 'Written by an AI for this game (2026)',
+      text: 'The dawn chorus is territorial paperwork filed out loud. Each bird’s song announces, in effect: still here, still mine. To human ears the effect is pure serenity; to the birds it is a morning of vigorous administration. That the sound of several hundred simultaneous property claims should be the most peaceful thing we know is one of nature’s better jokes.' },
+    { id: 'a20', type: 'ai', src: 'Written by an AI for this game (2026)',
+      text: 'A thunderstorm restores the correct order of magnitude. One moment you are answering emails; the next, the sky is rehearsing percussion and the house lights flicker like stagehands signaling a scene change. Whatever seemed urgent at three in the afternoon is postponed by unanimous consent. The storm asks nothing of you except to notice it, and everyone does.' },
+    { id: 'a21', type: 'ai', src: 'Written by an AI for this game (2026)',
+      text: 'A vegetable garden teaches accounting with dirt. You deposit seeds, compost, and hours; the returns arrive months later, in zucchini. The exchange rate is absurd — no reasonable analysis would endorse growing your own carrots — and yet gardeners persist, because the ledger omits the main asset: a standing invitation to be outside with a purpose.' },
+    { id: 'a22', type: 'ai', src: 'Written by an AI for this game (2026)',
+      text: 'River otters treat physics as a suggestion. They enter the water without a splash, exit without effort, and spend the interval doing what can only be described as showing off. Biologists note that otter play builds hunting skills, which may be true, but watch one slide down the same muddy bank nine times and try to call it vocational training.' },
+    { id: 'a23', type: 'ai', src: 'Written by an AI for this game (2026)',
+      text: 'A harbor at night is a spreadsheet of small lights: red to port, green to starboard, anchor lights swaying at mast height like slow metronomes. Each one encodes a rule, a position, an intention. The water repeats them all in wavering italics. Nothing else in a city is simultaneously this quiet and this thoroughly annotated.' },
+    { id: 'a24', type: 'ai', src: 'Written by an AI for this game (2026)',
+      text: 'Every attic is an accidental museum. The exhibits — a tennis racket, a carousel of slides, a coat nobody remembers buying — were curated by procrastination rather than intention. Visit with the intention of clearing it out, and you will fail. The attic’s collection defends itself, one artifact at a time, with the only weapon it needs: the question of who you used to be.' }
+  ];
+
+  function hashStr(s) { /* FNV-1a 32-bit */
+    var h = 0x811c9dc5;
+    for (var i = 0; i < s.length; i++) {
+      h ^= s.charCodeAt(i);
+      h = Math.imul(h, 0x01000193) >>> 0;
+    }
+    return h >>> 0;
+  }
+  function mulberry32(seed) {
+    return function () {
+      seed |= 0; seed = (seed + 0x6D2B79F5) | 0;
+      var t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  function utcDateStr(d) {
+    d = d || new Date();
+    return d.toISOString().slice(0, 10);
+  }
+  function puzzleNumber(dateStr) {
+    var days = Math.round((Date.parse(dateStr + 'T00:00:00Z') - Date.parse(EPOCH + 'T00:00:00Z')) / 86400000);
+    return days + 1;
+  }
+  function seededShuffle(arr, rng) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(rng() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+  /* Deterministic daily set: 5 passages, 2-3 of them AI, same for everyone on
+     a given UTC day. Selection and order depend only on the date string. */
+  function dailyRounds(dateStr, data) {
+    data = data || DATA;
+    var seed = hashStr('aoh:' + dateStr);
+    var rng = mulberry32(seed);
+    var ai = data.filter(function (t) { return t.type === 'ai'; });
+    var human = data.filter(function (t) { return t.type === 'human'; });
+    var nAi = 2 + (seed % 2);
+    var picks = seededShuffle(ai, rng).slice(0, nAi)
+      .concat(seededShuffle(human, rng).slice(0, ROUNDS - nAi));
+    return seededShuffle(picks, rng);
+  }
+  /* Spoiler-free grid: 🟩 right / 🟥 wrong per round. Never encodes which
+     passages were AI, so a shared result can't leak the day's answer key. */
+  function emojiGrid(results) {
+    var s = '';
+    for (var i = 0; i < results.length; i++) s += results[i] ? '🟩' : '🟥';
+    return s;
+  }
+  function scoreOf(results) {
+    var n = 0;
+    for (var i = 0; i < results.length; i++) if (results[i]) n++;
+    return n;
+  }
+  function verdict(score) {
+    if (score === 5) return 'Perfect — certified human detector 🕵️';
+    if (score === 4) return 'Sharp eye. Only one slipped past you.';
+    if (score === 3) return 'Better than a coin flip — barely.';
+    if (score === 2) return 'The prose is winning.';
+    return 'The machines fooled you 🤖';
+  }
+  function shareMessage(puzzleNo, results) {
+    return 'AI or Human? #' + puzzleNo + ' — ' + scoreOf(results) + '/5\n' +
+      emojiGrid(results) + '\n' +
+      'Thoreau, Darwin, Twain… or a bot? Call it:\n' +
+      SITE + '/ai-or-human';
+  }
+  /* Streak: consecutive UTC days scoring 4/5+. A miss resets; a day already
+     recorded is a no-op. */
+  var WIN_SCORE = 4;
+  function updateStreak(prev, dateStr, score) {
+    var s = (prev && typeof prev === 'object')
+      ? { last: prev.last || null, current: +prev.current || 0, max: +prev.max || 0 }
+      : { last: null, current: 0, max: 0 };
+    if (s.last === dateStr) return s;
+    if (score >= WIN_SCORE) {
+      var yest = new Date(Date.parse(dateStr + 'T00:00:00Z') - 86400000).toISOString().slice(0, 10);
+      s.current = (s.last === yest) ? s.current + 1 : 1;
+    } else {
+      s.current = 0;
+    }
+    if (s.current > s.max) s.max = s.current;
+    s.last = dateStr;
+    return s;
+  }
+  function msToNextUtcMidnight(now) {
+    var d = new Date(now);
+    return Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate() + 1) - now;
+  }
+  function fmtCountdown(ms) {
+    var t = Math.max(0, Math.floor(ms / 1000));
+    var h = Math.floor(t / 3600), m = Math.floor((t % 3600) / 60), s = t % 60;
+    var p = function (n) { return (n < 10 ? '0' : '') + n; };
+    return p(h) + ':' + p(m) + ':' + p(s);
+  }
+  return {
+    EPOCH: EPOCH, SITE: SITE, ROUNDS: ROUNDS, WIN_SCORE: WIN_SCORE, DATA: DATA,
+    hashStr: hashStr, mulberry32: mulberry32, utcDateStr: utcDateStr,
+    puzzleNumber: puzzleNumber, seededShuffle: seededShuffle, dailyRounds: dailyRounds,
+    emojiGrid: emojiGrid, scoreOf: scoreOf, verdict: verdict, shareMessage: shareMessage,
+    updateStreak: updateStreak, msToNextUtcMidnight: msToNextUtcMidnight, fmtCountdown: fmtCountdown
+  };
+})();
+if (typeof module !== 'undefined' && module.exports) module.exports = AOHCore;
+</script>
+
+<script id="aoh-ui">
+(function () {
+  'use strict';
+  var C = AOHCore;
+  var $ = function (id) { return document.getElementById(id); };
+  var LS_KEY = 'aoh-v1';
+
+  var rounds = [];      /* today's 5 passages */
+  var guesses = [];     /* 'ai' | 'human' per answered round */
+  var results = [];     /* boolean per answered round */
+  var done = false;
+  var mode = 'daily';   /* 'daily' | 'practice' */
+  var today = C.utcDateStr();
+  var puzzleNo = C.puzzleNumber(today);
+  var cdTimer = null;
+
+  function track(name, params) {
+    try { if (typeof gtag === 'function') gtag('event', name, params || {}); } catch (e) {}
+  }
+  function loadState() {
+    try { return JSON.parse(localStorage.getItem(LS_KEY)) || {}; } catch (e) { return {}; }
+  }
+  function saveState(st) {
+    try { localStorage.setItem(LS_KEY, JSON.stringify(st)); } catch (e) {}
+  }
+  function saveDay() {
+    if (mode !== 'daily') return;
+    var st = loadState();
+    st.day = { date: today, guesses: guesses.slice(), done: done };
+    saveState(st);
+  }
+
+  function startDaily() {
+    mode = 'daily';
+    rounds = C.dailyRounds(today);
+    guesses = []; results = []; done = false;
+    $('puzzletag').textContent = 'AI or Human? #' + puzzleNo;
+    renderStreak();
+    resetBoard();
+    var st = loadState();
+    var saved = st.day && st.day.date === today ? st.day : null;
+    if (saved && saved.guesses && saved.guesses.length) {
+      var replay = saved.guesses.slice(0, C.ROUNDS);
+      for (var i = 0; i < replay.length; i++) {
+        guesses.push(replay[i]);
+        results.push((replay[i] === 'ai') === (rounds[i].type === 'ai'));
+      }
+      if (saved.done || guesses.length >= C.ROUNDS) { done = true; finish(true); return; }
+      renderRound();
+    } else {
+      track('aoh_start', { puzzle: puzzleNo });
+      renderRound();
+    }
+  }
+
+  function startPractice() {
+    mode = 'practice';
+    var pool = C.seededShuffle(C.DATA, function () { return Math.random(); });
+    rounds = pool.slice(0, C.ROUNDS);
+    guesses = []; results = []; done = false;
+    $('puzzletag').textContent = 'Practice round';
+    renderStreak();
+    resetBoard();
+    renderRound();
+    track('aoh_start', { puzzle: 'practice' });
+    $('gamepanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function resetBoard() {
+    $('endcard').className = '';
+    $('reveal').className = '';
+    $('guessrow').style.display = 'flex';
+    $('passage').style.display = 'block';
+    $('roundline').style.display = 'block';
+  }
+
+  function renderStreak() {
+    var s = loadState().streak || { current: 0, max: 0 };
+    $('streakline').innerHTML = '🔥 streak <b>' + (+s.current || 0) + '</b> · best <b>' + (+s.max || 0) + '</b> · 4/5+ keeps it alive';
+  }
+  function renderSquares() {
+    var s = C.emojiGrid(results);
+    for (var i = results.length; i < C.ROUNDS; i++) s += '⬜';
+    $('squares').textContent = s;
+  }
+  function renderRound() {
+    var n = guesses.length;
+    renderSquares();
+    $('roundline').textContent = 'Passage ' + (n + 1) + ' of ' + C.ROUNDS;
+    $('passage').textContent = rounds[n].text;
+    $('reveal').className = '';
+    $('guessrow').style.display = 'flex';
+  }
+
+  function guess(kind) {
+    if (done || $('reveal').className.indexOf('show') !== -1) return;
+    var n = guesses.length;
+    var item = rounds[n];
+    var correct = (kind === 'ai') === (item.type === 'ai');
+    guesses.push(kind);
+    results.push(correct);
+    saveDay();
+    renderSquares();
+    track('aoh_guess', { n: n + 1, mode: mode });
+
+    $('guessrow').style.display = 'none';
+    var rev = $('reveal');
+    $('revhead').textContent = (correct ? '✅ Right — ' : '❌ Wrong — ') +
+      (item.type === 'ai' ? 'an AI wrote this.' : 'a human wrote this.');
+    $('revsrc').textContent = item.src;
+    $('revnote').textContent = item.note || '';
+    $('nextBtn').textContent = guesses.length >= C.ROUNDS ? 'See your result →' : 'Next passage →';
+    rev.className = 'show ' + (correct ? 'good' : 'badge-wrong');
+  }
+
+  $('guessAI').addEventListener('click', function () { guess('ai'); });
+  $('guessHuman').addEventListener('click', function () { guess('human'); });
+
+  $('nextBtn').addEventListener('click', function () {
+    if (guesses.length >= C.ROUNDS) {
+      done = true;
+      finish(false);
+    } else {
+      renderRound();
+    }
+  });
+
+  function finish(restored) {
+    var score = C.scoreOf(results);
+    $('reveal').className = '';
+    $('guessrow').style.display = 'none';
+    $('passage').style.display = 'none';
+    $('roundline').style.display = 'none';
+    renderSquares();
+
+    if (!restored) {
+      track('aoh_end', { score: score, mode: mode });
+      if (mode === 'daily') {
+        var st = loadState();
+        st.streak = C.updateStreak(st.streak, today, score);
+        saveState(st);
+        saveDay();
+      }
+    }
+    renderStreak();
+
+    $('endhead').textContent = (score >= C.WIN_SCORE ? '🧠 ' : '🤖 ') + score + '/5 — ' + C.verdict(score);
+    var aiCount = 0;
+    for (var i = 0; i < rounds.length; i++) if (rounds[i].type === 'ai') aiCount++;
+    $('endsub').textContent = 'Today’s mix: ' + aiCount + ' AI passage' + (aiCount === 1 ? '' : 's') + ', ' +
+      (C.ROUNDS - aiCount) + ' from public-domain authors. Sources are shown on every reveal.';
+
+    var msg = mode === 'daily'
+      ? C.shareMessage(puzzleNo, results)
+      : 'AI or Human? practice — ' + score + '/5\n' + C.emojiGrid(results) + '\n' + C.SITE + '/ai-or-human';
+    $('gridpreview').textContent = msg;
+    $('shareX').href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(msg);
+
+    $('funnel').innerHTML =
+      'More games: <a href="/ai-shopper">🧦 AI Shopper Simulator</a>' +
+      ' · <a href="https://selltoagents.agiscorecard.com/brandle">🟩 Brandle</a>' +
+      ' · AI agents read <b>your store</b> the same way. <a href="/?utm_source=ai-or-human&utm_medium=game&utm_campaign=viral" id="funnel-scan">Free 10-second scan →</a>';
+    var fs = document.getElementById('funnel-scan');
+    if (fs) fs.addEventListener('click', function () { track('scan_click', { from: 'ai-or-human' }); });
+
+    $('copyResult').onclick = function () {
+      track('share_click', { method: 'copy' });
+      var okUi = function () {
+        $('copyResult').textContent = 'Copied ✓';
+        setTimeout(function () { $('copyResult').textContent = 'Copy result'; }, 1600);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(msg).then(okUi).catch(function () { fallbackCopy(msg); okUi(); });
+      } else { fallbackCopy(msg); okUi(); }
+    };
+    if (navigator.share) {
+      var ws = $('webShare');
+      ws.style.display = 'inline-block';
+      ws.onclick = function () {
+        track('share_click', { method: 'web_share' });
+        navigator.share({ title: 'AI or Human?', text: msg }).catch(function () {});
+      };
+    }
+
+    if (cdTimer) { clearInterval(cdTimer); cdTimer = null; }
+    var tick = function () {
+      $('countdown').innerHTML = 'Next puzzle in <b>' + C.fmtCountdown(C.msToNextUtcMidnight(Date.now())) + '</b> (midnight UTC)';
+    };
+    tick();
+    cdTimer = setInterval(tick, 1000);
+
+    $('endcard').className = 'show';
+    $('endcard').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function fallbackCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+
+  $('shareX').addEventListener('click', function () { track('share_click', { method: 'x' }); });
+  $('practiceBtn').addEventListener('click', startPractice);
+  $('cta-scan').addEventListener('click', function () { track('scan_click', { from: 'ai-or-human-cta' }); });
+
+  $('loadstate').style.display = 'none';
+  $('game').style.display = 'block';
+  startDaily();
+})();
+</script>
+</body>
+</html>

@@ -14,6 +14,7 @@
 - [Pricing & monitoring](/pricing): start free AI-visibility monitoring with email alerts
 - [Get Agent-Ready Verified](/get-verified): earn an embeddable, live-verified badge proving your store is visible to AI shopping agents
 - [AI Shopper Simulator](/ai-shopper): free interactive text adventure — an AI agent tries to buy socks from your store; teaches robots.txt, llms.txt, schema and checkout agent-readiness through comedy
+- [AI or Human?](/ai-or-human): free daily quiz — guess whether each short passage was written by a classic public-domain author or by an AI; spoiler-free shareable score grid
 - [Methodology](/#how): what the score measures
 - [FAQ](/#faq): common questions
 
