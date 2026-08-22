@@ -1,6 +1,6 @@
 {
   "updatedAt": "2026-08-22",
-  "generatedAtUtc": "2026-08-22T05:15:04.605Z",
+  "generatedAtUtc": "2026-08-22T05:58:15.633Z",
   "geos": [
     "US",
     "GB",
@@ -72,6 +72,13 @@
       "published": "Fri, 21 Aug 2026 10:02:24 GMT",
       "source": "CMSWire",
       "query": "llms.txt"
+    },
+    {
+      "title": "What Model Context Protocol (MCP) means for market research - YouGov",
+      "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxNS0dsNkVrbVJqMGNUWmNaczJ5cm90UnNwYTdJMmx4LUdIbGQ5N3I0UFRObXRpXzU1LWJlcXV6cE0yeU5sa0czOXZFWG00bHZ5T0tXcWp3RTl4MHdhWjNSRUxzVzdkZ0lVQjBfOUtEX0xLRXFjR2IxdGI5dTFEZkJCR2thWjhTOVByZEdjal9n?oc=5",
+      "published": "Fri, 21 Aug 2026 09:48:11 GMT",
+      "source": "YouGov",
+      "query": "Model Context Protocol"
     },
     {
       "title": "Inside MCP's Biggest Overhaul: How Amazon Is Rebuilding the Infrastructure Behind AI Agents - Technology Org",
@@ -170,13 +177,6 @@
       "published": "Thu, 20 Aug 2026 10:12:15 GMT",
       "source": "Investing.com",
       "query": "Model Context Protocol"
-    },
-    {
-      "title": "True Fit Introduces Fit Intelligence Layer for Agentic Commerce - WWD",
-      "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNN3F1ZzdmSFh6QmZLN21kNVJ5TW14STAtdWFjSFo3eGstbmRoZEtxMXg0WGZYOGYxdlJsU3E5Y24xWnBiUTlfc3RDMzFHdDBGQ2Rrek9XdUJxT2RETFBGeWZCdS1kU0xVbktjN2pyV3Q2WFBVc2RhcGFLalBzYzNmcEZXYTFuXzlLSjEtWU12VUhhSEM3V2xMYzdRX2lFLU1SSGwwanROeERTRk5kYnpV?oc=5",
-      "published": "Thu, 20 Aug 2026 09:12:10 GMT",
-      "source": "WWD",
-      "query": "agentic commerce"
     }
   ],
   "totals": {
