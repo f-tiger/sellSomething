@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brand Battle — which brand do AI shoppers actually see?</title>
+<meta name="description" content="Pit two DTC brands head-to-head on real AI-visibility scores. Score bars race, checks reveal, one brand wins the AI shelf. Play the daily matchup or pick your own.">
+<link rel="canonical" href="https://selltoagents.agiscorecard.com/brand-battle">
+<meta property="og:title" content="⚔️ Brand Battle — which brand do AI shoppers actually see?">
+<meta property="og:description" content="Head-to-head AI-visibility battles between real DTC brands, powered by live AgentReady scan data. Play the daily matchup — then see if your own store survives.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://selltoagents.agiscorecard.com/brand-battle">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="⚔️ Brand Battle — which brand do AI shoppers actually see?">
+<meta name="twitter:description" content="Head-to-head AI-visibility battles between real DTC brands. Play the daily matchup — then see if your own store survives.">
+<link rel="stylesheet" href="/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Brand Battle",
+      "url": "https://selltoagents.agiscorecard.com/brand-battle",
+      "applicationCategory": "GameApplication",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "description": "A head-to-head game that compares two DTC brands on real AI-shopping-visibility scores from the DTC AI Visibility Index.",
+      "publisher": { "@type": "Organization", "name": "SellToAgents" }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Where do the Brand Battle scores come from?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Every score comes from the DTC AI Visibility Index: each brand's homepage is scanned live by the free AgentReady scanner across 19 machine-readable signals AI shopping agents rely on (crawler access, structured data, llms.txt, sitemap and more), scored 0-100 and updated weekly." }
+        },
+        {
+          "@type": "Question",
+          "name": "What does winning a Brand Battle actually mean?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The winner is simply the brand with the higher AI-visibility score — meaning its store is more machine-readable to AI shopping agents like ChatGPT, Claude and Perplexity. A high score doesn't guarantee recommendations, but a low one nearly guarantees invisibility." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I battle my own store?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The battle roster is limited to the brands in the DTC AI Visibility Index, but you can get the exact same scan for your own store free in about 10 seconds with AgentReady at agentready.agiscorecard.com." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+.battle-panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:22px;margin:22px 0}
+.pickrow{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.pickrow .vs{font-weight:800;color:var(--warn);font-size:18px;flex:0 0 auto}
+.pickrow input{flex:1 1 180px;min-width:0;background:var(--panel2);border:1px solid var(--line);border-radius:10px;color:var(--text);font:inherit;font-size:15px;padding:11px 14px}
+.pickrow input:focus{outline:none;border-color:var(--acc2)}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;align-items:center}
+.fight-btn{flex:1 1 160px;background:linear-gradient(90deg,var(--acc),#2bb890);color:#04110c;border:none;border-radius:10px;padding:14px 24px;font:inherit;font-weight:800;font-size:17px;letter-spacing:.04em;cursor:pointer}
+.fight-btn:hover{filter:brightness(1.08)}
+.fight-btn:disabled{opacity:.5;cursor:not-allowed}
+.ghost-btn{background:var(--panel2);border:1px solid var(--line);color:var(--dim);border-radius:10px;padding:12px 16px;font:inherit;font-size:14px;cursor:pointer}
+.ghost-btn:hover{color:var(--text);border-color:var(--acc2)}
+.picknote{color:var(--warn);font-size:13.5px;margin-top:10px;min-height:1em}
+#arena{display:none;cursor:pointer}
+#arena.on{display:block}
+.fighters{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:start}
+.fighter{min-width:0}
+.fighter.right{text-align:right}
+.fname{font-weight:800;font-size:clamp(16px,3.5vw,22px);letter-spacing:-.02em;overflow-wrap:anywhere}
+.fdomain{color:var(--dim);font-size:12.5px;overflow-wrap:anywhere}
+.vs-big{align-self:center;color:var(--warn);font-weight:800;font-size:clamp(14px,3vw,20px);padding-top:6px}
+.barwrap{background:var(--panel2);border:1px solid var(--line);border-radius:8px;height:18px;margin:10px 0 6px;overflow:hidden}
+.bar{height:100%;width:0%;border-radius:8px 0 0 8px;background:linear-gradient(90deg,var(--acc2),#7fa6ff);transition:none}
+.fighter.right .bar{margin-left:auto;border-radius:0 8px 8px 0;background:linear-gradient(270deg,var(--acc),#2bb890)}
+.scoreline{font-size:15px}
+.scoreline b{font-size:22px}
+.gradepill{display:inline-block;min-width:30px;text-align:center;border-radius:8px;padding:1px 8px;font-weight:800;font-size:13px;margin-left:6px}
+.g-a{background:#12352b;color:#38d9a9}.g-b{background:#14304a;color:#5b8cff}.g-c{background:#3a2f14;color:#ffc078}.g-d,.g-f{background:#3a1a1a;color:#ff6b6b}
+.checkrow{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;border-top:1px solid var(--line);padding:9px 0;font-size:14px;opacity:0;transform:translateY(6px);transition:opacity .3s ease,transform .3s ease}
+.checkrow.show{opacity:1;transform:none}
+.checkrow .clabel{color:var(--dim);text-align:center;font-size:12.5px;text-transform:uppercase;letter-spacing:.06em}
+.checkrow .cr{text-align:right}
+.pass{color:var(--acc);font-weight:700}
+.fail{color:#ff6b6b;font-weight:700}
+.neutral{color:var(--warn);font-weight:700}
+#banner{display:none;text-align:center;font-weight:800;font-size:clamp(18px,4vw,26px);letter-spacing:-.02em;margin:20px 0 4px}
+#banner.show{display:block;animation:pop .45s cubic-bezier(.2,1.6,.4,1)}
+@keyframes pop{0%{transform:scale(.6);opacity:0}100%{transform:scale(1);opacity:1}}
+#skiphint{text-align:center;color:#6b7891;font-size:12px;margin:6px 0 0}
+#resultcard{display:none;background:var(--panel2);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;margin-top:18px;cursor:auto}
+#resultcard.show{display:block}
+#sharetext{font-size:15px;line-height:1.6}
+.sharerow{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.sharerow a,.sharerow button{background:var(--panel);border:1px solid var(--line);color:var(--text);border-radius:10px;padding:10px 16px;font:inherit;font-size:14px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block}
+.sharerow a:hover,.sharerow button:hover{border-color:var(--acc2)}
+#funnel{margin-top:14px;border-top:1px solid var(--line);padding-top:12px;font-size:14px;color:var(--dim)}
+#funnel a{font-weight:700}
+#loadstate{color:#6b7891;font-size:13.5px}
+@media (max-width:520px){.pickrow{flex-direction:column;align-items:stretch}.pickrow .vs{text-align:center}}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FZXLMBB5QB"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-FZXLMBB5QB');</script>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="/">Sell<span>To</span>Agents</a>
+  <nav><a href="/ai-visibility-index">Index</a><a href="/merchant-checklist">Checklist</a><a href="https://agentready.agiscorecard.com">Scanner</a></nav>
+</header>
+
+<p class="meta">Game · Powered by the <a href="/ai-visibility-index">DTC AI Visibility Index</a> (real weekly scan data)</p>
+<h1>⚔️ Brand Battle</h1>
+<p class="lead">Which brand do AI shoppers actually see? Pick two DTC brands and watch their real AI-visibility scores fight it out — crawler access, structured data, the works.</p>
+
+<div class="battle-panel" id="pickerpanel">
+  <p id="loadstate">Loading the fighter roster…</p>
+  <div id="pickers" style="display:none">
+    <div class="pickrow">
+      <input id="pickA" list="brandlist" placeholder="Brand A — type to search…" autocomplete="off">
+      <span class="vs">VS</span>
+      <input id="pickB" list="brandlist" placeholder="Brand B — type to search…" autocomplete="off">
+    </div>
+    <datalist id="brandlist"></datalist>
+    <div class="btnrow">
+      <button class="fight-btn" id="fightBtn">FIGHT ⚔️</button>
+      <button class="ghost-btn" id="randomBtn">🎲 Random matchup</button>
+      <button class="ghost-btn" id="dailyBtn">📅 Daily matchup</button>
+    </div>
+    <p class="picknote" id="pickNote"></p>
+  </div>
+</div>
+
+<div class="battle-panel" id="arena" aria-live="polite">
+  <div class="fighters">
+    <div class="fighter left">
+      <div class="fname" id="nameA"></div>
+      <div class="fdomain" id="domA"></div>
+      <div class="barwrap"><div class="bar" id="barA"></div></div>
+      <div class="scoreline"><b id="scoreA">0</b>/100<span class="gradepill" id="gradeA"></span></div>
+    </div>
+    <div class="vs-big">VS</div>
+    <div class="fighter right">
+      <div class="fname" id="nameB"></div>
+      <div class="fdomain" id="domB"></div>
+      <div class="barwrap"><div class="bar" id="barB"></div></div>
+      <div class="scoreline"><b id="scoreB">0</b>/100<span class="gradepill" id="gradeB"></span></div>
+    </div>
+  </div>
+  <div id="checks"></div>
+  <div id="banner"></div>
+  <p id="skiphint">tap anywhere in the arena to skip</p>
+  <div id="resultcard">
+    <div id="sharetext"></div>
+    <div class="sharerow">
+      <a id="shareX" href="#" target="_blank" rel="noopener">Share on 𝕏</a>
+      <button id="copyLink">Copy link</button>
+      <button id="webShare" style="display:none">Share…</button>
+      <button id="rematch">↩ New battle</button>
+    </div>
+    <div id="funnel"></div>
+  </div>
+</div>
+
+<h2>FAQ</h2>
+<h3>Where do the scores come from?</h3>
+<p>Every score comes from the <a href="/ai-visibility-index">DTC AI Visibility Index</a>: each brand's homepage is scanned live by the free <a href="https://agentready.agiscorecard.com">AgentReady</a> scanner across 19 machine-readable signals AI shopping agents rely on — crawler access, structured data, llms.txt, sitemap and more — scored 0–100 and updated weekly.</p>
+<h3>What does winning actually mean?</h3>
+<p>The winner is simply the brand with the higher AI-visibility score — its store is more machine-readable to AI shopping agents like ChatGPT, Claude and Perplexity. A high score doesn't guarantee recommendations, but a low one nearly guarantees invisibility.</p>
+<h3>Can I battle my own store?</h3>
+<p>The roster is limited to the brands in the index, but you can get the exact same scan for your own store — free, in about 10 seconds — with <a href="https://agentready.agiscorecard.com">AgentReady</a>.</p>
+
+<div class="cta">
+  <h3>Would <em>your</em> store survive a battle?</h3>
+  <p>Run the same free 10-second AI-visibility scan the index uses.</p>
+  <a class="btn" href="https://agentready.agiscorecard.com/?url=" id="cta-scan">Scan my store free →</a>
+</div>
+
+<footer>
+  <div class="links"><a href="/">All guides</a><a href="/ai-visibility-index">Full Visibility Index</a><a href="/data/visibility-index.json">Dataset</a><a href="https://agentready.agiscorecard.com">AgentReady</a></div>
+  <div>© 2026 SellToAgents · Scores update weekly. Rematch anytime.</div>
+</footer>
+</div>
+
+<script id="bb-core">
+/* Pure battle logic — no DOM. Node-testable via module.exports. */
+var BBCore = (function () {
+  function hashStr(s) { /* FNV-1a 32-bit */
+    var h = 0x811c9dc5;
+    for (var i = 0; i < s.length; i++) {
+      h ^= s.charCodeAt(i);
+      h = Math.imul(h, 0x01000193) >>> 0;
+    }
+    return h >>> 0;
+  }
+  /* Deterministic daily pair: same two distinct indices for a given date string and roster size. */
+  function dailyPair(dateStr, n) {
+    if (!n || n < 2) return null;
+    var h1 = hashStr('brand-battle:' + dateStr);
+    var h2 = hashStr(dateStr + ':challenger');
+    var i = h1 % n;
+    var j = h2 % (n - 1);
+    if (j >= i) j++;
+    return [i, j];
+  }
+  function utcDateStr(d) {
+    d = d || new Date();
+    return d.toISOString().slice(0, 10);
+  }
+  function normalizeDomain(s) {
+    return String(s || '').trim().toLowerCase()
+      .replace(/^https?:\/\//, '').replace(/^www\./, '').replace(/\/.*$/, '');
+  }
+  /* strict=true (deep links): exact name/domain match only. strict=false (pickers): prefix fallback. */
+  function findBrand(list, q, strict) {
+    if (!q) return null;
+    var nq = String(q).trim().toLowerCase();
+    var nd = normalizeDomain(q);
+    var hit = null;
+    for (var k = 0; k < list.length; k++) {
+      var r = list[k];
+      if (r.name.toLowerCase() === nq || r.domain.toLowerCase() === nd) { hit = r; break; }
+    }
+    if (hit || strict) return hit;
+    for (var m = 0; m < list.length; m++) {
+      if (list[m].name.toLowerCase().indexOf(nq) === 0) return list[m];
+    }
+    return null;
+  }
+  /* Union of check names seen in any brand's failing[] — degrades to [] if absent. */
+  function checkUniverse(list) {
+    var seen = [];
+    (list || []).forEach(function (r) {
+      (r.failing || []).forEach(function (f) {
+        if (seen.indexOf(f) === -1) seen.push(f);
+      });
+    });
+    return seen.slice(0, 4);
+  }
+  /* Per-check pass/fail for both fighters, derived from failing[]. */
+  function buildChecks(a, b, universe) {
+    return (universe || []).map(function (label) {
+      return {
+        label: label,
+        a: (a.failing || []).indexOf(label) === -1,
+        b: (b.failing || []).indexOf(label) === -1
+      };
+    });
+  }
+  function decideWinner(a, b) {
+    if (a.score > b.score) return { winner: a, loser: b, tie: false };
+    if (b.score > a.score) return { winner: b, loser: a, tie: false };
+    return { winner: null, loser: null, tie: true };
+  }
+  function shareText(a, b) {
+    var v = decideWinner(a, b);
+    if (v.tie) {
+      return '🤝 ' + a.name + ' ' + a.score + ' vs ' + b.name + ' ' + b.score +
+        ' — a dead heat! AI shoppers squint at both equally. Who wins your matchup?';
+    }
+    return '🏆 ' + v.winner.name + ' ' + v.winner.score + ' vs ' + v.loser.name + ' ' + v.loser.score +
+      ' — AI shoppers see ' + v.winner.name + ' first. Who wins your matchup?';
+  }
+  function battleUrl(a, b) {
+    return 'https://selltoagents.agiscorecard.com/brand-battle?a=' +
+      encodeURIComponent(a.domain) + '&b=' + encodeURIComponent(b.domain);
+  }
+  return {
+    hashStr: hashStr, dailyPair: dailyPair, utcDateStr: utcDateStr,
+    normalizeDomain: normalizeDomain, findBrand: findBrand,
+    checkUniverse: checkUniverse, buildChecks: buildChecks,
+    decideWinner: decideWinner, shareText: shareText, battleUrl: battleUrl
+  };
+})();
+if (typeof module !== 'undefined' && module.exports) module.exports = BBCore;
+</script>
+
+<script id="bb-ui">
+(function () {
+  'use strict';
+  var C = BBCore;
+  var $ = function (id) { return document.getElementById(id); };
+  var roster = [];
+  var universe = [];
+  var timers = [];
+  var rafId = null;
+  var animating = false;
+  var current = null; /* {a,b} */
+
+  function track(name, params) {
+    try { if (typeof gtag === 'function') gtag('event', name, params || {}); } catch (e) {}
+  }
+  function esc(s) { var d = document.createElement('div'); d.textContent = String(s); return d.innerHTML; }
+  function note(msg) { $('pickNote').textContent = msg || ''; }
+
+  fetch('/data/visibility-index.json')
+    .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(function (d) {
+      roster = (d.results || []).filter(function (r) { return r && r.name && r.domain && typeof r.score === 'number'; });
+      if (roster.length < 2) throw new Error('roster too small');
+      universe = C.checkUniverse(roster);
+      var dl = $('brandlist');
+      roster.forEach(function (r) {
+        var o = document.createElement('option');
+        o.value = r.name;
+        o.label = r.domain + ' · ' + r.score + '/100';
+        dl.appendChild(o);
+      });
+      $('loadstate').style.display = 'none';
+      $('pickers').style.display = 'block';
+      handleDeepLink();
+    })
+    .catch(function () {
+      $('loadstate').textContent = 'Could not load the brand roster right now — please refresh, or browse the full index instead.';
+    });
+
+  function handleDeepLink() {
+    var p = new URLSearchParams(location.search);
+    var qa = p.get('a'), qb = p.get('b');
+    if (!qa && !qb) return;
+    var a = C.findBrand(roster, qa, true);
+    var b = C.findBrand(roster, qb, true);
+    if (a && b && a.domain !== b.domain) {
+      $('pickA').value = a.name;
+      $('pickB').value = b.name;
+      startBattle(a, b);
+    } else {
+      var missing = [];
+      if (!a) missing.push(qa);
+      if (!b) missing.push(qb);
+      note(missing.length
+        ? 'Hmm — "' + missing.join('" and "') + '" is not in the index yet. Pick two fighters from the roster below.'
+        : 'Pick two different brands to battle.');
+    }
+  }
+
+  $('fightBtn').addEventListener('click', function () {
+    var a = C.findBrand(roster, $('pickA').value, false);
+    var b = C.findBrand(roster, $('pickB').value, false);
+    if (!a || !b) { note('Pick both fighters from the list — type a brand name and choose a suggestion.'); return; }
+    if (a.domain === b.domain) { note(a.name + ' can’t fight itself. Pick a challenger.'); return; }
+    note('');
+    startBattle(a, b);
+  });
+
+  $('randomBtn').addEventListener('click', function () {
+    if (roster.length < 2) return;
+    var i = Math.floor(Math.random() * roster.length);
+    var j = Math.floor(Math.random() * (roster.length - 1));
+    if (j >= i) j++;
+    $('pickA').value = roster[i].name;
+    $('pickB').value = roster[j].name;
+    note('');
+    startBattle(roster[i], roster[j]);
+  });
+
+  $('dailyBtn').addEventListener('click', function () {
+    var pair = C.dailyPair(C.utcDateStr(), roster.length);
+    if (!pair) return;
+    var a = roster[pair[0]], b = roster[pair[1]];
+    $('pickA').value = a.name;
+    $('pickB').value = b.name;
+    note('📅 Today’s matchup — same for everyone, everywhere. New one at midnight UTC.');
+    startBattle(a, b);
+  });
+
+  $('arena').addEventListener('click', function (e) {
+    if (animating && !$('resultcard').contains(e.target)) finishNow();
+  });
+  $('rematch').addEventListener('click', function () {
+    $('arena').classList.remove('on');
+    history.replaceState(null, '', location.pathname);
+    $('pickerpanel').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  function clearTimers() {
+    timers.forEach(clearTimeout); timers = [];
+    if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+  }
+
+  function startBattle(a, b) {
+    clearTimers();
+    current = { a: a, b: b };
+    animating = true;
+    history.replaceState(null, '', location.pathname + '?a=' + encodeURIComponent(a.domain) + '&b=' + encodeURIComponent(b.domain));
+    var v = C.decideWinner(a, b);
+    track('battle_run', { a: a.domain, b: b.domain, winner: v.tie ? 'tie' : v.winner.domain });
+
+    /* reset arena */
+    $('nameA').textContent = a.name; $('domA').textContent = a.domain;
+    $('nameB').textContent = b.name; $('domB').textContent = b.domain;
+    setGrade('gradeA', ''); setGrade('gradeB', '');
+    $('scoreA').textContent = '0'; $('scoreB').textContent = '0';
+    $('barA').style.width = '0%'; $('barB').style.width = '0%';
+    $('banner').className = ''; $('banner').style.display = 'none';
+    $('resultcard').className = '';
+    $('skiphint').style.display = 'block';
+    renderChecks(a, b);
+    $('arena').classList.add('on');
+    $('arena').scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    /* phase 1: score bars race (~1.3s, easeOutCubic) */
+    var D = 1300, t0 = null;
+    function ease(t) { return 1 - Math.pow(1 - t, 3); }
+    function frame(ts) {
+      if (t0 === null) t0 = ts;
+      var t = Math.min(1, (ts - t0) / D), k = ease(t);
+      $('barA').style.width = (a.score * k) + '%';
+      $('barB').style.width = (b.score * k) + '%';
+      $('scoreA').textContent = Math.round(a.score * k);
+      $('scoreB').textContent = Math.round(b.score * k);
+      if (t < 1) { rafId = requestAnimationFrame(frame); }
+      else { rafId = null; settleScores(a, b); scheduleReveals(a, b); }
+    }
+    rafId = requestAnimationFrame(frame);
+  }
+
+  function settleScores(a, b) {
+    $('barA').style.width = a.score + '%';
+    $('barB').style.width = b.score + '%';
+    $('scoreA').textContent = a.score;
+    $('scoreB').textContent = b.score;
+    setGrade('gradeA', a.grade); setGrade('gradeB', b.grade);
+  }
+  function setGrade(id, g) {
+    var el = $(id);
+    el.textContent = g || '';
+    el.className = 'gradepill' + (g ? ' g-' + String(g).toLowerCase() : '');
+  }
+
+  function renderChecks(a, b) {
+    var rows = C.buildChecks(a, b, universe);
+    var html = rows.map(function (r) {
+      return '<div class="checkrow"><span class="cl ' + (r.a ? 'pass' : 'fail') + '">' + (r.a ? '✓ pass' : '✗ miss') + '</span>' +
+        '<span class="clabel">' + esc(r.label) + '</span>' +
+        '<span class="cr ' + (r.b ? 'pass' : 'fail') + '">' + (r.b ? '✓ pass' : '✗ miss') + '</span></div>';
+    });
+    /* Always end on an overall-grade row (also the graceful fallback if failing[] ever disappears). */
+    html.push('<div class="checkrow"><span class="cl neutral">' + esc(a.grade || '—') + '</span>' +
+      '<span class="clabel">Overall grade</span>' +
+      '<span class="cr neutral">' + esc(b.grade || '—') + '</span></div>');
+    $('checks').innerHTML = html.join('');
+  }
+
+  /* phase 2: reveal check rows one-by-one, then banner + result card (total < 4s) */
+  function scheduleReveals(a, b) {
+    var rows = $('checks').children;
+    var step = rows.length ? Math.min(380, 1800 / rows.length) : 0;
+    for (var i = 0; i < rows.length; i++) {
+      (function (el, delay) {
+        timers.push(setTimeout(function () { el.classList.add('show'); }, delay));
+      })(rows[i], 250 + i * step);
+    }
+    timers.push(setTimeout(function () { showResult(a, b); }, 350 + rows.length * step + 300));
+  }
+
+  function finishNow() {
+    if (!current) return;
+    clearTimers();
+    settleScores(current.a, current.b);
+    var rows = $('checks').children;
+    for (var i = 0; i < rows.length; i++) rows[i].classList.add('show');
+    showResult(current.a, current.b);
+  }
+
+  function showResult(a, b) {
+    animating = false;
+    clearTimers();
+    $('skiphint').style.display = 'none';
+    var v = C.decideWinner(a, b);
+    var banner = $('banner');
+    banner.textContent = v.tie
+      ? '🤝 DRAW! ' + a.score + '–' + b.score + ' — the AI shelf has room for neither… yet.'
+      : '🏆 ' + v.winner.name + ' wins ' + v.winner.score + '–' + v.loser.score + '!';
+    banner.style.display = 'block';
+    banner.className = 'show';
+
+    var text = C.shareText(a, b);
+    var url = C.battleUrl(a, b);
+    $('sharetext').textContent = text;
+    $('shareX').href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text) + '&url=' + encodeURIComponent(url);
+    $('resultcard').className = 'show';
+
+    var funnelName = v.tie ? 'Both brands left points on the table.' : ('AI agents barely see ' + esc(v.loser.name) + '.');
+    $('funnel').innerHTML = funnelName + ' Is <b>YOUR</b> store invisible too? ' +
+      '<a href="https://agentready.agiscorecard.com/?url=" id="funnel-scan">Free scan →</a>' +
+      ' · <a href="/ai-visibility-index">See the full index</a>';
+    $('funnel-scan').addEventListener('click', function () { track('scan_click', { from: 'brand-battle' }); });
+
+    if (navigator.share) {
+      var ws = $('webShare');
+      ws.style.display = 'inline-block';
+      ws.onclick = function () {
+        track('share_click', { method: 'web_share' });
+        navigator.share({ title: 'Brand Battle', text: text, url: url }).catch(function () {});
+      };
+    }
+  }
+
+  $('shareX').addEventListener('click', function () { track('share_click', { method: 'x' }); });
+  $('copyLink').addEventListener('click', function () {
+    if (!current) return;
+    var url = C.battleUrl(current.a, current.b);
+    var done = function () {
+      $('copyLink').textContent = 'Copied ✓';
+      setTimeout(function () { $('copyLink').textContent = 'Copy link'; }, 1600);
+    };
+    track('share_click', { method: 'copy' });
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(done).catch(function () { fallbackCopy(url); done(); });
+    } else { fallbackCopy(url); done(); }
+  });
+  function fallbackCopy(url) {
+    var ta = document.createElement('textarea');
+    ta.value = url; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+  document.getElementById('cta-scan').addEventListener('click', function () { track('scan_click', { from: 'brand-battle-cta' }); });
+})();
+</script>
+</body>
+</html>

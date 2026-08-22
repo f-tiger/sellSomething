@@ -10,6 +10,7 @@
 
 ## Data
 - [DTC AI Visibility Index](/ai-visibility-index): 40 leading DTC brands ranked 0-100 by AI-shopping readiness, updated weekly ([raw JSON](/data/visibility-index.json))
+- [Brand Battle](/brand-battle): head-to-head game comparing two DTC brands on their real AI-visibility scores, with a deterministic daily matchup
 
 ## Platform guides
 - [Shopify](/shopify-ai-visibility): what's native (llms.txt, agents.md, ACP) vs what's on you
