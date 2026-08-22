@@ -40,6 +40,10 @@
 - [MCP Registry](/mcp-registry): The MCP Registry is the official open catalog of Model Context Protocol servers at registry.modelcontextprotocol.io, where developers publish servers under verified namespaces (like io.github.username) so MCP clients and subregistries can discover them from one canonical source.
 - [Proof of personhood](/proof-of-personhood): Proof of personhood is a way to verify that an online actor is a unique human — not a bot, a duplicate account, or an AI agent — without necessarily revealing who they are. As AI agents flood the internet, it's becoming core infrastructure for fair airdrops, governance, and telling delegated agents apart from fake users.
 
+## Machine discovery
+- [ai-catalog.json](/.well-known/ai-catalog.json): Agentic Resource Discovery manifest of this site and its sister tools/APIs
+- [feed.xml](/feed.xml): Atom feed of glossary terms, newest first
+
 ## Related tools
 - [AgentReady](https://agentready.agiscorecard.com): AI sales-visibility scanner
 - [MCP Pulse](https://mcppulse.agiscorecard.com): MCP server health scanner

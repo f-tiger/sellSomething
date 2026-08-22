@@ -23,8 +23,15 @@
 - Pro $19/mo (early access): up to 3 stores, daily re-scans, 90-day history, shareable reports
 - Team $49/mo (early access): up to 25 stores, Slack + email alerts, white-label reports, CSV/API
 
+## API
+- [OpenAPI 3.1 spec](/openapi.json): machine-readable description of the free public API — GET /api/scan (JSON readiness report), GET /api/verify/status, GET /badge/{id}.svg
+
 ## Machine-payable APIs
 - [x402 APIs](https://x402.agiscorecard.com): pay-per-call version of this scan for autonomous agents — $0.005/call in USDC via the x402 protocol, no account or API key
+
+## Machine discovery
+- [ai-catalog.json](/.well-known/ai-catalog.json): Agentic Resource Discovery manifest of this site's APIs and its sister tools/services
+- [agent-card.json](/.well-known/agent-card.json): A2A agent card describing the scan, monitoring and verification capabilities
 
 ## Audience
 E-commerce merchants, DTC brands, and agencies preparing for agentic commerce (ACP, UCP, MCP).

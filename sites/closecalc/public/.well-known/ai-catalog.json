@@ -1,0 +1,102 @@
+{
+  "schema_version": "2026-06-17",
+  "name": "CloseCalc (AGI Scorecard)",
+  "url": "https://closecalc.agiscorecard.com",
+  "resources": [
+    {
+      "type": "website",
+      "name": "Sales commission calculator",
+      "url": "https://closecalc.agiscorecard.com/commission",
+      "description": "Base + accelerator payout math with transparent formulas."
+    },
+    {
+      "type": "website",
+      "name": "Pipeline coverage calculator",
+      "url": "https://closecalc.agiscorecard.com/pipeline-coverage",
+      "description": "Required pipeline = quota / win rate."
+    },
+    {
+      "type": "website",
+      "name": "Cold email ROI calculator",
+      "url": "https://closecalc.agiscorecard.com/cold-email-roi",
+      "description": "Full funnel model with 2026 benchmark reply rates."
+    },
+    {
+      "type": "website",
+      "name": "Discount break-even calculator",
+      "url": "https://closecalc.agiscorecard.com/discount-impact",
+      "description": "Volume increase = discount / (margin - discount)."
+    },
+    {
+      "type": "mcp_server",
+      "name": "Agentic Commerce Tools (MCP Pulse)",
+      "url": "https://mcppulse.agiscorecard.com/mcp",
+      "description": "Free streamable-HTTP MCP server with 7 agentic-commerce tools (MCP health scans, site readiness scans, well-known audits, llms.txt generator, glossary, weekly indices). Server card: https://mcppulse.agiscorecard.com/.well-known/mcp/server-card.json"
+    },
+    {
+      "type": "api",
+      "name": "x402 pay-per-call agent APIs",
+      "url": "https://x402.agiscorecard.com/.well-known/x402",
+      "description": "Pay-per-call APIs for autonomous agents ($0.005-$0.02/call, USDC on Base, x402 protocol, no account): site scans, MCP health checks, well-known audits, llms.txt extraction, batch scans, full MCP index. URL is the machine-readable endpoint catalog."
+    },
+    {
+      "type": "a2a_agent",
+      "name": "x402 paid-API agent (A2A card)",
+      "url": "https://x402.agiscorecard.com/.well-known/agent-card.json",
+      "description": "A2A agent card describing the x402 pay-per-call scan/audit capabilities."
+    },
+    {
+      "type": "api",
+      "name": "AgentReady AI-visibility scan API",
+      "url": "https://agentready.agiscorecard.com/api/scan",
+      "description": "Free GET /api/scan?url=<site> — 0-100 AI-agent readiness report (robots.txt AI-crawler access, llms.txt, agents.md, JSON-LD, meta, sitemap). Please self-limit to a few calls/minute."
+    },
+    {
+      "type": "a2a_agent",
+      "name": "AgentReady scan agent (A2A card)",
+      "url": "https://agentready.agiscorecard.com/.well-known/agent-card.json",
+      "description": "A2A agent card describing AgentReady's website scan and monitoring capabilities."
+    },
+    {
+      "type": "api",
+      "name": "Well-known discovery checker API",
+      "url": "https://tools.agiscorecard.com/api/wellknown",
+      "description": "Free GET /api/wellknown?url=<site> — audits a site's ai-catalog.json, MCP server card, A2A agent card, llms.txt, agents.md and robots.txt AI-crawler access."
+    },
+    {
+      "type": "website",
+      "name": "AgentReady — free AI sales-visibility scanner",
+      "url": "https://agentready.agiscorecard.com/"
+    },
+    {
+      "type": "website",
+      "name": "SellToAgents — agentic-commerce merchant guides + DTC AI Visibility Index",
+      "url": "https://selltoagents.agiscorecard.com/"
+    },
+    {
+      "type": "website",
+      "name": "AgentFront — agent-native storefront infrastructure (early access)",
+      "url": "https://agentfront.agiscorecard.com/"
+    },
+    {
+      "type": "website",
+      "name": "MCP Pulse — MCP server health scanner + Public MCP Server Index",
+      "url": "https://mcppulse.agiscorecard.com/"
+    },
+    {
+      "type": "website",
+      "name": "Agent Glossary — plain-English definitions for the AI-agent era",
+      "url": "https://glossary.agiscorecard.com/"
+    },
+    {
+      "type": "website",
+      "name": "Agentic Tools — free browser-based generators and checkers",
+      "url": "https://tools.agiscorecard.com/"
+    },
+    {
+      "type": "website",
+      "name": "x402 APIs — pay-per-call APIs for AI agents",
+      "url": "https://x402.agiscorecard.com/"
+    }
+  ]
+}

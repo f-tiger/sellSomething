@@ -32,7 +32,7 @@
 <div class="wrap">
 <header>
   <a class="logo" href="/">Sell<span>To</span>Agents</a>
-  <nav><a href="/what-is-agentic-commerce">Start here</a><a href="/merchant-checklist">Checklist</a><a href="/brand-battle">⚔️ Battle</a><a href="https://agentready.agiscorecard.com">Scanner</a></nav>
+  <nav><a href="/what-is-agentic-commerce">Start here</a><a href="/merchant-checklist">Checklist</a><a href="/brands/">Brand reports</a><a href="/brand-battle">⚔️ Battle</a><a href="https://agentready.agiscorecard.com">Scanner</a></nav>
 </header>
 
 <p class="meta">Index · Updated <span id="updated">weekly</span> · <a href="/data/visibility-index.json">Raw data (JSON)</a></p>
@@ -40,6 +40,12 @@
 <p class="lead">45% of consumers already use AI in their buying journey — but can AI shopping agents actually see the brands they'd recommend? We scan 40 leading DTC brands with <a href="https://agentready.agiscorecard.com">AgentReady</a> (crawler access × 7 bots, structured data, llms.txt, agents.md, sitemap, answer-readiness) and rank them 0–100.</p>
 
 <div class="statrow" id="stats"></div>
+
+<div class="card">
+  <span class="tag">Reports</span>
+  <a class="title" href="/brands/">Per-brand AI-visibility reports</a>
+  <p>Every brand in the index gets its own weekly report page: score, grade, category rank, exactly which checks fail, and a battle link against its nearest rival. Browse by category from the hub.</p>
+</div>
 
 <div class="card">
   <span class="tag">Game</span>
@@ -58,7 +64,7 @@
 </div>
 
 <footer>
-  <div class="links"><a href="/">All guides</a><a href="/data/visibility-index.json">Dataset</a><a href="https://agentready.agiscorecard.com">AgentReady</a></div>
+  <div class="links"><a href="/">All guides</a><a href="/brands/">Brand reports</a><a href="/data/visibility-index.json">Dataset</a><a href="https://agentready.agiscorecard.com">AgentReady</a></div>
   <div>© 2026 SellToAgents · Cite freely with a link to this page.</div>
 </footer>
 </div>
@@ -70,7 +76,7 @@ fetch('/data/visibility-index.json').then(r => r.json()).then(d => {
     '<div class="stat"><b>' + d.averageScore + '/100</b><span>average score</span></div>' +
     '<div class="stat"><b>' + d.results.filter(r => r.score < 55).length + '</b><span>brands effectively invisible (&lt;55)</span></div>';
   let rows = d.results.map((r, i) =>
-    '<tr><td>' + (i + 1) + '</td><td><b>' + esc(r.name) + '</b> <span class="fails">' + esc(r.domain) + '</span></td>' +
+    '<tr><td>' + (i + 1) + '</td><td><a href="/brands/' + r.domain.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '" style="color:inherit;text-decoration:none"><b>' + esc(r.name) + '</b></a> <span class="fails">' + esc(r.domain) + '</span></td>' +
     '<td><span class="score-pill g-' + r.grade.toLowerCase() + '">' + r.score + '</span> ' + r.grade + '</td>' +
     '<td class="fails">' + (r.failing.length ? 'Failing: ' + r.failing.map(esc).join(', ') : '—') + '</td></tr>').join('');
   document.getElementById('tablewrap').innerHTML =

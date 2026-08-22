@@ -23,3 +23,6 @@
 
 ## Machine-payable APIs
 - [x402 APIs](https://x402.agiscorecard.com): agents can pay per call in USDC via the x402 protocol ($0.005/call, no account) for site and MCP scans
+
+## Machine discovery
+- [ai-catalog.json](/.well-known/ai-catalog.json): Agentic Resource Discovery manifest of this site's checker API, generators and sister services

@@ -1,0 +1,174 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "AgentReady public API",
+    "version": "1.0.0",
+    "summary": "Free AI sales-visibility scanner: score any website 0–100 on how discoverable and parseable it is for AI shopping agents.",
+    "description": "AgentReady's free public endpoints — no signup, no API key, CORS-open.\n\n- `GET /api/scan` — instant agent-readiness scan of any website: robots.txt access for the major AI crawlers (GPTBot, OAI-SearchBot, ChatGPT-User, ClaudeBot, Claude-User, PerplexityBot, Google-Extended), llms.txt and agents.md presence, schema.org JSON-LD structured data (Product, Offer, Organization, FAQPage), sitemap discoverability and answer-readiness metadata — returned as a 0–100 score with itemized checks and concrete fixes.\n- `GET /api/verify/status` — public verification status of an Agent-Ready Verified badge (no PII exposed).\n- `GET /badge/{id}.svg` — the embeddable Agent-Ready Verified badge image, kept honest by weekly automated re-verification.\n\nPlease self-limit to a few requests per minute per target. A pay-per-call version of the scan for autonomous agents (x402 protocol, USDC on Base, no account) is documented at https://x402.agiscorecard.com/openapi.json.",
+    "contact": {
+      "name": "AgentReady",
+      "url": "https://agentready.agiscorecard.com/"
+    },
+    "license": {
+      "name": "Proprietary — free public API, fair-use rate limits apply",
+      "url": "https://agentready.agiscorecard.com/terms"
+    }
+  },
+  "servers": [
+    { "url": "https://agentready.agiscorecard.com" }
+  ],
+  "security": [ {} ],
+  "paths": {
+    "/api/scan": {
+      "get": {
+        "operationId": "scanSite",
+        "summary": "Free agent-readiness scan of any website",
+        "description": "Fetches the target's robots.txt, llms.txt, agents.md, homepage and sitemap, runs the full check suite and returns a 0–100 score with itemized pass/warn/fail checks and concrete fixes. Free, no auth. Private/local hosts are rejected.",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "required": true,
+            "description": "Target URL to scan (scheme optional — `https://` is assumed).",
+            "schema": { "type": "string", "examples": ["example.com"] }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Scan report.",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/ScanReport" } }
+            }
+          },
+          "400": {
+            "description": "Missing or invalid url parameter, or a private/local host.",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/Error" } }
+            }
+          },
+          "422": {
+            "description": "The target could not be reached.",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/Error" } }
+            }
+          }
+        }
+      }
+    },
+    "/api/verify/status": {
+      "get": {
+        "operationId": "verifyStatus",
+        "summary": "Public Agent-Ready Verified badge status",
+        "description": "Public verification status for a badge id: current score, grade, whether the badge is paid and actively passing its weekly re-verification. Exposes no email or token.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "description": "Badge/verification id (as found in the badge URL `/badge/{id}.svg`).",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Verification record.",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/VerifyStatus" } }
+            }
+          },
+          "400": {
+            "description": "Missing id parameter.",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/Error" } }
+            }
+          },
+          "404": {
+            "description": "No verification record for this id.",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/Error" } }
+            }
+          }
+        }
+      }
+    },
+    "/badge/{id}.svg": {
+      "get": {
+        "operationId": "badgeSvg",
+        "summary": "Embeddable Agent-Ready Verified badge (SVG)",
+        "description": "The live badge image for a verification id. Renders \"verified\" (paid + passing), \"check failing\" (paid but currently regressed), \"preview\" (eligible, unpaid) or \"unverified\" (unknown id). Cacheable for 1 hour; CORS-open, safe to hot-link from any site.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Badge/verification id.",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SVG badge image (always 200 — unknown ids render the \"unverified\" badge).",
+            "content": {
+              "image/svg+xml": {
+                "schema": { "type": "string", "description": "SVG markup." }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "required": ["error"],
+        "properties": {
+          "error": { "type": "string", "description": "Human- and agent-readable error message." }
+        }
+      },
+      "Check": {
+        "type": "object",
+        "description": "One itemized check in the scan report.",
+        "properties": {
+          "id": { "type": "string", "examples": ["bot-gptbot", "llms", "sd-product"] },
+          "category": { "type": "string", "examples": ["AI crawler access", "Structured data"] },
+          "title": { "type": "string" },
+          "earned": { "type": "number", "description": "Points earned." },
+          "possible": { "type": "number", "description": "Points possible." },
+          "status": { "type": "string", "enum": ["pass", "warn", "fail"] },
+          "detail": { "type": "string" },
+          "fix": { "type": ["string", "null"], "description": "Concrete fix suggestion; null when the check passes." }
+        },
+        "additionalProperties": true
+      },
+      "ScanReport": {
+        "type": "object",
+        "required": ["url", "score", "grade", "checks"],
+        "properties": {
+          "url": { "type": "string", "format": "uri", "description": "Normalized target URL that was scanned." },
+          "scannedAt": { "type": "string", "format": "date-time" },
+          "score": { "type": "integer", "minimum": 0, "maximum": 100 },
+          "grade": { "type": "string", "examples": ["A", "B", "C", "D", "F"] },
+          "checks": { "type": "array", "items": { "$ref": "#/components/schemas/Check" } },
+          "summary": { "type": "string", "description": "One-line human summary of the result." }
+        },
+        "additionalProperties": true
+      },
+      "VerifyStatus": {
+        "type": "object",
+        "properties": {
+          "url": { "type": "string", "format": "uri", "description": "The verified site." },
+          "score": { "type": "integer", "minimum": 0, "maximum": 100 },
+          "grade": { "type": "string" },
+          "verified": { "type": "boolean", "description": "True when the badge is paid AND currently passing re-verification." },
+          "paid": { "type": "boolean" },
+          "active": { "type": "boolean", "description": "True when the last re-scan met the verification threshold." },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "lastVerified": { "type": "string", "format": "date-time" },
+          "threshold": { "type": "integer", "description": "Minimum score required to be verified.", "examples": [75] }
+        }
+      }
+    }
+  }
+}

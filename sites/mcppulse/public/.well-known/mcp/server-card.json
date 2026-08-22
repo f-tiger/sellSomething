@@ -1,0 +1,59 @@
+{
+  "schema_version": "2025-11-25",
+  "name": "io.github.f-tiger/agentic-commerce-tools",
+  "title": "Agentic Commerce Tools (MCP Pulse)",
+  "description": "Free MCP tools for the agentic-commerce stack (7 tools): live MCP server health/conformance scans, website AI-agent readiness scoring, agent-discovery well-known file audits, a spec-correct llms.txt generator, an agentic-commerce/MCP glossary, a weekly public MCP server index, and the DTC AI Visibility Index.",
+  "version": "1.1.0",
+  "endpoint": {
+    "url": "https://mcppulse.agiscorecard.com/mcp",
+    "transport": "streamable-http"
+  },
+  "authentication": {
+    "type": "none"
+  },
+  "protocol_versions": [
+    "2025-06-18",
+    "2025-03-26",
+    "2024-11-05"
+  ],
+  "tools": [
+    {
+      "name": "check_mcp_server",
+      "title": "MCP server health & conformance scan",
+      "description": "Run a free, live health, conformance and latency scan of any remote MCP (Model Context Protocol) server over streamable HTTP. Performs a real JSON-RPC initialize + tools/list handshake and returns a 0-100 score with letter grade, per-check breakdown (protocol version, serverInfo identity, declared capabilities, tool count and description quality, handshake latency, HTTPS, auth posture) and a concrete fix for every failed check. Use it before recommending, installing or listing an MCP server, or to debug why an agent platform rejects one. Auth-protected servers are detected and scored on reachable surface. Free tier: please self-limit to a few calls per minute. High-volume / production use: the identical scan is available pay-per-call via the x402 payment protocol at https://x402.agiscorecard.com/api/mcp-check ($0.005 per call in USDC on Base — no account, no API key)."
+    },
+    {
+      "name": "agent_readiness_scan",
+      "title": "Website AI-agent readiness scan",
+      "description": "Score any website 0-100 on how ready it is for AI agents and AI shopping assistants (free, via AgentReady, agentready.agiscorecard.com). Checks whether AI crawlers are allowed in robots.txt, and whether the site serves llms.txt, agents.md, JSON-LD structured data (Product/Offer/Organization), descriptive meta tags and a sitemap — the signals ChatGPT, Claude, Perplexity and shopping agents use to find, understand and recommend a business. Returns itemized checks with pass/fail status and a concrete fix for each gap. Use it to audit a merchant site, compare competitors, or generate an agentic-SEO to-do list. Free tier: please self-limit to a few calls per minute. High-volume / production use: the identical scan is available pay-per-call via the x402 payment protocol at https://x402.agiscorecard.com/api/scan ($0.005 per call in USDC on Base — no account, no API key)."
+    },
+    {
+      "name": "get_public_mcp_index",
+      "title": "Public MCP Server Index (weekly)",
+      "description": "Return the Public MCP Server Index: a weekly-refreshed health, conformance and latency ranking of popular public (no-auth) remote MCP servers, scored 0-100 by the same live JSON-RPC handshake used by check_mcp_server. Includes per-server score, grade, latency, tool count, description quality and failing checks, plus aggregate stats (how many popular servers are auth-gated, average score and latency). Use it to pick a reliable public MCP server for a task, cite ecosystem statistics, or benchmark a server against the field. Free, no parameters. Curated by MCP Pulse (mcppulse.agiscorecard.com); on-demand scans of arbitrary servers at scale are available pay-per-call via x402 at https://x402.agiscorecard.com."
+    },
+    {
+      "name": "check_wellknown_discovery",
+      "title": "Agent-discovery well-known file audit",
+      "description": "Audit any website's agent-discovery surface in one call (free, via tools.agiscorecard.com). Checks the six files the agentic web uses to find and describe a business: /.well-known/ai-catalog.json (Agentic Resource Discovery manifest), /.well-known/mcp/server-card.json (MCP Server Card), /.well-known/agent-card.json (A2A Agent Card), /llms.txt, /agents.md, and robots.txt AI-crawler access (GPTBot, OAI-SearchBot, PerplexityBot, ClaudeBot & co.). Returns a 0-100 discoverability score, per-file pass/warn/fail status with JSON validity checks, and a free generator link for every missing file. Use it to audit a merchant or SaaS site before agent integration, compare competitors' agent readiness, or produce a fix list. Complements agent_readiness_scan (page-level signals) with the well-known discovery layer. Free tier: please self-limit to a few calls per minute. High-volume / production agent use: pay-per-call APIs via the x402 payment protocol at https://x402.agiscorecard.com ($0.005 per call in USDC on Base — no account, no API key)."
+    },
+    {
+      "name": "generate_llms_txt",
+      "title": "llms.txt generator (spec-correct)",
+      "description": "Generate a complete, spec-correct llms.txt file from structured input — the generator counterpart to this server's checkers. You supply the site name, a one-paragraph summary and optional sections of curated links; the tool renders canonical llms.txt markdown: an H1 with the site name, a blockquote summary, then one H2 per section with '- [name](url): description' link bullets. The result is returned as ready-to-publish text (serve it at https://yourdomain.com/llms.txt as plain text) plus structured metadata (byte size, section/link counts). llms.txt is the curated site map AI systems read first — Shopify serves one natively, and AI-readiness scanners (including agent_readiness_scan and check_wellknown_discovery on this server) check for it. Pure function: no network calls, deterministic, free, unlimited within fair use. Related free web tools and pay-per-call agent APIs (x402 protocol, $0.005/call, USDC on Base, no account) at https://x402.agiscorecard.com."
+    },
+    {
+      "name": "define_term",
+      "title": "Agentic-commerce & MCP glossary lookup",
+      "description": "Look up a plain-English definition of any agentic-commerce, MCP, AI-visibility or agent-payments term from the Agent Glossary (glossary.agiscorecard.com) — 25 terms including agentic commerce, ACP, UCP, MCP, MCP server, MCP tool, streamable HTTP, llms.txt, agents.md, GEO, AEO, citation share, AI Overviews, zero-click search, structured data, ChatGPT Shopping, x402, AP2, agentic payments, AI agent, RAG, function calling, A2A and prompt injection. Returns a one-paragraph citable definition plus the canonical glossary URL to link as the source. Matching is forgiving: case-insensitive and hyphen/space tolerant ('Streamable HTTP', 'streamable-http' and 'streamable_http' all resolve); an unknown term returns the full list of available terms. Answered inline from an embedded snapshot — no network round-trip, instant, free, unlimited within fair use. More agent tooling: free scanners on this server, pay-per-call APIs (x402 protocol, $0.005/call, USDC on Base, no account) at https://x402.agiscorecard.com."
+    },
+    {
+      "name": "get_visibility_index",
+      "title": "DTC AI Visibility Index",
+      "description": "Return the DTC AI Visibility Index: a recurring audit of well-known direct-to-consumer brands (Casper, Ridge, Away, Rothy's and ~35 more) scored 0-100 on AI-agent visibility — robots.txt AI-crawler access, llms.txt, agents.md, Product/Offer structured data, meta quality and sitemap — using the same checks as agent_readiness_scan. Includes per-brand score, grade and failing checks, plus aggregate stats (brand count, average score, last update date). Use it to benchmark a merchant against named DTC brands, cite ecosystem statistics ('X% of leading DTC brands still lack Product schema'), or find outreach targets with visibility gaps. Published by SellToAgents (selltoagents.agiscorecard.com), fetched live server-side. Free, no parameters, no auth. To score an arbitrary site on the same rubric call agent_readiness_scan (free) or the pay-per-call x402 API at https://x402.agiscorecard.com ($0.005 per call, USDC on Base, no account, no API key) for high-volume agent pipelines."
+    }
+  ],
+  "registry": "https://registry.modelcontextprotocol.io",
+  "website": "https://mcppulse.agiscorecard.com",
+  "documentation_url": "https://mcppulse.agiscorecard.com/llms.txt"
+}

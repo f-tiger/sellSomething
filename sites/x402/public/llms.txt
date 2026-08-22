@@ -18,6 +18,11 @@
 ## Discovery
 - `GET /.well-known/x402` — machine-readable catalog: path, method, price, network (v2 CAIP-2 + v1 alias), supported x402Versions [1,2], full v2 accepts[] when payments are live.
 
+## Machine discovery
+- [ai-catalog.json](/.well-known/ai-catalog.json): Agentic Resource Discovery manifest of the paid endpoints and sister services
+- [agent-card.json](/.well-known/agent-card.json): A2A agent card describing the pay-per-call scan/audit capabilities
+- `GET /openapi.json` — OpenAPI 3.1 spec of all 6 endpoints: parameters, 402 challenge shape (PAYMENT-REQUIRED header + v1 body), response schemas, per-operation x-pricing.
+
 ## Key pages
 - [Home](/): endpoints, pricing, curl and @x402/fetch usage examples, FAQ
 - [agents.md](/agents.md): instructions for AI agents using this site

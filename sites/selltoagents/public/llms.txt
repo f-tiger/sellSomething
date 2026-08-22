@@ -10,6 +10,7 @@
 
 ## Data
 - [DTC AI Visibility Index](/ai-visibility-index): 40 leading DTC brands ranked 0-100 by AI-shopping readiness, updated weekly ([raw JSON](/data/visibility-index.json))
+- [Brand AI-visibility reports](/brands/): individual weekly report pages for all 122 indexed brands (score, rank, failing checks), grouped by category
 - [Brand Battle](/brand-battle): head-to-head game comparing two DTC brands on their real AI-visibility scores, with a deterministic daily matchup
 
 ## Platform guides
@@ -24,6 +25,10 @@
 
 ## Machine-payable APIs
 - [x402 APIs](https://x402.agiscorecard.com): agents can pay per call in USDC via the x402 protocol ($0.005/call, no account) for site and MCP scans
+
+## Machine discovery
+- [ai-catalog.json](/.well-known/ai-catalog.json): Agentic Resource Discovery manifest of this site's data and its sister tools/APIs
+- [feed.xml](/feed.xml): Atom feed announcing weekly DTC AI Visibility Index refreshes
 
 ## Audience
 E-commerce merchants, DTC brands, marketplaces and agencies preparing for AI-agent-driven sales channels.

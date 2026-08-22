@@ -1,0 +1,58 @@
+{
+  "protocolVersion": "0.3.0",
+  "name": "x402 Pay-Per-Call Agent APIs",
+  "description": "Machine-payable scan and audit APIs for autonomous AI agents: agent-readiness scans, MCP server health checks, well-known discovery audits, llms.txt extraction, batch scans and the full Public MCP Server Index. Interaction is plain HTTPS with x402 payment (v2 + v1), not A2A JSON-RPC: call an endpoint, receive HTTP 402 payment terms, sign an EIP-3009 USDC transfer authorization on Base ($0.005-$0.02 per call), retry with the payment header, get JSON. No account, no API key; failed calls are never settled or charged. Endpoint catalog: https://x402.agiscorecard.com/.well-known/x402.",
+  "url": "https://x402.agiscorecard.com",
+  "version": "1.0.0",
+  "provider": {
+    "organization": "AGI Scorecard"
+  },
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false
+  },
+  "defaultInputModes": [
+    "text/plain"
+  ],
+  "defaultOutputModes": [
+    "application/json"
+  ],
+  "securitySchemes": {
+    "primary": {
+      "type": "none",
+      "description": "No authentication. Access is metered per call via the x402 payment protocol (USDC on Base); see the description and /.well-known/x402 for payment flow."
+    }
+  },
+  "skills": [
+    {
+      "id": "scan",
+      "name": "Agent-readiness scan",
+      "description": "0-100 AI-agent readiness report for any website. GET /api/scan?url=<site>, $0.005/call."
+    },
+    {
+      "id": "mcp-check",
+      "name": "MCP server health check",
+      "description": "Live JSON-RPC handshake scan of a remote MCP server: protocol conformance, tool quality, latency, TLS, auth posture. GET /api/mcp-check?url=<endpoint>, $0.005/call."
+    },
+    {
+      "id": "wellknown-audit",
+      "name": "Well-known discovery audit",
+      "description": "Audit of a site's ai-catalog.json, MCP server card, A2A agent card, llms.txt, agents.md and robots.txt AI-crawler access. GET /api/wellknown?url=<site>, $0.005/call."
+    },
+    {
+      "id": "llms-extract",
+      "name": "llms.txt extractor",
+      "description": "Structured extraction of a domain's AI-policy files (llms.txt, agents.md, ai.txt, per-crawler robots.txt verdicts). GET /api/llms-extract?url=<site>, $0.005/call."
+    },
+    {
+      "id": "scan-batch",
+      "name": "Batch agent-readiness scan",
+      "description": "Up to 5 URLs scanned concurrently in one paid call. GET /api/scan-batch?urls=<a,b,c>, $0.02/call."
+    },
+    {
+      "id": "mcp-index",
+      "name": "Public MCP Server Index (full dataset)",
+      "description": "The complete machine-readable weekly index of public MCP servers. GET /api/mcp-index, $0.01/call."
+    }
+  ]
+}

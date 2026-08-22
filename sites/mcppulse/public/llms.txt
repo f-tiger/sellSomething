@@ -27,6 +27,12 @@
 - 7 tools: `check_mcp_server {url}` (live 0-100 MCP health/conformance scan), `agent_readiness_scan {url}` (website AI-agent readiness score via AgentReady), `check_wellknown_discovery {url}` (agent-discovery file audit: ai-catalog.json, MCP server card, A2A agent card, llms.txt, agents.md, robots.txt), `generate_llms_txt {site_name, summary, sections}` (renders a spec-correct llms.txt), `define_term {term}` (agentic-commerce/MCP glossary definitions with citable URLs), `get_public_mcp_index {}` (weekly public MCP server ranking), `get_visibility_index {}` (DTC AI Visibility Index of ~37 leading brands).
 - Descriptor: [/.well-known/mcp.json](/.well-known/mcp.json). Free — self-limit to a few calls per minute; high-volume pay-per-call ($0.005 via the x402 protocol, USDC on Base, no account) at [x402.agiscorecard.com](https://x402.agiscorecard.com).
 
+## Machine discovery
+- [ai-catalog.json](/.well-known/ai-catalog.json): Agentic Resource Discovery manifest of this site's MCP server, APIs and sister services
+- [mcp/server-card.json](/.well-known/mcp/server-card.json): MCP Server Card for the /mcp endpoint (7 tools, streamable HTTP, no auth)
+- [mcp.json](/.well-known/mcp.json): community-convention MCP descriptor (same server)
+- [feed.xml](/feed.xml): Atom feed announcing weekly Public MCP Server Index and ecosystem-report refreshes
+
 ## Audience
 MCP server developers, agent platform builders, and teams monetizing MCP servers who need uptime and conformance monitoring.
 

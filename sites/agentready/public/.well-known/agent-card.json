@@ -1,0 +1,42 @@
+{
+  "protocolVersion": "0.3.0",
+  "name": "AgentReady Visibility Scanner",
+  "description": "Scans any website for AI-agent readiness and returns a 0-100 score with itemized checks and concrete fixes: robots.txt access for 7 major AI crawlers, llms.txt, agents.md, schema.org JSON-LD (Product/Offer/Organization/FAQPage), sitemap and answer-readiness metadata. Interaction today is plain HTTPS, not A2A JSON-RPC: GET https://agentready.agiscorecard.com/api/scan?url=<site> returns the full JSON report, free, no auth. Please self-limit to a few calls per minute; for high-volume autonomous use the identical scan is pay-per-call ($0.005 USDC on Base, x402 protocol, no account) at https://x402.agiscorecard.com/api/scan.",
+  "url": "https://agentready.agiscorecard.com/api/scan",
+  "version": "1.0.0",
+  "provider": {
+    "organization": "AGI Scorecard"
+  },
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false
+  },
+  "defaultInputModes": [
+    "text/plain"
+  ],
+  "defaultOutputModes": [
+    "application/json"
+  ],
+  "securitySchemes": {
+    "primary": {
+      "type": "none"
+    }
+  },
+  "skills": [
+    {
+      "id": "scan",
+      "name": "AI-visibility scan",
+      "description": "Score a website 0-100 on visibility to AI shopping agents (ChatGPT, Claude, Perplexity, Google AI Mode): robots.txt AI-crawler access, llms.txt, agents.md, JSON-LD structured data, meta basics, sitemap — with a fix for every failed check. GET /api/scan?url=<site>."
+    },
+    {
+      "id": "monitor",
+      "name": "Visibility monitoring",
+      "description": "Recurring re-scans of a store with email alerts on regression (free weekly tier; paid daily tiers). Sign-up at https://agentready.agiscorecard.com/pricing."
+    },
+    {
+      "id": "verify",
+      "name": "Agent-Ready verification",
+      "description": "Earn an embeddable, live-verified badge proving a store is visible to AI shopping agents. https://agentready.agiscorecard.com/get-verified."
+    }
+  ]
+}

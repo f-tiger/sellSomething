@@ -863,6 +863,7 @@ function handleDiscovery(request, env) {
         // Full v2 PaymentRequirements (spec §5.1.2) once the wallet is live:
         accepts: payToConfigured ? [paymentRequirementsV2(e, env)] : [],
       })),
+      openapi: origin + "/openapi.json", // OpenAPI 3.1 spec of the same endpoints
       docs: origin + "/",
     },
     200,

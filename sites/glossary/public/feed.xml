@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>The Agent Glossary</title>
+  <subtitle>Plain-English definitions for the AI-agent era — agentic commerce, MCP, GEO/AEO and agent payments. New terms appear here as they are published.</subtitle>
+  <id>https://glossary.agiscorecard.com/</id>
+  <link href="https://glossary.agiscorecard.com/"/>
+  <link rel="self" type="application/atom+xml" href="https://glossary.agiscorecard.com/feed.xml"/>
+  <updated>2026-08-21T00:00:00Z</updated>
+  <author><name>Agent Glossary</name></author>
+  <entry>
+    <title>What is x402 facilitator?</title>
+    <id>https://glossary.agiscorecard.com/x402-facilitator</id>
+    <link href="https://glossary.agiscorecard.com/x402-facilitator"/>
+    <published>2026-08-21T00:00:00Z</published>
+    <updated>2026-08-21T00:00:00Z</updated>
+    <category term="Agent payments"/>
+    <summary>An x402 facilitator is a service that verifies and settles payments on behalf of servers using the x402 protocol — it checks that a client's signed payment matches the server's requirements, then broadcasts the transaction on-chain, so sellers never need blockchain infrastructure of their own.</summary>
+  </entry>
+  <entry>
+    <title>What is HTTP 402 (Payment Required)?</title>
+    <id>https://glossary.agiscorecard.com/http-402</id>
+    <link href="https://glossary.agiscorecard.com/http-402"/>
+    <published>2026-08-21T00:00:00Z</published>
+    <updated>2026-08-21T00:00:00Z</updated>
+    <category term="Agent payments"/>
+    <summary>HTTP 402 "Payment Required" is a status code reserved in the HTTP spec since the 1990s but never standardized — until the AI-agent era. Protocols like x402 and products like Cloudflare's Pay Per Crawl now use a 402 response to tell a machine caller exactly what a resource costs and how to pay for it programmatically.</summary>
+  </entry>
+  <entry>
+    <title>What is EIP-3009 (transferWithAuthorization)?</title>
+    <id>https://glossary.agiscorecard.com/eip-3009</id>
+    <link href="https://glossary.agiscorecard.com/eip-3009"/>
+    <published>2026-08-21T00:00:00Z</published>
+    <updated>2026-08-21T00:00:00Z</updated>
+    <category term="Agent payments"/>
+    <summary>EIP-3009 is an Ethereum token standard that lets a holder authorize a one-time, recipient-specific stablecoin transfer with an off-chain signature (transferWithAuthorization), which anyone can then submit on-chain. It's how x402 payments work on EVM chains: the paying agent signs; a facilitator submits and pays the gas.</summary>
+  </entry>
+  <entry>
+    <title>What is Monetization Gateway (Cloudflare)?</title>
+    <id>https://glossary.agiscorecard.com/monetization-gateway</id>
+    <link href="https://glossary.agiscorecard.com/monetization-gateway"/>
+    <published>2026-08-21T00:00:00Z</published>
+    <updated>2026-08-21T00:00:00Z</updated>
+    <category term="Agent payments"/>
+    <summary>The Monetization Gateway is a Cloudflare product (waitlist opened July 2, 2026) that lets anyone charge for resources behind Cloudflare — web pages, APIs, datasets, files or MCP tool calls — using the x402 protocol, with payments settling in stablecoins and Cloudflare verifying payment and enforcing access at the edge.</summary>
+  </entry>
+  <entry>
+    <title>What is Pay per crawl?</title>
+    <id>https://glossary.agiscorecard.com/pay-per-crawl</id>
+    <link href="https://glossary.agiscorecard.com/pay-per-crawl"/>
+    <published>2026-08-21T00:00:00Z</published>
+    <updated>2026-08-21T00:00:00Z</updated>
+    <category term="Agent payments"/>
+    <summary>Pay per crawl is a Cloudflare feature (part of AI Crawl Control) that lets website owners charge AI crawlers for access to their content: a crawler either presents payment intent in its request headers and gets the page, or receives an HTTP 402 Payment Required response with the price.</summary>
+  </entry>
+  <entry>
+    <title>What is Agent wallet (programmable wallet)?</title>
+    <id>https://glossary.agiscorecard.com/agent-wallet</id>
+    <link href="https://glossary.agiscorecard.com/agent-wallet"/>
+    <published>2026-08-21T00:00:00Z</published>
+    <updated>2026-08-21T00:00:00Z</updated>
+    <category term="Agent payments"/>
+    <summary>An agent wallet is a programmable wallet built for an AI agent rather than a human: the agent gets its own payment credentials and identity, but every spend is constrained by human-set policies — spending caps, per-transaction limits and scoped permissions. Examples include Coinbase's CDP Agentic Wallets and Cloudflare Wallets.</summary>
+  </entry>
+  <entry>
+    <title>What is Shared Payment Token (SPT)?</title>
+    <id>https://glossary.agiscorecard.com/shared-payment-token</id>
+    <link href="https://glossary.agiscorecard.com/shared-payment-token"/>
+    <published>2026-08-21T00:00:00Z</published>
+    <updated>2026-08-21T00:00:00Z</updated>
+    <category term="Agent payments"/>
+    <summary>A Shared Payment Token (SPT) is a Stripe payment primitive for agentic commerce: it lets an AI agent initiate a payment using a customer's permitted payment method without ever exposing the underlying card or credentials, with scope and amount controlled by the merchant and platform.</summary>
+  </entry>
+  <entry>
+    <title>What is Mandate (AP2)?</title>
+    <id>https://glossary.agiscorecard.com/ap2-mandate</id>
+    <link href="https://glossary.agiscorecard.com/ap2-mandate"/>
+    <published>2026-08-21T00:00:00Z</published>
+    <updated>2026-08-21T00:00:00Z</updated>
+    <category term="Agent payments"/>
+    <summary>A mandate, in the Agent Payments Protocol (AP2), is a cryptographically signed digital record proving what a user authorized their AI agent to do — what to buy, under which limits — giving merchants and payment networks verifiable, auditable evidence that an agent-initiated purchase was genuinely approved.</summary>
+  </entry>
+  <entry>
+    <title>What is Agentic checkout?</title>
+    <id>https://glossary.agiscorecard.com/agentic-checkout</id>
+    <link href="https://glossary.agiscorecard.com/agentic-checkout"/>
+    <published>2026-08-21T00:00:00Z</published>
+    <updated>2026-08-21T00:00:00Z</updated>
+    <category term="Agentic commerce"/>
+    <summary>Agentic checkout is the completion step of agentic commerce: how an AI agent actually pays and places an order on a buyer's behalf. In 2026 it spans two models — handoff (the agent shortlists, the buyer completes checkout on the merchant's site) and delegated payment (the agent pays directly using scoped credentials like tokens or mandates).</summary>
+  </entry>
+  <entry>
+    <title>What is MCP Registry?</title>
+    <id>https://glossary.agiscorecard.com/mcp-registry</id>
+    <link href="https://glossary.agiscorecard.com/mcp-registry"/>
+    <published>2026-08-21T00:00:00Z</published>
+    <updated>2026-08-21T00:00:00Z</updated>
+    <category term="Model Context Protocol"/>
+    <summary>The MCP Registry is the official open catalog of Model Context Protocol servers at registry.modelcontextprotocol.io, where developers publish servers under verified namespaces (like io.github.username) so MCP clients and subregistries can discover them from one canonical source.</summary>
+  </entry>
+  <entry>
+    <title>What is Proof of personhood?</title>
+    <id>https://glossary.agiscorecard.com/proof-of-personhood</id>
+    <link href="https://glossary.agiscorecard.com/proof-of-personhood"/>
+    <published>2026-08-21T00:00:00Z</published>
+    <updated>2026-08-21T00:00:00Z</updated>
+    <category term="AI agents &amp; concepts"/>
+    <summary>Proof of personhood is a way to verify that an online actor is a unique human — not a bot, a duplicate account, or an AI agent — without necessarily revealing who they are. As AI agents flood the internet, it's becoming core infrastructure for fair airdrops, governance, and telling delegated agents apart from fake users.</summary>
+  </entry>
+  <entry>
+    <title>What is Agentic commerce?</title>
+    <id>https://glossary.agiscorecard.com/agentic-commerce</id>
+    <link href="https://glossary.agiscorecard.com/agentic-commerce"/>
+    <published>2026-07-21T00:00:00Z</published>
+    <updated>2026-07-21T00:00:00Z</updated>
+    <category term="Agentic commerce"/>
+    <summary>Agentic commerce is delegated shopping: a person states intent and constraints, and an AI agent searches, compares and completes part or all of a purchase on their behalf. Unlike a chatbot, an agent transacts — it produces an order.</summary>
+  </entry>
+  <entry>
+    <title>What is Agentic Commerce Protocol (ACP)?</title>
+    <id>https://glossary.agiscorecard.com/acp</id>
+    <link href="https://glossary.agiscorecard.com/acp"/>
+    <published>2026-07-21T00:00:00Z</published>
+    <updated>2026-07-21T00:00:00Z</updated>
+    <category term="Agentic commerce"/>
+    <summary>The Agentic Commerce Protocol (ACP) is an open standard, maintained by OpenAI and Stripe, for connecting buyers, their AI agents and businesses to complete purchases. It powers product discovery in ChatGPT; after OpenAI retired Instant Checkout in March 2026, checkout itself hands off to the merchant's own environment.</summary>
+  </entry>
+  <entry>
+    <title>What is Universal Commerce Protocol (UCP)?</title>
+    <id>https://glossary.agiscorecard.com/ucp</id>
+    <link href="https://glossary.agiscorecard.com/ucp"/>
+    <published>2026-07-21T00:00:00Z</published>
+    <updated>2026-07-21T00:00:00Z</updated>
+    <category term="Agentic commerce"/>
+    <summary>The Universal Commerce Protocol (UCP) is Google's agentic-commerce standard, launched at NRF 2026, covering the full journey from product discovery to post-purchase across Google's AI surfaces.</summary>
+  </entry>
+  <entry>
+    <title>What is AI shopping agent?</title>
+    <id>https://glossary.agiscorecard.com/ai-shopping-agent</id>
+    <link href="https://glossary.agiscorecard.com/ai-shopping-agent"/>
+    <published>2026-07-21T00:00:00Z</published>
+    <updated>2026-07-21T00:00:00Z</updated>
+    <category term="Agentic commerce"/>
+    <summary>An AI shopping agent is an AI assistant that discovers, compares and can purchase products on a buyer's behalf — for example ChatGPT Shopping, Perplexity, or Google AI Mode acting on a shopping request.</summary>
+  </entry>
+  <entry>
+    <title>What is Citation share?</title>
+    <id>https://glossary.agiscorecard.com/citation-share</id>
+    <link href="https://glossary.agiscorecard.com/citation-share"/>
+    <published>2026-07-21T00:00:00Z</published>
+    <updated>2026-07-21T00:00:00Z</updated>
+    <category term="AI visibility (GEO/AEO)"/>
+    <summary>Citation share is how often an AI assistant cites or recommends your brand when answering a relevant query — the AI-era replacement for search rankings. If SEO was about ranking a link, citation share is about being part of the answer.</summary>
+  </entry>
+  <entry>
+    <title>What is Generative Engine Optimization (GEO)?</title>
+    <id>https://glossary.agiscorecard.com/geo</id>
+    <link href="https://glossary.agiscorecard.com/geo"/>
+    <published>2026-07-21T00:00:00Z</published>
+    <updated>2026-07-21T00:00:00Z</updated>
+    <category term="AI visibility (GEO/AEO)"/>
+    <summary>Generative Engine Optimization (GEO) is the practice of optimizing content and data so AI systems (ChatGPT, Perplexity, Google AI Overviews) cite you in their synthesized answers. It's SEO for the AI-answer era.</summary>
+  </entry>
+  <entry>
+    <title>What is Answer Engine Optimization (AEO)?</title>
+    <id>https://glossary.agiscorecard.com/aeo</id>
+    <link href="https://glossary.agiscorecard.com/aeo"/>
+    <published>2026-07-21T00:00:00Z</published>
+    <updated>2026-07-21T00:00:00Z</updated>
+    <category term="AI visibility (GEO/AEO)"/>
+    <summary>Answer Engine Optimization (AEO) is optimizing content to be the direct answer an AI or search engine returns — often used interchangeably with GEO, with a slightly stronger focus on Q&amp;A-style extraction and featured answers.</summary>
+  </entry>
+  <entry>
+    <title>What is llms.txt?</title>
+    <id>https://glossary.agiscorecard.com/llms-txt</id>
+    <link href="https://glossary.agiscorecard.com/llms-txt"/>
+    <published>2026-07-21T00:00:00Z</published>
+    <updated>2026-07-21T00:00:00Z</updated>
+    <category term="AI visibility (GEO/AEO)"/>
+    <summary>llms.txt is a plain-markdown file served at a site's root (/llms.txt) that gives AI systems a curated summary of the site — what it is, its key pages, and important facts like pricing and policies.</summary>
+  </entry>
+  <entry>
+    <title>What is agents.md?</title>
+    <id>https://glossary.agiscorecard.com/agents-md</id>
+    <link href="https://glossary.agiscorecard.com/agents-md"/>
+    <published>2026-07-21T00:00:00Z</published>
+    <updated>2026-07-21T00:00:00Z</updated>
+    <category term="AI visibility (GEO/AEO)"/>
+    <summary>agents.md is an emerging convention: a markdown file that tells AI agents how to interact with your site or repository — what it is, how to use it, and what they may do. Shopify serves one natively for stores.</summary>
+  </entry>
+  <entry>
+    <title>What is Model Context Protocol (MCP)?</title>
+    <id>https://glossary.agiscorecard.com/mcp</id>
+    <link href="https://glossary.agiscorecard.com/mcp"/>
+    <published>2026-07-21T00:00:00Z</published>
+    <updated>2026-07-21T00:00:00Z</updated>
+    <category term="Model Context Protocol"/>
+    <summary>The Model Context Protocol (MCP) is an open standard from Anthropic that lets AI applications connect to external tools and data through a common interface. It's often described as "USB-C for AI" — one protocol, many integrations.</summary>
+  </entry>
+  <entry>
+    <title>What is MCP server?</title>
+    <id>https://glossary.agiscorecard.com/mcp-server</id>
+    <link href="https://glossary.agiscorecard.com/mcp-server"/>
+    <published>2026-07-21T00:00:00Z</published>
+    <updated>2026-07-21T00:00:00Z</updated>
+    <category term="Model Context Protocol"/>
+    <summary>An MCP server is a program that exposes tools, resources or prompts to AI clients over the Model Context Protocol. Clients discover its tools via a tools/list call and invoke them through JSON-RPC.</summary>
+  </entry>
+  <entry>
+    <title>What is Streamable HTTP (MCP transport)?</title>
+    <id>https://glossary.agiscorecard.com/streamable-http</id>
+    <link href="https://glossary.agiscorecard.com/streamable-http"/>
+    <published>2026-07-21T00:00:00Z</published>
+    <updated>2026-07-21T00:00:00Z</updated>
+    <category term="Model Context Protocol"/>
+    <summary>Streamable HTTP is the current transport for remote MCP servers: a single HTTPS endpoint that accepts POSTed JSON-RPC and replies with either a plain JSON response or a Server-Sent-Events stream, with optional sessions via the Mcp-Session-Id header.</summary>
+  </entry>
+  <entry>
+    <title>What is x402?</title>
+    <id>https://glossary.agiscorecard.com/x402</id>
+    <link href="https://glossary.agiscorecard.com/x402"/>
+    <published>2026-07-21T00:00:00Z</published>
+    <updated>2026-07-21T00:00:00Z</updated>
+    <category term="Agent payments"/>
+    <summary>x402 is an open protocol that revives the HTTP 402 "Payment Required" status so AI agents and apps can pay for API calls or content programmatically, typically in stablecoins, in a single request-response. Created by Coinbase, it is now governed by the x402 Foundation under the Linux Foundation.</summary>
+  </entry>
+  <entry>
+    <title>What is AP2 (Agent Payments Protocol)?</title>
+    <id>https://glossary.agiscorecard.com/ap2</id>
+    <link href="https://glossary.agiscorecard.com/ap2"/>
+    <published>2026-07-21T00:00:00Z</published>
+    <updated>2026-07-21T00:00:00Z</updated>
+    <category term="Agent payments"/>
+    <summary>AP2 (Agent Payments Protocol) is an open protocol for agent-initiated payments, initiated by Google and donated to the FIDO Alliance in April 2026. It uses cryptographically signed "mandates" that prove a user authorized an agent to make a specific purchase within set limits.</summary>
+  </entry>
+  <entry>
+    <title>What is Agentic payments?</title>
+    <id>https://glossary.agiscorecard.com/agentic-payments</id>
+    <link href="https://glossary.agiscorecard.com/agentic-payments"/>
+    <published>2026-07-21T00:00:00Z</published>
+    <updated>2026-07-21T00:00:00Z</updated>
+    <category term="Agent payments"/>
+    <summary>Agentic payments are payments initiated and completed by AI agents on a user's behalf, using protocols like x402 (settlement) and AP2 (authorization) so an agent can pay for goods, APIs or content without manual checkout.</summary>
+  </entry>
+  <entry>
+    <title>What is AI agent?</title>
+    <id>https://glossary.agiscorecard.com/ai-agent</id>
+    <link href="https://glossary.agiscorecard.com/ai-agent"/>
+    <published>2026-07-21T00:00:00Z</published>
+    <updated>2026-07-21T00:00:00Z</updated>
+    <category term="AI agents &amp; concepts"/>
+    <summary>An AI agent is a system that uses a large language model to pursue a goal autonomously — deciding on steps, calling tools or APIs, and acting on the results — rather than just answering a single prompt.</summary>
+  </entry>
+  <entry>
+    <title>What is RAG (Retrieval-Augmented Generation)?</title>
+    <id>https://glossary.agiscorecard.com/rag</id>
+    <link href="https://glossary.agiscorecard.com/rag"/>
+    <published>2026-07-21T00:00:00Z</published>
+    <updated>2026-07-21T00:00:00Z</updated>
+    <category term="AI agents &amp; concepts"/>
+    <summary>RAG (Retrieval-Augmented Generation) is a technique where an AI model retrieves relevant documents from an external knowledge source and uses them as context to generate a more accurate, grounded answer — reducing hallucination.</summary>
+  </entry>
+  <entry>
+    <title>What is Function calling (tool calling)?</title>
+    <id>https://glossary.agiscorecard.com/function-calling</id>
+    <link href="https://glossary.agiscorecard.com/function-calling"/>
+    <published>2026-07-21T00:00:00Z</published>
+    <updated>2026-07-21T00:00:00Z</updated>
+    <category term="AI agents &amp; concepts"/>
+    <summary>Function calling (or tool calling) is a capability where an AI model, given a set of tool definitions, outputs a structured request to invoke one — with arguments — so an application can run it and return the result to the model.</summary>
+  </entry>
+  <entry>
+    <title>What is A2A (Agent2Agent protocol)?</title>
+    <id>https://glossary.agiscorecard.com/a2a</id>
+    <link href="https://glossary.agiscorecard.com/a2a"/>
+    <published>2026-07-21T00:00:00Z</published>
+    <updated>2026-07-21T00:00:00Z</updated>
+    <category term="AI agents &amp; concepts"/>
+    <summary>A2A (Agent2Agent) is an open protocol, introduced by Google, that lets independent AI agents discover each other and collaborate — delegating tasks and exchanging results — across different vendors and frameworks.</summary>
+  </entry>
+  <entry>
+    <title>What is Prompt injection?</title>
+    <id>https://glossary.agiscorecard.com/prompt-injection</id>
+    <link href="https://glossary.agiscorecard.com/prompt-injection"/>
+    <published>2026-07-21T00:00:00Z</published>
+    <updated>2026-07-21T00:00:00Z</updated>
+    <category term="AI agents &amp; concepts"/>
+    <summary>Prompt injection is an attack where malicious instructions hidden in content an AI reads (a web page, document, tool output) trick the model into ignoring its original task and following the attacker's instructions instead.</summary>
+  </entry>
+  <entry>
+    <title>What is AI Overviews?</title>
+    <id>https://glossary.agiscorecard.com/ai-overviews</id>
+    <link href="https://glossary.agiscorecard.com/ai-overviews"/>
+    <published>2026-07-21T00:00:00Z</published>
+    <updated>2026-07-21T00:00:00Z</updated>
+    <category term="AI visibility (GEO/AEO)"/>
+    <summary>AI Overviews are Google's AI-generated answer summaries shown at the top of search results. They synthesize an answer from multiple sources and cite them, often reducing clicks to the underlying websites.</summary>
+  </entry>
+  <entry>
+    <title>What is Zero-click search?</title>
+    <id>https://glossary.agiscorecard.com/zero-click-search</id>
+    <link href="https://glossary.agiscorecard.com/zero-click-search"/>
+    <published>2026-07-21T00:00:00Z</published>
+    <updated>2026-07-21T00:00:00Z</updated>
+    <category term="AI visibility (GEO/AEO)"/>
+    <summary>A zero-click search is a search where the user gets their answer directly on the results page — from an AI Overview, featured snippet or knowledge panel — without clicking through to any website.</summary>
+  </entry>
+  <entry>
+    <title>What is Structured data (schema markup)?</title>
+    <id>https://glossary.agiscorecard.com/structured-data</id>
+    <link href="https://glossary.agiscorecard.com/structured-data"/>
+    <published>2026-07-21T00:00:00Z</published>
+    <updated>2026-07-21T00:00:00Z</updated>
+    <category term="AI visibility (GEO/AEO)"/>
+    <summary>Structured data is machine-readable markup (usually schema.org JSON-LD) added to a web page that describes its content — a product's price, an FAQ, an organization — so search engines and AI agents can understand and use it reliably.</summary>
+  </entry>
+  <entry>
+    <title>What is ChatGPT Shopping?</title>
+    <id>https://glossary.agiscorecard.com/chatgpt-shopping</id>
+    <link href="https://glossary.agiscorecard.com/chatgpt-shopping"/>
+    <published>2026-07-21T00:00:00Z</published>
+    <updated>2026-07-21T00:00:00Z</updated>
+    <category term="Agentic commerce"/>
+    <summary>ChatGPT Shopping is OpenAI's feature that lets ChatGPT recommend products drawn from merchant feeds via the Agentic Commerce Protocol. Since OpenAI retired in-chat Instant Checkout in March 2026, ChatGPT surfaces and shortlists products, then hands buyers off to the merchant's own checkout.</summary>
+  </entry>
+  <entry>
+    <title>What is MCP tool?</title>
+    <id>https://glossary.agiscorecard.com/mcp-tool</id>
+    <link href="https://glossary.agiscorecard.com/mcp-tool"/>
+    <published>2026-07-21T00:00:00Z</published>
+    <updated>2026-07-21T00:00:00Z</updated>
+    <category term="Model Context Protocol"/>
+    <summary>An MCP tool is a single callable function exposed by an MCP server — with a name, a description and a JSON-Schema for its inputs — that an AI agent can discover via tools/list and invoke to perform an action.</summary>
+  </entry>
+</feed>

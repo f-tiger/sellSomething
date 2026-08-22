@@ -5,7 +5,8 @@
  * "what is X" definitional queries that get cited by ChatGPT / AI Overviews.
  *
  * Add a term to TERMS and re-run: node scripts/gen-glossary.mjs
- * Emits term pages + index.html + sitemap.xml + llms.txt under sites/glossary/public.
+ * Emits term pages + index.html + sitemap.xml + llms.txt + feed.xml (Atom)
+ * under sites/glossary/public.
  */
 import fs from "node:fs";
 
@@ -446,7 +447,39 @@ fs.writeFileSync(new URL("./sitemap.xml", OUT),
 
 const llms = `# Agent Glossary\n\n> Plain-English definitions for the AI-agent era: agentic commerce, the Model Context Protocol (MCP), GEO/AEO, and agent payments (x402, AP2). Each term is answered in one sentence, then explained, with links to free tools.\n\n## Terms\n` +
   TERMS.map((t) => `- [${t.term}](/${t.slug}): ${t.answer}`).join("\n") +
+  `\n\n## Machine discovery\n- [ai-catalog.json](/.well-known/ai-catalog.json): Agentic Resource Discovery manifest of this site and its sister tools/APIs\n- [feed.xml](/feed.xml): Atom feed of glossary terms, newest first` +
   `\n\n## Related tools\n- [AgentReady](${AGENTREADY}): AI sales-visibility scanner\n- [MCP Pulse](${MCPPULSE}): MCP server health scanner\n- [SellToAgents](${SELLTOAGENTS}): agentic commerce guides\n`;
 fs.writeFileSync(new URL("./llms.txt", OUT), llms);
 
-console.log(`Generated ${TERMS.length} term pages + index + sitemap (${urls.length} urls) + llms.txt -> ${OUT.pathname}`);
+/* ---------------- Atom feed (feed.xml) ---------------- */
+
+const DEFAULT_PUBLISHED = "2026-07-21";
+const iso = (d) => `${d}T00:00:00Z`;
+// Newest first; stable within the same date (keeps TERMS order).
+const feedTerms = TERMS
+  .map((t, i) => ({ t, i, pub: t.published || DEFAULT_PUBLISHED }))
+  .sort((a, b) => (a.pub === b.pub ? a.i - b.i : b.pub.localeCompare(a.pub)));
+const feedUpdated = iso(feedTerms[0].pub);
+const feed = `<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>The Agent Glossary</title>
+  <subtitle>Plain-English definitions for the AI-agent era — agentic commerce, MCP, GEO/AEO and agent payments. New terms appear here as they are published.</subtitle>
+  <id>${SITE}/</id>
+  <link href="${SITE}/"/>
+  <link rel="self" type="application/atom+xml" href="${SITE}/feed.xml"/>
+  <updated>${feedUpdated}</updated>
+  <author><name>Agent Glossary</name></author>
+${feedTerms.map(({ t, pub }) => `  <entry>
+    <title>${esc(`What is ${t.term}?`)}</title>
+    <id>${SITE}/${t.slug}</id>
+    <link href="${SITE}/${t.slug}"/>
+    <published>${iso(pub)}</published>
+    <updated>${iso(pub)}</updated>
+    <category term="${esc(t.cat)}"/>
+    <summary>${esc(t.answer)}</summary>
+  </entry>`).join("\n")}
+</feed>
+`;
+fs.writeFileSync(new URL("./feed.xml", OUT), feed);
+
+console.log(`Generated ${TERMS.length} term pages + index + sitemap (${urls.length} urls) + llms.txt + feed.xml (${feedTerms.length} entries) -> ${OUT.pathname}`);
