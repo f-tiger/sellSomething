@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-08-22",
-  "generatedAtUtc": "2026-08-22T05:58:15.633Z",
+  "updatedAt": "2026-08-23",
+  "generatedAtUtc": "2026-08-23T05:58:49.454Z",
   "geos": [
     "US",
     "GB",
@@ -10,6 +10,41 @@
   "trendingBrands": [],
   "trendingTopics": [],
   "news": [
+    {
+      "title": "AEO and GEO Services: What Answer Engine Optimization Is - TyN Magazine",
+      "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTFBXT1VGdU1pWmJqcXpUcC1ENmFGYUZ4R290ZHcwOW9mRGpGOW1lbFIwQzBWbEozU1kyd3h3My1OekdmZjlaNU5ETHV4WXBYdkwzTmhj?oc=5",
+      "published": "Sat, 22 Aug 2026 15:49:05 GMT",
+      "source": "TyN Magazine",
+      "query": "llms.txt"
+    },
+    {
+      "title": "Claude's Corner: Corvera - AI Agents for the CPG Operations Problem - StartupHub.ai",
+      "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxNZlBfQ2I1VkxIMzlRSUY2TTB3bjZaR0JuZ0JqdXpxNVRIb3ZfVUhILVRpQWVuX25Ta2l0ZG1waGtLLWt2cVZTOExJeWFYUGQ5TmNLc3BIdlUtcjRjSzVFbWxOV3BqUXR4SjdnUjBsbC11c1c0TEtub3RrYVF4MEhUWTVrcEllaGFhM21rRE9n?oc=5",
+      "published": "Sat, 22 Aug 2026 11:10:38 GMT",
+      "source": "StartupHub.ai",
+      "query": "Model Context Protocol"
+    },
+    {
+      "title": "CVE-2026-76404: The MCP Security Wave Reaches Enterprise Infrastructure - forkast.news",
+      "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNemlpWDh3Wi03bkxoYmJLMEFUQVJBNl9yTnlKRXhqS3BjOVkxd1k3MUhfcmF3Z1lUcFZfczRSank4X1hmME1JeUFnSGVhdFZJSUhVd3hUbjRTeklUTE5LeHVTc3VvaGF1c2ZELURfV1c3UkhPNU9UeDFxTzItRGdEWGdZT3FrR203OE1oMEdRdjRPaWZ6WHRV?oc=5",
+      "published": "Sat, 22 Aug 2026 10:29:07 GMT",
+      "source": "forkast.news",
+      "query": "Model Context Protocol"
+    },
+    {
+      "title": "Stripe president says checkout pages ‘will go away’ as AI commerce expands - Business Insider",
+      "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxPVmZzZHZqbkRrMEktV1JSMHl6T3BzaVBzb2Z5R1I3Rm5qeTAxWUFHdHdIQzBYbzZSbWlNM3N3aU51RGdaYVd5VGpFdkxtLVpFOVhNVEFCcWRqT2Npc1hxMy14WjZva2xTNGhvdXg3ZzhrRFJZSGlhRmlRYnRIRGwtUHc0dUZPdmcydHlCUV9tMUY?oc=5",
+      "published": "Sat, 22 Aug 2026 09:01:00 GMT",
+      "source": "Business Insider",
+      "query": "agentic commerce"
+    },
+    {
+      "title": "How To Choose A Shopify SEO Agency For Your Store - PC Tech Magazine",
+      "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNTmZpQ014RGoycmhMSWNFT2dVM1pkM0pNSHBtQXpzQllYNEhReU5TOFZ6NkFMTmRCSDY3dE02NFUwMEdMbXJFSVB6eENmeGkxd0Z0U3E3NUJncG52bzFsQlZjajhzbVQxYmVZMWNSUWREWjhQUmFKN0J0cmxFR3ExVEpXNWUxWFk?oc=5",
+      "published": "Sat, 22 Aug 2026 08:48:43 GMT",
+      "source": "PC Tech Magazine",
+      "query": "llms.txt"
+    },
     {
       "title": "Cloudflare Gateway Makes Shadow MCP Visible and Blockable - forkast.news",
       "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPdnd3dTBJcGZOOFFjUTlLUjlPb1RCNTZ2cXJhb095OVlWVDgwQ0hkV1EyYUZwVjU0Wnh3UTB2eWdSVFJhaFRSX1FWYU5LT1lTdGNBTGpJU0VrcUhUQlRqSFNBMFBLcTFWN1hPWEpjUWdxRDUxNEJsU1NTRXVqSnNzMElFTnBxZw?oc=5",
@@ -23,6 +58,13 @@
       "published": "Sat, 22 Aug 2026 01:38:12 GMT",
       "source": "simplywall.st",
       "query": "agentic commerce"
+    },
+    {
+      "title": "How to Set Up an MCP Server for Claude: 13 Steps [2026] - tech-insider.org",
+      "link": "https://news.google.com/rss/articles/CBMic0FVX3lxTE9sdTZoMmxJcUtBVDMwZFRrVVUwUTNTYXg5TkNQWVJhNW9veFZNSFphZmdfMVYwWXozbzFGSmJzUnZhQlFtc194ZzlXM2VhT2cybTRqeHFoWE8xdS1jYWp0Njh3Rkhpc0dKS1FySFhaeEZheHc?oc=5",
+      "published": "Sat, 22 Aug 2026 00:57:55 GMT",
+      "source": "tech-insider.org",
+      "query": "Model Context Protocol"
     },
     {
       "title": "Proof’s x401: The First Protocol Answering Who Is Behind the Agent - forkast.news",
@@ -39,11 +81,18 @@
       "query": "Model Context Protocol"
     },
     {
-      "title": "Binance Launches Agent OS: AI Agents Can Now Trade Crypto for You, but You Hold the Leash - Pasquale Pillitteri",
-      "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxQb1g4OGtkYVJjWW9ma1c3U1hwUkZVbGtydEFhTlRRS292WmtfcV9maUpLVENTek9SMXl5aWVNRkFJY1VzNE9QODJsOGJ1Z2dyaVVfQTZ2UHpLS3NBc0FhRnBZaVlSTng4eFN0Mk81SGRxek5tNTBNeHA3MG5CdkJsemVULW1ObWdMRXdR?oc=5",
-      "published": "Fri, 21 Aug 2026 18:02:39 GMT",
-      "source": "Pasquale Pillitteri",
-      "query": "Model Context Protocol"
+      "title": "x402 Price Today | Live X402 Price, Chart & Market Data - Binance",
+      "link": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE9KejVnTDlrdDhwTmJUWUpQaVB4Uk5QZlhxdV93a2I2ZEpNUUQ4dEdYSXhEek9DalJjVnFWS3JlQW1tWHhWeW9UUW1TQ21hSkF1U2c?oc=5",
+      "published": "Fri, 21 Aug 2026 19:25:00 GMT",
+      "source": "Binance",
+      "query": "x402"
+    },
+    {
+      "title": "PayPal Agentic Payments: Can They Reshape the Future of Commerce? - Zacks Investment Research",
+      "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxPeVlyRWpVYXdmVXZhcExZT2pCMTg3Qlh5X1BjTWtqSnhyRHZyZUQ1MVViQ2N1RnhFZjhha3FZVHJpMGtVWHdTWWVOSzFwYzU1ZnQwZG1HOTg3VWxsMW1sYWJkNXRWNkdjcWszcTh3YUQ3TG92RGkwWDFvcHk1cWpFMElHRXBIZkNRcGFYcFRuYUk3czdzZ21qbjN1emhTcWpnVkFfVmZ4OA?oc=5",
+      "published": "Fri, 21 Aug 2026 17:58:34 GMT",
+      "source": "Zacks Investment Research",
+      "query": "agentic commerce"
     },
     {
       "title": "PayPal Agentic Payments: Can They Reshape the Future of Commerce? - TradingView",
@@ -57,13 +106,6 @@
       "link": "https://news.google.com/rss/articles/CBMiqAJBVV95cUxQTkg2RVlvMGJYaDFFc2NreEhDT05uVF9WeWhET1Q5aGFoRnlSZ2NlQklDLVJwcWtPWnNqTEd3czJFVjAtSzl0UEFYTkZ0UHE2UVJ4MTVTbzd3ZmgyWF9uakpTUGpvSXl3SURnVDNiWVUzaVh4eUJtaG5mQ1NEQmdsc29neWR4dTQ4cGJUdW14OXRJSDdDMnQ1a200RHNxcVN4M1VoQ2hHQ3lrVkRRMzFrZGRjYlJCczJoQW5pbWdxdmYyc3lvMGtmTnlBU1JHaTFRenpYVEh6bm5wZ2FIT1laWHY0TG5GNWNXTlJ2QTFSaVZqTGhmSEY2WU53Z2d2NUI5ZEY4WGFjYjFOaUlvLTR3M1Q1aHFyX2tjZllLU1FlbVowMEhJX1IxXw?oc=5",
       "published": "Fri, 21 Aug 2026 12:25:00 GMT",
       "source": "FinancialContent",
-      "query": "agentic commerce"
-    },
-    {
-      "title": "Pine Labs to step up agentic commerce investments: CEO Amrish Rau - The Economic Times",
-      "link": "https://news.google.com/rss/articles/CBMizwFBVV95cUxNc3lyLVRNNG9KcFhfVXpTY0dhbFZmLW5vMHJIUzNGWTlyd0JlU1RQemhFczVqUWhCOFBJeWM1SjF4TUEzVUdrTlRDTmF4anVrOUFiS1BpNW1IZGt3NTZVeUw4STFnY0U1Z2EzYzUta2I2UkFzdUxMbHdWRDZyVnN6M1VPWjlDMDMwNUwyNzJ3bnhoT01vZWhqNHJMR2JZNXZHMm5YaUNTSXpCdG9abGJvUGdHSjk5MFdvN0hJTkJyMWllVlpOTDEyUVJnM2NmaDDSAdQBQVVfeXFMUHE4eW1DNXVIVzVsS25ZQ0c4TkExbmZNRW8ydm91V0FvWEVxay02ZWJqUWE4cy1DaUYtcENnZGxiRjdxWjEweF9mbmZrMjBmUUZhX1lBcW1ZRmJnYmEwbEY3MFJpcFpZczhmajR2a3FnTUJ5UVhjdjZ1NWYtRWNYbHJ0WFVqQnllRnNXWU5OSzlJLXkyQnFWWElSR3p2WFVhY1A0VGpzZEozRzduRmY5aENOSmdYMFdwV3FCWVpqcEZPVUw5R2poOVRWNmxBRFN5aS00RzU?oc=5",
-      "published": "Fri, 21 Aug 2026 10:33:46 GMT",
-      "source": "The Economic Times",
       "query": "agentic commerce"
     },
     {
@@ -88,6 +130,13 @@
       "query": "Model Context Protocol"
     },
     {
+      "title": "The future of commerce is becoming agentic. With $BOSON x402 - KuCoin",
+      "link": "https://news.google.com/rss/articles/CBMic0FVX3lxTE84LS1ab2x1SGNyaWxIZEEwRDVVZUd5RU1VZElyWlhaWnR5N0Nxdi0waGE1WHdKZ2RXYTRJandQYVVMLTVEbFBUM1lCNmJQc1FFaFZQc3dZUTNrUFJfYm41YmlrNXdGR1Bnc3hDcTlsUGpaT0k?oc=5",
+      "published": "Fri, 21 Aug 2026 08:39:08 GMT",
+      "source": "KuCoin",
+      "query": "x402"
+    },
+    {
       "title": "Query Dynatrace Managed data directly in Claude, AWS Kiro, GitHub Copilot, and other MCP-compatible clients - SitePoint",
       "link": "https://news.google.com/rss/articles/CBMiywFBVV95cUxNbkIwWUYxeVNpZjVpSlp0bkp0TDBxcGJJRDhWa1BIQXpPeFZPODYtRUNOQW1oYWVCcUlDTzBQaFBUSTFKUTRhSzBlUEp4N1F6VWUtVHJBU0ZlMmhuWW1zNGFxLTlJVXRDM2d1MHFYTTMyM0NNWk1ORFY0RldEWmJabEtGb2tqTUxGaEIwVVJ2NGIzYjhNUTY5RjJLcktwbDdaTHp2LUJyczBVREcwVDV2Nkhza3dBMEJxbkJ5X0x2bnpKWDlGTkV4ZVJKSQ?oc=5",
       "published": "Fri, 21 Aug 2026 07:00:09 GMT",
@@ -97,7 +146,7 @@
     {
       "title": "MCP Was Declared Dead - HackerNoon",
       "link": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE91Sk9WM0lHNDhYQzVDT3FWbFhUU2FoYWJlX09TY1BQU1JXYTFSRGl6bHJVVTJIYlVmYkdtSjZtTjhkRm1DZFJobEctMXYyRzJEYi11UmFObw?oc=5",
-      "published": "Thu, 20 Aug 2026 23:46:36 GMT",
+      "published": "Thu, 20 Aug 2026 23:47:25 GMT",
       "source": "HackerNoon",
       "query": "Model Context Protocol"
     },
@@ -128,55 +177,6 @@
       "published": "Thu, 20 Aug 2026 16:40:28 GMT",
       "source": "TradingView",
       "query": "agentic commerce"
-    },
-    {
-      "title": "Influ2 Launches MCP for Contact-Level ABM - Business Wire",
-      "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxOczRvb0JRVjhadDhDdkRqU290T2FjRFNJaG92R0tnMmJheTdsdzM1YTBPVHdtVGttRm9ITF9DMDNBOWVZN3V4b1lmU0dSRUJiYmN3Y3dKWF8wZlBxQ0s0WlJ4TzRaX2cwMzhjek9pZHpESFBHV0hSZnNaMlNrS25penlCNXBrdzNiVVg3NUE4c3d3VGR2MjF2cFc5dFRxM28?oc=5",
-      "published": "Thu, 20 Aug 2026 15:00:00 GMT",
-      "source": "Business Wire",
-      "query": "Model Context Protocol"
-    },
-    {
-      "title": "Bots Scanned Beehiiv Sites 500 Million Times Last Month. A New Tool Gives Creators More Control - inc.com",
-      "link": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxPVURpMEo3TkZUMkt5NU52MFV4YUlJWFRIdUljSUJQMFd5YUZoT1E4anZvaktGaHZHLWtSbXEzQnlnX1JSaVlybmhNbzE1Rzg1MXAzQ3pYQkxESE1BZkM1N1hmTngwREsxNkFLMHBGY2dhbGhjV0Z1ZnQxeTliZk5vT1ZLTVNiOW5qeHk2NkxXQThsTGZvVUhrdEN6RnpQSWRsWUNpRzhOTFVkbDRQamJBRTVyaGhKdGtwZk9Oc3g5ZE1rYmRBRy1CYXF1UUtpWWlIODRJ?oc=5",
-      "published": "Thu, 20 Aug 2026 13:12:07 GMT",
-      "source": "inc.com",
-      "query": "llms.txt"
-    },
-    {
-      "title": "Vision Insights announces new AI-friendly capability - Sports Business Journal",
-      "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOOUxBRkFqaDFrbEx5LWRPbjE4QkVrTmdDZWNkMUR1SEk0VGZmM0dZZVozRm4zVFJBMVp5ZF9LUlRfem9weXN3OURFSVVOOWFkQlZib1JINXdsTE8zQVJLMm9UY0JvNU8yQ2Z6MDhTMWNobVBIS2xmQ2E1amlZM2RzbGZHbnBITDlTYl95ZjBEbU95R0o5N0hFOHhJTFM4elpPU2pTYjNXUFNaSXl3OTROQg?oc=5",
-      "published": "Thu, 20 Aug 2026 13:05:18 GMT",
-      "source": "Sports Business Journal",
-      "query": "Model Context Protocol"
-    },
-    {
-      "title": "MCP-Enabled Product Intelligence Is Here and Manufacturing Executives Are Betting on PLM to Deliver - Business Wire",
-      "link": "https://news.google.com/rss/articles/CBMi7AFBVV95cUxNclZRalgwVllwY2g4dktlNGRHZ05NeHdhQ2dXTk02U1FGOE84VDVXWEF1NkR3aW51SzRnS3hITF84dV9POGYzRFRybmRoMzBTdzM4SkluODZBMFRtQU5FVU5NOFVCNk9jMU1aSUgxZHhTS3dLZDAydTQ3cUZ4LUx0eWpLQUZhZjAtM1lkYkRQZDVUYk1xZElTUEZCWnJ6LXc0VDEwRFlrRkUyeGUwZi0zZjkwSm5NQTlkdUFSMDQ4NEt2aW1UMnhSSWV1YjFrZlhOdmc2OE10MTVucFFpVVl0M1pUdzIyZUpBNVkxbA?oc=5",
-      "published": "Thu, 20 Aug 2026 13:02:00 GMT",
-      "source": "Business Wire",
-      "query": "Model Context Protocol"
-    },
-    {
-      "title": "How JD Sports and Braze Are Building The Future of Agentic Commerce - WWD",
-      "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxQd2lFdmttUVh6V3o3UXduV1hUaHdPNVlSTk51M0FZbWpEZlVEclg3MnRtS1Q1WC04UmZIbkg5SS01dFdnR0VrcXRyZkVVU3ItN2pzam9aUWtJSkFnZUw5RTBBYTN6OUktbXZybFV3VFBMNGtSTkd3ejB4UFJMN05LQ0ZWeEF5RnhEaC1mNTdnVHRwb3VIdnh1TGktVlRUUVFMR09MenFULWZOZmFNRFF5Tk54LXl6aXF6?oc=5",
-      "published": "Thu, 20 Aug 2026 11:51:59 GMT",
-      "source": "WWD",
-      "query": "agentic commerce"
-    },
-    {
-      "title": "Thomson Reuters and iManage deepen AI partnership with MCP-enabled knowledge integration - Legal IT Insider",
-      "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxPY3NYVGlDU2VYa3A3eDhpelVjOUZZZ0hLejFwZ2t0SjRfOGZFWVdkdi1rRmlxSmR5ZmFHUm14clJoczZjR0RoUXVfeWVXY192RUtzRmtydUJucng1d1Y4YkRhNkJYZ3pMVFJXb2FRaHpiOTlqazN2ZjhINXhxbnJ3T0FjbXBWNU81aXk3NXdSNzhrT295bDJqTUdzQ1dRa2JNeWdYUllvekw4aTFCamhUUm81a1h1SDNm?oc=5",
-      "published": "Thu, 20 Aug 2026 11:05:17 GMT",
-      "source": "Legal IT Insider",
-      "query": "Model Context Protocol"
-    },
-    {
-      "title": "Binance launches Agent OS platform for AI trading applications - Investing.com",
-      "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxOcDZNeVlURy1LeDRYb3E1elJQSnZHSk55VTRMZkltSUpwdTQ3TUxVTEJ2aXp4dERQTnZqajRQNDVQOElDc3I3RzM4NnZRblB4dFNGNldTZzRGUGRjNDF1Z2NBTUFVUUVfbV9nNkZiQ19TUmpxc01pV3NIU2ZMSWhoODRkWUl5cUU2SXgtZFl1aXJBVGVXdm1qeHh4Zm44MEEtZEZ4bWthMy1lOFZTYnljYVZaM0wwdTQ3VTlUQmRfVDliWUpD?oc=5",
-      "published": "Thu, 20 Aug 2026 10:12:15 GMT",
-      "source": "Investing.com",
-      "query": "Model Context Protocol"
     }
   ],
   "totals": {
