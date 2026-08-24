@@ -1,0 +1,11 @@
+{
+  "generatedAt": "2026-08-24T03:00:15.456Z",
+  "source": "public listings API (no SUPERTEAM_API_KEY set)",
+  "config": {
+    "minUsd": 100,
+    "minDaysToDeadline": 3,
+    "scoreThreshold": 6
+  },
+  "totalLive": 13,
+  "matches": []
+}
