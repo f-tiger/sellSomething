@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-05",
-  "generatedAtUtc": "2026-09-05T09:18:33.361Z",
+  "updatedAt": "2026-09-06",
+  "generatedAtUtc": "2026-09-06T09:38:43.396Z",
   "geos": [
     "US",
     "GB",
@@ -11,23 +11,65 @@
   "trendingTopics": [],
   "news": [
     {
-      "title": "From payment success rates to agentic commerce, AI is moving deeper into India’s payments stack, but... - Moneycontrol.com",
-      "link": "https://news.google.com/rss/articles/CBMimgJBVV95cUxQU1JJT2t5LXpRX3BxNTNTVE5uNGgwZGF3NVBwTGY3MjdxcER4Y0xWYmVPTjBTYXhTSUdmWnNTYi1IOXRrdVF4TUQ3OXY4UjZmVkFZVjZSOVpvd2tFUW9wLVRBSTJPSzNXTmM1eDZUaDhiM09HZzBONkZOb0lFWGlwUk1RZTZGdDJjVGIycWZtZHc1cEx0VXR4OEJzVFVvOWZERGt2Q0J1ZFo0LXpCRlJtalgwUFlUMVVHQ2JCdVJuQjNhSDZZQVJCaFlYaXdzRko1ei1McW1OM3BvSm9CNDhLVUJ0dnRKaG9zYkt5cC1fTURtY2thQU5HME1hM0M5bmRxM243SlVyWjA4T2hCUUlOdEs3dHVLMUJNcFHSAZ8CQVVfeXFMUGR2Ym9YcUlBd0w1ajJUOU9KOEdxNGZYcG14Mll4Yi1tdy1ZR1ZMMkx0NTZSeFVLNThTM3YyVnJ3bTNITzlkQ3IzQjRSMEdTVjQ5SXNiMGo0dU9ET2k2cnlydDJHcDNPYk1QUXdvNzJzcXFZaTVvUFBqbDZmRFk4WTNCMjN4NnJuZldlbk45TjdTU0o5NWJVMzRaVW5sV01jMmE1QTVPWjZ4c0FkTzF6d2NobUxJcUw1Q0tnSWd3eUFHczhXOEM3RnVBeU1tTDRXV3lnM2ZpUWJLRVdXZ0k5eHZ3MWhWVkVwNmZuRkxBYmJVelZFNXZicm9pOW9XenFIMDQxM2VjTGl3cGZwZUZSRms0U1QzaXdrd1E3WDF4Uk0?oc=5",
-      "published": "Sat, 05 Sep 2026 04:41:02 GMT",
-      "source": "Moneycontrol.com",
+      "title": "Retail AI Shopping Agents Remain Years From Mainstream Use - Oz Arab Media",
+      "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOTk9hTDJ5d1JMa1lMUThpUlc5SnpDclp2blhUdGloY3NZVmFZdllvSzNoR1FxRlRXTTViNlVLWHJrSWVtVGlzMXg5dVQ5WWpVZDliZnNxRXhoRWk1V0ZIWXZnOElJZ2xCcVRCRmMwRC1JdkhlOWdHMGNRT3FTa3Q5VldwYzE4X1k?oc=5",
+      "published": "Sun, 06 Sep 2026 05:04:51 GMT",
+      "source": "Oz Arab Media",
+      "query": "AI shopping agent OR AI shopping agents"
+    },
+    {
+      "title": "How businesses should prepare for agentic commerce - ey.com",
+      "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQMWwzNzZJWEt1TGs1eG1BanVvSFh5R2ZkQlVHTDFSdmphOFZCSVBhXzBRbUZ6cmdKNzFlRVNBYzNETENMZWJxYTI1MjBLZVVZd1IyMzNlODR1MGVOYm5FQUpMYkRJT190bGRpMUk4SUd5dmdiU2R6SDNEazRNSmZtUmhZa05EWkJfZVFMRVZNY3NJS1dKR090dEowcUJIWkZJM0tiOXRfYmcwLWs?oc=5",
+      "published": "Sun, 06 Sep 2026 03:56:14 GMT",
+      "source": "ey.com",
+      "query": "agentic commerce"
+    },
+    {
+      "title": "Black Duck Brings Vulnerability Scanning Into Claude Desktop Through MCP Integration - SMBtech",
+      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNenZnS3JvUWNWOExhNl9JWXRUMnhWUWh0V2FnajNDQWNpdzg1aFJNZENRekk2OUUtVEZOWGR2Yjl2ZVBiMnRudnpsQy1qZTF4bGt4TkF0UDRkUGk1d2w4NUVQRkpfTUpHM2hCdFRwSEhhT3kyQU9ES3pGNHdycmpaSElQNHpjRE9wV1RWYkk2TkZRTUo5UDJJSVBlT3ZYamFtUUh2Sm9CRmhiR1luV1E?oc=5",
+      "published": "Sun, 06 Sep 2026 02:37:29 GMT",
+      "source": "SMBtech",
+      "query": "Model Context Protocol"
+    },
+    {
+      "title": "Apple Agent Seer Builds MCP Tests; Argument Values Fail - quasa.io",
+      "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxOczI1d2JsUmtTWFBZcDlmQkhmNkNNU0VvU1NZdkhhTzRrSDZCUWo0UUlicDNQT2NwXzgtaC1uT3lOOGFnSk80N1Fzel8zbjJFa3RfNE1DRjRjTmdPUThWOU5QeTlYSjA0NTFiUG1FM3VfQ2JJVFN6RWJqdDRGV01qaHo0WUpJVHFZelJ4Zi1La2dqb2ZXeV9oSg?oc=5",
+      "published": "Sun, 06 Sep 2026 02:16:06 GMT",
+      "source": "quasa.io",
+      "query": "Model Context Protocol"
+    },
+    {
+      "title": "Google bans programmatic proxies from Ads API access - ppc.land",
+      "link": "https://news.google.com/rss/articles/CBMiekFVX3lxTE4zN0lNalFvanBlZTN2Q1JJU0pXQVdIWGZ3TVZGWmNldmhyTEo1TXRmUXB3Z2RpSTJMMmU0VTd1UG04TllRRlFObzBuV2pEWVNGX2M2QUt1NjRRclppbGtMT1NFQUdIYkNyc1pvTUEwVHFZdEpEaUUwdlFn?oc=5",
+      "published": "Sat, 05 Sep 2026 19:51:15 GMT",
+      "source": "ppc.land",
+      "query": "Model Context Protocol"
+    },
+    {
+      "title": "MCP's new spec turns a planted prompt into a stolen credential - VentureBeat",
+      "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxNR2RtSVpHOEZBM3I3Nkl5VkI1Vk03dGRZSmxvTnA3OVdkMjBaYXcyUVpzVW9MdENGUzVleHZZNWFncng4TVJ5UW1kRzJ4blllMFpaZXhCbk1uZDlaMUt0c1dIcXMtc3JPNndLSzJqODB0TnJmaUlHRUhMc0ZEWS1Ya0pYcWdGbzdHVWk5RUN5eGx2Z3B3NGVQaDV3?oc=5",
+      "published": "Sat, 05 Sep 2026 18:00:00 GMT",
+      "source": "VentureBeat",
+      "query": "Model Context Protocol"
+    },
+    {
+      "title": "AWS Agent Registry GA: Sydney Live, $0.40/1K Records [2026] - tech-insider.org",
+      "link": "https://news.google.com/rss/articles/CBMifkFVX3lxTFAwU3F4eUxSUFJONm5nNzQyblZyZ0pIaFNDSHFROXVIeDcwQlpDSlFxQXVWd1RhWTM0eE8zY2VteXBoa19kVjZ1THhuQzNLblljdTVtNWVfeWpocWhoNm9yV19iWU1vNVBuUTV0U1lpWHM0UFhhNmU3TkdHMTc2UQ?oc=5",
+      "published": "Sat, 05 Sep 2026 14:01:30 GMT",
+      "source": "tech-insider.org",
+      "query": "Model Context Protocol"
+    },
+    {
+      "title": "Record Broken: XRP, RLUSD Agentic Transactions Set Sights on 4 Million - TradingView",
+      "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNZVRyY2hmYk9SU1NNTURpZ1BCb2trLWI4ZVY1SVhkU3Vsdzl0ZUJUdGRaRGRfQ25BZDgzVWVYSG9JZjd1Ylh5aWV1U2tRblYxZkUzNm9EY2lyVFpkY0x3S3k2WWNXck1GT2hmejY3elBhMWJHSUp4ZndxLTdTc1FvTnEzd0xSdUkyLVhrLUZuclFYai02UEJDaG5JZkxZeVVNcUZpblhwSklqc2gtWTF5eWRuS2tSNWpoNmdVb0d1enRqOEJf?oc=5",
+      "published": "Sat, 05 Sep 2026 13:35:14 GMT",
+      "source": "TradingView",
       "query": "agentic commerce"
     },
     {
       "title": "Postgres MCP Pro Restricted-Mode Bypass Exposes the Gap in AI Database Security - forkast.news",
       "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPLU1CYTdEbHFUeWJ6TUkxc3VzdnM4X1B3MUxTVXJZMXppTGh1OEZtVnNQbHFnX1NDanVfakgyMmYzbmZxcjlUZzdELS1Hb1ZzQ20tSXhTZE5qWEZUbnN5VEtLblZiSXRHOVd0c3I0RDMwV0tickZNM0dfREZUaE15YlpGX3JVZjczU2dRblFiX3o0WnJVNnkyc1BjMFVkTVBUSElN?oc=5",
       "published": "Sat, 05 Sep 2026 02:20:00 GMT",
-      "source": "forkast.news",
-      "query": "Model Context Protocol"
-    },
-    {
-      "title": "Citrix Bakes Agent Governance Into the Private Cloud, Not as a Bolt-On - forkast.news",
-      "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNZkVac1FUbENjS21HQUJPMkpwX25SVkNHMWdMb0FvaTNrQmdRdlVFbjYtbmtOYVBjYVF3TVJnMXBTY0dHSDRwRVhsa01IaXJIc3A0bWpWY2F0UzNKdE1FSFoySlVIQ0dJYXhYaS0zZWFvS1EycW13OWRwUk1FWDByTm1RdUhnai10ZkRYc213WFFHYU5oQXc?oc=5",
-      "published": "Sat, 05 Sep 2026 02:05:00 GMT",
       "source": "forkast.news",
       "query": "Model Context Protocol"
     },
@@ -88,13 +130,6 @@
       "query": "Model Context Protocol"
     },
     {
-      "title": "datasette-mcp 0.2 connects Datasette to MCP clients - Adafruit",
-      "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxOOFRBS0wwSlJQWXM0QmRVblNiVGFlS2FURFZZcTBKN3EwSjQ2ZHE2QUFuM2FaVGFBeXR6VEpWUGZEdDNOR2U5Uk5rLXZPMXRfVVJXVndiM0U0cWtPS3ZsUndoNDdQZXI4dUY1R2VnQ2pNUzBtSUZYenQ3ZDl5cXlXcUZ5ZUxSd1F1VEtGcmRDRDBXbFk?oc=5",
-      "published": "Fri, 04 Sep 2026 12:00:29 GMT",
-      "source": "Adafruit",
-      "query": "Model Context Protocol"
-    },
-    {
       "title": "How AI Agents Could Change the Way Ethereum Applications Work - Analytics Insight",
       "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQVm5kWjJxWWw5RnVLWDlkTWd0Rk83MWlFUFluSzZsbDl5ek5IWGlWVnNIVE5JVEN4WWNGWjdIVUZSNHZTYUZuek9JZTkyMjRRUklOSTVhemZyOVVsdS1KRmFmeWpUQzRoZFlzY2dZcVFmOGRKTHd3RGNIOU12NEQyOW5aTUk4ejUyVkxaazZZZU5yZDV1WEJ0QjRWR3VyN1dheGJESy1n0gGzAUFVX3lxTE5PMlFXaW1WOFJUdXdEZDVNbTR4NXhsMWhLczdxSzBRT2laYWQwTFkxUmhCYS1vQ3V3Q1JhYmZXMUpZMDY3VmQxbEh5SUFBOFhHMTJBQ3I2NlE2RGF6amJKcmgzMHZOZ3g0RGd3bXVoY0xmUXNUSUFnd0t3eURobFZ3Q0pGeEkwemFzU0dGc3VZOVUxeTVUbmdGcUxPNDBrSm1EXzhXbTltQVAyY3NaOG1SeHA4?oc=5",
       "published": "Fri, 04 Sep 2026 11:45:00 GMT",
@@ -142,41 +177,6 @@
       "published": "Fri, 04 Sep 2026 05:55:28 GMT",
       "source": "ESM Magazine",
       "query": "ChatGPT shopping OR buy in ChatGPT"
-    },
-    {
-      "title": "Superblog Opens an API and MCP Server So AI Agents Can Publish Directly to a Blog - The Globe and Mail",
-      "link": "https://news.google.com/rss/articles/CBMi9AFBVV95cUxPaDhLVm04d2NxZzJYLUhTeGpQa3huNEpFRWl5QWdaYWNQOW84V3d1Sy1tMVpfd2hIRlpiVlpvbkstSjBKeXFKU2tXWkluM2F4TFVIdlNGdDZMb0dEejl0ZV9MU1lJblNfQmp1Ui1YeTU4NjBvME5uYmR5T0dZbHd4dDZURjFMRWlIaTlRRVMzcTVfUWhXUFFuMURoWkpUYlhqY2hzU2RicmtQejlORXJfMmJRbU9Ed0FPblJWV2s2bFJPSmhzcktZQ3NLN0l3Q3FlTjA4TVlhSlRJUld4VnlWaVJFMWZVZklhMWxQN0dlRnRTSm1j?oc=5",
-      "published": "Fri, 04 Sep 2026 05:51:03 GMT",
-      "source": "The Globe and Mail",
-      "query": "Model Context Protocol"
-    },
-    {
-      "title": "Who controls the machine? Anthropic extends the MCP vision into the physical world - IBM",
-      "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQUVBHWjA5dk84R2NiX2VMZEZnNGhoRzNVR1hqWl9HcG1HQ0c0TXhaeUNibTVzVmt4T0xjbzJvc09NdU1WdThfeTJzajhMUV9xOXhtVTVxOEh0WS02OWZST0lxMk9hMUVJaF9XcGxFSWI1Zy1nTFIxOEVFaERBVExXVnl2UDhHdllhYW5ZSjNZYzNBZw?oc=5",
-      "published": "Fri, 04 Sep 2026 04:54:03 GMT",
-      "source": "IBM",
-      "query": "Model Context Protocol"
-    },
-    {
-      "title": "SOL crypto picks up pace as Solana flips Base in x402 activity - Bitget",
-      "link": "https://news.google.com/rss/articles/CBMiY0FVX3lxTFB2bkItTEVFbXd1N1FQXzQxYTZZcEVFZGhoWmhDN3A5cFdOUy1SX2lCX0VJS092QXRSaEgzUXNrTjAxMHhBQk1LNFhyVmJGXzZOX2I5WmE3aVlEc0lQQUQ4WTREVdIBY0FVX3lxTFB2bkItTEVFbXd1N1FQXzQxYTZZcEVFZGhoWmhDN3A5cFdOUy1SX2lCX0VJS092QXRSaEgzUXNrTjAxMHhBQk1LNFhyVmJGXzZOX2I5WmE3aVlEc0lQQUQ4WTREVQ?oc=5",
-      "published": "Fri, 04 Sep 2026 04:22:10 GMT",
-      "source": "Bitget",
-      "query": "x402"
-    },
-    {
-      "title": "Solana overtakes Base with 90% share in x402 transaction volume and count - Bitget",
-      "link": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE1PakxYNDBaa1JNX1Y0YUs3d0tKMUQ3VFEzbUtUR3B4OUZzQ3dZVmhuRXNJa1lDYWNXNFBDTU9rQkU1QTUtNE9tNlI5M19OY0x2alJwc0NfSEpPeGFXb1dVdVNEVdIBY0FVX3lxTE1PakxYNDBaa1JNX1Y0YUs3d0tKMUQ3VFEzbUtUR3B4OUZzQ3dZVmhuRXNJa1lDYWNXNFBDTU9rQkU1QTUtNE9tNlI5M19OY0x2alJwc0NfSEpPeGFXb1dVdVNEVQ?oc=5",
-      "published": "Fri, 04 Sep 2026 04:22:09 GMT",
-      "source": "Bitget",
-      "query": "x402"
-    },
-    {
-      "title": "Para CEO Says Crypto’s Agent-Payments Standards Race Won’t Have a Single Winner - unchainedcrypto.com",
-      "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxQMjMtY09EMDc3NjMtWTNyQjQxQzhSWEs3TG9INXR4ck9KM0d5UXJBY2hXeDFhZHVhY2dfT1BCd2M2M21fTGdwbWRiQjh3VWMxek5GTVp4anYwWGNVNjExS0k3WnFmQk5xVG0xcHM1bVQtTzZEdDl5eHIyX04tSExJRVZ5TV9BdGtDOHdwM2V6ejVyZHcwVmg1NGhVUk1EbnZkRlliUDJvczV4Zw?oc=5",
-      "published": "Fri, 04 Sep 2026 02:55:00 GMT",
-      "source": "unchainedcrypto.com",
-      "query": "x402"
     }
   ],
   "totals": {
