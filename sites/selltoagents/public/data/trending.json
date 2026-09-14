@@ -1,206 +1,181 @@
 {
-  "updatedAt": "2026-09-13",
-  "generatedAtUtc": "2026-09-13T10:35:35.239Z",
+  "updatedAt": "2026-09-14",
+  "generatedAtUtc": "2026-09-14T10:57:07.990Z",
   "geos": [
     "US",
     "GB",
     "CA",
     "AU"
   ],
-  "trendingBrands": [
-    {
-      "query": "apple iphone 17 price cuts",
-      "geo": "GB",
-      "traffic": "100+",
-      "brand": {
-        "name": "Cuts",
-        "domain": "cutsclothing.com",
-        "category": "Apparel",
-        "score": 72,
-        "grade": "C"
-      }
-    },
-    {
-      "query": "ollie dempsey bicycle kick decision",
-      "geo": "AU",
-      "traffic": "500+",
-      "brand": {
-        "name": "Ollie",
-        "domain": "myollie.com",
-        "category": "Pets",
-        "score": 57,
-        "grade": "C"
-      }
-    }
-  ],
+  "trendingBrands": [],
   "trendingTopics": [],
   "news": [
     {
-      "title": "Egypt’s enterprises are approaching agentic commerce with ambition and caution - Fast Company Middle East",
-      "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNZjdLZXlQaVRJVUk0RXhjVDZOd2hzUGQ3MXZQWm9rUC1GYUI2Z1p5MUZsTmx2RmdQUkllcFJrdzI0RHZrVldhMzFWUk9hV19mYzRfdm9vRHdTOFQ2ajN0MUJDNzJzbGs2OUFmSjMxV1hmcEJrUkwzakNZT1MwNmpRcXBYbkl2RlZRTUI3X0Z2c0dSeXdNLTNOTnNveWlsdjZfTWRabnBuaw?oc=5",
-      "published": "Sun, 13 Sep 2026 03:22:43 GMT",
-      "source": "Fast Company Middle East",
+      "title": "Worldline to accept agentic AI payments - Finextra Research",
+      "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxNOFV2cG83Q0JNXzhkSk1wOW42bl9WU0QxN3ZVbWxzNHdta19kXy1TTldiUWxkdmZvTmRZamdpVllMcUREYVNqZGdQNERqZHh1TDNYTWFGOHdHQXdybjVneEpCdnpsUFhfc3d1Y2hrV3BLTU5Jam1wNEZfMF9wZHVRNzVKOEhoTmdBQlE?oc=5",
+      "published": "Mon, 14 Sep 2026 10:08:37 GMT",
+      "source": "Finextra Research",
       "query": "agentic commerce"
     },
     {
-      "title": "AI Agents Can Now Pay In USDC On AWS, Thanks To Coinbase's x402 - Yellow.com",
-      "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPRXNxTEI2OGx3OFJRamhXZDk5LWYyc1loWi0xVURQVHRMVGVob0ZZcWpwRi1mdXNMc3NTZklnc2VXUWVHeFQwUV9NSlNDVXczLUVHNERCRElkRUZPaUg5MHpMc2ZzRmRKN3g0SE9VR1NST0xrallxRUt3eXMwLTd4TDZOejVEZ3lGb0h1OTIxU2J5UQ?oc=5",
-      "published": "Sat, 12 Sep 2026 23:07:23 GMT",
-      "source": "Yellow.com",
-      "query": "x402"
+      "title": "Meta bets on agentic commerce with Stilla.ai acquisition - Performance Marketing World",
+      "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxPdDZWUXl5ZHRwUkxDS2dGbEJsX19RZzhoUExpeFQ0YnZ5V0ZnYWJZazA2YWp1UzRHQ3hsbzFpWXdQenFuXzFjZUtQTzBDVkhKTXprZ0h5cUFxdEZsNDJTV2IyeDFCNXd2T2l4RHJQODR6T1pVZTV6QWYzU1I4cGp2WF9uX2dvbWFHY1BWQTFEVTAwd0thUHUyRVBmZ1dqR3BCLXk0NGQ5VUQ?oc=5",
+      "published": "Mon, 14 Sep 2026 09:16:17 GMT",
+      "source": "Performance Marketing World",
+      "query": "agentic commerce"
     },
     {
-      "title": "Agentic commerce: Is Payments the winner this time? - Investing.com",
-      "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOdXNkeXV4dzVmTWNmalVOaTNINUMya2duY19MN01ZcjRoX0dKMzRsMU12bi1QZERNbVNydjlFWG9GV2laNVNxUUFFRjI5NkJxcXpkRXdrN3ZuVllBdzNOa240QVBYS3dpeHFYcENCZEQxSkN2LWdjeDY2NkNZWmpFVHhnRnlOQTEwWDdITjZFbUZ4aXVWcXRzQ2dZekxNWlNkblBacFBlN0pFZw?oc=5",
-      "published": "Sat, 12 Sep 2026 21:06:13 GMT",
-      "source": "Investing.com",
+      "title": "Sokin Unveils MCP Connector to Power AI-Driven Financial Operations and Payments - FF News",
+      "link": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1tV2U0RUtRNm93Z1EycWlVWXNHNWVxckNjdF8wclZkcXhUZHRsdGVvRHg1U3ZJNTB2OHRCSmZKTnJBOFlQci1XUTkxVlpYMVR3UE1vOWVqeVV2RFZvQlNBRmRzaEhNSm5taEZ3WkFkOFhMM1ha?oc=5",
+      "published": "Mon, 14 Sep 2026 09:12:44 GMT",
+      "source": "FF News",
+      "query": "Model Context Protocol"
+    },
+    {
+      "title": "Sokin launches MCP connector: customers' AI can now line up payments in minutes - PR Newswire",
+      "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxONzgyYWZJMG5EbVFKSjlpT2V2bXpQQTJKQ1JmTVRrMUJkeHdGNXRKWVlmRUI5aXVHemhTb2gzT0JvZHYwWXZ2QVdZSVJhTXlEWmUxR2NwYzdNbDBXenMyTUI0RF9aZUJlZ0NGdkpvWkZMYXp0LTBsR2g1cE15NnVIZ2M5ODhqdk1VS25EVjFSSTE2Xzh6Z1drN2VnMERuSTFRMmVfbzJPMDhlOWMzTmJCeS1OU2RZUlZqZWpKdFJaZmNtbzh1YnJjcVZFaEo3Zw?oc=5",
+      "published": "Mon, 14 Sep 2026 08:31:00 GMT",
+      "source": "PR Newswire",
+      "query": "Model Context Protocol"
+    },
+    {
+      "title": "Worldline launches payment handler for Universal Commerce Protocol - FX News Group",
+      "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxNcWRIOUxQZHZneWVfZWNUNW9mY0NuR3pxekU1dC1hXzRaUUFJbGpYMWxlTjgwUUpHZGJKMXRabVMyVTlaMy1fLV9kZXN6R0xqdk1iMVN5aWd6MDdObzVhX08tSURWZUJQVG5mTXhSemtTRWgwc1NVeEYwUlVTYkY3NTN5dUU4d0lxemZaVUE5QnNsT0dacVNsYUV1VmRadEd3MS1OMklsU1NXY0pEdWdlWQ?oc=5",
+      "published": "Mon, 14 Sep 2026 08:15:00 GMT",
+      "source": "FX News Group",
       "query": "agentic commerce"
     },
     {
       "title": "Coinbase Launches Agentic.Market, Letting AI Agents Buy Bloomberg And AWS Data Without API Keys - Yellow.com",
-      "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQTTVxa29DTlBNNkVUZ3VwWGpzRXRfWmw4aDNvZ0gxMHlVdVpNR1V5Y0kyd1hEejBqdFh3LTQ0bGJtUi1vb0l2aFNkUVMwRVFJVkZtUHB2RDh3X2YteW1NOE9rS0RTNUNvQ1czeHlibEhpcmNlRURGaXpjZ1JsNEFaZ2RJN180LVNDd1lmeGdBSVJid1E?oc=5",
-      "published": "Sat, 12 Sep 2026 20:04:00 GMT",
+      "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxPU0h3TjBwVUE4eDFseDNLZjFQd0JCRHRVQ3VjX2k0QmFUMlRvemNzb0wzN092ZUItNlhmcUNDNmtlRVhBdGdOSzNxSW0yalE0Ui1sV1lSX1VDeVcxYjRVNzRLVVA1dWFSdWM2RGxQWlJELTd1LWExMV91bHVRRDlSRXVNSQ?oc=5",
+      "published": "Mon, 14 Sep 2026 08:04:18 GMT",
       "source": "Yellow.com",
       "query": "x402"
     },
     {
-      "title": "Retailers face a trust and liability test as AI shopping agents emerge - Bizcommunity",
-      "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxOeWtjYXNzWUVadWxaeUJKdHRvOXNVaGZfN1Q0dGFBNjQzRDRKMmJteGlWWWdkQ1liUGdfZ1VoMkh6Z25iRm1JRUhQamRLNUtCd1oyU0Foem5xMDN2eG5iUkdoemp6dzdRazJYaFVKXzFuT2ZQSWhUd3VZMGJIdkhYdXp6ODZiQ0dGYzd1RDRXdXZpTTRLSzhkMjBrTndzU2xxLXBCVUREZXpidnRham8xZDRPSGRrQQ?oc=5",
-      "published": "Sat, 12 Sep 2026 14:10:37 GMT",
-      "source": "Bizcommunity",
-      "query": "AI shopping agent OR AI shopping agents"
-    },
-    {
-      "title": "Flipkart fintech arm Super.money launches AI shopping agents - Tech in Asia",
-      "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxOaGNzejM0YXA3cGRERXctbzhER3FXZEFLaXBNZjlFQlIxeHE0SmFoUEFXV3VFbFRPcFhwZkZBZVl5QlJUZ2VKdHUwMmh1RjhNM0Yxb0MtZzJMa09KR20yOXloX3pWM2dTUDdfLVJUa2ZCdm5EWURoYmMxejlWdWpUdjIwQktfWmpiMU11bl84RnBacC04N2c?oc=5",
-      "published": "Sat, 12 Sep 2026 01:56:00 GMT",
-      "source": "Tech in Asia",
-      "query": "AI shopping agent OR AI shopping agents"
-    },
-    {
-      "title": "Coinbase Puts AI Agents On The Trading Desk With x402 Payments - Yellow.com",
-      "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTE1nMlRCWGVUc0l0M1RzV01hRnlOR1FBSDZxNmdtVFlnOEsyRDlxX21DU3gxSFNMWEZkRk9WbHkwWmk3UU9qbzR2dTF0WEUzZVh3MklDaDFWdTloRVRRQVAzN05rRXlUZmlxR1pBeFFfN0dIMEQ2S296ak9fdzg?oc=5",
-      "published": "Sat, 12 Sep 2026 01:38:22 GMT",
-      "source": "Yellow.com",
-      "query": "x402"
-    },
-    {
-      "title": "Ant International, Visa, Mastercard work to make agentic protocols interoperable - biometricupdate.com",
-      "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxQRmtWMzIwQ2EyOVVZOURURWw5TjdFbTVZeEhuNkFkNTNmaW9KakxmNVZWWjlGR0hsY2RtR3Rka2RiVVA3RktzSTRxU3puUm16WEszcXo0Si1ZYWtGekNnODJCOG1vSzBxejVUVXY1Snc4d3EzMFl6a3JfSWpkamFBSHM0b1kxbktSNXk4UlNjdFRIN2xwVlYwZF84R19hVy14bHU5OUxEMUxYbnVtSUlIWXIwam1ISzZm?oc=5",
-      "published": "Fri, 11 Sep 2026 20:32:00 GMT",
-      "source": "biometricupdate.com",
-      "query": "agentic commerce"
-    },
-    {
-      "title": "ProreX Limited Brings Agentic Trading and Its Own MCP Tools to MetaTrader 5 - Digital Journal",
-      "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxON2FYaEJmdWhGeXdjbFBnVEpPVGpFeUF5M1VTdG5KWFhZOVBFeWdaQ2xvWUg5TFNuR1BzZmV1VENhcDRCbk9IVTAyYWdwRWlRT3JNU3oxSzMtdHJuVnJHNEhyRFpkWmFoc0NVTzdnV05rQV93VEFIekdUczJYQlJtLXJEWGcxMzdTZGlfOTZyWS1PZ01UMG81cHU1YTBXUFhzQlA1NWxkRVpNYXdq?oc=5",
-      "published": "Fri, 11 Sep 2026 19:25:57 GMT",
-      "source": "Digital Journal",
-      "query": "Model Context Protocol"
-    },
-    {
-      "title": "Cardano holds key support at $0.197 as x402 integration boosts outlook - Bitget",
-      "link": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE9rRkhoRU5LdVpzRHZFMFN5NnFqOERuOEt0YWNoOWN3VjYwU1BrY2FBUGEyVjExWklVVm5hUDd6akYyRThYd0tySjFKVkJWek9PTmFONkktcFQyWWxfRUtmNlVVWdIBY0FVX3lxTE9rRkhoRU5LdVpzRHZFMFN5NnFqOERuOEt0YWNoOWN3VjYwU1BrY2FBUGEyVjExWklVVm5hUDd6akYyRThYd0tySjFKVkJWek9PTmFONkktcFQyWWxfRUtmNlVVWQ?oc=5",
-      "published": "Fri, 11 Sep 2026 19:15:33 GMT",
-      "source": "Bitget",
-      "query": "x402"
-    },
-    {
-      "title": "AI Agent Wallets: How Software Wallets are Evolving for Autonomous Crypto Transactions - Analytics Insight",
-      "link": "https://news.google.com/rss/articles/CBMi5gFBVV95cUxQN3hONE01aXUyLWZRZlZUQlVCWm51RDVYS0dhRXFyT2ZoQnNXTWRGV29aczItUGZ2by1ZWExuREpRaXBMc0VhMVZwSmIxNGFDb1UxQjRnMEZNUlg4alFEWC00SncycWFNNmY5TWZKQ0FaUFp4N25YQjdvZzRjQXVscXJ2S1c1QWpSOGFYX0pKdVIzRUFybl9kcDRHUGxHUzNLNlN0M1VGajRidzBnd0YtVkFmMkxrTnBPdlRndmVxa0dyay1lM0hjb0FQY052Q1pmYWhsWHU0dkR3bGE4REgzX0FzQkVEQdIB8wFBVV95cUxPWEU0QTFHWXh3MGRPWnpvbFFTUC1NQWhsQkdrbjJmM0Q1SXpiVDhZY2NhS3kxcFZhV01vSWlsUExMRmJVa04xNm9NUVdJS0lrVHBCQ29FVExfT3I1Ymoxc0lJNTljNmJMNjhBRG1IOFZiTGtRMXB1dGFubnFCeFAySWJaQWN0dE1SdTdpaHZoUElIbTU0UTdseEVxNk1iWF83bW9yRF84ZTVHeTNBY2p4TUs5MTBxaFR3VEdtNVFFWFREakVmb1FSbnk3cnRjUzVSdDhkVnNsdGlRdlY0QXJLX3Btdjd4VFpyZE0tNXFjSVVaSnc?oc=5",
-      "published": "Fri, 11 Sep 2026 18:15:00 GMT",
-      "source": "Analytics Insight",
-      "query": "x402"
-    },
-    {
-      "title": "What Is Agentic Commerce? Inside 2026’s AI Shopping Shift - The Zero Net",
-      "link": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE5TRjlmM1ZXcEx6U0xrWVVwUE5nSlFxLUsxYUpaU0dpZWlNSHlUMzBMbmhvMnMwemJtbDdxZGo4NkF5U0xoQmU2V1FtZUs5STBUWnZPckxYc29XSkM4?oc=5",
-      "published": "Fri, 11 Sep 2026 17:54:52 GMT",
-      "source": "The Zero Net",
-      "query": "agentic commerce"
-    },
-    {
-      "title": "AI Agents Team Built For Agentic Commerce Journey - fintechbiznews.com",
-      "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQblNhVDE3QVRYaFlnSk5Nak9hYlpNdFhUTzRDcjNNZFBfcURTZjk2MFc4cGM3ZFV4ak1zeTNjQjRqd1NiOFFjbkYwalJxYjdMT1BPSXQ1elRibXVOS0hkcUQ0YjZMdVRQUWVManN5aXhxQXlLQ0ZldTU4SnhTZmhTSDM5akJfWGVKYlgxcjJobzRxRGhCU09vRUdncnVzaldf?oc=5",
-      "published": "Fri, 11 Sep 2026 17:19:55 GMT",
-      "source": "fintechbiznews.com",
-      "query": "agentic commerce"
-    },
-    {
-      "title": "The Interfaces Are Arriving - O'Reilly Media",
-      "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTFBHU0pGN0xOa0lQSXlRdlFlT3Atd0JCRVowdGxuSFQyZ3EzYTNYX1dqYmtKd3NWRVdaUXpQZ05UM0xUb19OaGFQMlAyUUROMmpnWVF3aDk5WVVySjVhbUk4ajREOGJmMGdfelE?oc=5",
-      "published": "Fri, 11 Sep 2026 15:55:46 GMT",
-      "source": "O'Reilly Media",
-      "query": "Model Context Protocol"
-    },
-    {
-      "title": "What a $13 Million DOJ Case Reveals About B2B’s KYB Problem - PYMNTS.com",
-      "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQOUVocTBfMjJtMklfY3NQS0ppTVRiZ3g2NE91UTkwNVZKU0ZTYkNpaVo5eUJaMUZiT0JELWtMZnl6WVBlZWxsUVBrUWxmTjg2aXowZElWbUhUWEtCYkFMbGEwbC1Dd0xPNG5pM1g3aDNKZkpLV0x0V3ZveFR5Y09JcWlaUTdfVEdsbTZwQ0Q3WjF6Q2ZnS0NYMV9rSGVQVEJPOG83VmFGcw?oc=5",
-      "published": "Fri, 11 Sep 2026 15:33:02 GMT",
+      "title": "Mastercard’s Sherri Haymond on Letting AI Shop While Consumers Stay in Charge - PYMNTS.com",
+      "link": "https://news.google.com/rss/articles/CBMizwFBVV95cUxNQTY3Y1FlSTFNZVRHTkplZjI3aTlGZ25zMHNmTkdLbGRSNGVYcjB2YWUtY1R6YllSMk1HQWRla2Y3UHlnb2Z4WEQzMlJ1WWpycnhXUVBjLW4tRzhpNVBZRnNuTERHTThmVlpvd1ZrMHZuS1RtMG1uWGg3cktxTnhuOFBpNGY5Zk9ic09STVFETTdNcDc0aWJUamt4VHp3QjZtRGVMZWlzUERIMXFmTnpJUkJMenlTYVdsSGZNUmtvUXlJSmN2YW1vUGZPVU5WSVE?oc=5",
+      "published": "Mon, 14 Sep 2026 08:01:34 GMT",
       "source": "PYMNTS.com",
       "query": "agentic commerce"
     },
     {
-      "title": "Cursor MCP Server Now Powered by ZoomInfo as the GTM Context Layer - businesswire.com",
-      "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxQa3hFSGhHOHBkTm1HT2d6blBVcnNnbFE2NE9yekZROW1NT25tNWdTSFZ1STZlaTFWQTFEQmtCMzBDbTlMQTBUOHR6YkZEOW5Ja2xlZ3VQY2JjcmQwekxpck9rXzNIODF6SEV1VG95UURVMFBHdU9jSFZ0S2VEb2lodTZtQ0R4VzVEczRKTmdHS3ZUZi1GWXc0YzdmV3BQSWp1SVdMMVR2ZnQwS1BEenJxb2RRU2VFWkNFT0dLODFuSEI?oc=5",
-      "published": "Fri, 11 Sep 2026 15:00:00 GMT",
-      "source": "businesswire.com",
+      "title": "StyleBuddy's Vision for the Next Fashion Storefront: AI Styling, Virtual Try-On and Agentic Commerce - Fashion United",
+      "link": "https://news.google.com/rss/articles/CBMi5AFBVV95cUxNeGVaaVBmTFREY1BidDFMYkVvNmx2eDhSbENHZjZjU2ppQm5oQjRYU0tZTTNqSkRLbWRTaGNqT01lRjdTUVBSczNEVzZUa2lVUnIwYVJwMzF1RUFwU1NxRC1QelY5OGVJZkpGTUt0M2xEQnk5T0ZJbWhHbmtOUjdzcmk3SDVhZ0hLYjgwZkJtZjVERkVpblNIaUNMLU5laUdvOHBPUldlekFVaEpWOEotUjZwc1lNeC16TVF1TmVWN242UklYMDhJcTVaSW42VGFUeWtobFhUaThmUWt2dC1ZT0hlZkQ?oc=5",
+      "published": "Mon, 14 Sep 2026 07:36:51 GMT",
+      "source": "Fashion United",
+      "query": "agentic commerce"
+    },
+    {
+      "title": "Worldline enables agentic commerce payments via Universal Commerce Protocol capabilities - Worldline",
+      "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxQWTZKYjRiQk5uNE1INjh3ajNkY0tmTnNkYlNvY0xDdFRaR00zdTNvXzkwelpTclBaSTY3WjcyTU9MOEpBV0ZHeVRkdWZOSk9RUXdzZU1ORWZ4WWJwUlhlV2NhMmZrUGJkREd6bzVPYjRUcV9aZ3hBRDVHcHFzTDFMNE1Bb1hwa1A5Z0l2amRqZ19FVllGQnc?oc=5",
+      "published": "Mon, 14 Sep 2026 06:54:38 GMT",
+      "source": "Worldline",
+      "query": "agentic commerce"
+    },
+    {
+      "title": "Stop Trying to Control AI Behavior. Control What AI Can Reach - The Hacker News",
+      "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxPUkFrZk5MekxDU2FWYkN3YVpDdmh5NWlwYUltNUh3ODl1MHVlVjhYb0R3bmpKUWxxNERuc3BTeGJqNkNTM1U0NDBXSWFrcUtPLTVTWUF6bTMzZ0swQmZaX2pyZXd1UXJON2xHSU1LNThBUDQtWmp4RmdpRlk0Umo3bnQ4YmRyQkZIQUg2TEhuZ3RVbkk?oc=5",
+      "published": "Mon, 14 Sep 2026 06:30:00 GMT",
+      "source": "The Hacker News",
       "query": "Model Context Protocol"
     },
     {
-      "title": "Why Visa’s Agentic Commerce Play Isn’t the Threat Wall Street Thinks It Is - Yahoo Finance",
-      "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxNc0FGc1NaT2lNV0NId0FQXzdIa1VheFNYTVFhcGREOFFtdlhIemo4Q2NtWF80Qk5aSFNCR1JRQnpNUVpkUkhueThickRvcmpUTUYwcDFTWmk2clc0VlBzZGNlZlY0S3praFp5VG9xRDFHQmloRTJlUTliZUM3LUJQTmdDbmtmbEQ1R1k5cm9xWXdXQlNlcXBYR3hVOA?oc=5",
-      "published": "Fri, 11 Sep 2026 13:05:42 GMT",
-      "source": "Yahoo Finance",
-      "query": "agentic commerce"
+      "title": "AI Agents Can Now Pay In USDC On AWS, Thanks To Coinbase's x402 - Yellow.com",
+      "link": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOaVNCeVdmc09RUEczakJuYUdoNTJxazF6OHllUEphY19kcFRORkZwTnowNnJoNGo2TVRIM2RuRkNEWnpnRElBRm1lU09OZXU3d1M0S0prTzhhZlVHa3V4bWFaYUFRRXQtM1E5VXB1Y05IeXdscDRVNjAxT2ZpS2FzVU9B?oc=5",
+      "published": "Mon, 14 Sep 2026 06:12:29 GMT",
+      "source": "Yellow.com",
+      "query": "x402"
     },
     {
-      "title": "Why Visa’s Agentic Commerce Play Isn’t the Threat Wall Street Thinks It Is - 24/7 Wall St.",
-      "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxNUktSMG9JNG10X3lmV1JjQmtzMDF3a1JsYXhWMHpMbkpobzBDZ3llaDYyYWUtcGRKU0JhQ0VtbURaaGRfOU5XUnVhQkI1cVZaWmJWa1JxR3NIZFVXcEdOOE10OVpZS3VJZUh1NkRYTUFTSzhTTF83MGNZVW5LQmh2Q3A5ZlhLTVZDdmVxVVVoWG93ZmEtXzJPNzdHU3ZXeHFZLWlhQk5lWnRPeTg0ZktXZ3cxY0RDWm8?oc=5",
-      "published": "Fri, 11 Sep 2026 13:05:00 GMT",
-      "source": "24/7 Wall St.",
-      "query": "agentic commerce"
-    },
-    {
-      "title": "L&T Finance Partners with Pine Labs to Launch Agentic Commerce on PLANET App - - Telugu Times",
-      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxNN1JQOExRR1k5N0hLT1Y4am5LTzhISjJFbGZKd2hfZ2hMOHE3YTU5TkpOdjZIaHpCWTZ0OUNwOW1qODlsRjhna1NhbHFXcGp1WFZabl9jbDJIMlMtelhQZ2RDcFNkaDhfa0Z5YUxVQXpDMmh4Ul9tMV83WmJrcW01d0g2eGFqQ2NSckg1MlozZHRvYzlFbUtGYmRxVzFUWHh4N3Y0LXp3ZWhiUHF1UDYwTGxxQVhSWkxTT09tSkRUSGtVZw?oc=5",
-      "published": "Fri, 11 Sep 2026 12:11:31 GMT",
-      "source": "Telugu Times",
-      "query": "agentic commerce"
-    },
-    {
-      "title": "Glance pivots to AI commerce agents as US market drives over 50% of revenue - TradingView",
-      "link": "https://news.google.com/rss/articles/CBMiywFBVV95cUxPLUFJVVlXbUM5TlAtZDNBem9aT2wtYV81OS1XNkhqcjV1d3IxN0FCOVZaQUxXSDlTS281a2YtSUV1ei1CSVRTbDlBbzBlSExnOWlFcFZkSDh3QkxzZE1TbHJwbG56WGtFQldTcUFNREVTaUtLVlR1ZDJPZDhOOGY4OFJ1NGwtUmYyTkE2b3hnYkFnRFFxNWU1ZUVKam5PcUhkdDB6NnBEOEJvTkdXZmFaLVhMMzlidEZzVndISWdpdGItYWloanBnUEpMbw?oc=5",
-      "published": "Fri, 11 Sep 2026 12:06:03 GMT",
-      "source": "TradingView",
-      "query": "agentic commerce"
-    },
-    {
-      "title": "Alteryx evolving to become connective tissue for AI - TechTarget",
-      "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPYXhMc0tvOXkxWWgwWDhZSjdLOVVtTktfWC1xb0Fuajl5VnUyOXd4TFE2T1JrVXUzWjVLdlVxNFNyMWRWRHBrb2dLb0lzWDBtWDBZTUVjMkpiRVBBNXdEdl9LM3pyMV9YRUpmMGg2dXI2NWdma0FNZ3F4c2tTZ1RDX3I5bHJoRWZGaUl0MmpQak8wdUdCeFc5SHdsVGdNc2FXUnNWQl83THFZSXE1Q2tyRA?oc=5",
-      "published": "Fri, 11 Sep 2026 11:12:52 GMT",
-      "source": "TechTarget",
+      "title": "QuoteIQ Launches the First Native MCP Connector Built for a Home Service CRM - Barchart.com",
+      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxNbVQtbHhnY2VHVFpscEUxMlFXeWtGUEFqS3ZaZU9VRlRnTlo0bDYycXRYQjJsbmJBdDM2ZlBfdnZMR2g0eTlVNHR4cU1BQm9nZTlNclhMOGR1TnRLUFlzNzNzeDZxN1dfYmw3TDAwR1VobFU1MkZZYWRXWWlPakFoZWhvcnlUOHE4V0tUM1UwOEQ0UnJxWHlEbTZXMGM5UldrOWpvQlYyNXYzaXgyYWpRMXZ2WFpHZEJUT1owVFR6RUVoQQ?oc=5",
+      "published": "Mon, 14 Sep 2026 05:22:11 GMT",
+      "source": "Barchart.com",
       "query": "Model Context Protocol"
     },
     {
-      "title": "Ant International scales AMP as agentic payments go global - FinTech Global",
-      "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQa3F6YnJKeWQ4RkpjSmtpWFM2bGpGam83OWF2UFZZOTFseU1IVTIyRkQ2Smtnam1aT2t4X2hLTzhETkZIRnB2TmJSRGVKaWJfeUVkakFETWp3U0FGcTI5UjNxSG5LWmtPcVJiUmh2NUpiWXNYN2piUk1pSUkzb0Jzd3duS3NLOV9OUmJVOHctOXJUMkw5NHIxVA?oc=5",
-      "published": "Fri, 11 Sep 2026 09:46:11 GMT",
-      "source": "FinTech Global",
-      "query": "agentic commerce"
-    },
-    {
-      "title": "Building AI Agents That Can Safely Work With Live Web Data Using MCP - SitePoint",
-      "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQZ3dZR2dDbXAwUnFtN3ZLanplcHZjSFFIaGJLWHBXVm9JTmpLMy1HZXNiWWZyVGktWDZDX0VtX2JTZmJIS0pjaGxxNlpWRnBEZWRGYVFISzR1aFJWU29ieFE0Y1lBWjd0eWRZSzlMcFZCendpVzE1RHphaXBuUnc2ekxiR3JMSEpLc2I1RUZFN3ZOUWFJS3FyYXRhWQ?oc=5",
-      "published": "Fri, 11 Sep 2026 07:00:13 GMT",
-      "source": "SitePoint",
+      "title": "Agentic AI Foundation Launches MCPA Certification to Validate MCP Expertise - PR Newswire",
+      "link": "https://news.google.com/rss/articles/CBMiywFBVV95cUxQZjk5UW93RlFuSTB4QkFkc2h0X0FfY1Zhb09oamtBMlgwYWs0TTdLWEhzSElsbHd5UWVFRGFYY2pRUDVHeFRlNVNZS3JSZXVpOHA2Nmh4QjBDWHYzLVIwUzdJZ0I4STJ4Y1d3SnJrT2xUSkZ3dGk0M3NIQ0Y3c2ZOLVZ2VHVTa3dwSk1tWTFhVWQzaXhoWHBRcFU5YU5PVEw4TVJ3SHdHeHJsR1NKbW5RRHJFdmdoV3FCcHpma3NMbWJLS2FUMzBRMnFVbw?oc=5",
+      "published": "Mon, 14 Sep 2026 05:00:00 GMT",
+      "source": "PR Newswire",
       "query": "Model Context Protocol"
     },
     {
-      "title": "Ant International Partners with Mastercard and Visa on Agentic Payment Framework - World Business Outlook",
-      "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPbGVQclktVF9FYnRLclQ0blBLckt4YU9WeTdQMnNOSGFHTkZvTHpEMjc1REtDYi1ZSG14eDZOOVRIVzUyTk4zRW5xQXhMckIxckhpX1BhRm4yekJyRXNxQnlEcmc1NzBwOHVlZGRaeTQ2eFFlOTNUTVBrd0ZfbXJHUy1GdXBzbWtSUmZnUWlIUU9jRGhGbjJIdTZKZkpTSGlzdkhHeWZGUFBVdjg1QTBPd2Nhcnk?oc=5",
-      "published": "Fri, 11 Sep 2026 06:24:17 GMT",
-      "source": "World Business Outlook",
+      "title": "Focus on agentic commerce as customer data science firm dunnhumby wraps annual Retail Innovation Forum in USA - Retail Technology Innovation Hub",
+      "link": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxOU1FjeFNlcDJxNDA3eG1XTlFicmVmQmZ5Y055THpRNzBJOWFkSmswc1Rhb0dJMjVTRXdDc0hOb1hVTWMwTU1OeVZ1NzE1bmFkU1U2RW5QZnN1Ylp4ZnJqc0NHLThxWWR4MG5tUXhoai15U3FsSUVlWnB5S1BvQU9tTUZaU2VrMFZCR3lSZ283WXVTd0ZNREI3WTgyWW9sdWVxWklLMXRheVlaMVN5azA4TjNVZGl3UXJGWEI3VUM3MmFKeG00X1BxaE1yNWdEZHJMTzdN?oc=5",
+      "published": "Mon, 14 Sep 2026 04:57:30 GMT",
+      "source": "Retail Technology Innovation Hub",
+      "query": "agentic commerce"
+    },
+    {
+      "title": "Cursor MCP Servers vs VS Code Agents: 12 Steps [2026] - tech-insider.org",
+      "link": "https://news.google.com/rss/articles/CBMiekFVX3lxTFBQbDUtRXd4OWlhTTk0RjFxX1NSQWlZUS1XNDU3aVhUQ205cU1pT3Zqb2E5VklsVTlCMmEta2RnZHV0Y2Z0ZDdJTnNZVi1wMWJZUWpFdkNUMEJaM1lVRkpRaXhZZmk5REdUTEp3ZVpvZ1J0OTN2UXczSl9R?oc=5",
+      "published": "Mon, 14 Sep 2026 01:41:08 GMT",
+      "source": "tech-insider.org",
+      "query": "Model Context Protocol"
+    },
+    {
+      "title": "Stop Treating MCP Like API 2.0 - HackerNoon",
+      "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTFB6Q0QxNnVYQXA4Qmhhczh0bDJ2V0hjT2RTMUR3cGV4WG1kd2NxaURvdkJyd25rSnhkNWRXX3FDalR5T0lvTHRaVTc1MG02WHZiZkpMQURPdmtUSVRmc3ZsNVFn?oc=5",
+      "published": "Mon, 14 Sep 2026 01:23:06 GMT",
+      "source": "HackerNoon",
+      "query": "Model Context Protocol"
+    },
+    {
+      "title": "AI Agent Payments: Actual Demand Estimated Below 10% — TRM Labs Analyzes x402 - finance.biggo.com",
+      "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTE42cE9uYnpON1ppZTRfclJUOEE3OEZ3RFpXMFhEZ1ZQQXdOWDBwd0N3cmVxNE1NWmV1dW04anpRNUZ1WU1GNzRWYnd6Q1RVS3o5YjItdFI5a3lGc08wcEJ4RkEwdGdTcnZrMlRoR2w4ejRvem1SYUE?oc=5",
+      "published": "Mon, 14 Sep 2026 00:05:00 GMT",
+      "source": "finance.biggo.com",
+      "query": "x402"
+    },
+    {
+      "title": "Ant International, Mastercard And Visa Collaborate On Know-Your-Agent Framework For Agentic Commerce - pokde.net",
+      "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE9QSkhCZG14Tkg1ZHdkdDlzbjF0NWpIWUY5MUlVR094cVZiMjRSc0Y1UkJHQjllN1VuelA0bVpRbkFLZEI4b2dkSlMzUk5QQlFUNW1BY0k1LVZVejhPcXRuc2pYM1BfZTJZeDdlejg3aEMwRktYdTJSQXJYVVpZMkE?oc=5",
+      "published": "Sun, 13 Sep 2026 18:55:59 GMT",
+      "source": "pokde.net",
+      "query": "agentic commerce"
+    },
+    {
+      "title": "Amazon loses injunction blocking Perplexity's AI shopping agent - PPC Land",
+      "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxQOTF5Yi12a1pnTUt2UEV3bldjdERpZzRtT2Iya2ZBRmVaYWQ5UnpoVU9sNWVzdWs1aU9HT3NkY1ItUFp5OXg5T2FmTXhWc3FiR21uNWtUU2JQZUVlbWFQSWF2cV94YlVNMVh5NEFxS3ZBaWJfM3UzN2swb2NtenViRkNiSWRJVE0?oc=5",
+      "published": "Sun, 13 Sep 2026 16:56:23 GMT",
+      "source": "PPC Land",
+      "query": "AI shopping agent OR AI shopping agents"
+    },
+    {
+      "title": "The Rise of Agentic Commerce: When Machines Become Buyers - 3News",
+      "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPd0FnbkhZd3BmWXFyWTg5S0NYRzk5VXotamM0TVdFQVZCLWZuOXhlSExxV1BpeDlmZE5PVlNoSHVEQzhwbmNPb0pfSGt6akg3RUNHa3ltdUdhV2k4MElxZWdON2ZoTWh5bWw1OWVHYU93ZDVKUzZYZEFpWnhzV1F0UGttTE9OZmtIcFE?oc=5",
+      "published": "Sun, 13 Sep 2026 15:52:13 GMT",
+      "source": "3News",
+      "query": "agentic commerce"
+    },
+    {
+      "title": "Cardano Price Stays Near $0.21 After x402 Launch While Pepeto Crosses $10.9 Million in Presale - TechBullion",
+      "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNSG9vQkY1eEk4bGFBTnpTTU5WWk5ZdkdTZ3Q0eXo0bmVLT1VUTENxdGhQcVVJWElUUDNFalh0T0E1RVlaZkUwdnBkelZrVTVlbTZqOTZzQWk5RW5saV9RSVllQVhxS2ZxZWhDallxODV3SHJLV2V1ZzNtX0dRSHRBamo5ZVkzU1kxNl9LQnpILXNtSk1jeWNmM2puMGlIZW4xYVdNWkJzLTBaMUVoNmE4eE81Yk42em9u?oc=5",
+      "published": "Sun, 13 Sep 2026 14:58:30 GMT",
+      "source": "TechBullion",
+      "query": "x402"
+    },
+    {
+      "title": "AI Agents Spending Money Online? New Research Says Not Really - Decrypt",
+      "link": "https://news.google.com/rss/articles/CBMic0FVX3lxTFBMWlVaZnVHR241bW15ZFJkUzFDcmFSUmNObExiNGZOS3gtSFRpTGhNT19tZEpFM2tCV0c0T0lEQlpuSkZPUjZpRFZDX3lxa2l0VDZfMVFmeTdtNmF0YlFlUEI4ZXpQT2d0ZWZpZ041aVdTQjTSAXNBVV95cUxQTFpVWmZ1R0duNW1teWRSZFMxQ3JhUlJjTmxMYjRmTkt4LUhUaUxoTU9fbWRKRTNrQldHNE9JREJabkpGT1I2aURWQ195cWtpdFQ2XzFRZnk3bTZhdGJRZVBCOGV6UE9ndGVmaWdONWlXU0I0?oc=5",
+      "published": "Sun, 13 Sep 2026 13:01:03 GMT",
+      "source": "Decrypt",
+      "query": "x402"
+    },
+    {
+      "title": "Agentic AI will Transform E-Commerce Strategies by 2030 - Technology Magazine",
+      "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxONlltS2szQ1E1YUk1RGIzOHV2SVpsbXZraUF6UEJROFU5Um14Xy16TmhsLXFOODdCRWkzNThZdnAtLWY0VGRlU05zT2FyX0xYYlo3NlZDb3VhRlZ4dWZYbEowUGVVRlByX2tMeG9DWFFXNG5jQ25IazQ4MjVqejE3ZERjbTBFdGJaZWlib29HSmpOSDNBaVE?oc=5",
+      "published": "Sun, 13 Sep 2026 08:10:39 GMT",
+      "source": "Technology Magazine",
+      "query": "agentic commerce"
+    },
+    {
+      "title": "Visa Research : Consumer Trust Is Enabling Path To Agentic Commerce - Crowdfund Insider",
+      "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNT3pvSTFVcUtGQU9PYXRqRGtwNm4yWk5hV1dZTEtrRzJxR1NzUzFFU0szX2xURUsxVXphc19ONnNnRnNVcGpmbkVjYnBMT2NwNkZhbE5JSkMzYWktdlZtZHB5bmpKdW9SWjlsR2xXMjhleFk2SEFqdVNMQ2gtOEgzM01Rd3ZuYWFFb1NKMXlkb3V3NG9MRjVBNW1LRnF1MlJTUkljanNMR1VsSVNRc1hFa2YwZTQ?oc=5",
+      "published": "Sun, 13 Sep 2026 05:46:09 GMT",
+      "source": "Crowdfund Insider",
       "query": "agentic commerce"
     }
   ],
