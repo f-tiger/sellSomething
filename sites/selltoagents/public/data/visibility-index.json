@@ -1,38 +1,33 @@
 {
-  "updatedAt": "2026-09-07",
-  "brandCount": 118,
+  "updatedAt": "2026-09-14",
+  "brandCount": 114,
   "candidateCount": 137,
-  "averageScore": 75,
+  "averageScore": 74,
   "categories": [
     {
       "category": "Apparel",
       "count": 19,
-      "averageScore": 76
+      "averageScore": 74
     },
     {
       "category": "Beauty",
-      "count": 17,
-      "averageScore": 74
+      "count": 16,
+      "averageScore": 77
     },
     {
       "category": "Home",
       "count": 16,
-      "averageScore": 76
+      "averageScore": 77
     },
     {
       "category": "Outdoor",
-      "count": 12,
-      "averageScore": 74
+      "count": 14,
+      "averageScore": 71
     },
     {
       "category": "Food & Beverage",
       "count": 12,
-      "averageScore": 79
-    },
-    {
-      "category": "Jewelry",
-      "count": 8,
-      "averageScore": 72
+      "averageScore": 78
     },
     {
       "category": "Footwear",
@@ -40,9 +35,9 @@
       "averageScore": 74
     },
     {
-      "category": "Electronics",
-      "count": 6,
-      "averageScore": 65
+      "category": "Jewelry",
+      "count": 7,
+      "averageScore": 73
     },
     {
       "category": "Fitness",
@@ -55,14 +50,19 @@
       "averageScore": 71
     },
     {
-      "category": "Accessories",
+      "category": "Electronics",
       "count": 5,
-      "averageScore": 79
+      "averageScore": 61
+    },
+    {
+      "category": "Accessories",
+      "count": 3,
+      "averageScore": 81
     },
     {
       "category": "Wellness",
-      "count": 4,
-      "averageScore": 76
+      "count": 3,
+      "averageScore": 74
     }
   ],
   "results": [
@@ -87,16 +87,6 @@
     {
       "name": "Faherty",
       "domain": "fahertybrand.com",
-      "category": "Apparel",
-      "score": 84,
-      "grade": "B",
-      "failing": [
-        "Product / Offer schema"
-      ]
-    },
-    {
-      "name": "UNTUCKit",
-      "domain": "untuckit.com",
       "category": "Apparel",
       "score": 84,
       "grade": "B",
@@ -165,16 +155,6 @@
       ]
     },
     {
-      "name": "Fenty Beauty",
-      "domain": "fentybeauty.com",
-      "category": "Beauty",
-      "score": 84,
-      "grade": "B",
-      "failing": [
-        "Product / Offer schema"
-      ]
-    },
-    {
       "name": "Rare Beauty",
       "domain": "rarebeauty.com",
       "category": "Beauty",
@@ -185,8 +165,8 @@
       ]
     },
     {
-      "name": "Tatcha",
-      "domain": "tatcha.com",
+      "name": "Fenty Beauty",
+      "domain": "fentybeauty.com",
       "category": "Beauty",
       "score": 84,
       "grade": "B",
@@ -195,8 +175,8 @@
       ]
     },
     {
-      "name": "ColourPop",
-      "domain": "colourpop.com",
+      "name": "Tatcha",
+      "domain": "tatcha.com",
       "category": "Beauty",
       "score": 84,
       "grade": "B",
@@ -245,6 +225,16 @@
       ]
     },
     {
+      "name": "ColourPop",
+      "domain": "colourpop.com",
+      "category": "Beauty",
+      "score": 84,
+      "grade": "B",
+      "failing": [
+        "Product / Offer schema"
+      ]
+    },
+    {
       "name": "Our Place",
       "domain": "fromourplace.com",
       "category": "Home",
@@ -255,8 +245,8 @@
       ]
     },
     {
-      "name": "Floyd",
-      "domain": "floydhome.com",
+      "name": "Tuft & Needle",
+      "domain": "tuftandneedle.com",
       "category": "Home",
       "score": 84,
       "grade": "B",
@@ -265,8 +255,8 @@
       ]
     },
     {
-      "name": "Tuft & Needle",
-      "domain": "tuftandneedle.com",
+      "name": "Floyd",
+      "domain": "floydhome.com",
       "category": "Home",
       "score": 84,
       "grade": "B",
@@ -315,29 +305,9 @@
       ]
     },
     {
-      "name": "Peak Design",
-      "domain": "peakdesign.com",
-      "category": "Outdoor",
-      "score": 84,
-      "grade": "B",
-      "failing": [
-        "Product / Offer schema"
-      ]
-    },
-    {
       "name": "BÉIS",
       "domain": "beistravel.com",
       "category": "Outdoor",
-      "score": 84,
-      "grade": "B",
-      "failing": [
-        "Product / Offer schema"
-      ]
-    },
-    {
-      "name": "Olipop",
-      "domain": "drinkolipop.com",
-      "category": "Food & Beverage",
       "score": 84,
       "grade": "B",
       "failing": [
@@ -375,8 +345,8 @@
       ]
     },
     {
-      "name": "Soylent",
-      "domain": "soylent.com",
+      "name": "Athletic Brewing",
+      "domain": "athleticbrewing.com",
       "category": "Food & Beverage",
       "score": 84,
       "grade": "B",
@@ -395,8 +365,8 @@
       ]
     },
     {
-      "name": "Athletic Brewing",
-      "domain": "athleticbrewing.com",
+      "name": "Soylent",
+      "domain": "soylent.com",
       "category": "Food & Beverage",
       "score": 84,
       "grade": "B",
@@ -408,16 +378,6 @@
       "name": "Brightland",
       "domain": "brightland.co",
       "category": "Food & Beverage",
-      "score": 84,
-      "grade": "B",
-      "failing": [
-        "Product / Offer schema"
-      ]
-    },
-    {
-      "name": "Wyze",
-      "domain": "wyze.com",
-      "category": "Electronics",
       "score": 84,
       "grade": "B",
       "failing": [
@@ -445,16 +405,6 @@
       ]
     },
     {
-      "name": "Therabody",
-      "domain": "therabody.com",
-      "category": "Fitness",
-      "score": 84,
-      "grade": "B",
-      "failing": [
-        "Product / Offer schema"
-      ]
-    },
-    {
       "name": "Pura Vida",
       "domain": "puravidabracelets.com",
       "category": "Jewelry",
@@ -465,9 +415,9 @@
       ]
     },
     {
-      "name": "Ridge",
-      "domain": "ridge.com",
-      "category": "Accessories",
+      "name": "Therabody",
+      "domain": "therabody.com",
+      "category": "Fitness",
       "score": 84,
       "grade": "B",
       "failing": [
@@ -493,6 +443,14 @@
       "failing": [
         "Product / Offer schema"
       ]
+    },
+    {
+      "name": "Saatva",
+      "domain": "saatva.com",
+      "category": "Home",
+      "score": 83,
+      "grade": "B",
+      "failing": []
     },
     {
       "name": "Vuori",
@@ -535,8 +493,8 @@
       ]
     },
     {
-      "name": "Boll & Branch",
-      "domain": "bollandbranch.com",
+      "name": "Burrow",
+      "domain": "burrow.com",
       "category": "Home",
       "score": 80,
       "grade": "B",
@@ -545,8 +503,8 @@
       ]
     },
     {
-      "name": "Burrow",
-      "domain": "burrow.com",
+      "name": "Boll & Branch",
+      "domain": "bollandbranch.com",
       "category": "Home",
       "score": 80,
       "grade": "B",
@@ -565,16 +523,6 @@
       ]
     },
     {
-      "name": "The Farmer's Dog",
-      "domain": "thefarmersdog.com",
-      "category": "Pets",
-      "score": 80,
-      "grade": "B",
-      "failing": [
-        "Product / Offer schema"
-      ]
-    },
-    {
       "name": "Nomad Goods",
       "domain": "nomadgoods.com",
       "category": "Electronics",
@@ -585,8 +533,8 @@
       ]
     },
     {
-      "name": "Fi",
-      "domain": "tryfi.com",
+      "name": "The Farmer's Dog",
+      "domain": "thefarmersdog.com",
       "category": "Pets",
       "score": 80,
       "grade": "B",
@@ -595,9 +543,9 @@
       ]
     },
     {
-      "name": "Hims",
-      "domain": "hims.com",
-      "category": "Wellness",
+      "name": "Fi",
+      "domain": "tryfi.com",
+      "category": "Pets",
       "score": 80,
       "grade": "B",
       "failing": [
@@ -677,12 +625,14 @@
       ]
     },
     {
-      "name": "Saatva",
-      "domain": "saatva.com",
-      "category": "Home",
-      "score": 75,
+      "name": "Peak Design",
+      "domain": "peakdesign.com",
+      "category": "Outdoor",
+      "score": 76,
       "grade": "B",
-      "failing": []
+      "failing": [
+        "Product / Offer schema"
+      ]
     },
     {
       "name": "Thrive Market",
@@ -706,10 +656,10 @@
       ]
     },
     {
-      "name": "Skims",
-      "domain": "skims.com",
+      "name": "UNTUCKit",
+      "domain": "untuckit.com",
       "category": "Apparel",
-      "score": 72,
+      "score": 73,
       "grade": "C",
       "failing": [
         "Product / Offer schema"
@@ -726,18 +676,8 @@
       ]
     },
     {
-      "name": "Cuts",
-      "domain": "cutsclothing.com",
-      "category": "Apparel",
-      "score": 72,
-      "grade": "C",
-      "failing": [
-        "Product / Offer schema"
-      ]
-    },
-    {
-      "name": "Reformation",
-      "domain": "thereformation.com",
+      "name": "Skims",
+      "domain": "skims.com",
       "category": "Apparel",
       "score": 72,
       "grade": "C",
@@ -756,9 +696,9 @@
       ]
     },
     {
-      "name": "Curology",
-      "domain": "curology.com",
-      "category": "Beauty",
+      "name": "Reformation",
+      "domain": "thereformation.com",
+      "category": "Apparel",
       "score": 72,
       "grade": "C",
       "failing": [
@@ -766,8 +706,18 @@
       ]
     },
     {
-      "name": "Harry's",
-      "domain": "harrys.com",
+      "name": "Cuts",
+      "domain": "cutsclothing.com",
+      "category": "Apparel",
+      "score": 72,
+      "grade": "C",
+      "failing": [
+        "Product / Offer schema"
+      ]
+    },
+    {
+      "name": "Curology",
+      "domain": "curology.com",
       "category": "Beauty",
       "score": 72,
       "grade": "C",
@@ -796,9 +746,9 @@
       ]
     },
     {
-      "name": "Caraway",
-      "domain": "carawayhome.com",
-      "category": "Home",
+      "name": "Harry's",
+      "domain": "harrys.com",
+      "category": "Beauty",
       "score": 72,
       "grade": "C",
       "failing": [
@@ -808,6 +758,16 @@
     {
       "name": "Article",
       "domain": "article.com",
+      "category": "Home",
+      "score": 72,
+      "grade": "C",
+      "failing": [
+        "Product / Offer schema"
+      ]
+    },
+    {
+      "name": "Caraway",
+      "domain": "carawayhome.com",
       "category": "Home",
       "score": 72,
       "grade": "C",
@@ -856,8 +816,8 @@
       ]
     },
     {
-      "name": "Mejuri",
-      "domain": "mejuri.com",
+      "name": "Blue Nile",
+      "domain": "bluenile.com",
       "category": "Jewelry",
       "score": 72,
       "grade": "C",
@@ -866,8 +826,8 @@
       ]
     },
     {
-      "name": "Blue Nile",
-      "domain": "bluenile.com",
+      "name": "Mejuri",
+      "domain": "mejuri.com",
       "category": "Jewelry",
       "score": 72,
       "grade": "C",
@@ -938,17 +898,6 @@
       ]
     },
     {
-      "name": "Thursday Boots",
-      "domain": "thursdayboots.com",
-      "category": "Footwear",
-      "score": 69,
-      "grade": "C",
-      "failing": [
-        "JSON-LD present",
-        "Product / Offer schema"
-      ]
-    },
-    {
       "name": "Drunk Elephant",
       "domain": "drunkelephant.com",
       "category": "Beauty",
@@ -959,8 +908,8 @@
       ]
     },
     {
-      "name": "Summer Fridays",
-      "domain": "summerfridays.com",
+      "name": "Ilia",
+      "domain": "iliabeauty.com",
       "category": "Beauty",
       "score": 69,
       "grade": "C",
@@ -970,8 +919,8 @@
       ]
     },
     {
-      "name": "Ilia",
-      "domain": "iliabeauty.com",
+      "name": "Summer Fridays",
+      "domain": "summerfridays.com",
       "category": "Beauty",
       "score": 69,
       "grade": "C",
@@ -1003,6 +952,17 @@
       ]
     },
     {
+      "name": "Thursday Boots",
+      "domain": "thursdayboots.com",
+      "category": "Footwear",
+      "score": 69,
+      "grade": "C",
+      "failing": [
+        "JSON-LD present",
+        "Product / Offer schema"
+      ]
+    },
+    {
       "name": "Igloo",
       "domain": "igloocoolers.com",
       "category": "Outdoor",
@@ -1025,6 +985,17 @@
       ]
     },
     {
+      "name": "Olipop",
+      "domain": "drinkolipop.com",
+      "category": "Food & Beverage",
+      "score": 69,
+      "grade": "C",
+      "failing": [
+        "JSON-LD present",
+        "Product / Offer schema"
+      ]
+    },
+    {
       "name": "Wild One",
       "domain": "wildone.com",
       "category": "Pets",
@@ -1036,31 +1007,9 @@
       ]
     },
     {
-      "name": "Gorjana",
-      "domain": "gorjana.com",
-      "category": "Jewelry",
-      "score": 69,
-      "grade": "C",
-      "failing": [
-        "JSON-LD present",
-        "Product / Offer schema"
-      ]
-    },
-    {
       "name": "Studs",
       "domain": "studs.com",
       "category": "Jewelry",
-      "score": 69,
-      "grade": "C",
-      "failing": [
-        "JSON-LD present",
-        "Product / Offer schema"
-      ]
-    },
-    {
-      "name": "Goodr",
-      "domain": "goodr.com",
-      "category": "Accessories",
       "score": 69,
       "grade": "C",
       "failing": [
@@ -1088,18 +1037,6 @@
       "failing": [
         "JSON-LD present",
         "Product / Offer schema"
-      ]
-    },
-    {
-      "name": "Everlane",
-      "domain": "everlane.com",
-      "category": "Apparel",
-      "score": 64,
-      "grade": "C",
-      "failing": [
-        "JSON-LD present",
-        "Product / Offer schema",
-        "Descriptive <title>"
       ]
     },
     {
@@ -1139,6 +1076,16 @@
       ]
     },
     {
+      "name": "MVMT",
+      "domain": "mvmt.com",
+      "category": "Jewelry",
+      "score": 60,
+      "grade": "C",
+      "failing": [
+        "Product / Offer schema"
+      ]
+    },
+    {
       "name": "The Ordinary",
       "domain": "theordinary.com",
       "category": "Beauty",
@@ -1150,9 +1097,31 @@
       ]
     },
     {
+      "name": "Solo Stove",
+      "domain": "solostove.com",
+      "category": "Outdoor",
+      "score": 57,
+      "grade": "C",
+      "failing": [
+        "JSON-LD present",
+        "Product / Offer schema"
+      ]
+    },
+    {
       "name": "Eight Sleep",
       "domain": "eightsleep.com",
       "category": "Home",
+      "score": 57,
+      "grade": "C",
+      "failing": [
+        "JSON-LD present",
+        "Product / Offer schema"
+      ]
+    },
+    {
+      "name": "Yeti",
+      "domain": "yeti.com",
+      "category": "Outdoor",
       "score": 57,
       "grade": "C",
       "failing": [
@@ -1239,14 +1208,15 @@
       ]
     },
     {
-      "name": "MVMT",
-      "domain": "mvmt.com",
-      "category": "Jewelry",
-      "score": 51,
+      "name": "Everlane",
+      "domain": "everlane.com",
+      "category": "Apparel",
+      "score": 47,
       "grade": "D",
       "failing": [
         "JSON-LD present",
-        "Product / Offer schema"
+        "Product / Offer schema",
+        "Descriptive <title>"
       ]
     },
     {
@@ -1259,17 +1229,6 @@
         "JSON-LD present",
         "Product / Offer schema",
         "Descriptive <title>"
-      ]
-    },
-    {
-      "name": "Prose",
-      "domain": "prose.com",
-      "category": "Beauty",
-      "score": 33,
-      "grade": "F",
-      "failing": [
-        "JSON-LD present",
-        "Product / Offer schema"
       ]
     },
     {
