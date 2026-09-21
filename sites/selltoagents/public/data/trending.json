@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-20",
-  "generatedAtUtc": "2026-09-20T10:05:07.846Z",
+  "updatedAt": "2026-09-21",
+  "generatedAtUtc": "2026-09-21T11:04:02.778Z",
   "geos": [
     "US",
     "GB",
@@ -11,9 +11,86 @@
   "trendingTopics": [],
   "news": [
     {
+      "title": "LLM SEO is mostly plumbing, and a lot of sites are quietly failing it - TechBullion",
+      "link": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE5xM20yQmM2WXVFOEJfcC12WFBxd0taZUZXTENSMlJ1S2JGMHpXM0R6NmhrQkJ4QW9fTGxOZ1lpRzFzOEdqSzYtOFBSS0p6R0k?oc=5",
+      "published": "Mon, 21 Sep 2026 10:48:33 GMT",
+      "source": "TechBullion",
+      "query": "llms.txt"
+    },
+    {
+      "title": "Agentic Commerce Is Quietly Turning eCommerce Into a Data Quality Competition - DesignRush",
+      "link": "https://news.google.com/rss/articles/CBMieEFVX3lxTE9kbHlpdjN5RmR5QVJ2anlteHhOV3BLc1JvMjJsdmhlWE5RZklnaHE2RjVPc2tGWGFRbTdnakVrT1k4elhVU2UzNWxQUERtMnBBcXo1MnRrZWlJV19rMjRJVkxnZFNYYU1QcUdhY3JPam9aVngwZUFXOA?oc=5",
+      "published": "Mon, 21 Sep 2026 10:33:56 GMT",
+      "source": "DesignRush",
+      "query": "agentic commerce"
+    },
+    {
+      "title": "Cardano: ADA Goes Live in the Official x402 SDK for Agentic API Payments - 21 Sep 2026 - TradingView",
+      "link": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxOY092N3N4WGxQYUZ5RFNyTHVmak4yVnV0dXhZTFdaY3h6S19wS05rNnhLTWh6ZVdfSGdnOVVLdEVnTWpQNngyOE5DbndYSFZ0blRXZW01OHl6RzlpbE10QlFEWWwwOVBoaFVwMG5Vcl90Y2N2NHdkWGQ0WXpNY1lHZmdIdVZZOGp1MThCa0RwUzg0dU1sdEwyWXk4SE5hR2pOeWI3cEEwVDBVYjJDQ3d2eUkyVFZJUjRuWHkxQTY5N1ZRWnpPVXFVNVNuZkRPN0k4Nk50dkJFMVBNRHhuUFM1Qw?oc=5",
+      "published": "Mon, 21 Sep 2026 08:30:54 GMT",
+      "source": "TradingView",
+      "query": "x402"
+    },
+    {
+      "title": "Cardano x402 Integration Enables API Payments in ADA - The Cryptonomist",
+      "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTFBEUmZiLS1ESGRGTlItYWhFU2RrUDNuWE56X1czUTJ6NENLbHVGc1FvaVBUcGdqRTVTZ0tTZUVyMmNFZlM5NmRRSUNuN1dDNF9mNW5rNXdRaGVvSHdHYXQ2T2ZaclBFNzd6UGF4b3Rfa1E?oc=5",
+      "published": "Mon, 21 Sep 2026 08:30:41 GMT",
+      "source": "The Cryptonomist",
+      "query": "x402"
+    },
+    {
+      "title": "Cardano integrates with x402 SDK for direct ADA payments via API calls without accounts. - Pluang",
+      "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxQQ0U2YXlnbURYbmhBZ0tEc0xueFk3STVJR0d3b29xczFKMmltTUxIR3d0emxPZDZqc2hLcElUY3J2T1k2WkhWUUlfd3JoS0Y5dFljRFNWNlpwbnRJRkYyejJtYnFySlpZa25aOHNQMFREa2swVXhMUl9zMkhmOC1tRHV6Wm5fZS1ROXdVN0Ezcmh4M3AxanU0?oc=5",
+      "published": "Mon, 21 Sep 2026 08:06:04 GMT",
+      "source": "Pluang",
+      "query": "x402"
+    },
+    {
+      "title": "Amazon blocks Meta’s Muse AI assistant in new standoff over agentic shopping - GeekWire",
+      "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNN1NIM3JxN1RPdlktMDMwTmlZcnk5MFV4b1loLVBvc3pfUElYT3ZhQ3VLZmVod3ZxeDBVTXNkWkhybWJTZE05YzdkSWpOMHpwOVlYbWJYNndSSWRkRlFQSmNsM0F2WWgzZTFLNjFuMHNhY2d3akstanhNRTlOSEZvQVV2alFiTUE4MnBHRlJjdy12RXhwclJXVTFTZWV2R1ZrUHhUdlZuZmVtdw?oc=5",
+      "published": "Mon, 21 Sep 2026 07:03:34 GMT",
+      "source": "GeekWire",
+      "query": "agentic commerce"
+    },
+    {
+      "title": "64 per cent of shoppers hate bad bots: how agentic voice is fixing retail’s AI trust crisis - Retail Technology Innovation Hub",
+      "link": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxQUWVPMkFMTVlYSlBDSjduVFRmZjNkbkhEU0gyVjVRTG5STzd4Vm81WXFiSWc3Tm9Gd1VQSW9GMzdwWVdLWDdvTnJncmRjTjRXTlFaNmNGY2ZfY0o1SkVzSUJ2YXVXMmFsNHBhSll0eUdYUldIU0x3RUZmTUJUeE1jb2syZTNqa2w2OU1tNThjcFZJSHJXdmFGdXNselZwMGFQMUhBa0VXWUh6WHBZUnhwaTZEVnBJZTRkdkVrSkNmZ19yb2ZGZnhTa0x0bTFHcmp6X3h1SEFDZw?oc=5",
+      "published": "Mon, 21 Sep 2026 04:26:37 GMT",
+      "source": "Retail Technology Innovation Hub",
+      "query": "agentic commerce"
+    },
+    {
+      "title": "Agents at the gate: L’Oréal, Mars and Nestlé tread the same agentic path; start with the grunt work; let humans retain judgement, expertise and empathy; prepare for commerce bots - Mi-3.com.au.",
+      "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxQeVpYS3Z6akY1MHFGdGJJZTJFZGZFXzJKRWZ1YlhHZzJ2U0ozMTdpR3ZqQjdKbU1kWThRN1Z1WUg5aE5nVnE4NFpBMnBKVHUtRS1NOHJIbm5CV0lEbUowemFrT2JrcGFvSzZxQjFhWTN4WExGTVJ3VEZJaXk1X1lqZXlxWTctck1FYm1UOUxudTJtaHZnb3Ayem13?oc=5",
+      "published": "Mon, 21 Sep 2026 00:01:14 GMT",
+      "source": "Mi-3.com.au.",
+      "query": "agentic commerce"
+    },
+    {
+      "title": "Safari 27 Ships a Native MCP Server — And Apple Gave Enterprises No Way to Turn It Off - forkast.news",
+      "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPbXhpdWVXVzVxcmN2TFhNQU9xcGNQbExXRDQ1am5fMUExVzlHQUZPWkJqZXRkQjc1UG1sdmFfQ3N5LTY1WXVvRjNvaGM3OGdPcHBKRjhqNmlENk12UFNQNGwwSjdRc2lablpCWUtBYTJBYXBLMWlDcVpOZ1h1QThRdTdoOFJnWU9DTzBzbjNXc1hEWG1lczQ1SFNScXkzM1pkVHJaMUFRZWxIUQ?oc=5",
+      "published": "Sun, 20 Sep 2026 21:16:15 GMT",
+      "source": "forkast.news",
+      "query": "Model Context Protocol"
+    },
+    {
+      "title": "Model Context Protocol: What it is and why it matters - SAS: Data and AI Solutions",
+      "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTE5DRzhlUHlXM2NKS2lGMlpwaFdXeTlSTDhFOGRrUDlKd01PWXlOTjZUYkVpOS0xWFRlbkhITWhBSU5DdDhxVWZjTHRtLWowMlI0Y1dGNnJSZzJnNEx3di1ONFhuaDloWmdWbGkwQmR4V2tyYU1LR1hPU05sUGc?oc=5",
+      "published": "Sun, 20 Sep 2026 13:23:26 GMT",
+      "source": "SAS: Data and AI Solutions",
+      "query": "Model Context Protocol"
+    },
+    {
+      "title": "Google Home now lets Claude and other AI agents control your smart home, in early access - MIXED Reality News",
+      "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPaG9PWnVZbnhhcUQtUTNqSFlWMVpuaE1Xdng1UWxRamRMd09SUlRIaE1ONUhkQlQ1MGNwV0s0eWVmcUNyUDlyVURkWXdrMG9LNmF5Q045Nkh3ZXk1UE8wci1xUFpOaFdYZl9JZ3I1eEl1RmpoQVJzTzR4bU1nOUJaOGVDREpEdUhHZFBORFlzZXluX2I2OGc?oc=5",
+      "published": "Sun, 20 Sep 2026 08:10:45 GMT",
+      "source": "MIXED Reality News",
+      "query": "Model Context Protocol"
+    },
+    {
       "title": "The Traffic Meter Can’t See the Clients AI Never Sends You - LawFuel.com",
       "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQZXNHYmVtZjdJWG9EQ2hkTkVRaWZqeUotMUhtZW1pcTlhc0dad2gwTVV2dkg1MGxkZlFqZk5rZWtMQU1vYzZ1QWloT291Tk9HajdTTXdscXpCSE5pN25OaV9NaUlWWkU3SWJ6SWRXTzdiT19zdWdjZHY0ZWhZRk1zNjJkbGpVSzJRNFE?oc=5",
-      "published": "Sun, 20 Sep 2026 06:42:09 GMT",
+      "published": "Sun, 20 Sep 2026 07:26:52 GMT",
       "source": "LawFuel.com",
       "query": "llms.txt"
     },
@@ -37,20 +114,6 @@
       "published": "Sat, 19 Sep 2026 10:06:38 GMT",
       "source": "forkast.news",
       "query": "Model Context Protocol"
-    },
-    {
-      "title": "The Relay Has No Lock: LiteLLM’s MCP Auth Bypass Marks a First for the CISA KEV Catalog - forkast.news",
-      "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPUk1PT3dQcVVSX1VTdUJSNWhEZWx5bzRLb1ZvR1hJazZWSC1QVGttYmRHNTZFVUVlenFxNWU2dGJuVEgwb0ozMjBPSmtleDhWMmJ0WV9QSUk0bUVFLU9lcjNZN0Y4WW1Ub1lhS2tSUEo3Mi15RDhMUklPeHBRQWZUVzgxb2RhOEJ4VUgtU2t4TmE3aU5TOHFrZ3l6QVFhRzhOREF0RjJBVnZFaTQ?oc=5",
-      "published": "Sat, 19 Sep 2026 10:02:18 GMT",
-      "source": "forkast.news",
-      "query": "Model Context Protocol"
-    },
-    {
-      "title": "Moonraker Releases Two Free Checks That Show Therapy Practices What Google and AI Assistants Can See - FinancialContent",
-      "link": "https://news.google.com/rss/articles/CBMi-gFBVV95cUxQeWh6cjhaWFlOSS1uZ0R4QXdHYnhGX0hLeVlEWTF1aXFteHJLRUR6WXdyME8xU0Jrc2JzeEswb240ZERWQWNHdUliVVNHZXd2SV9HVUVoMnlDZFB6XzA4YktpN2FYT1VVOGNaX2YtSjZDYkZMNXFnX3h1Q3l1S1pmY1ZIN0ZQcEgyZVRRQUVRWXNYN1NtRlk1X3JxdUFjQklSTy1DU0tOZjd5NzRPNlFXOG44aWVlN2dlZ2drVC1HMmNsRktCZVdDNlZUcG1XUHdEMVBLVjFBVEE3MDNzSjRzc28xMkU0a1ZBM21wbUpGZ1hhcmEtRGR4S2tB?oc=5",
-      "published": "Sat, 19 Sep 2026 06:15:00 GMT",
-      "source": "FinancialContent",
-      "query": "llms.txt"
     },
     {
       "title": "How retailers can win when AI agents make buying decisions - EY",
@@ -81,6 +144,13 @@
       "query": "agentic commerce"
     },
     {
+      "title": "State of MCP - Multi-agent, identities, and overlapping protocols - thestack.technology",
+      "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPdlBLRWhPMDROb2g0b0NBWWFJc0RrNEl4S0RqU1FLblJrNFNzUFNwVnRLQmV6R1h2LUNLZGxJV3RiLUlzSzBaS0NnS1JFdHpIM0Vmak9fbmtybVM1TEsxN3JTaS13ZE5RYzhqY3hCQ2NEMkk0RmlxRS04TTJWVEhXcEdHaUFLRDJzVE95TWFQdlVhcGxhSUU2N0xR?oc=5",
+      "published": "Fri, 18 Sep 2026 17:38:51 GMT",
+      "source": "thestack.technology",
+      "query": "Model Context Protocol"
+    },
+    {
       "title": "Stripe’s wallet embraces AI bots - paymentsdive.com",
       "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxQSTJCdnA5WEpxSlNWZ2dOV0pfTWlNa2l3bE1rV0FwSEpWN3lVSGluOHFMT3JBSnNOUFpVTVdaVWN1eE5iT1dkeUg2OWl6WXBZX1hWMzBCaGE0YUdKcVJHb0pta2FTdmowakQ4UXZtN09sTXRaemY3ay00TXZPd1AxSlRhV0hFekRqVVM0X1ZFd0ZKVk5yUWMyejhSR3VENkdMd081UGNQR28?oc=5",
       "published": "Fri, 18 Sep 2026 15:44:24 GMT",
@@ -88,94 +158,24 @@
       "query": "agentic commerce"
     },
     {
-      "title": "Should you read the code, is RAG dead, and did Skills kill MCP? - The GitHub Blog",
-      "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxOYXBVSFVKNWdiaS0zSS1aVE91ZmNJb2ZYUF9HR3JvWjVwZTFwTVpjc3NRbzM1LWZVT2dfOGdUb2lfUkJCRDJOZU8zbmw4YnA1SW1LcWVwQ3M4MVNtam9QbjhkNjR0eFlUUWNKYkJLMGtldnNhdGFST2dfMGpKSmI3dXlnVFEtT2Nyd0ktVWVNOU9ueW12bVE?oc=5",
-      "published": "Fri, 18 Sep 2026 15:21:10 GMT",
-      "source": "The GitHub Blog",
-      "query": "Model Context Protocol"
-    },
-    {
-      "title": "Can Rising Adoption of Agentic AI Accelerate NET's Revenue Growth? - The Globe and Mail",
+      "title": "Can Rising Adoption of Agentic AI Accelerate NET's Revenue Growth? - theglobeandmail.com",
       "link": "https://news.google.com/rss/articles/CBMi5AFBVV95cUxNV2FvV3ZsVE5qdnBfMmw5WWl2Z0JpU3ROTUxtcVo4Mmg1SkFBMFhmbkxOVlVXQ0lQSlkzeENKQ0dNSjJDSXFkeHhTeEl1UlpHenl3VUdMbmN6WFo2T2J5WnZaVWwyM1J3OVJTSFR1VnFNcmxBZnBaRkdMY0dTMUN2RnliQkxYV0pMM2RQeGxqeEhDXzdpT040RWswNG9VWE9kU0VMZVJvWjhSLTJhT0lIMi1MUTJiLS1OMGVzRUpuZGJFcTNCeWFKdDhHTndIOEVOM3haNUhtS3pESmVBa0NRdFNhOGs?oc=5",
       "published": "Fri, 18 Sep 2026 15:16:00 GMT",
-      "source": "The Globe and Mail",
+      "source": "theglobeandmail.com",
       "query": "agentic commerce"
     },
     {
-      "title": "What Does Agentic Era Mean For Ripple XRP? - tradingview.com",
+      "title": "What Does Agentic Era Mean For Ripple XRP? - TradingView",
       "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxNaEdwR0dSZlhQNVNQQUFnVmtxZVo1WlRmUUhxRjJTOXdGX1pnSjFOWll3RTFPZU1XNUhBV2pqdVdfTVEwb2J1WXNUYmRzUm9DdU9mb3B2a2k4ZGJlSkdrUjhrZkRsVGpIYUdjbDhoaTZNV29RdVZycVNxU0VCOGliNXBGNHNIVFFpeFYyc1JfVmNUbDBJWWdRSDVLb3BHQnRkYjVQdA?oc=5",
       "published": "Fri, 18 Sep 2026 14:52:51 GMT",
-      "source": "tradingview.com",
+      "source": "TradingView",
       "query": "agentic commerce"
     },
     {
-      "title": "Akurateco makes payment API readable by AI - The Paypers",
-      "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQWWpOWWp6YTNoMkdKaGh4N0EyOUZaNU5ERDRjWWxlOXI5aTBIaEFjVUJ6UnpyT2N1RDBDR3hWUkVGMzVnMFFYZWlPSGZnUTR5ZFpwdC1SNTNfSlNHRnMxcWtCRG0ycmh0cHRlQXlvZ3hCd004TnZvT3cyaUxIYWFkcG5QRnB1V3hlTVBxNU9hN2N0RDBKRVJSRmRTUQ?oc=5",
-      "published": "Fri, 18 Sep 2026 13:23:18 GMT",
-      "source": "The Paypers",
-      "query": "Model Context Protocol"
-    },
-    {
-      "title": "Google just built the infrastructure for agentic commerce - Fast Company",
-      "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxNQzNzamNZVXJNOHAzb21pUWhqMWVtMERJeVZGeUZvVmE4OElJVV9mNFNkZk95Z3QxNGdVcnRldHdKNWhvWUh6SzNUYWRuazhJUUtueU1JaTJmOF9zZHFZU3hPWHZLN0NWRWxVcDBPXzZWUVBia3ppVVJGV3dweGdEWUlkNzJ5ZGJwWElTcDUwVGQ3cHhTSURsQ09B?oc=5",
-      "published": "Fri, 18 Sep 2026 13:13:44 GMT",
-      "source": "Fast Company",
-      "query": "agentic commerce"
-    },
-    {
-      "title": "Google Opens Google Home to Claude and Other AI Agents — Here’s What They Can Control - TechRepublic",
-      "link": "https://news.google.com/rss/articles/CBMie0FVX3lxTFBNeVlJTm1meHN0bUJJVzN6MHgtbGJoTEVPNEJHV1FqeVI0YThGcUZsbVA0cVFEUDIzaFVtVTd6RGlRajVLTGlkV29OUGVyaHN0RzdaRzg3MGItckNoaWEzRlVaUDAtcDhDZnVhMTRfUERiUTAweTlmQy10TQ?oc=5",
-      "published": "Fri, 18 Sep 2026 12:23:27 GMT",
-      "source": "TechRepublic",
-      "query": "Model Context Protocol"
-    },
-    {
-      "title": "Is there an agentic payments bubble? - American Banker",
-      "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQTDZhWkpYaWpDUjVwS3Q4YjNVc2NlNmFKRlpxY2FrblppdXlRNHk0eUFoY2RPMDRpbTVsOXBmbVRCbzhISGVEWkpNTTFaeWhxRkpzRU5UUFdBZWNjOUJwSEc4alhreXpqQzZrajVHTlduY2pSNWt2a3pRTWlaNXNVckFPd25zSXVDaUloTUlHZw?oc=5",
-      "published": "Fri, 18 Sep 2026 10:00:00 GMT",
-      "source": "American Banker",
-      "query": "agentic commerce"
-    },
-    {
-      "title": "Azoma raises strategic funding from dunnhumby to chase $9T agentic commerce market - Dealroom",
-      "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxOY1gwMzVUZm9IdjlkeXNCZVdTVk16X2dKZERXQktwQVZTSjc3bnZpbDdhZ0Vzc3NzUEZHTTgxS3lLb0x4Q3hMRE9VQ2FoeUdCUTg5NGNLUWhlZy03OVROd1dBbEkwa29pMWp4ZFd5LVFSMmhCTnJneEp2SHUzT3pUYjRJMTVkVERlRkhMY2xZVGNMRlhadXZabG1leTZIRW1VQXBEdkJPYTFfd0wtQUV6V0RCb0Z0Zw?oc=5",
-      "published": "Fri, 18 Sep 2026 06:19:18 GMT",
-      "source": "Dealroom",
-      "query": "agentic commerce"
-    },
-    {
-      "title": "Azoma lands investment from dunnhumby ventures to accelerate roadmap for Agentic Commerce platform - Retail Technology Innovation Hub",
-      "link": "https://news.google.com/rss/articles/CBMi9AFBVV95cUxNd1dvcGk3TDBaSXp6bkpoeXVSU091ODlicFlJQUVXdHZOMEEtWVdxdFgwOUNvY2pzQUFfaHItdnNsR0ZIYi1Ia1h4QWE1NmxuTHdQY0JUcVQ2SnhOblNMOEVIa2hiSVBqWXNFUVlnWFJrckR3X0xCUVZwT3Y2blo4b1BWYlhteU53amZxM09CNk82NEh1QUJyLUtXbFd3dlRlQXlfNlRadUJ3RDZBcWpPSGxVRHc3SXFYWnRUMHkxYlNMdnZ0X3NJdHBlU0tSY3lfOTRCb2JjV0EtVGllUzRVM1NaejFQTVQ1M1VpY2tFN3UwZFJF?oc=5",
-      "published": "Fri, 18 Sep 2026 05:22:45 GMT",
-      "source": "Retail Technology Innovation Hub",
-      "query": "agentic commerce"
-    },
-    {
-      "title": "Will the 2026 Shopping Season Go Agentic? - PYMNTS.com",
-      "link": "https://news.google.com/rss/articles/CBMiekFVX3lxTE12S3otV3RPdFN3a3l4TTY2dFNHMDYyOUpONTFLVUxZR3V0dnBob2VyUUR1ZVdPckczOHRmUThDVWRJRjEyeVZlc2V3NzhrU2dQZEpoNE5zQXU5Qld2QkVmOEhRWk16eTkzWlRSeGFlZEFEem1CNllKZE9B?oc=5",
-      "published": "Thu, 17 Sep 2026 21:23:18 GMT",
-      "source": "PYMNTS.com",
-      "query": "agentic commerce"
-    },
-    {
-      "title": "GitLab releases version 19.4 with expanded AI agent tools By Investing.com - Investing.com Canada",
-      "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxQVlRUMDVXMjFqSmxGbXhrVUxlREZidHUtSnJqS1JKY0U3TFNQc1cwREtOS2MtUXVhOFFueHZTbjI2cmVQNHk2WmVDTTBVU240UFNNdmhtcnVra2E2WXF5NmdvZ0x2MEZwY283Rlg2MFp6SjlQek9PSG4zQjVaZDdXYkdnMXYwUkRjdm94RzNpbGpvRXdyV1YwSllnUF9PNkFUMXlPVUM5TUdOVlk2S0prd3A5VkJJbkxZ?oc=5",
-      "published": "Thu, 17 Sep 2026 21:08:15 GMT",
-      "source": "Investing.com Canada",
-      "query": "Model Context Protocol"
-    },
-    {
-      "title": "TradingView enables AI agent connectivity via MCP server in public beta - tradingview.com",
-      "link": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxQTWsxemZLM3NYQmI0TzlWSEhhcGVhRUtXeWMtS3lpWGFLeGx3ZVZrWHRLc2xIOVRKdGtoZ0pXV3VBVmQ2SjRKQjJvaWNXU1hzNlBwY2V3NHNFRnNhVU56YWZhZnJRbW5sR0t6al96SXJZRzVLLWZNMUhHV3BlQWNvdkRsNUk3RjJDc3FzNkRsdWZ6b25BVDNWZjd0cG5lWUF2eUxSN2NJcFdLRzA0SEI1NE9nb2FvYjFqejJmeXVGQlBtWjUyNjhfNXl1T05QVk5lNWc?oc=5",
-      "published": "Thu, 17 Sep 2026 20:59:54 GMT",
-      "source": "tradingview.com",
-      "query": "Model Context Protocol"
-    },
-    {
-      "title": "Local Logic Launches MCP Server to Ground Real Estate AI in Verified Location Data - rismedia.com",
-      "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxON1Q2cHdfUXJFUVpHY2RtcFo0OFVSUTlSWm9wN2g4cmlsT2xxOEtGaUc4czNtWFExY1FmcXhyb0UyZk9ldEV4cnhvbk9SNmk2MTU3QXR6TWlNTUZPQ1FUd2stcmk4ei1ITDJEMElJWVlWNVBsc0RMTUR0ME16TzRwa2lmZ2xvUjZOaXdjUEhEZmhsdFoxUWgzQV9ETURyVG5acFpxMHVDM3UwdnFpMnJ6eUVkVQ?oc=5",
-      "published": "Thu, 17 Sep 2026 20:49:31 GMT",
-      "source": "rismedia.com",
+      "title": "Safari 27 Adds an MCP Server to Give AI Tools Browser Access - The Mac Observer",
+      "link": "https://news.google.com/rss/articles/CBMieEFVX3lxTFBTYk5WRUNTVjhhdnFjSmJTQXNpZkRaNUdaU3pSbVM5X3NkTFR4ZzQwNF9raTIxd3JQMGNjZ2J2cnpaZ202R1JMZ3VuakRoS1dnWmFFNG9BUThZNkdiRjNvVUw3N2FkVFBlLUl4cDBlWHlWaXFyMjBwNw?oc=5",
+      "published": "Fri, 18 Sep 2026 14:08:07 GMT",
+      "source": "The Mac Observer",
       "query": "Model Context Protocol"
     }
   ],
