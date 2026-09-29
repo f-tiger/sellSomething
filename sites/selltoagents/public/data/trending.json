@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-28",
-  "generatedAtUtc": "2026-09-28T11:57:50.010Z",
+  "updatedAt": "2026-09-29",
+  "generatedAtUtc": "2026-09-29T11:32:31.346Z",
   "geos": [
     "US",
     "GB",
@@ -11,176 +11,176 @@
   "trendingTopics": [],
   "news": [
     {
-      "title": "AI agents can now shop JD Sports like a person would - Sporting Goods Intelligence Europe",
-      "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQaEhpaXpLLXJhMjhYTGZ1LVNPdFR3MzROSWFjQTh6Y01FbHZQblRGLXJNOGJ1X281dEtWUnoycVFfdXh6WU40YXFHTXRWZi05WF90R2ZtaGV1b2o3T1hLbXN6SldDWks1WlpNR3BMemRkU3dMVlJzMDcyRTJqaE1xZXdwZkRMU0ltMmNrZjdPZG9NRk5uUWt1Wi1ycVZnRDNnUnJjekZ2NA?oc=5",
-      "published": "Mon, 28 Sep 2026 09:59:49 GMT",
-      "source": "Sporting Goods Intelligence Europe",
-      "query": "agentic commerce"
-    },
-    {
-      "title": "MCP Is Creating Major Governance Gaps, Researchers Warn - infosecurity-magazine.com",
-      "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNM1JFQXVqNkluc25pdU43N1VvTVF5c3hiNmVQcmp1T0RlOGV2VDAyb2pVRzRsMUZMU2h0c0dYeWhFSFNhb3RDczNWSVFZWkN6azk4RWFZb3owUm03djE2WVZiTUVUNmNJTFk2WnZ1a1Vqb3hiUUNEeXlZcjVXbGNkeXJGc3Q?oc=5",
-      "published": "Mon, 28 Sep 2026 09:45:00 GMT",
-      "source": "infosecurity-magazine.com",
+      "title": "GeoComply MCP brings risk intelligence and decisioning to existing AI systems - businesswire.com",
+      "link": "https://news.google.com/rss/articles/CBMizwFBVV95cUxNQmc4Rm5zLWwwNUhlRFlXa2RxVGJEeVl0dTFhOUdMVkFnQUJob3dUb29rSWhZaU5jeEU2TVBwVWIxcHF4NmhERWY0WlNHODRTdHNndVlDZFF1dXVuajV5c0sycWlaTWlVT3dfb0ZzMUxpNzVPcVdtc2pfb1N3TVBQRE14YThkWHFsbU40SU00SjFJZUcxSmswMTNQbzliWjVNVWd1VGw5UmVzR3lKM09rODdIU29FUVhvTWlncG5zLUtEY2p5cWxVaTVkOW10SGc?oc=5",
+      "published": "Tue, 29 Sep 2026 11:00:00 GMT",
+      "source": "businesswire.com",
       "query": "Model Context Protocol"
     },
     {
-      "title": "Rubrik brings agentic AI to cyber recovery with launch of Rubrik MCP - ITWeb",
-      "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxPN1JJN0dTblRXM3Zld0RyU25IRjQ2R1pseEVEZlo3blBwMlhuY3VUUTJOM2I4MjBjaGRMR1NmaFRzcGVyZDczV2F3djhMdkw2aVhKYXZXbFVwdmNXZndrcTZval9NNERTQVpEMU43RjFRY0l6dkt6Z1N6SEw0ZzdiOVhnQTdkNVAyRGtkNUVBekV2QkhQSFRDVG9MWjZ0V1RzeVZhdTMySE1KemtzOHItQ2hadGZ2SGli?oc=5",
-      "published": "Mon, 28 Sep 2026 09:01:00 GMT",
-      "source": "ITWeb",
-      "query": "Model Context Protocol"
-    },
-    {
-      "title": "Cycode Uncovers Account Takeover in Anthropic’s MCP Python SDK - Security Boulevard",
-      "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNOWRFTDhsZEJDWGt0RHdHWXlBcFVtcUdCOWNvQU1xcGp2ZnIxYVhPUDR6VW1NOXBjYkZ1QTF0WGhzWlZxZXFxay1UX0hleDNMRUJ1cnpyVWdzMDVha2lBS2I2X2RBQXRHN1VlNnhBU3ItZkNERFQ5eFMtS3RqU3F6LVR6WnZWNS1HZmRTTUU1bGt4emNoMFgzTUNlZzB0d2ZHTVE?oc=5",
-      "published": "Mon, 28 Sep 2026 08:44:35 GMT",
-      "source": "Security Boulevard",
-      "query": "Model Context Protocol"
-    },
-    {
-      "title": "AlloyDB Agent MCP Server: Google Beats AWS, Azure [2026] - shattered.io",
-      "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1CMmlzajFsMGc1S2tBcUlZT01RS1J6Yy00c2VHRE8wX1VBejIyWGJBdDhQUFZkNUp2U3ZlTXg1a09wSU15UmkwWXF5Z2o4TjItVG8zWE1CcFFJdlllNDM3NGlBbjNEb20xcGJaYjdHWkk?oc=5",
-      "published": "Mon, 28 Sep 2026 08:16:35 GMT",
-      "source": "shattered.io",
-      "query": "Model Context Protocol"
-    },
-    {
-      "title": "Giving Browser Agents a Map of Your Product - hackernoon.com",
-      "link": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1ibjh3WjEyTUNnQlRCWkw2dmF4TFEzR0hLdEtsTF9GV1p6QkpkQ1pvWUpORmFCd1g5bFpnNjluX3BYWUZabEM0NWk2QWpKMjRrYmppRURVeHhrTGdfMTBMLXhCblZpV3ludzZyeG1VcWFYa1pn?oc=5",
-      "published": "Mon, 28 Sep 2026 07:03:24 GMT",
-      "source": "hackernoon.com",
-      "query": "Model Context Protocol"
-    },
-    {
-      "title": "Google Home Opens Smart Home Control to Third-Party AI Agents via Model Context Protocol - Vocal",
-      "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOWWNVM2JicVdiaEdYNmVIMTc4a3cwR2Z0cm9ld1EtVUlVRlNuZ0kzSnhMWjd4RHdrLUpJcThYU0tYU2pRb09SS0haUVIzNGdfYi10TzdjMEhfMlc3bnpLZHp5ektlMXNPMXFFZW1tTkZoRWQwOTlkNWx4b2paSGpiemxIMF9jWUFlN2NtUS1JYjhXblJIdThoR1hOWEpraENYT1JIalhzSmVKT08wV2pBNA?oc=5",
-      "published": "Mon, 28 Sep 2026 06:54:03 GMT",
-      "source": "Vocal",
-      "query": "Model Context Protocol"
-    },
-    {
-      "title": "UBS: AI Shopping Agents Could Reshape U.S. Retail and Shift Profit Pools - IndexBox",
-      "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxNeF9xQ1FlOWo2OXJfclJtR2JmdnZ3Y2tNYm5fRTUxRXdlT3FyT1ZyeGI1NVBFdEdTV1pGakRVVHZrZlRSR0E2Y1pvV3RuVkQ1SHZnOGlRcmQweFI4S2VJZmhPNGJOR1MxT0E5ZWpydERYTC0yRmx1V0RrS2lkVTE1OS1UVDRMRHdiUzRWRzV6Nzc3SUlsRWRiSlViSTFnVVBx?oc=5",
-      "published": "Mon, 28 Sep 2026 04:23:54 GMT",
-      "source": "IndexBox",
-      "query": "AI shopping agent OR AI shopping agents"
-    },
-    {
-      "title": "From Excel to an agentic commerce future: Dusk rebuilds engine beneath its loyalty operation; early stumbles overcome as implementation partner switched; personalisation incoming - Mi-3.com.au.",
-      "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxNQmdxWlhFQ01fTVBKUW1TRFIteXNCVDFXSHRFVTcyd0FJbUNfRkJhaDRXdUZnNm54eVBNWlhTWFRhTmFVa2tPQU1HMXNwUGhZcGgtbElHaWFBdlJyckNURVlpalJjRmRQcHlVYTY0eTFhYlU2Yl9GY0lrS29raWczdmY4cFJVY3B4cGpEM3A2bUEyT1FqaTljOVJMR05TSElhVUhuWDJkOEFvT19qaV9fbXZiNTFWX1E2X3daZU45cw?oc=5",
-      "published": "Mon, 28 Sep 2026 01:14:31 GMT",
-      "source": "Mi-3.com.au.",
-      "query": "agentic commerce"
-    },
-    {
-      "title": "How Retailers Are Rewiring Payment Rails For Agentic Commerce - Forbes",
-      "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxQUlNBMXFENUlIVm5WTXh2MmVfRk9aOFZ4ZjEtdm9XUmFlVmJYUFdxMDR3aWtzVkhDNTBTUGFEMVdkWktoMmxrc3Bzckt4aWo5bGtxcWtNRE8wN1VBMHRfSENIQWNsUUtuazNveDJYTExsLUNYdGd0VkM4elliMnBEZnBPQzMtR2VLLTlNTUlZcmhIQVVkdlI2Tk45cmxZMmpqNkxSc2lRRm0tZm1pLUpWdFBNYVlmSFNDTncw?oc=5",
-      "published": "Sun, 27 Sep 2026 20:00:10 GMT",
-      "source": "Forbes",
-      "query": "agentic commerce"
-    },
-    {
-      "title": "Block Adds Bitcoin Lightning to x402 Standard - The Defiant",
-      "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxOVFpaZnhBdk9RN3VvMjNGRkl6SFBENVliX2Zvel9nbXNoQ0otcDItaG94ejQyd2ZlLTNETHRqZ1UyZDExWkhXZGVoYVpLamM1Z3Jqa2luYmZVTjRPZEdJNzlwN3I3bzZiM2QwcGVSUVQyQWM0SWh6S0ZmNldPeFY3UUVGa05rMEpBX1owVHRNTzI?oc=5",
-      "published": "Sun, 27 Sep 2026 19:51:55 GMT",
-      "source": "The Defiant",
-      "query": "x402"
-    },
-    {
-      "title": "nCino Adds MCP Layer to Connect AI Agents to Mortgage Suite - thefintechtimes.com",
-      "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxOSkZPOS0yNFhIUjA1ZmpGQk1vR2EwaV9pb0ZCY29jSjZEZDZhd3d1WkJaekFfa29RQUdWNU51UnVtakVWTEhnSzB4X0FZT0ozajlZTTZYbGpGVlZBWHJsQkJ4YklnTlBIeWh2emVuWDJCWEJzRnI1dGVvdnpwTDUtejhTUDN4dmhXS0dZMk9JMm9MQQ?oc=5",
-      "published": "Sun, 27 Sep 2026 19:00:11 GMT",
-      "source": "thefintechtimes.com",
-      "query": "Model Context Protocol"
-    },
-    {
-      "title": "Shopify Stock Is Up 51% From Its 52-Week Low. Can Agentic Commerce Keep It Climbing? - tikr.com",
-      "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxORmd1X0lRbkoya3JkQXZGcjIzT2hNNlp3bm1VY3VvZXVGcXZ2cTlyZTlkUFcwd055OXBfRWJBczJGQ1VLRkNXMzVhSW9UY2RaZTMzMkUzbVl2UHNaOGNCQ1FUSV9RNm1aNERvRU1xN19aZm41NFNxM01BaThBcjRTUVNmZUc2RHdialVrSkZJSTUyMTNXOExuNFVOMmhqWTZRQjNMTUdXWjh5Z2c?oc=5",
-      "published": "Sun, 27 Sep 2026 14:01:13 GMT",
-      "source": "tikr.com",
-      "query": "agentic commerce"
-    },
-    {
-      "title": "Velotic Advances ThingWorx with New Agentic AI Capabilities - ARC Advisory Group",
-      "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxNcHgzMzB5RFM1M3BGYTdJQ1pTVFRaUmJsMkFXbTk4NXVJa2NMaGtJQzFXM1g4eklUbC1YaWY1YTlQQVBlRWtyZF9ZT2t2V25tY3JLT0IzbXd6VS1hTGhYQi1TVWN3akNxc1FneE9TN2VNMUJRR2Y2bXc2cWh4eVdKR0psOHdWVEJPTkE?oc=5",
-      "published": "Sun, 27 Sep 2026 12:00:00 GMT",
-      "source": "ARC Advisory Group",
-      "query": "Model Context Protocol"
-    },
-    {
-      "title": "Shopify (SHOP) Expands Agentic Commerce Push, Is It Still 32% Below Fair Value? - simplywall.st",
-      "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxOMFlwMUFTZms5N2NlUmdxQk9LbXd0V3hEZzRZYlg3bmhVYnhJeEQ1REdNTUZfVWlIZVp1eVA4dWFkeUp4OXpURFZ5TFdvQkstQnhzSHBsMTZqYzE3UjV2c1dOV3JHaU1Jdmx5bzUwVl8ySXdrT3h3VlV5bkxBbUwwcy1aWE9WWXpvSG9QX3dLRlBYZFNrTmN6QUN2TzY1V2tWV2pPNlBad3A5SHFvOHBxRU1NZFNyQXQ4dVhRaUNlV1hFV0o20gHKAUFVX3lxTFA4cFFWRWhvUzVzRWVNS2I5VUEwTlVfQlZOanRQeWI2VEpXOUFDc1JiTFRySmViNkpRS2d4dEJNNFhjSDZwTVRFQXpGQmluVWFCczF2S3FLeUFKM2FicXBiVzd0RTZRU3RVYlRtbHk3aFktZnFsMGtRZGRYTGtWNVBOLVhDTnp3TmduQWhkWjhiTlVTN2xlMnRRT2ZiLTN0OE9wdzB0MjZLRm5FejB6WnQySU9ZNDFjcGxmbXdRWTZ1OFVfTG5WZTJUWGc?oc=5",
-      "published": "Sun, 27 Sep 2026 08:38:45 GMT",
-      "source": "simplywall.st",
-      "query": "agentic commerce"
-    },
-    {
-      "title": "How AI shopping agents could reshape hardline, broadline and food retail - UBS - Yahoo Finance",
-      "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNVlNNd0Z2RXdrWWtQU2E4VDUzb1pkdk9XZXJ5WlZtZ05TX2cxN3h1WDlEdG5QNXYtbnd1UGl0MEhUNVhOZHR4Tmg4alVKdk5NMVYxTWVmelZSU2VNa08yOWtaUkxYcDBjTG1vdHRrMzBic0tkankxYXlocTNSLUdTSHZXNExpaVo4cndCNFlrbldISmRDbGJPZk1VWTY?oc=5",
-      "published": "Sun, 27 Sep 2026 07:10:24 GMT",
-      "source": "Yahoo Finance",
-      "query": "AI shopping agent OR AI shopping agents"
-    },
-    {
-      "title": "Cloudflare AI Wallets Put Agentic Commerce Trust Frameworks to the Test - thefintechtimes.com",
-      "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQTEFLZjRRSDltS1BrNnJJX2RucmVaaHJ2aUVLMkx4ZUlpVFBoYld4VHgtQ0xsYVlQa2FnSDNHN0hXMTMtX3l2bGFzcXhjXzlSSlF1emQ4dHlsWWJ2NHgxR04zMzdxMmRRTEk5Tm5jRHk0V21JM1FHeUlSSEM5Z29GbkptVW1pVTZVNF9tc3ZsWDJTTU9LeGhqR2gzWGV4RGxtZWc?oc=5",
-      "published": "Sun, 27 Sep 2026 06:00:28 GMT",
-      "source": "thefintechtimes.com",
-      "query": "agentic commerce"
-    },
-    {
-      "title": "Shiba Inu Community Issues Crucial Alert Over Lookalike Token Threat - Bitget",
-      "link": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE43ZWM5cEZockFCRVI1ZFgyWXcwSG1qYU5CeHlGd0c2YU1EVThWOUZCVlZwWnpPNVZoblVsNDBBaF9XMWp0eTZ4SjRtUHMwdzlzbUtSMW9UQ0lpajlsMmlQc2hUMNIBY0FVX3lxTE43ZWM5cEZockFCRVI1ZFgyWXcwSG1qYU5CeHlGd0c2YU1EVThWOUZCVlZwWnpPNVZoblVsNDBBaF9XMWp0eTZ4SjRtUHMwdzlzbUtSMW9UQ0lpajlsMmlQc2hUMA?oc=5",
-      "published": "Sat, 26 Sep 2026 21:47:12 GMT",
-      "source": "Bitget",
-      "query": "x402"
-    },
-    {
-      "title": "Capital One Financial (COF) Warns AI Shopping Agents Raise Fraud Risks - simplywall.st",
-      "link": "https://news.google.com/rss/articles/CBMi6wFBVV95cUxNQVJ6OTdJUC16ZEpaZjJob1ZVUThqLU1XbWJwcGRHWVpnYW1CdkpUSHlWa0tzQV9oN044UmQ1dDYzbjBjNW1QTzFtTEl6dEEyalllWkZ6aExqMVZLZmc0UlExd2stY3UxWWNwaVpOaEZrMldtQktSS20zNjBJSjdIRHpyYk5PaW1kYnRqY1I5dnF6Ym1EMnB3N2syeml1V1ZJektXZkQzcjdhWDN6NmlzV0ZVazdWeWExajRTRkxlbFlrR0hOWVlXVk5lZmtaSGdrakp3YVVtc2VGa2ktWkNlekdWOHJCMmlMY21v0gHrAUFVX3lxTE1BUno5N0lQLXpkSlpmMmhvVlVROGotTVdtYnBwZEdZWmdhbUJ2SlRIeVZrS3NBX2g3TjhSZDV0NjNuMGM1bVBPMW1MSXp0QTJqWWVaRnpoTGoxVktmZzRSUTF3ay1jdTFZY3BpWk5oRmsyV21CS1JLbTM2MElKN0hEenJiTk9pbWRidGpjUjl2cXpibUQycHc3azJ6aXVXVkl6S1dmRDNyN2FYM3o2aXNXRlVrN1Z5YTFqNFNGTGVsWWtHSE5ZWVdWTmVma1pIZ2tqSndhVW1zZUZraS1aQ2V6R1Y4ckIyaUxjbW8?oc=5",
-      "published": "Sat, 26 Sep 2026 21:26:41 GMT",
-      "source": "simplywall.st",
-      "query": "AI shopping agent OR AI shopping agents"
-    },
-    {
-      "title": "Capital One Financial (COF) Joins Banks Warning On AI Shopping Agent Risks - Yahoo Finance",
-      "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQS1JXX0R0S2ZVMjBodUkxeW5yRDRWWkRkR2d5MWZGZGxnUTdudDhLT0ZkWWc5em5ibVNoeFdqY0lVOTJaZ2RtUnhyWm1mN0JSbXBZODM5Ti1aX0h2c0Y3YUhKaGZQYUxtbWxoeGVUWkZ5NGIxbHRLRTlWNnEyb2x2YURoRzc0N2tVZllYSXcyLXd5UDlCMlVXMnd1SQ?oc=5",
-      "published": "Sat, 26 Sep 2026 19:08:38 GMT",
-      "source": "Yahoo Finance",
-      "query": "AI shopping agent OR AI shopping agents"
-    },
-    {
-      "title": "Shiba Inu Community Issues Crucial Alert Over Lookalike Token Threat - Cryptonews.net",
-      "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBfZVdpTGNKSHRweHF3dnp2bXR2dVFCT3phSG5IdEVNb1hLMTByQm5paU5nVHZZMmMtUWU0UUwxY3Vhb0lzNjFfYXoxLU9fdFVnWkRDT084ZjlLQQ?oc=5",
-      "published": "Sat, 26 Sep 2026 17:46:06 GMT",
-      "source": "Cryptonews.net",
-      "query": "x402"
-    },
-    {
-      "title": "Block integrates Bitcoin Lightning Network into x402 payment protocol for AI-driven microtransactions. - Pluang",
-      "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQcWdEdC1jSkgwMHc1WFdMQUVWOWNJTWhvTWRxS0kyQWhVa1U3MGFULXBtakxBV2tzTE1Jd2hxcW9lRzFjNTJ5STZ4TGhQVjBBZHBzTFdaa0dQSzRqUGVGbGNjazFpQ2VualJtc3Vsd3lGb2JSTzlZbExaenJOUmhuMzhWdnV3NWRE?oc=5",
-      "published": "Sat, 26 Sep 2026 17:02:30 GMT",
+      "title": "Algorand jumps 14% as x402 Challenge boosts AI payment use and eyes $0.1400 resistance. - Pluang",
+      "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQdXl2SXVsR3p4MEU4aE5oZUVlT3h6TkVUX2tuNkRVN3FfMzhXQ0RBUVdTNzhsSXhZMEtIejF4NE9OUzFVQ0tLb29XLUlrWWdlVHV2NTdILTdXc0NGSnBtRTgtZl9WZXZEbzJwMVZjSkdWY2pGZTc1VHJQYkhvTGJkS1duUHJmTXdyVVpYamdJamY1dw?oc=5",
+      "published": "Tue, 29 Sep 2026 10:47:31 GMT",
       "source": "Pluang",
       "query": "x402"
     },
     {
-      "title": "Block Unleashes Bitcoin Lightning for x402, Powering AI Agents to Pay Themselves - Cryptonews.net",
-      "link": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE5SbWpsUWxBVnhfbUl0eUR1Rm5EY3ZuamtDdXUyMHZBUF80MzJnQm5jb1A3bVpRS29tMzJmVnNHbGRNbUo1dUlpWnIxVk45cEQ0SmJoZnFlN1o?oc=5",
-      "published": "Sat, 26 Sep 2026 06:49:28 GMT",
-      "source": "Cryptonews.net",
+      "title": "Algorand’s x402 challenge becomes the AI catalyst behind ALGO’s 14% surge - AMBCrypto",
+      "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxOQmlHLXV2MXFmaVBlcHVVOUNxS3VZRzJheFBpYWJsQUJBWWpESEpIYlB2MWR4ZVBJREVUZ2pIdkQ2SGNqR3czNy1nbVhkeFZEejdCREgxcUF3eWNVUHZQNmhDazNXZU00MHNyM0hDQWxsazFXLWxqWjJwUDBiUHlCVlNpd1k4YjU4RWdHbXBzeGJha0trTFRoVg?oc=5",
+      "published": "Tue, 29 Sep 2026 10:30:24 GMT",
+      "source": "AMBCrypto",
       "query": "x402"
     },
     {
-      "title": "MoonPay's PayBox Lets ChatGPT and Claude Users Authorize Crypto Transactions - CoinMarketCap",
-      "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxPVVZHbWNHWFh1THNtMlQtN3VoaUZ3ODIweXRYM2ZZcHFtQ21NczVob2RMMXZtWDJ0MVVNV0hiUTFkWGJmZE9yWjgzS0FLZ1gtYS1kdC1Xdi1hVElVcndkV2tLLWo4cmI0cGQ0RGZpWERtVmRnNEltWW1uRUxzLTEwT0dCOFduNWtuTXF4NUpiNkcwMEpIT2syZVZ5cGRGd2kyYS1SUmlDeDJGMDhYLUNlb1p6dzA4SEU2?oc=5",
-      "published": "Sat, 26 Sep 2026 03:45:59 GMT",
-      "source": "CoinMarketCap",
-      "query": "x402"
+      "title": "Sumsub launches APAC Agentic AI Council on governance and agent identity - TNGlobal",
+      "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNVHNBOXQxbmJ6NFpHcDAxNmZCMm1yd3ZCMzFIME90U1lsZHNxb2hIcVJNVUtrbFNicWRLS0VGN3RWd2VBR1lyMTBlZlNDbk9IelhldmNmdVNNUzNNTUJGclZpM0hyWTJENmw4bDduaDYzbW4xYUNNeHk2QkNlR21zNE1uNUs4ZWFHWXIweEw1aGtfbXZhLXRv?oc=5",
+      "published": "Tue, 29 Sep 2026 08:54:45 GMT",
+      "source": "TNGlobal",
+      "query": "agentic commerce"
+    },
+    {
+      "title": "Nasdaq establishes agentic AI operating environment within Nasdaq Calypso platform - FX News Group",
+      "link": "https://news.google.com/rss/articles/CBMixwFBVV95cUxNYmFPd1NnOWdzdWs1ZE1pMUJoZGtiQjNJcW9mQUVLd19kNklWa3lzX0hQS1hUZmg5a3hjWDBvSUdScFo5SFZLS3ZuT3E2STFTZXhUTFRHRmt4dEd1cEI2Y3RHYWZ2Z193dUtOWC02S3NIWWF2c09PNTdnbGFWbjFVdW11VnpvZndkNFZTUkRoTm40eWx5eVNZa09VcU9zeXNLcWFRZUVsQnVpeVByYTg2b1dOM19HdWNYTF91dk9fUzVnWmZUNy1z?oc=5",
+      "published": "Tue, 29 Sep 2026 08:09:49 GMT",
+      "source": "FX News Group",
+      "query": "Model Context Protocol"
+    },
+    {
+      "title": "Bloomberg Launches Enterprise MCP to Seamlessly Connect Bloomberg Data with Clients’ Enterprise AI Applications - Bloomberg.com",
+      "link": "https://news.google.com/rss/articles/CBMi5gFBVV95cUxQV0E5MEVwVXNqU1pmTnBKeDZrX0NFUW9EdmNBbktmVFB2ZmVmMFpIT0JpWTk2RlhNbnJrSzBYV05EUmp3OWY4bmlJRlByMnI2eVhzemlmeGNWTkxvYktQeUlzUnVGcUNxRG1BTUh6TUNJMS1HU1ByQUR4OWMwbGJXa2V3RWxURlFCc1NIeW9yTGlJVGhESlJ1V2l3NGtSaGZ1NTA3QTQ0MHBFb3IyaFpYSXUwSHdxTTRfQ0ZIQldUN3dYNVk3NW5MeUpzY2lIc21qYnQxOTVBZjdyeFd4Qk1xemQ3bXp5dw?oc=5",
+      "published": "Tue, 29 Sep 2026 08:06:53 GMT",
+      "source": "Bloomberg.com",
+      "query": "Model Context Protocol"
+    },
+    {
+      "title": "Musing About Meta Muse? Agentic AI Enters Digital Commerce - The European Business Review",
+      "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxOc0I4cURkc2lfWmdQdGwyM2FxMzZKVk96cFMzWUFRNWVVV084S0xhVGpPT0NZa2prRkRpUHV3aEF3bDNRZGlyVkwwdHVKUE5naE5zM2JVdDg4Z2JDdFRnYUI0bzJpN1l4bHZYQUt5LTVMUmI1S21za0Y4ME9lakZmcy1wVk9YelJYSWlVS2xrT0lUZkVHd3J6M0t2VnVFUQ?oc=5",
+      "published": "Tue, 29 Sep 2026 07:59:09 GMT",
+      "source": "The European Business Review",
+      "query": "agentic commerce"
+    },
+    {
+      "title": "Bloomberg introduces Enterprise Model Context Protocol - FX News Group",
+      "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQdGpnc3ZacnhZRGplbDZEWDhxV2J4Z3ZsM05mcDhoM2llVHJaVjFkeUo3TFd3bXpYNWtoMjU5bDl3czVsdms3OWhNaXJiRFh4Mlh5bmV1WkVRYXZVS0RkaGxzYzJhYjliYnZ0aWVxaXQtY0g1YTA5REpIYU1id3VadmpkRkZha09lSE13eFVWNkhEd3pXcVIzTGNoaUhMalRqYmhNVUo2bw?oc=5",
+      "published": "Tue, 29 Sep 2026 07:54:49 GMT",
+      "source": "FX News Group",
+      "query": "Model Context Protocol"
+    },
+    {
+      "title": "Official MCP Python SDK Flaw Can Let Malicious Servers Steal OAuth Credentials - The Hacker News",
+      "link": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPazBIWk9oVFRUeUxhQ2tIdDBhajVKeWZneW1QUlpCRmtqRFlzLWtoOXZhTkVVTTdNVmRta091ckw3OEFjUFdIY1ZtZUY3VEJpUzZhUnlDb2pCRHJMdTlqWTQ1MWZTdzlNbTRNSU82N1dvTXJ3QUIzdU5adktIOEtINw?oc=5",
+      "published": "Tue, 29 Sep 2026 06:08:00 GMT",
+      "source": "The Hacker News",
+      "query": "Model Context Protocol"
+    },
+    {
+      "title": "Sumsub Agentic AI Council Launches in APAC and Invites Experts to Advance Trusted AI Adoption - The Malaysian Reserve",
+      "link": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxQeFpHTG11LTJ3UDkteDlJSDY0N25UTFRGQmIwWnFzTU5rS0Vya0Z5cXA4SW9YcjF6bU5JSktVOUxXdG9jM2tGR0R6ckppQnU0MllSRlIxekNFdDk3UHdPdGdUVXpXeFU1NGFQNm14NXdpU1NYaUFrZDJoWjF5MkNpbEM2VjdEcF9qSlRrZWZFZUZMcDI1VWZyNExZYkROTkw4dWtpLVVCbHoxVC1kc1NsMl9BOWwzVUpHX3BHbjlLTXJwcXBPamNzMjZfSTZWd1hRemN3?oc=5",
+      "published": "Tue, 29 Sep 2026 05:00:42 GMT",
+      "source": "The Malaysian Reserve",
+      "query": "agentic commerce"
+    },
+    {
+      "title": "Hottest cybersecurity open-source tools of the month: September 2026 - Help Net Security",
+      "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxNMlYxZmVfOHNOYmFVSVBqaElmT1RWWDNyd2J1X0F6YUM0aDNvNlcxYzZEN0N1SWhoZmNBekdoVEVkT0luZjVKTlc3UFVSRE1XODVEZzF4RWsteHpkNnp3QVVNSHJaUGo4QTlKaU9idExoZmhjWTZZQ1JPb3JJdGFlZl9SYWZtTFBFSjBzbTFFMEFhRkRxaUU5NWt1S216dms1TTZiY18wX3B5UDlsWE1EMQ?oc=5",
+      "published": "Tue, 29 Sep 2026 04:30:00 GMT",
+      "source": "Help Net Security",
+      "query": "Model Context Protocol"
+    },
+    {
+      "title": "Retailers told to structure product data for AI shopping agents - Singapore Business Review",
+      "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQYU9ZSDBVbkpodDZYQVo2RFUwMkc0T3F1UG8zcWQ1elBEUE95cjhraGEzenJQd3MwcmkyNWZqY0psNG11WGxQWUJkblNua2t2b0d2c1Q3eGdTMzRpb096dDUxSkl2YlpvRTZmRmFYalg0S1JBdm4zdThRYzAxZDd6NmhZVk1BRFhwR3ZqeUNNSQ?oc=5",
+      "published": "Tue, 29 Sep 2026 03:32:25 GMT",
+      "source": "Singapore Business Review",
+      "query": "AI shopping agent OR AI shopping agents"
+    },
+    {
+      "title": "AI shopping agents — Are They Putting Your Personal Finances at Risk? - The Korea Daily",
+      "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTFB5Zm1hVEtxQW5pajVXQUpadjh6TUJGVU1jbnZiYzZmNzQ0dDRqWDRNUmduU3ZEOWtjdEREM2podFBmTmE2ZFNZN3BtZ1YycDRuaUZWdkFPU1JJRWo2a3NpZnktVVpQNmJ4bkhFWg?oc=5",
+      "published": "Tue, 29 Sep 2026 03:11:38 GMT",
+      "source": "The Korea Daily",
+      "query": "AI shopping agent OR AI shopping agents"
+    },
+    {
+      "title": "Liner launches 'Liner Actions MCP' to connect 1,100 apps to AI agents - 디지털투데이",
+      "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNMVZDT3g4Q1c4eWhoYlRJYWd2Mk5EOEFBckF2V1k4bDRoYzZ6T0M2djhYclcyVVZOMjRsQ0Q3VmEzbWppS0FIbTlyU0hBZE96eUZKQWhaUTc3Mm5SRkRCQUNsc3J0bHZ6MVV3V0JmTjV4RkdMaERKS1JGeDd5eVBTbTVUVno4SVBUelVDVTJRR2Zid3ZxUHpCTVltazhkRnFjT3pJSHlnYmZDOUlINjZ6TXNPSQ?oc=5",
+      "published": "Mon, 28 Sep 2026 23:44:33 GMT",
+      "source": "디지털투데이",
+      "query": "Model Context Protocol"
+    },
+    {
+      "title": "What will make consumers trust AI shopping agents? Startup founders explain - Mastercard",
+      "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPamNkYUEtR3A0ZmQ2MUxsT3lCUnJDbjFvYTlEQzJmVkpmeDdZZVdvLXd3UGJZWWdoeTl3ank1cVdRUmdsWVJNcVJnLTRTUE9vd1VNRk80Y0JtZVB2VEo2OXFscWsyeGxLd3lfeDVNQ3FSdE5CaW55R3RyQU80emJZcDEzaDVTdVdheTljMUVfd2ItQktFVkRF?oc=5",
+      "published": "Mon, 28 Sep 2026 22:47:28 GMT",
+      "source": "Mastercard",
+      "query": "AI shopping agent OR AI shopping agents"
+    },
+    {
+      "title": "Should You Hire an AI SEO Agency? - Business.com",
+      "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTE5uXzdzOWUzdTJTcHJTRnZpVUVnRWJRSUdUdHhqUVpETmtZUlU2Tm1qdnRzSzg1blpjS0hhb1BrXzdYRXk4clFpak0wMGpuM0hDYXVBUW1HbEZPWFlmMUtMWU1BbWhBSUg3THlQWG9aRnhjNDdNbmc?oc=5",
+      "published": "Mon, 28 Sep 2026 20:53:45 GMT",
+      "source": "Business.com",
+      "query": "llms.txt"
+    },
+    {
+      "title": "Shopify (SHOP) Navigates AI Shopping Agent Concerns with Solid V - GuruFocus",
+      "link": "https://news.google.com/rss/articles/CBMizwFBVV95cUxNdnZ6ZTI5SnpLS2VBSjJYSTBKSXJYNVdZaFN6OVplM1hyT2lmVkF2SVkxWFVuaUJnZ21Bb3ZkYjlRUzJpbF9wek5qRkRRM3BxUmdfSEc2LXg0eURxM2pvVXFyNjZiZllCTlBsVWtiLVpNLWdxVFJNdlVyeXpFb0hQaWs5Y0t0ZzEzWlh2NS1Qb0gzUDBXODNrUVNYTXhEUEg2TjJzQkRnYjZWWWMxWlY3TzljdXc0UE0tbF9zeXpKWHBfOHBINmwyNUh3YWx6RXc?oc=5",
+      "published": "Mon, 28 Sep 2026 20:18:53 GMT",
+      "source": "GuruFocus",
+      "query": "AI shopping agent OR AI shopping agents"
+    },
+    {
+      "title": "AI buying agents gain AudienceMix data segments through an MCP server - PPC Land",
+      "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQNGF3NXIwUUE4OXV5X0xvcWxIWDFKcFgwcllZX1NUNFJrMHFwcEFhTEpjQ1I3M0VmdVhYS1dDYm9DRlhHWUdHSGhpNkZHcW5MRGtOaWswU0pHOThxRG5GSktpbUZ2bHl2VFh0MV82dGtmWGJ0cXdJbmFJcXZHb2IwTmN0TldVTldWdEtHT3ZnbDQ?oc=5",
+      "published": "Mon, 28 Sep 2026 19:52:53 GMT",
+      "source": "PPC Land",
+      "query": "Model Context Protocol"
+    },
+    {
+      "title": "Shopify opens checkout to browser-based AI agents - TechCrunch",
+      "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNeENyVmdNMklmMFRIU2taaU5lWENqZlVsdUg0a1BUaGdnM05UX2U1SDhBQ2Vib3BTRXQ1OFRNQWhDVTdBU1BITWRJaVV2Q1AzRy1uU1BrbHBvTWZvYVBRQTR4c1pPcVQwRHJPSjRYTXpZSmkzSTdtUlhYVFZmTWhuaTNZZ3h0WHYtTEE2Wg?oc=5",
+      "published": "Mon, 28 Sep 2026 19:33:57 GMT",
+      "source": "TechCrunch",
+      "query": "agentic commerce"
+    },
+    {
+      "title": "Shopify has little to fear from AI shopping agents - RBC Capital (SHOP:NASDAQ) - Seeking Alpha",
+      "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxNQkVLX1h1RzR5WUJRTFFFd2hodERhN1lOQXNRRkZadVRMNHJ3WEdRWmRqLWxvZkhMOW9IU3N4YnNxbmFwbzFvY2tMVkdiWWV3WHpEUHNWZ08zSTBwdkFDZWJhYmJMbkJadTA5b3N0X3RYYzhCYVJNdVAxVkRKZXZsYnVKa0JGSHlpbXcyZXNpY0NlOFllcmlBcC1IbGVCSGJvcC1yaA?oc=5",
+      "published": "Mon, 28 Sep 2026 19:02:23 GMT",
+      "source": "Seeking Alpha",
+      "query": "AI shopping agent OR AI shopping agents"
+    },
+    {
+      "title": "Lofty launches MCP server for brokerages - HousingWire",
+      "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxQVXNzUGdPY2FweXZCcnN5d3BXWGdycWpxWmVtX0JOc2xWUElsQTdPb2ptU1FReUV1dUxZM2dEaXNiMU1XUXJfamttTlNJakdjcVM3WUhXYzV1d29nRzBaVHZ4X25CMW1Ud2owNzJTVmJ4RXI2dXl0U1F3YTRxYld0bUVkeFE?oc=5",
+      "published": "Mon, 28 Sep 2026 17:12:47 GMT",
+      "source": "HousingWire",
+      "query": "Model Context Protocol"
+    },
+    {
+      "title": "Eventtia Unveils Native MCP Server to Help Event Teams Manage Events With AI - MarTech Cube",
+      "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNUVM0VUg0UDlfYVVreFpsSWJydGFCZ0RUZWpaNmprT2k5MER6b0k5ZWlESWZ6NUVYM0toeWhVeURTRldzeThVdTBPLVZLRDVZOHlNTklRNHZWbUxXUU5HenllMURfZUFPcGpiMmdUeEZQckhiQUhCcndJQS1fNFA0emVYdEE0TXJwMm9QU3V6YmVuMk1ZcHJWVlE1YzhTZ2VDam9mbVotaUw?oc=5",
+      "published": "Mon, 28 Sep 2026 15:50:07 GMT",
+      "source": "MarTech Cube",
+      "query": "Model Context Protocol"
+    },
+    {
+      "title": "UserTesting Announced the Launch of New MCP Servers - MarTech Cube",
+      "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPVXZqY3Y2a1dKZFJkTkl0NUtzSGtkTVBaUG92dmcyd2tPektXQXpMbDBjZDdNRTE1RmFMWnZfeU95MnBwRkVsdTRzWDAxcDBEeUxkOVIxSHBZaGMyTzI1T0dhS0I0bnJobS1tUFFGTE16S1NrbDdJb2ZRQU9jRWxFaTBNYkxmX28?oc=5",
+      "published": "Mon, 28 Sep 2026 15:35:03 GMT",
+      "source": "MarTech Cube",
+      "query": "Model Context Protocol"
+    },
+    {
+      "title": "Six Banks Just Wrote the Agent Commerce Trust Rules Before Regulators Did - forkast.news",
+      "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQY09YLW9iMWJrVUgwMGdpdkV6aVEteUNrZi0xZnhsSzJYQmZPSk9xX3d1M3p0QmI2NlpoU0lGa09sT1ptYXE4YWFuQzg4VFFjRWVyLVVWaXNCZmd1U041T0ZzQWdtVVJEQWc2Sm5fb2Yyalh0cFZLOHJHWGFXWDZtd2VUaEZBWkhJVVlWQ19OVkhTSDdPdVBRR2ZTYw?oc=5",
+      "published": "Mon, 28 Sep 2026 14:47:54 GMT",
+      "source": "forkast.news",
+      "query": "agentic commerce"
     }
   ],
   "totals": {
     "trendingQueriesScanned": 40,
-    "brandRoster": 114
+    "brandRoster": 116
   }
 }
