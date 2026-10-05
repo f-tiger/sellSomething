@@ -1,17 +1,27 @@
 {
-  "updatedAt": "2026-09-28",
-  "scanned": 35,
-  "authGated": 48,
-  "averageScore": 86,
-  "averageLatencyMs": 216,
+  "updatedAt": "2026-10-05",
+  "scanned": 32,
+  "authGated": 51,
+  "averageScore": 88,
+  "averageLatencyMs": 373,
   "results": [
     {
       "name": "Cloudflare Docs",
       "url": "https://docs.mcp.cloudflare.com/mcp",
       "score": 94,
       "grade": "A",
-      "latencyMs": 8,
+      "latencyMs": 19,
       "tools": 2,
+      "describedPct": 100,
+      "failing": []
+    },
+    {
+      "name": "AFMR Discovery",
+      "url": "https://afmr.ai/mcp",
+      "score": 94,
+      "grade": "A",
+      "latencyMs": 19,
+      "tools": 4,
       "describedPct": 100,
       "failing": []
     },
@@ -20,7 +30,7 @@
       "url": "https://license-changes-mcp.ottobot2025.workers.dev/mcp",
       "score": 94,
       "grade": "A",
-      "latencyMs": 24,
+      "latencyMs": 31,
       "tools": 2,
       "describedPct": 100,
       "failing": []
@@ -30,18 +40,8 @@
       "url": "https://house-painters-mcp.ottobot2025.workers.dev/mcp",
       "score": 94,
       "grade": "A",
-      "latencyMs": 26,
+      "latencyMs": 47,
       "tools": 3,
-      "describedPct": 100,
-      "failing": []
-    },
-    {
-      "name": "AFMR Discovery",
-      "url": "https://afmr.ai/api/rpc",
-      "score": 94,
-      "grade": "A",
-      "latencyMs": 29,
-      "tools": 4,
       "describedPct": 100,
       "failing": []
     },
@@ -50,7 +50,7 @@
       "url": "https://business-contact-finder-mcp.ottobot2025.workers.dev/mcp",
       "score": 94,
       "grade": "A",
-      "latencyMs": 42,
+      "latencyMs": 71,
       "tools": 1,
       "describedPct": 100,
       "failing": []
@@ -60,27 +60,27 @@
       "url": "https://mcp.bev-buyer.ai/mcp",
       "score": 94,
       "grade": "A",
-      "latencyMs": 54,
+      "latencyMs": 88,
       "tools": 9,
       "describedPct": 100,
       "failing": []
     },
     {
-      "name": "goji",
-      "url": "https://mcp.goji.agency/mcp",
+      "name": "Hugging Face",
+      "url": "https://huggingface.co/mcp",
       "score": 94,
       "grade": "A",
-      "latencyMs": 55,
-      "tools": 9,
+      "latencyMs": 98,
+      "tools": 4,
       "describedPct": 100,
       "failing": []
     },
     {
-      "name": "Microsoft Learn",
-      "url": "https://learn.microsoft.com/api/mcp",
+      "name": "DeepWiki",
+      "url": "https://mcp.deepwiki.com/mcp",
       "score": 94,
       "grade": "A",
-      "latencyMs": 63,
+      "latencyMs": 111,
       "tools": 3,
       "describedPct": 100,
       "failing": []
@@ -90,48 +90,18 @@
       "url": "https://justidea.agency/mcp",
       "score": 94,
       "grade": "A",
-      "latencyMs": 81,
-      "tools": 4,
+      "latencyMs": 113,
+      "tools": 7,
       "describedPct": 100,
       "failing": []
     },
     {
-      "name": "beauty",
-      "url": "https://mcp.adoraads.ai/beauty",
+      "name": "Microsoft Learn",
+      "url": "https://learn.microsoft.com/api/mcp",
       "score": 94,
       "grade": "A",
-      "latencyMs": 85,
-      "tools": 6,
-      "describedPct": 100,
-      "failing": []
-    },
-    {
-      "name": "AFMR Discovery",
-      "url": "https://afmr.ai/mcp",
-      "score": 94,
-      "grade": "A",
-      "latencyMs": 86,
-      "tools": 4,
-      "describedPct": 100,
-      "failing": []
-    },
-    {
-      "name": "AWS Knowledge",
-      "url": "https://knowledge-mcp.global.api.aws/mcp",
-      "score": 94,
-      "grade": "A",
-      "latencyMs": 94,
-      "tools": 5,
-      "describedPct": 100,
-      "failing": []
-    },
-    {
-      "name": "Hugging Face",
-      "url": "https://huggingface.co/mcp",
-      "score": 94,
-      "grade": "A",
-      "latencyMs": 97,
-      "tools": 4,
+      "latencyMs": 121,
+      "tools": 3,
       "describedPct": 100,
       "failing": []
     },
@@ -140,18 +110,28 @@
       "url": "https://afg.ai/mcp",
       "score": 94,
       "grade": "A",
-      "latencyMs": 109,
+      "latencyMs": 136,
       "tools": 18,
       "describedPct": 100,
       "failing": []
     },
     {
-      "name": "DeepWiki",
-      "url": "https://mcp.deepwiki.com/mcp",
+      "name": "AWS Knowledge",
+      "url": "https://knowledge-mcp.global.api.aws/mcp",
       "score": 94,
       "grade": "A",
-      "latencyMs": 112,
-      "tools": 3,
+      "latencyMs": 150,
+      "tools": 5,
+      "describedPct": 100,
+      "failing": []
+    },
+    {
+      "name": "AFMR Discovery",
+      "url": "https://afmr.ai/api/rpc",
+      "score": 94,
+      "grade": "A",
+      "latencyMs": 155,
+      "tools": 4,
       "describedPct": 100,
       "failing": []
     },
@@ -160,8 +140,18 @@
       "url": "https://agenticfabricationnetwork.ai/mcp",
       "score": 94,
       "grade": "A",
-      "latencyMs": 144,
+      "latencyMs": 218,
       "tools": 13,
+      "describedPct": 100,
+      "failing": []
+    },
+    {
+      "name": "Context7",
+      "url": "https://mcp.context7.com/mcp",
+      "score": 94,
+      "grade": "A",
+      "latencyMs": 291,
+      "tools": 2,
       "describedPct": 100,
       "failing": []
     },
@@ -170,7 +160,7 @@
       "url": "https://agentberg.ai/mcp",
       "score": 94,
       "grade": "A",
-      "latencyMs": 147,
+      "latencyMs": 292,
       "tools": 11,
       "describedPct": 100,
       "failing": []
@@ -180,88 +170,48 @@
       "url": "https://www.hood.ag/api/mcp",
       "score": 94,
       "grade": "A",
-      "latencyMs": 166,
+      "latencyMs": 315,
       "tools": 5,
       "describedPct": 100,
       "failing": []
     },
     {
-      "name": "counterscript",
-      "url": "https://rx.agentlookups.ai/mcp",
+      "name": "beauty",
+      "url": "https://mcp.adoraads.ai/beauty",
       "score": 94,
       "grade": "A",
-      "latencyMs": 222,
-      "tools": 1,
-      "describedPct": 100,
-      "failing": []
-    },
-    {
-      "name": "GreenLight - Plug-in Solar Law Registry",
-      "url": "https://solar.agentlookups.ai/mcp",
-      "score": 94,
-      "grade": "A",
-      "latencyMs": 222,
-      "tools": 2,
-      "describedPct": 100,
-      "failing": []
-    },
-    {
-      "name": "groundtruth",
-      "url": "https://env.agentlookups.ai/mcp",
-      "score": 94,
-      "grade": "A",
-      "latencyMs": 225,
-      "tools": 3,
-      "describedPct": 100,
-      "failing": []
-    },
-    {
-      "name": "plumbline",
-      "url": "https://contractors.agentlookups.ai/mcp",
-      "score": 94,
-      "grade": "A",
-      "latencyMs": 230,
-      "tools": 1,
-      "describedPct": 100,
-      "failing": []
-    },
-    {
-      "name": "overassessed",
-      "url": "https://overassessed.agentlookups.ai/mcp",
-      "score": 94,
-      "grade": "A",
-      "latencyMs": 252,
-      "tools": 1,
-      "describedPct": 100,
-      "failing": []
-    },
-    {
-      "name": "Context7",
-      "url": "https://mcp.context7.com/mcp",
-      "score": 94,
-      "grade": "A",
-      "latencyMs": 253,
-      "tools": 2,
-      "describedPct": 100,
-      "failing": []
-    },
-    {
-      "name": "Agentic Terminal Directory",
-      "url": "https://mcp.agenticterminal.ai/mcp",
-      "score": 94,
-      "grade": "A",
-      "latencyMs": 274,
+      "latencyMs": 343,
       "tools": 6,
       "describedPct": 100,
       "failing": []
     },
     {
-      "name": "Advisors AI Service Navigator",
-      "url": "https://advisorsai.ai/mcp",
+      "name": "goji",
+      "url": "https://mcp.goji.agency/mcp",
       "score": 94,
       "grade": "A",
-      "latencyMs": 625,
+      "latencyMs": 346,
+      "tools": 9,
+      "describedPct": 100,
+      "failing": []
+    },
+    {
+      "name": "Projectory",
+      "url": "https://mcp.projectory.ae/mcp",
+      "score": 94,
+      "grade": "A",
+      "latencyMs": 491,
       "tools": 5,
+      "describedPct": 100,
+      "failing": []
+    },
+    {
+      "name": "Brainy Prices — UAE Cost of Living",
+      "url": "https://prices.brainy.ae/mcp/v2",
+      "score": 94,
+      "grade": "A",
+      "latencyMs": 558,
+      "tools": 24,
       "describedPct": 100,
       "failing": []
     },
@@ -270,8 +220,18 @@
       "url": "https://advisorsai.ai/store-readiness-mcp",
       "score": 94,
       "grade": "A",
-      "latencyMs": 644,
+      "latencyMs": 668,
       "tools": 1,
+      "describedPct": 100,
+      "failing": []
+    },
+    {
+      "name": "Advisors AI Service Navigator",
+      "url": "https://advisorsai.ai/mcp",
+      "score": 94,
+      "grade": "A",
+      "latencyMs": 705,
+      "tools": 5,
       "describedPct": 100,
       "failing": []
     },
@@ -280,7 +240,7 @@
       "url": "https://tandem.ac/mcp",
       "score": 94,
       "grade": "A",
-      "latencyMs": 679,
+      "latencyMs": 757,
       "tools": 13,
       "describedPct": 100,
       "failing": []
@@ -290,7 +250,7 @@
       "url": "https://mcp.getle.ad/mcp",
       "score": 90,
       "grade": "A",
-      "latencyMs": 842,
+      "latencyMs": 863,
       "tools": 35,
       "describedPct": 100,
       "failing": []
@@ -300,17 +260,47 @@
       "url": "https://app.inside.ad/api/mcp",
       "score": 90,
       "grade": "A",
-      "latencyMs": 1039,
+      "latencyMs": 970,
       "tools": 3,
       "describedPct": 100,
       "failing": []
     },
     {
-      "name": "PuroAir",
-      "url": "https://api.agenticshelf.ai/m/puroair/mcp",
+      "name": "Dubai Data — Dubai real estate statistics",
+      "url": "https://mcp.datadubai.ae/mcp",
+      "score": 90,
+      "grade": "A",
+      "latencyMs": 1174,
+      "tools": 6,
+      "describedPct": 100,
+      "failing": []
+    },
+    {
+      "name": "groTAX by Grovisor",
+      "url": "https://mcp.grovisor.ae/",
+      "score": 90,
+      "grade": "A",
+      "latencyMs": 1191,
+      "tools": 8,
+      "describedPct": 100,
+      "failing": []
+    },
+    {
+      "name": "Dubai Grocery Prices",
+      "url": "https://prices.brainy.ae/mcp",
+      "score": 90,
+      "grade": "A",
+      "latencyMs": 1289,
+      "tools": 20,
+      "describedPct": 100,
+      "failing": []
+    },
+    {
+      "name": "69.ai",
+      "url": "https://69ai.ai/mcp",
       "score": 40,
       "grade": "D",
-      "latencyMs": 70,
+      "latencyMs": 18,
       "tools": 0,
       "describedPct": 0,
       "failing": [
@@ -322,7 +312,7 @@
       "url": "https://thebureauoflostcontext.agency/mcp",
       "score": 40,
       "grade": "D",
-      "latencyMs": 93,
+      "latencyMs": 110,
       "tools": 0,
       "describedPct": 0,
       "failing": [
@@ -334,31 +324,7 @@
       "url": "https://mcp.aarna.ai/mcp",
       "score": 40,
       "grade": "D",
-      "latencyMs": 145,
-      "tools": 0,
-      "describedPct": 0,
-      "failing": [
-        "MCP handshake"
-      ]
-    },
-    {
-      "name": "Graffeo Coffee Roasting",
-      "url": "https://api.agenticshelf.ai/m/graffeo/mcp",
-      "score": 40,
-      "grade": "D",
-      "latencyMs": 155,
-      "tools": 0,
-      "describedPct": 0,
-      "failing": [
-        "MCP handshake"
-      ]
-    },
-    {
-      "name": "Agentic Shelf",
-      "url": "https://api.agenticshelf.ai/mcp",
-      "score": 40,
-      "grade": "D",
-      "latencyMs": 167,
+      "latencyMs": 191,
       "tools": 0,
       "describedPct": 0,
       "failing": [
