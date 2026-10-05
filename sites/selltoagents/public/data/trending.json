@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-10-04",
-  "generatedAtUtc": "2026-10-04T11:15:59.537Z",
+  "updatedAt": "2026-10-05",
+  "generatedAtUtc": "2026-10-05T12:35:26.382Z",
   "geos": [
     "US",
     "GB",
@@ -11,17 +11,115 @@
   "trendingTopics": [],
   "news": [
     {
+      "title": "Aprika Adds Slack, Teams and MCP to Mission Control - - Enterprise Times",
+      "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxPa183ZGFTY0VGTXZyYUYwaU5iYzZGTUhKX3QxRXR2a2JGbThmbUdneFUyWE15RmdjX3JuaFk1YlJvWmdKb3VpNjl3LVhKQXpteFd0R2Nrd0VpZTNSMnJENFcxM1gwajRQU3RhaGM3R2VNZnhsbXQ4VW81S1Voc0hDUmN4c0x4UkZNZzFqRnFucmpUT2p5U3lrVk16WXQ?oc=5",
+      "published": "Mon, 05 Oct 2026 10:48:15 GMT",
+      "source": "Enterprise Times",
+      "query": "Model Context Protocol"
+    },
+    {
+      "title": "Google may skip sitemaps on sites it deems low quality - PPC Land",
+      "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTE9VQW00V0E2UVlGZF9tZXMtaGhtbFNqZ19FZlQ2YnlJamFaRlVnbWVYTWVmNV9wXzd5M1U4bVltdzJVWFBWeGpTdC1GQkFzM0tLUTV6d2hIX3pieHJ2X0xpMWplVzluZlJHTHpZNzJndkVUUFRtZkVKdjZXZm4?oc=5",
+      "published": "Mon, 05 Oct 2026 10:25:45 GMT",
+      "source": "PPC Land",
+      "query": "llms.txt"
+    },
+    {
+      "title": "ChatGPT Shopping Feed Retrieval Hits 61%, Raising the Cost of Bad Data - DesignRush",
+      "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxNR3hYNzRTQ0Q5cHd2Qmp3UFdyTU0tZW1xTlp6TWVVblVtLXFXRGJhLVFQWVc1NEptajVfWHNwd1NJdXozWWFOeC1ra1JOXzJ5amx0cUJRckVrN2xOR0hKSzNzTTFxMzFycVZsaGo4c3VxRWxpMFBFbGJLdFIzTFlkSnJhazd0Zw?oc=5",
+      "published": "Mon, 05 Oct 2026 09:59:04 GMT",
+      "source": "DesignRush",
+      "query": "ChatGPT shopping OR buy in ChatGPT"
+    },
+    {
+      "title": "Why retailers are divided over AI shopping agents - Marketing Tech News",
+      "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTE1EbUxzNmRGNEN6blVnMTJyVUc2cXpYSmdadldoai1nMU9CWUx4S1dlcnRHdzlQNVk2aWNvVWVxS0tVX3hLN0RhZkRFSk44OWRySmVxeURJMlN3TE92MnkyWUZsdUZNdlp5SWc2QVA5MFlXSGljZWs0?oc=5",
+      "published": "Mon, 05 Oct 2026 09:45:25 GMT",
+      "source": "Marketing Tech News",
+      "query": "AI shopping agent OR AI shopping agents"
+    },
+    {
+      "title": "Airwallex's invisible global rails and the agentic commerce land grab - Dealroom",
+      "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNMTBuTFJrbXhyOHJxTUxQZzV4SG4wSmloSDBCSUUtVFFSQ2QyQnFFQ1lhVkQ0amJsUFJMMXdsaUd5Z3VfNXM5aG1DNHlCNFp0Zk4tSFc2ODB0ZVNlYlN4MVpSWTBTR2J5eE1qY3RsNXFZcEdVNnBWcDB3YTFKb0hBZG5Jb2Z1bFVHeVBhNUJuN0RLU19QWFFTQ3hqWUtYSThRcVkyekZR?oc=5",
+      "published": "Mon, 05 Oct 2026 08:19:22 GMT",
+      "source": "Dealroom",
+      "query": "agentic commerce"
+    },
+    {
+      "title": "From 100 models to one outcome: Bloomreach's agentic commerce playbook - Dealroom",
+      "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxOT29ZcTNfS0dEVDVhWFZYbUFfMzFpNnFsWERNUlNzZDFXX2xPaURRQllFc2JrTjNkY0tFamxsTnFBUFhuc3lXc3RCNnQ1NnRTM01laFRfaFAtLXBidFlKZ3RKaF9sclB5ZHdiVTBjY3pQTkJ3RDlUR1VEb1JZZlZEaUVRYkVucEUteGxKeV83Rkw0UDhjbEpvUDMxN0stVmhVOEJQX1BB?oc=5",
+      "published": "Mon, 05 Oct 2026 08:03:20 GMT",
+      "source": "Dealroom",
+      "query": "agentic commerce"
+    },
+    {
+      "title": "After the Agent Orchestration Gap — Who Builds the Connective Tissue? - forkast.news",
+      "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQXzJfS2FFMW1aYjE3ZGpfVDV2MjJKYXZzWFNZbnFuQXhhT3dscTJrOVhaR2VsYjdCMElwMWtFNzRmamVrdFpaTThwcmEyOTFVWkNyR2dkVzd6LVBZSDMzaWxWYll4TmVwc3RSVFVUZzZsZ01mZHRobUJoRlVadVNtUEZoYy1aVkV3R3JQT3RqRjVQUQ?oc=5",
+      "published": "Mon, 05 Oct 2026 07:37:17 GMT",
+      "source": "forkast.news",
+      "query": "Model Context Protocol"
+    },
+    {
+      "title": "Social Commerce, yes; Agentic Commerce...er, maybe - Diginomica",
+      "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTE53SWl2clh2ZzJGY1RBMVhvTDZvajJiZFh3RFk0V3RVRmkwMFZGNEFoN2w0SFJoZTlHMzJhTTFRdS10OHBDZklrXzFCNmxJM3JhOXN3N18zZDhhYnZKZ0R1Q3J5WGFQSERDNXNPSWVwQ190X1pranc?oc=5",
+      "published": "Mon, 05 Oct 2026 07:35:01 GMT",
+      "source": "Diginomica",
+      "query": "agentic commerce"
+    },
+    {
+      "title": "MCP Dev Summit Toronto Opens Today — The Protocol Stack Seeks Its Missing Coordination Layer - forkast.news",
+      "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNSFJ2UC1HVV9HYUpXX0w5SzhmSl9MdDItWHNOWExvY2pVV2ZBaHE4Q0VHbnJCMnFOemVTN1lBRTY3V003Y1VQQmg0NWY1ZnZEMjU2TTAyOE43T0p3cnRNVTlYcW5zd2ZHYXVlTlczNUljeXVqZ0ZSb0dzbmI0Q2NIRlhHWmxfTU1MTzBsTldIa2ZjMWhPYjh5M21uMUJDbEtuQTNyX3B3akE2NVc3YUhpRnlR?oc=5",
+      "published": "Mon, 05 Oct 2026 06:37:00 GMT",
+      "source": "forkast.news",
+      "query": "Model Context Protocol"
+    },
+    {
+      "title": "Weekly Recap: Meta Muse agentic commerce risk and Zalando SE voting rights - TradingView",
+      "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxQQlNqWm1wVGZueWxGY1FCaEZ0Q0NCN0swaXJ2bjM3U09zeC1wd284VTBlTVdCcVkwa2dKTmFRWWJRWDlNUnk1eGk2SGdaaXE2VnV5VE9WemRmOG9IYmpfZF9oUGM1Z1ZLNmVrOE0wNjBVUzFhYU1yd0ZpUlVJdFFZbVZWN3E3QjF6ZzJTd0QxS2p0WHAtR1BKZzl4c0dZeGpVeXpKNEV5UE5WaVh0STFQZ0tSOTdsWlBXR3ZHSVc2aG1xaC1NU29xTGhVbmN5MkMw?oc=5",
+      "published": "Mon, 05 Oct 2026 05:00:00 GMT",
+      "source": "TradingView",
+      "query": "agentic commerce"
+    },
+    {
+      "title": "AI Transforms Shopping: Agents Take Over, Market Reacts - StoryBoard 18",
+      "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxQRVQ4cVV1NzVaemtSQ1FYNy1nVTdVSjJKQVBoZVZCQkhRdldjYXg5c2lxbmpXMHlKbTdHM3FzYXBsc3YyQWV2QXh5YlJLVFZQWi1yUUVKR0huU2tENy0xamZVdmxITlo3QUloUHAtLTltbS1KVm5MbmpmejFYbUZLRDdWSk9mVHdBTE9VZkFYVFN1MzhpXzNDQnZyU0Y0NzJHMkJyY1h3U2EzUGNPNm5UR1FrRE5vOXB0TWfSAb8BQVVfeXFMTkJJa1VuWGdBZkt6eVRXTVhRV0tILXUwR3N6RHBlTWZPUk9FQ3RrbHYweU0xR0RiRk5qakdsT3RqZEpsVUxJRUhTeEpNMUotNGhaZGpUWE42VzVjVEJHcEhqUmdJQ0hsSGlETUp0dS1NdmxBODJEMG9aSlNhU2hDNDBKWU9TYklDdmxiY2dKWEJTSFRURjVDYlhEa3J0VEtsZ1pSalgzSUNXcUxubGhBOV9IZEdqTll4YU85WE1SenM?oc=5",
+      "published": "Mon, 05 Oct 2026 03:34:04 GMT",
+      "source": "StoryBoard 18",
+      "query": "AI shopping agent OR AI shopping agents"
+    },
+    {
+      "title": "Did AI Data Integration Just Shift Samsara (IOT) Investment Narrative? - Simply Wall Street",
+      "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxQQk1NSmQ1ajN2c2RtT3pDN2YtZ3l4blhSeWhUOXNoa3VyWlFBMDBCNUU1dUZrU2JSQ2hQZjJKdVhaQ3dhMHBNZVhmOVlwbFdOTjJMTm9lNFlNX3dwc0tUajNTcTl5ZHRqRy1yd0ZRRVY5bEdmSmZtMkR1Z2hHU0Npbm5kTnlBYTZINXRZT1ZyS2VPbkI4N0E2U0VMNmRVNFBzb1YwUUFCMExwcFNSWnNKV1RFQ3BoQ2ZZNl8xbzVfTGPSAcYBQVVfeXFMTmhkTUl1MnlKZFVnV1luMmhudTBHSTlua0pNNzRoaWFyS2FXQUxIU25GY3J2eU55eU9sYlpPT3FKSE9COHJNZ0N5cEhfemV2UkdoNTNqcUJNYl9hR2QwVmNUckQxazFpZFhpa3dFSTl0LUNIR1RoVEJqVWZacmxfNF9nSlNTbF9kRnhvX0lTY0lGMC1fSGhjdzFmckZ0RlcyWGNLOC1DUDYzNW5PSV9oeDI1Wm9iNWZYenczMEZldVZFbUFmV1h3?oc=5",
+      "published": "Mon, 05 Oct 2026 03:24:45 GMT",
+      "source": "Simply Wall Street",
+      "query": "Model Context Protocol"
+    },
+    {
+      "title": "0 to 100K GenAI Impressions: Raaquib's AI SEO Case Study - EIN News",
+      "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxOUGJmcGxLMHRWTDFnRkNqdngwbndMR1ZiX3g1UTk2ODh4SERuUG1OTkZhaFBjSjU2MUtkZmJhRnBta2F4ejBlMmhxczlSRGZPM0xkMHNqbmExOTRzcTV5ZnprRFdrTnlCOWVKZnhzbFI5cmhSX2ZVT1hNR1hFYzFRbU9Hc2h3eFpRSzc3TmZiYmZmcG1xX3d3dTBRZXNSZw?oc=5",
+      "published": "Sun, 04 Oct 2026 18:31:00 GMT",
+      "source": "EIN News",
+      "query": "llms.txt"
+    },
+    {
+      "title": "Agentic Commerce Had Its Biggest Launch Month. Nobody Wants to Own the Risk. - FinTech Weekly",
+      "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxQU0NNMHkzOFM2WE03QTFLVlBzSWo2dlJxd1l1NjVmUGVQTTJIVC1OODNPOVBsZnpWYkpvN01BaEdRUl9NdGw0TzRRdjVxWjItU2xCZ3JHYjVUcTJPUG42V1dKcDViWmtRLWtLTXFQMWFhRXowWVdnUng2Uy1QWkZwMTJtc2JlMlF3Nzg3WE1UeU1maGUyeTQtblBQcXZsQQ?oc=5",
+      "published": "Sun, 04 Oct 2026 18:28:00 GMT",
+      "source": "FinTech Weekly",
+      "query": "agentic commerce"
+    },
+    {
       "title": "Cardano Is Now Part of the AI Agent Economy. Does That Make ADA a Buy? - The Globe and Mail",
-      "link": "https://news.google.com/rss/articles/CBMi6AFBVV95cUxOMUJHUWZwZTFUNzFTZ0RJUWhuaU9NRVNtUEtTellyMkJVODdFcG5GSEp6RmdHS3BmdzFzVUVBNUd0QVRLZVlBeUt4em1TZEo2SjVHTnF4WHdmSGZ1ZEhkT19pcVl3aDlHR3RjdGYyOVM4TERkNmdoWkQtM1lqUTMycC1rcHNWY25iWDVLQ0pXQnRtTElrVVdTYnA4aXRHWkt1SWp3Zm40Qm1LZjZRVHdyYUxIcUpjaTFjTFVjVWp4U3B4S1hpTVo5SG1teTAwVG9HakpqVzYzbFVJZkNQU2xSMFZCdmUyUEVm?oc=5",
-      "published": "Sun, 04 Oct 2026 10:52:08 GMT",
+      "link": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxQdTJPSnhLTEVha1RBcW9CblpZM3psSnJza3lxbG1wRlVfY3VQVnpONUM5QlpNSWZ6VE9BY1lPa1plbmFDWWVZQ1FwZE9yc0ZSUlFiWVBCM2gxUllJZExicVNibDRtX2dUWG5SRU92ekRmal9KTHYtcjdtckIyN1RUUmpkOGVnYkZ1WHdZekVSZTlsc3owVUNha1dRU2tON1U4Zl9uRkt6dVN1dGZVa2xBd3RFV0NzZjA4Vi1QU0FtU19BLTFGb29DUnNva1NnczJlNDFSMHpJdWs0VGFyMWM3Tw?oc=5",
+      "published": "Sun, 04 Oct 2026 11:07:24 GMT",
       "source": "The Globe and Mail",
       "query": "x402"
     },
     {
-      "title": "Model Context Protocol: What it is and why it matters - SAS: Data and AI Solutions",
+      "title": "Model Context Protocol: What it is and why it matters - sas.com",
       "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTE44WjlMcGRmRUstejJtVDZSa3JFRm82bFVmS01JQ2hkUk1UdTJEQ3ZsZURIT2p3YnlhR0g3cUZVX3JjMURMdEhaS0ViT3NRWmx0NTFmdnQzbUxNOFVQZmNRb0xseV8yUjB1TXdqVFZXUHA0ODJzOE96THozTEY?oc=5",
       "published": "Sun, 04 Oct 2026 07:04:54 GMT",
-      "source": "SAS: Data and AI Solutions",
+      "source": "sas.com",
       "query": "Model Context Protocol"
     },
     {
@@ -43,13 +141,6 @@
       "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQUVJGamtaSzllTHZRcTgzVmZDQWk4MmZ2TF8xWlFCWkJGXzBrTVV2a3JzbkxmQlZmbjA0TURSQ1BGNHFaU21pYmduVm5iV3p5NDViZ2JXMVlhYV9NdXZkNEh0a1Zwd2hGczRNT2VEUzZqZFlWOHpQeVZISUxGSDUxcFRRNGZwaGJJTE9MVzdUbFN3R1A0ZkR2NUtvTUlsZjJ6S093ekFfbzNaSGVnM3VXLW5sNFpmMXc?oc=5",
       "published": "Sat, 03 Oct 2026 21:25:00 GMT",
       "source": "EIN News",
-      "query": "llms.txt"
-    },
-    {
-      "title": "How to Rank in Google AI Overviews Without Being Ranked #1 - AFFiNCO",
-      "link": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE1XaGdjSUdmenFwREo1eENYZ3V1YUxyUzdaZFN3N1EyTlVqUS1xM1M0SzJFNnNrOUoyQzJCZjhKY1F0aGJYaFpvbnBFbzdaMFJZQ0FUaVFpMi0?oc=5",
-      "published": "Sat, 03 Oct 2026 10:12:34 GMT",
-      "source": "AFFiNCO",
       "query": "llms.txt"
     },
     {
@@ -86,97 +177,6 @@
       "published": "Fri, 02 Oct 2026 21:56:33 GMT",
       "source": "PPC Land",
       "query": "AI shopping agent OR AI shopping agents"
-    },
-    {
-      "title": "Grayscale Research Says NEAR Protocol is Leading Agentic - Cryptonews.net",
-      "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE44XzZHcERMeFRFRFV4SzVVME41bHBmWVdPcndYU3g3Q3kzT1dqN3VfUTNtN0d5RmhCeTZBTzBoR1IxM3NVOFAzekNWY0czZ3hBRExzbW55N2lhQQ?oc=5",
-      "published": "Fri, 02 Oct 2026 20:56:22 GMT",
-      "source": "Cryptonews.net",
-      "query": "agentic commerce"
-    },
-    {
-      "title": "62% of top-1,000 sites with a sitemap fail at least one check, lintlab finds - PPC Land",
-      "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPOTFyTVNYei1ROFYtUHZPdkNfUVEta0dwZXAwOWZuSndTbk94Y29EakpqOWRrcWpfOFNRVkwzX0FSZWRwcnBzTGptWGJLQWFsSUZrSTlvdjU5dW9DZ0lZMVBIUjRaTmRvZ0JmUW5XNkRJSmJCeDNPTEFWay0xMDl4S0hVWmZpZmhROXNEY1I2VTVXZE5MTzJr?oc=5",
-      "published": "Fri, 02 Oct 2026 20:51:33 GMT",
-      "source": "PPC Land",
-      "query": "llms.txt"
-    },
-    {
-      "title": "AI-Compatible Insurance Shopping: Kin Opens Digital Quotes to AI Shopping Agents - Trend Hunter",
-      "link": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE9oaGtTUk1pWnZjdnhIUFo1QTZ0OEVMcWE3c3puNm9DdHYzbGc1bHdLVWxrNi1MOFFvc256MzVNY1VjR3h3RmhaMDNEcjhCeURLMi0xdmktYXc1RVJ1UFpRT1Mwb0g?oc=5",
-      "published": "Fri, 02 Oct 2026 20:31:49 GMT",
-      "source": "Trend Hunter",
-      "query": "AI shopping agent OR AI shopping agents"
-    },
-    {
-      "title": "Are Shoppers Ready for Muse AI Agentic Commerce? - Retail TouchPoints",
-      "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQZWoycm1YYUY4R3lnbFJ3c3llOFFrbV9Ja0NTWVdsVkNJX1hZRmtQNTlvUVdCVXRXS1RaUmotbjgwWFB1NWM2N0ZTMUc1SUd6Qk94R2w4bzVFREVqVEZxUjd6YjlHRGR1R1FueDRMT2NoVEVNeWUtZkRBd0djUjFaNWZXWVlIM3VoWk1RejA5Q2s3dUQyZHdEb0dxZ2dnUFk?oc=5",
-      "published": "Fri, 02 Oct 2026 19:06:57 GMT",
-      "source": "Retail TouchPoints",
-      "query": "agentic commerce"
-    },
-    {
-      "title": "OpenAI Adds Virtual Try-On and Favorites to ChatGPT Shopping - ProPakistani",
-      "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxQeXo2U0MwMkZlTGVfUm9aTUZrYkY5UU1FQmRvYkVWMlRnZVpGUWRPMEZvTHlkbmtETUQzMjEyZ0NKcWROZng5X0hHWjMyQ1JnaE9sMVcxamRzNWtFMHplSmRKX2g0ZzV1UnJSZmU2QVpMTkJtWG9vNW1keExXOXZOOVFkQUxCT1JRQjZuRkdZMTlYRW01NFR2WVlQbUHSAaIBQVVfeXFMT0JkNzhUS1hVY3Q1QVVMd2dZdE5vTE9jdzR6MlkwRlV3TGFVQmpLM2stak9vTzZkQkc4d0Y2cUlucDNZdVRsbHJMVlFlSThLTUhjUExpQy1jbVB1dWx4WURUSy1KRkJOREtJS253N1JDaS02aGJsbGFBS0huc3RjMlRrcG95WXdSLUowZUxDNnFlUTFSWmhtSGlUdlk3ZTVIb2FR?oc=5",
-      "published": "Fri, 02 Oct 2026 15:45:02 GMT",
-      "source": "ProPakistani",
-      "query": "ChatGPT shopping OR buy in ChatGPT"
-    },
-    {
-      "title": "Maxon Adds MCP Server to Cinema 4D - Animation World Network",
-      "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE80Wngzd0dUMDUxM3d0WE93Z2U1RDFxV19VWjdUOEctdzZKSXZvYXhxOHItTXdfT3VfcElGWTN5NjgxbWtkUHJGZmpkRnVmYkYwazJoMS1RYklRaHZjbDkxeGtXUDJ0MTA?oc=5",
-      "published": "Fri, 02 Oct 2026 15:10:00 GMT",
-      "source": "Animation World Network",
-      "query": "Model Context Protocol"
-    },
-    {
-      "title": "The 9@9: Devil's Sinkhole expanding, Walmart grill brush recall, ChatGPT shopping features - KSAT",
-      "link": "https://news.google.com/rss/articles/CBMiywFBVV95cUxPOG9TU3U3OHE4SzE5bS1MVHR2NjFyekNZWWVrYTZHbVd2ZjhYaVozM2FucTN0a1lxRnRfell2ZlNjTVZ2M1JfNkhuaDItLXo2aVphSUdkVUpKOEVxM2NxOEtpaGVrbXl0cW93TVg5bW95TjBramE2YUdrR1JWQ0tmNVNrNnEtaHJmdjlNRWJSLW5Oa25IcThzZmNyeGg1UkphQnVuRHpmQk5wWWRRRkw2V3hPOE9QbXE1bWZzZ3VCa01lWExsMUdPVEdfbw?oc=5",
-      "published": "Fri, 02 Oct 2026 14:47:24 GMT",
-      "source": "KSAT",
-      "query": "ChatGPT shopping OR buy in ChatGPT"
-    },
-    {
-      "title": "MACH X - now the checkout is on social media - what agentic commerce means for brands - diginomica",
-      "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPYzZObkRBVnBnbjAtTWgzb09VekJtS1o5N3ZxZElfUTZXOU9xRUdZVXBZRFJKYlJYUDlDYjdmaFFiaGxBVWdrUjFwUzEyOVBDVURkRnVRTjB0SDhsY0lPVnhyMmpMVktSU3FkQzM5QVdrMDBLR285d0NaTm1DamFaVy01ZXFHUGRna0dDbnMzZw?oc=5",
-      "published": "Fri, 02 Oct 2026 14:23:04 GMT",
-      "source": "diginomica",
-      "query": "agentic commerce"
-    },
-    {
-      "title": "Engine by Gen launches Savvy insurance marketplace for AI shopping agents - Beinsure",
-      "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxOc0dMdXBvOTRPTl9ydWpQTDNIcWZZVF9GbEtqSVRiQzVPQWd5TDVjR3JRdjBiTnNYZVR4Q29Jd2tpaW94ZHpYNVVrNHJ0dzEyM2hmckRzRkVnN0xRaVF6WWdvMXdmSTE4akx3V3JZdXRMUlJMRi1KQUZrVFdDdnMzbUFoemg?oc=5",
-      "published": "Fri, 02 Oct 2026 13:52:08 GMT",
-      "source": "Beinsure",
-      "query": "AI shopping agent OR AI shopping agents"
-    },
-    {
-      "title": "The next phase of payments: Preparing for the rise of agentic commerce - FinTech Futures",
-      "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNZWVadnJ5T3NXMFB5c1c0R1JhbVp4TmRYVGFHN1hzTlljU0U2T0x2R0RZV0VkZE5lTUV1QU5qczJvRndQdTVRT3JucUVfM011RHhIbW1FQkRKUWFOanA2SUVGbWwtamliZjdockRoWHI1MWE5OF9IOFZZQ0I4NXNZSVlvbHNiWmRGbFRrX3RVVU85T280N21BemFUc0ZnUFpmdVdvU29SdFJLT3RBTkNFdkxNYmE?oc=5",
-      "published": "Fri, 02 Oct 2026 12:52:59 GMT",
-      "source": "FinTech Futures",
-      "query": "agentic commerce"
-    },
-    {
-      "title": "OpenAI Adds Virtual Clothing Try-On and Product Favorites to ChatGPT Shopping - konsulteer.com",
-      "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNaEpMU3FPLVoxRFZrNXRNQktjT0ZZcXlDSUlyNjJOVFpjbDJFX19XX21fN0NTbW1CR0hqVFlFTl96WDI2ZG1iWDNTZk8wT1NkMnh6Zm10djJLSGJteko5QmdHajBCMjFIZ3hqcW02enNjVG9TU2JlTENsUjlORXptMW13emJiUFR5UDF2N0kwZjVSQ2ktekVCeWxId3h2YVdWNXJLaEJ3dU9Xa29MSldoSWdR?oc=5",
-      "published": "Fri, 02 Oct 2026 12:30:02 GMT",
-      "source": "konsulteer.com",
-      "query": "ChatGPT shopping OR buy in ChatGPT"
-    },
-    {
-      "title": "Mastercard Expands Agentic Commerce With New Trust Services - Yahoo Finance",
-      "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxQS200U0hjaE85ZU1rdFVJbGMxdG0xcGRzOVB2dTcyNS1hVlZMckNGaGRlNkREVjA1bWdJSzFzdFJEcS1tTmloWk5GZHdXMmhXZ19ON1BOelpQdEhHbmczTzdJR2FGUEphQ254RUdCTS1ZdU5yNnV0OEkwNXVoeVNUR29BTlJ2SFRqZE9YMndEQTBrb00tYUh1Qnhyem5RWUFMNkNXaVFsTHk?oc=5",
-      "published": "Fri, 02 Oct 2026 12:15:00 GMT",
-      "source": "Yahoo Finance",
-      "query": "agentic commerce"
-    },
-    {
-      "title": "Search Atlas API Gives Developers, Agencies Access to 900+ Platform Operations - Laurel Leader-Call",
-      "link": "https://news.google.com/rss/articles/CBMikwJBVV95cUxOY1FlWGVQZjhQYUdoNk9hdGVlNHY0ekt1eW02M3Z0OUpoRjA1QldydTAzMXVEVVlLWW5WOTVsVTZNZUdYVXF3WWVLelV0UFozU29RaV9yQ2tocXM4b2lwRlJUQnVMalV4N0JCS1BYalp3bVR5TUhiWU54SnhLMDM2X2ZKbXl5TllYVVJOaldVdjJmN05XNFA1V29pVWtoUUU1UXVwM1hPVjliMndOVDNCRW5JSXNvdTRnTDlYVks1VHc3TDFyY2V2OGswZUtsOTRBRU11a2ZlZnItZnF3cXlaV3RSUS1xS2VycXRMNU5aT2otWERwaVpzVXVjNHNHcDlXcnNrT3V4aUNycWFQZzJ1RGlVQQ?oc=5",
-      "published": "Fri, 02 Oct 2026 10:45:00 GMT",
-      "source": "Laurel Leader-Call",
-      "query": "llms.txt"
     }
   ],
   "totals": {
