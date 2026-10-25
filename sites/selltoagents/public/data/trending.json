@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-10-24",
-  "generatedAtUtc": "2026-10-24T09:45:56.386Z",
+  "updatedAt": "2026-10-25",
+  "generatedAtUtc": "2026-10-25T10:06:12.483Z",
   "geos": [
     "US",
     "GB",
@@ -10,6 +10,48 @@
   "trendingBrands": [],
   "trendingTopics": [],
   "news": [
+    {
+      "title": "Claude Ships MCP Tasks and Elicitations in Claude Code — Durable Agent Workflows, Narrow Launch - Forkast News",
+      "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNZmIwUnNsbzdhTERIYWlMaWZhMEtVSWFCYU14dFZUQ3h5MWRSMlc1SklocTU5OUFPQm5xeEM1c1JxLXpiWU9aWkxlQUI5OHdVai1ZNFF1RHBnTjdiMW5MS2xhUnBPak5Dbmg1SDRuWkFQMGhEekZ2Y2dpWVdsbGN0WHEtcjdYOWY3Nlo0djRjQkVnRV9DX2l6OVVGX09FYmFkRlEyT01RNTNuTi1nejZsNVZNc3I?oc=5",
+      "published": "Sat, 24 Oct 2026 23:26:30 GMT",
+      "source": "Forkast News",
+      "query": "Model Context Protocol"
+    },
+    {
+      "title": "How Investors May Respond To PayPal Stock Expanded Commerce Partnerships - Simply Wall Street",
+      "link": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxQSTVaSzZxWWozWVhrZjRFMU1SU1pocHFoaGpMMjRBUW5oaDBSa1hTdk9pTXpJTDRUVVQ2aWVPWXJveG9vOGFkTFM1SXRYQ2RMQUtpcl9Gb2V5UjNxUEdraHNRN1QtYi1odTNWSmRTQ1NMVnZoOFBNWkRmcG9YOEp6SEY4eVYxOE42V1JvUUI3UUlEbEpiZlVwcUpQR2FWUTVfOVlYSjJ2eTlUMWxBQjVUeHZTZmZlelJJNGF1aGRkLVVmUGQyZ2xYOG1aaFpyRUkyMGxYbERlTHpXSWRxOEh1cNIB5gFBVV95cUxORHpRVWV3SW5pRkpjc2xDdlgzeDlaVUsyVDZuRzdjTU1uc09NRnRiYldaclhQR3p2OEY0YkxSSmxLanhERzRmRElqUVl1eFJmR0RjeXRWYzBSTVlXc2NTYjhyeFhRd2VOUlhJcnBOSmM3aUpQSnduX3lXQi00ZGhwUE12VmdTMXkyWlpoMU9MR2YtT2MzdzBnSmtqOFNKaVNPNnZLbXZNS3FqVWJxRnRvX0RwcTJvMU94M3owd2lZV2hZSnNsb2hCRjNjbXE1QVBtSVpLYVhoOFpndXVyNjViTWMxTVFxZw?oc=5",
+      "published": "Sat, 24 Oct 2026 22:09:07 GMT",
+      "source": "Simply Wall Street",
+      "query": "agentic commerce"
+    },
+    {
+      "title": "Ad Context Protocol - PPC Land",
+      "link": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE51Ymo1RVowM183ajF1TmNLcHVuajBuVzE4VldrdGU0MjJ3UDUwZXM0WDlPWVNlMEFCaTg1MXJQR0YxWUk5OExaYkhyN1IxZw?oc=5",
+      "published": "Sat, 24 Oct 2026 20:28:18 GMT",
+      "source": "PPC Land",
+      "query": "Model Context Protocol"
+    },
+    {
+      "title": "Top Blockchains Continue to See Rapid Growth in AI Agent Payments. This Is the 1 Crypto You Need to Buy Right Now. - The Globe and Mail",
+      "link": "https://news.google.com/rss/articles/CBMiowJBVV95cUxPOXJ3NXhXRTZfMnV0RFBUZ3l3RER4a1JUZnlWSDVBTzNLOGlrMm1UOEdseTlkNEkwNC00MlVGODBKZWswSDhGUGIzMWtFUjRoM3VnUjVoaE05RlZSNHlfY2QxMGNJTi1lSWFzTTBnS2c2N0N2MzJDY0RPQ2RlazV0NXk0eVY5MHVWZnd5TmFleHNkdjMzNEoyUnNDcDJDUHRyTFFHQ2ZPMDcydUUtbnQxVkVNeWp4QjJ1ZGRvTU5HWmtOZGN0WHVJbmZqR0hENEdsWHN5cXQwWk1nSGxER3lMbTl3WVVRZkZPSjRLa0tyem1tZm56dnE5SjQtTmxtWVZmaGxJUWIwMW9fWDZUUFl1bFpDQW8xVGJHNEpSczVEaER1MEk?oc=5",
+      "published": "Sat, 24 Oct 2026 18:39:00 GMT",
+      "source": "The Globe and Mail",
+      "query": "x402"
+    },
+    {
+      "title": "ClicData Launches MCP Server to Bring Trusted Business Data to AI Assistants for Midmarket Teams - CPA Practice Advisor",
+      "link": "https://news.google.com/rss/articles/CBMi5AFBVV95cUxQSG15dWtfODZRbXY0ZXJzUlhmNnVMX25fR1B3OFJidFAtSTJYZ1l3Y1RWSXI1RkoyT0JsU0c1QXhFVFp6Q1dVTHRkeG9LNEJILUp6MVFjc3F3ejc3Y2VzaUtiRjI4UjRxUC1GOU9Ndm55ME1fUnBzVU43dVpvcE5PNTZIeXdGRWVDZWZXMnNydHB2UFN3TTdQSkNINTFNbVFmcGMtUlZzbTlhdU1OczFyU2dqVk1Gd0pvT1NfNlRFb2hWa1ZfUlN6dXhqUHhkTXRMLVpSZmdyRjV2dTAteEV1NFpTUms?oc=5",
+      "published": "Sat, 24 Oct 2026 18:06:23 GMT",
+      "source": "CPA Practice Advisor",
+      "query": "Model Context Protocol"
+    },
+    {
+      "title": "Mastercard adopts x402 and USDC on Base for age... - Pluang",
+      "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQNFgwQVdOY2pfdTZrXzVvcEVLZzdmQVFGV3YwRnBpQnFTX2FRRm13aVBRbWcxTTR3LVJvRzhxaFVuZlg3T2R1Y0dLek1OSlhuWDRtdGY0MGY2TXZOdkV6SFdtdWhQT1JyYWhJRGxlcmtfVEhsNVNjVjVZTWttZzZ4ZUtPbGVSWHN5T2paNmtUblBydkg5dVVzeg?oc=5",
+      "published": "Sat, 24 Oct 2026 14:29:24 GMT",
+      "source": "Pluang",
+      "query": "x402"
+    },
     {
       "title": "Will the 2026 Shopping Season Go Agentic? - PYMNTS.com",
       "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxQdUZzYjM1NzI3djZ6dkpxeC01dy1yZ1Y2QkhsY2ZnQmxIWC1zcEo5cEJFZmlDT3Y2WXNZOE9sSmpCSHBTdXZiRy1WOEZWWHpKT09iLWE5ZnJwZVEzZnRwaHdLa3hvMU1ER19UVUpJWkdYNHBUblBLSDl3em1SUU1TUXZ4TQ?oc=5",
@@ -25,25 +67,11 @@
       "query": "agentic commerce"
     },
     {
-      "title": "Top 9 MCP Security Platforms and Gateways in 2026 - Security Boulevard",
-      "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPZVlpQ1VEUTFqNW1sQTlzMUh2bTZHVi00ek9JdThFcjFORW9VSC1MQXNOTUU5N3FTd0h5YjZ0SU9YR3BRYUFVYWJaQnZKR3lzQkExNFBzbmxYMHBHbHp1Y25SUnVIMWxGY3JEUjd5bTRuNUttVzNfVmkwTEZRd0o5X0cwLVVhSDJEcW9rbUtna0cyUQ?oc=5",
-      "published": "Fri, 23 Oct 2026 23:09:42 GMT",
-      "source": "Security Boulevard",
-      "query": "Model Context Protocol"
-    },
-    {
       "title": "Microsoft Adds Work IQ Retrieval Tool to Ground AI Agents in Enterprise Data - Visual Studio Magazine",
       "link": "https://news.google.com/rss/articles/CBMizwFBVV95cUxQVlpmZnY1d3ZCNTJkZlVSMTM2cTZqbHNLaFNKRDl0QVoxWmo5SzJlVVpKMVM1cThLSENnSXNFa0JVQW12bXNrSE1RODcyTzl1NS15R1lzZXpGZGNqbVRkdEJpV1VRX3JQaUt6enl4MHNHbVRqTEdRaGJXbVVZRWJYWUtpOERpSFVDS3BaLXBndTdQYkQ5ZHk4NUduU1NjTkxtZENCN0dfcGRyTk5HVVR2VEM3dU9VWUs3MzRSOTgzUXZ4dEVQZ0R3Z2pwRVJ6OGc?oc=5",
       "published": "Fri, 23 Oct 2026 22:09:49 GMT",
       "source": "Visual Studio Magazine",
       "query": "Model Context Protocol"
-    },
-    {
-      "title": "Full Alliance Group, Inc (OTC:FAGI) YAHBEE Highlights Community-Commerce Model for Agentic Commerce Era - Yahoo Finance",
-      "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPUWxhRnZUUDhOOEZjc1l0UDZtWEVVQUc1LU1JRkI1MkdhTWRMUUtEQXBXOUxkTXd4SUpFUHdvMTliTTljenFfaWFkR25Nel9TOW9VNlcwaFdxUUI2c0NHVDFvOVRQUWN2WnkzOUNGV2F0SmFaTWkxODBBdWZLbHN0VkRQNnZhU0JBN2EwNEJENkhZLVdfdkE?oc=5",
-      "published": "Fri, 23 Oct 2026 21:15:00 GMT",
-      "source": "Yahoo Finance",
-      "query": "agentic commerce"
     },
     {
       "title": "Shoppers Would Send AI Agents to Marketplaces Over Brand Sites - PYMNTS.com",
@@ -58,13 +86,6 @@
       "published": "Fri, 23 Oct 2026 18:58:24 GMT",
       "source": "The Defiant",
       "query": "x402"
-    },
-    {
-      "title": "Linux Foundation's AAIF Adds Four Agentic AI Projects, Hits 10 in First Year - BigGo Finance",
-      "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTE5ndE54TGxpQWNZaHQzQTlyOXZ6SmJvbXlFTnBqc05SenF0V3VCNjk1MHR6bWlUWnFyZUxTUVhnUzZVaURSVVhYQVhFM2VLSDExMlcyZUkzMXVsWGZtcEpjRFQtSno3VkN1d0huRlRGS1lvdGtWdFE?oc=5",
-      "published": "Fri, 23 Oct 2026 18:19:00 GMT",
-      "source": "BigGo Finance",
-      "query": "Model Context Protocol"
     },
     {
       "title": "Walmart adds controls for AI shopping agents - ContentGrip",
@@ -109,13 +130,6 @@
       "query": "AI shopping agent OR AI shopping agents"
     },
     {
-      "title": "AX1 Launches Console 2.0, an Agentic Activities Launchpad Where AI Agents Go to Work - StreetInsider",
-      "link": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxQekxDYllkY2lpTkNPRFlWQ2dCM280SHRqVUtMU0NOTW1EWkhuQlJDVkxKVWpfRkdPb2l4WFdCemlpdllhMU5vRmFFUnE1VktVSjVtSm1lNTFlTUhndktLakdfV0VXYlRIYmF3R1VNZ29hcGtoZTBsRWlDZkttUW1waVU3Mzl0aUFIOUVrVmZkMDBudEFmNkJIVkF3aVJkZzlJeGd0Q01uOFRCSUJkS1dJb0M0bkhadEF4TFBpRkszOXRWdlA2bFQtdXhZUHJsVkZTZkNjTnROX0F6U0MwalE?oc=5",
-      "published": "Fri, 23 Oct 2026 14:58:29 GMT",
-      "source": "StreetInsider",
-      "query": "x402"
-    },
-    {
       "title": "Shopping is Muse’s top task: Meta - Payments Dive",
       "link": "https://news.google.com/rss/articles/CBMifkFVX3lxTE1OQXNONW5VODNyWU84Ti1KWFp1bnZrM2tWOGw1NzJyUk94Q0Y4MHY4M0RlYUNRMG5iUXZHTVFPT05YOXUwTkphTDRHb3djb2ZFOGJKTTdtNXBJSVViTVlxaVJuQmszVk0xWXhnV1Jnd0Z2RjVaZkhhTDlQZzgwQQ?oc=5",
       "published": "Fri, 23 Oct 2026 14:05:00 GMT",
@@ -123,11 +137,11 @@
       "query": "agentic commerce"
     },
     {
-      "title": "Agentic AI foundation expands with four open-source projects - Techzine Global",
-      "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOTE00eG5VNmszWktDd2hOX3lNdVhNUE9Bdzl0QnlIcnhvbmlzYTJubm55bUxDd3E3S202cUdEME1FWnNMSFVERFRiTWRsREdoY2Jrb3F0c2stTmhhblEwMHhYZTV5Ry1FbXRzbHE3VkR5azAycXBQcVB4OUdwX0RIc3dDSWlQWFZ4UTgxRWY5YkxENlZEWFVmLTNickpaSER0LWxUWV9uSW0yRExXNG5v?oc=5",
-      "published": "Fri, 23 Oct 2026 13:15:02 GMT",
-      "source": "Techzine Global",
-      "query": "Model Context Protocol"
+      "title": "AX1 Launches Console 2.0, an Agentic Activities Launchpad Where AI Agents Go to Work - FinancialContent",
+      "link": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxQQUg5MzVabF9PQkJrcTl4ODhUbUFzR2F5SDgzTHYxT2RCeGxJWFhNaTU4a0xKRmFEQWVsczM5YW83NzJOQUN0UTY1RDN4OFlrMFUzR0xGRVpaTzlBNFdJVGFqNk1JeGp6aE5HMGQ0M3RCYkZZaVZZYUpoQ0syM2dCNTlYLWdPT2tOdGlhSUctdGppM3FEMmlvN3JRYUdsMlpMMEdXV1c5UUJ2cWc2eVJGbjJ5bmdVSUhMRmhjLW90a0V0eFQzTW1MUVRQYm5HNmpNcVQyZ1RJMA?oc=5",
+      "published": "Fri, 23 Oct 2026 14:00:00 GMT",
+      "source": "FinancialContent",
+      "query": "x402"
     },
     {
       "title": "Walmart Opens Its Doors to AI Shopping Agents With New Agent Gateway - AI Insider",
@@ -163,20 +177,6 @@
       "published": "Fri, 23 Oct 2026 09:04:54 GMT",
       "source": "Startup Fortune",
       "query": "AI shopping agent OR AI shopping agents"
-    },
-    {
-      "title": "Critical x402 SDK Flaw Could Let Malicious APIs Drain AI Agents’ Token Balances - The Hacker News",
-      "link": "https://news.google.com/rss/articles/CBMie0FVX3lxTE5PMTdzc09iWlYtZHJIQlJKejl1amE3enJlMUEzdXJFT21mNVZSUWZkUHE0VUlTd2dwQWh5UVNnaXhVVTFXXzZVZUoyTjRhWjc0Wm5uZTJZV29abHBrdDdPU29KNVk3VVBYd2xkdlo5cXV3dklaWTFFbEFjYw?oc=5",
-      "published": "Fri, 23 Oct 2026 08:35:00 GMT",
-      "source": "The Hacker News",
-      "query": "x402"
-    },
-    {
-      "title": "Functionize launches MCP server for AI coding agents - IT Brief UK",
-      "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOenhQOFRoemplUzAyX1B1Tl9LVVpyTTE4bmlnT0NRQXBIVXZSRXlqUnlYXzJQRFJ1YzE0UjhQSDB6d0NqT1NNem95MHhTeERrYmJIVDFjRmhNT2hrUDZxcDN2WDFoNUZaemsxcWhnQ1ZRQ2luNm55WmFUSVp0UTdUTm9XZkR0RHc?oc=5",
-      "published": "Fri, 23 Oct 2026 08:15:00 GMT",
-      "source": "IT Brief UK",
-      "query": "Model Context Protocol"
     }
   ],
   "totals": {
