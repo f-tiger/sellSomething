@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-10-31",
-  "generatedAtUtc": "2026-10-31T11:11:01.373Z",
+  "updatedAt": "2026-11-01",
+  "generatedAtUtc": "2026-11-01T11:59:46.163Z",
   "geos": [
     "US",
     "GB",
@@ -11,18 +11,53 @@
   "trendingTopics": [],
   "news": [
     {
+      "title": "AI-Ready Payables Platforms: Settle Opens a Public API and MCP Server to Its CPG Cash… - Trend Hunter",
+      "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTE5uaVMwU2NORWlCZDhwWkFrcWdLLUhVdjIzZTBpV1djWjVvckxNODVsc0U3OFJWMDdScENqbFl1eXBEbzBHb3BEa1ZmbEJVamw4cUtydko3djJJOGlVT2pEWTF2YTBhMjE3U09tRm14aw?oc=5",
+      "published": "Sun, 01 Nov 2026 08:35:59 GMT",
+      "source": "Trend Hunter",
+      "query": "Model Context Protocol"
+    },
+    {
+      "title": "Agentic commerce is on the agenda, even as familiarity lags - EnterpriseAM",
+      "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPWFFrcEFzRTBxY3JDR09oQXYtclJERWczN0ZQelFJQWJJVE1sUzVlZFZNNUZSNnJLNjZjQTJJcTVWenprckRIRE9NcWRzcFY2M25OaGhOTkc4bHlWR2ZfWTBxWm9YRkVHbmQ5cjdLeHJ5TFB4d1Y2aGdqSnlIR2N1VTFrQkd0RkY2U2dTVmZaQUxGYS05M3hYaDJUSjY5a1h4RTdn?oc=5",
+      "published": "Sat, 31 Oct 2026 22:00:00 GMT",
+      "source": "EnterpriseAM",
+      "query": "agentic commerce"
+    },
+    {
+      "title": "AI-Ready Event Platforms: vivenu Connects Its Ticketing System to AI Tools with an MCP… - Trend Hunter",
+      "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTE1abk54dnpIa2xnVzdHTUxvdFhOT0VrcVhnTWgwMFRpcnE2TmhoZEZQeU01MUNCeUNGVnp0eUE4Y0puT203cEptMUh1NEZRRUZwQTRLTEU1Y3EzVTltYkFkbUVtcnVMZjYzeG1n?oc=5",
+      "published": "Sat, 31 Oct 2026 20:28:29 GMT",
+      "source": "Trend Hunter",
+      "query": "Model Context Protocol"
+    },
+    {
+      "title": "Google launches Android MCP in beta so apps can talk to AI agents - Pasquale Pillitteri",
+      "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNdVdGdWNsNTY0Sll0ZTB0aVZ6dENTdEVqS2Mza3Rya3A5QUZIZHd5TjdkcnJPNW5ZUHRMZTFGd1AwakFUWEJUU0RkQWlWVkUwT0p6U0tOTnNuRjVkcG51djZCSFVkRlprTFEzd2NkNUFaVmUtZDFJOHdNOUVqS2RUMzVHbmdEMVVITF9xTWRkSTc2eV9W?oc=5",
+      "published": "Sat, 31 Oct 2026 16:16:37 GMT",
+      "source": "Pasquale Pillitteri",
+      "query": "Model Context Protocol"
+    },
+    {
+      "title": "AiSOC launches on GitHub, an open source SOC with AI agents - Pasquale Pillitteri",
+      "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxQdFB0aDZneVNzd1o3dTdjZllFblZPSEtuTUNoYXNUeXU4UmFad0kyd0Z6QTlIMVVCSkIwQ3RoQkFzakVvVjYzbVRxb1l6bGJiR05kZTBmRGc2M3ZFakI4T1lPUmpYTm1jUWFKeXRoV0s4a3hCRmZTN09kV0h0YUgwc29RTGllakJFUmtLb3dB?oc=5",
+      "published": "Sat, 31 Oct 2026 15:36:30 GMT",
+      "source": "Pasquale Pillitteri",
+      "query": "Model Context Protocol"
+    },
+    {
+      "title": "XRP Ledger's x402 dashboard shows rising settle... - Pluang",
+      "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxOUnJwY0pzZVFfVXdtY0t0X0NlZnJmSTktcXA1YnVjVkkzY19JNEhEX0ZoYWpXcEFDeW02cWdaVXFodU95blJTbmVIRGhsUkhXdnNhUTV3QmNfZU92T3E4Y1pLMmU4N3IwY3FwQ3YxVVZJMUtXeW5sZnRjWHp1RmFpU0VtdlZHOXFoUGVHUDdpcjFmYUxwUGRsS3l3WWk4Wm5PT2gxMVZ4VE45MllF?oc=5",
+      "published": "Sat, 31 Oct 2026 14:26:38 GMT",
+      "source": "Pluang",
+      "query": "x402"
+    },
+    {
       "title": "Only 14 of 29 AI products let users stop ad data sharing, audit finds - PPC Land",
       "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQUnhjQ0NQb1lLR1Q2QWk0RE1kX05FODBkQWlOVWNEODBhWjZYemgydHRId3g3bWVvS0RXZUZBX2Y3RkJEVWp5M2loZy1OQjdaWEw5Rlh5UDRnUzlSX1c2akZFT0lhV1BnVm5jZGlVTER2RHZmTTliN1NTb2E1ZjJkbVNwbEtmc0F1eEthdWk0QQ?oc=5",
       "published": "Sat, 31 Oct 2026 07:48:02 GMT",
       "source": "PPC Land",
       "query": "Model Context Protocol"
-    },
-    {
-      "title": "Beyond Jargons: What Agentic Commerce Means for D2C Brands - Machine Maker",
-      "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxPM2p6bGFzS0ZYRGxsNHZ6X3lvc2d6WkFpNjVHbjJrNDNIdWFYM0hxWmJPX0E1V1BPeWhpZmhfUXNKYmVZaDJlbllJdEQzbl9lVHFLN0hzV0hydGUxRkdVQzZSNzFhaW5HcXlyN2tiWWJyRHpCR3pGUUJkbWZBSkF0NkthNU00VGt2NjFYNXJRV1RHSUs5VHVsSF9VNndMZw?oc=5",
-      "published": "Sat, 31 Oct 2026 06:09:09 GMT",
-      "source": "Machine Maker",
-      "query": "agentic commerce"
     },
     {
       "title": "Enable Filesystem Access for MCP Servers, Step by Step - Security Boulevard",
@@ -81,24 +116,10 @@
       "query": "AI shopping agent OR AI shopping agents"
     },
     {
-      "title": "Adform’s MCP Server Transforms Workflows for Omnicom Media and Publicis - The National Law Review",
-      "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNaHcxSk1IVURDOURsZHhVbVl5eDhWeWFSclVOMGFjOU5wSUNEWHdmSmdrbjBUbjQyNG1Ib1FUWDRkOGxWUUdzWG43b0cyNzJzX3V3Vkp2QjRtczdyVk1fSzBCM1J4UVU4eWxTOXhReDIxbHFRRks1c1hxbUk3UkFEVkR1NUltUGdxUVFaNktUQThLRFhTbjh1NnlxN0VITVphN1dNcG9OSHRDUQ?oc=5",
-      "published": "Fri, 30 Oct 2026 16:55:42 GMT",
-      "source": "The National Law Review",
-      "query": "Model Context Protocol"
-    },
-    {
       "title": "Settle Launches Public API And MCP Server For Agentic Procure-To-Pay - Pulse 2.0",
       "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQSEJTTmJ1TjJZczlGaWRuQ2owYnlmaEZyUDZNVldQeWJWamdYWjhpbjN1SUFGQzM4UE00anFtYWZjM1kxSEZiekJWcEw0QUpDLVlOV3FDYWhFTVN5Zlk5LXd2SGNaY0htUFB3dWh5TVNBS1pVSXJEUDJRTENFWEhVaVJQOFVzY0stU1JVdUhiaHV6UQ?oc=5",
       "published": "Fri, 30 Oct 2026 15:54:35 GMT",
       "source": "Pulse 2.0",
-      "query": "Model Context Protocol"
-    },
-    {
-      "title": "ZoomInfo launches New MCP Connector and API on Snowflake - The National Law Review",
-      "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxOZ2l2ZGNjb2JVeFNYTnV5VGlBLXBpQ0pEU0w1ZUt2YUNfX3QybUtMRjV2OXlWZFRPQjFBajZaSm1UZG5ENHhyN25pYmhKOGk5QnA1WTgxb0tqTFpaTFZqbGFKWkc1Nl9kNTJPUlp5X095M3A0T1lMYWNDaVRFbXVobmROZmg1UE5ESlFZNGYxa3JjVjQxSC1sRg?oc=5",
-      "published": "Fri, 30 Oct 2026 15:32:52 GMT",
-      "source": "The National Law Review",
       "query": "Model Context Protocol"
     },
     {
@@ -107,13 +128,6 @@
       "published": "Fri, 30 Oct 2026 15:07:48 GMT",
       "source": "Payments Dive",
       "query": "agentic commerce"
-    },
-    {
-      "title": "Virid Launches marketAgility MCP Connector for E-commerce Retailers - Retail TouchPoints",
-      "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxQRDFwdlVxYnFwanR6VC1sSy1MZ2hRQ2dMclFwTWNGdGtmTjVyOW1nUHk2UkQ5VFlNZTZFUlQtSkJjSWFodnlLSG14UnBEUWdCTEZUU3Jkcnl4LVFLRk5JdWlpWDBNOVQ2OVh0RUIyeW00azlTMjhvZm9ENmExSGNJLXVZaW9NQ0xtaE1ZUFBwRzEzU09EdmR0THVOWXE2WnJUa0lqWEt1d0F6ejdSbW5pWFBJZ1Q?oc=5",
-      "published": "Fri, 30 Oct 2026 14:39:36 GMT",
-      "source": "Retail TouchPoints",
-      "query": "Model Context Protocol"
     },
     {
       "title": "Viavi taps model context protocol to help engineers streamline network testing - SDxCentral",
@@ -137,6 +151,13 @@
       "query": "agentic commerce"
     },
     {
+      "title": "Strava subscribers can now connect directly to Google Gemini for personalized workout insights - GSMArena.com news - GSMArena.com",
+      "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTE5MY3hycVhScHdqS3c2cHBqbU5QdW8zS2lLZ3RuekNmZmkwWW92T29OVFlyMGlNd0s0Z0JLVGV0bFpvZGItU0dZN3lXVE1HcFhpOHFmYXNWNzZFS29GazMyYkR5RWRwX2NfNFNkRHZreG5yVWZ3TlEwcGU4TzbSAXhBVV95cUxOcUp4M0ZfTmZ3SnlFZVRPUjRIRU9lV1AzZTJ2bHNmZEFlaTI2dHpPQ2dVcmZXX200cGpwbnlTLTZkczRfRllvMFBUU3piN1lselY5VWpXZVVpMFAwYU9Ud2VXUWVDcDRXbmZpQV9UWlRINmN0eXNkUXc?oc=5",
+      "published": "Fri, 30 Oct 2026 12:03:02 GMT",
+      "source": "GSMArena.com",
+      "query": "Model Context Protocol"
+    },
+    {
       "title": "Tencent and Visa sign MoU on cross-border and agentic payments - The Paypers",
       "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPSkJ0OTYwcnN0di1iYkZDMDdCRmdEdU9xYkxud1N0Z0hZR2dVN3IyLUxBWlA2TUlrd1JPOFR5ZmJRX0kzdERUWnBNUjBiTVlNdl9OZHRMaWF5Mkg0RVZua0kwOXVZdk5mYVIzMWhBb3AxNG5vM1lnck04Z1BDUFVod0V4M3FJdW9sSG5BaFJIc1lEdU9neF90RTBHdlBDQmRO?oc=5",
       "published": "Fri, 30 Oct 2026 11:19:47 GMT",
@@ -151,31 +172,10 @@
       "query": "x402"
     },
     {
-      "title": "Suno’s new MCP tool lets users make songs inside ChatGPT, Claude, and Gemini – as its developer API gets a sign-in portal but remains in beta - Music Business Worldwide",
-      "link": "https://news.google.com/rss/articles/CBMihwJBVV95cUxPSUprUEU5bGhBaGJxaTVJcEVhMWppc3U1M1drNGVsMU1yZ0tjT2JLNXBva3BZYU5pN2lGTm1jWi1JUjdBYlE1UHBtYkx0N09iY1BObGVqYVNoVmFocnZXLXRQb193M3JRUnFsZnBEUnFzUmtaVzZLSTlWalNNcW1LNi1yWmZiNTk4VThjWTNWTUxqc0lkZUhLV2tmbkpmQXN3MnRZUWx1QWVCbEZ5N0ltX2VxVm5MUEdWdXVnakhCbV9pcm9ibkcwdW94allaQkRFX1BUa1FuU195N2hwYkFERDc5cGcwcmUyMDdGeTQweEhrdUNDOWZOYVh5UUo4cWQwei1iNDk2VQ?oc=5",
-      "published": "Fri, 30 Oct 2026 08:47:23 GMT",
-      "source": "Music Business Worldwide",
-      "query": "Model Context Protocol"
-    },
-    {
-      "title": "Quai Network Introduces x402 Work, letting AI Agents Pay for Services with Computing Power - Altcoin Buzz",
-      "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTFBjU1J2bW1UUG4xdkZ2N1pMTEVBNjF2dkNqM19lOHhqclRNZkpRREhXbUhWVWQxQ05uM3M2VWxTV2UyWllDQTJPMlF3S09sX0FBdmduakVFazN5YzlSQWdULTVHNzFmNm9kMmE2SDRzNTBFNE5NV0NrYS1icmc?oc=5",
-      "published": "Fri, 30 Oct 2026 07:35:28 GMT",
-      "source": "Altcoin Buzz",
-      "query": "x402"
-    },
-    {
-      "title": "Are CPG Companies Ready for Agentic Commerce? - Boston Consulting Group",
-      "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxOTERPem4zWDZxdlZDR04zTFJHSXVzemdRbGRYanRQRTRjZzVHaFFQUlRvb2J5MDdwZnRPaUJJWTVfWnFOU3JIUWR6cS1RLUxGRVQ4X3BvOWlxWmI5R0NzdEx3MGhNT3A5WXp3SFNHR3RqYjdWQkdJa2Z5SWhubjh5V3hHd29Tb2pROHc?oc=5",
-      "published": "Fri, 30 Oct 2026 07:30:00 GMT",
-      "source": "Boston Consulting Group",
-      "query": "agentic commerce"
-    },
-    {
-      "title": "Model Context Protocol (MCP) Explained for Lawyers and Legal Teams - Legal Desire",
-      "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5pakNVcWJHTXc1T2s5WDBNSFkzTmhQdGV6VDJWWnRrWTEzQXltRFEtLXhER2R0MHF2TjlIMnpOWmtzWUlMdVZHYzF5QkltMjZJMUQyVXZzQlhFd0k?oc=5",
-      "published": "Fri, 30 Oct 2026 05:44:13 GMT",
-      "source": "Legal Desire",
+      "title": "Triskell Software unveils new AI capabilities in its 2026 SP2 Release - V-news.it",
+      "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNdDkxam56ZWtCUzdkZHo0MUg5ZEpTajg1SEhVZlE5alhsUTlfMlhZMXd0U3BUaUMzcExLVGkwdmx0bGZXUEEtYXptV3I4aU9tRmwtaXVTdjJzQW55QlFsZ29rY0hvWW1Ldm9UbnlGazlqcm1Fb2dwTF9JZWwyb0pDbWUwQnhsLWF6OGNpVkh0MF9qSmszRXVj?oc=5",
+      "published": "Fri, 30 Oct 2026 09:45:00 GMT",
+      "source": "V-news.it",
       "query": "Model Context Protocol"
     }
   ],
