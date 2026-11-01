@@ -9,11 +9,13 @@
  * GET  /.well-known/mcp.json          → machine-readable MCP server descriptor
  */
 
+import {monitorOptOut} from './liveness-optout.mjs';
 const TIMEOUT_MS = 10000;
 const PROTOCOL = "2025-06-18";
 
 export default {
   async fetch(request, env) {
+    const optout=monitorOptOut(request);if(optout)return optout;
     const url = new URL(request.url);
     if (url.pathname === "/api/scan") return handleScan(request);
     if (url.pathname === "/api/badge") return handleBadge(request);
