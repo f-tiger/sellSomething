@@ -11,9 +11,19 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        site: [agentready, selltoagents, closecalc, agentfront, mcppulse, glossary, tools, x402]
+        site: ${{ contains(github.event.head_commit.message, '[mcppulse-quota]') && fromJSON('["mcppulse"]') || fromJSON('["agentready","selltoagents","closecalc","agentfront","mcppulse","glossary","tools","x402"]') }}
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        if: contains(github.event.head_commit.message, '[mcppulse-quota]')
+        with:
+          node-version: '22'
+      - name: Test monitor boundary and refuse a stale scoped release
+        if: contains(github.event.head_commit.message, '[mcppulse-quota]')
+        run: |
+          node scripts/test-mcppulse-optout.mjs
+          git fetch origin "$GITHUB_REF_NAME"
+          test "$(git rev-parse HEAD)" = "$(git rev-parse FETCH_HEAD)"
       - uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -21,7 +31,19 @@ jobs:
           workingDirectory: sites/${{ matrix.site }}
           wranglerVersion: "4.112.0"
 
+  quota-readonly-verification:
+    if: contains(github.event.head_commit.message, '[mcppulse-quota]')
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node scripts/verify-mcppulse-optout.mjs
+
   smoke-test:
+    if: ${{ !contains(github.event.head_commit.message, '[mcppulse-quota]') }}
     needs: deploy
     runs-on: ubuntu-latest
     steps:

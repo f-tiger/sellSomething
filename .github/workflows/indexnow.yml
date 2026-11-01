@@ -15,7 +15,7 @@ jobs:
   submit:
     runs-on: ubuntu-latest
     # For workflow_run, only fire after a successful deploy; cron/dispatch always run.
-    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success') && (github.event_name != 'workflow_run' || !contains(github.event.workflow_run.head_commit.message, '[mcppulse-quota]')) }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
