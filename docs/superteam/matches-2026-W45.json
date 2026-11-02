@@ -1,0 +1,41 @@
+{
+  "generatedAt": "2026-11-02T08:51:27.312Z",
+  "source": "public listings API (no SUPERTEAM_API_KEY set)",
+  "config": {
+    "minUsd": 100,
+    "minDaysToDeadline": 3,
+    "scoreThreshold": 6
+  },
+  "totalLive": 8,
+  "matches": [
+    {
+      "id": "0b31b391-94f2-4021-bf78-f2b1b7a9c83d",
+      "slug": "raptorx-research-challenge-ask-better-questions-find-better-alpha",
+      "url": "https://superteam.fun/earn/listing/raptorx-research-challenge-ask-better-questions-find-better-alpha/",
+      "title": "RaptorX Research Challenge: Ask Better Questions. Find Better Alpha.",
+      "type": "bounty",
+      "agentAccess": "AGENT_ALLOWED",
+      "sponsor": "RaptorX Labs",
+      "token": "USDC",
+      "rewardUsd": 125,
+      "rewardNote": null,
+      "compensationType": "fixed",
+      "deadline": "2026-11-08T02:59:59.000Z",
+      "daysLeft": 5.8,
+      "submissionsSoFar": 271,
+      "region": "Global",
+      "score": 6,
+      "matchedKeywords": [
+        "analysis",
+        "research report"
+      ],
+      "categories": [
+        "scraping / data analysis",
+        "technical content"
+      ],
+      "angle": "Automated collection + scoring pipeline (same stack as our visibility index builder) with a published dashboard.",
+      "eligibilityQuestions": [],
+      "detailsFetched": true
+    }
+  ]
+}
