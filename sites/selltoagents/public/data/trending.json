@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-11-16",
-  "generatedAtUtc": "2026-11-16T13:57:37.137Z",
+  "updatedAt": "2026-11-17",
+  "generatedAtUtc": "2026-11-17T14:52:12.984Z",
   "geos": [
     "US",
     "GB",
@@ -8,7 +8,22 @@
     "AU"
   ],
   "trendingBrands": [],
-  "trendingTopics": [],
+  "trendingTopics": [
+    {
+      "query": "xbox black friday sale 2026",
+      "geo": "US",
+      "traffic": "200+",
+      "matchedKeyword": "black friday",
+      "context": "XBOX Black Friday Sale Starts November 19 with Our Biggest Sale of the Year on Games, Accessories and More!"
+    },
+    {
+      "query": "when is anthropic ipo",
+      "geo": "US",
+      "traffic": "1000+",
+      "matchedKeyword": "anthropic",
+      "context": "Anthropic likely to price IPO above the current range of $70 to $78, sources tell CNBC"
+    }
+  ],
   "news": [
     {
       "title": "Commerce launches AI Shopping Agent for BigCommerce merchants - Tamebay",
@@ -181,6 +196,6 @@
   ],
   "totals": {
     "trendingQueriesScanned": 40,
-    "brandRoster": 113
+    "brandRoster": 112
   }
 }
