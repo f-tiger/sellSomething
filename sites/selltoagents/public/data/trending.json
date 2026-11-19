@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-11-18",
-  "generatedAtUtc": "2026-11-18T14:30:35.520Z",
+  "updatedAt": "2026-11-19",
+  "generatedAtUtc": "2026-11-19T14:39:36.863Z",
   "geos": [
     "US",
     "GB",
@@ -8,182 +8,174 @@
     "AU"
   ],
   "trendingBrands": [],
-  "trendingTopics": [
-    {
-      "query": "anthropic ipo",
-      "geo": "US",
-      "traffic": "10000+",
-      "matchedKeyword": "anthropic",
-      "context": "Opinion | The Anthropic I.P.O. Will Change the Future of A.I."
-    }
-  ],
+  "trendingTopics": [],
   "news": [
     {
-      "title": "Proof launches its MCP in ChatGPT, starting with x401 so AI agents can prove who they act for and what that person approved - The Manila Times",
-      "link": "https://news.google.com/rss/articles/CBMiogJBVV95cUxNcHpFUUxrOUxPWmhSdFBLbVZkb2k3MDZpTl90WE5zbjdKNFk0T0VvTUcwRmM2YVFHRGRJUzFOckZ2WnY2VkYxMkFieEZYZ2l3d21KOVg1NnhiaVcyTVpxS00xSGctMldJOGp0bXlWT3VIT2NuNEc0eW4wUGZ6U2dDQkFkc2R3UXVhSmdVUERVMGZRaHJkQm9LRFo4V0NtWTc2eE10LXZrN0pfeG0tdDluS3VqVzlBSjF2TnE4cVZWcnNVS3lJNUQtTk82cnpPZXZ6cWdlbUw3cW5EbU5meFBEbmwzWGFlU0NPTFhhNkI1R2JlT1RMaV9BTXV1ZmZpcUp4MWU1M3pTNk9Wbk5xakh1M0pfc0hBUEtCZWhZYzJ3amtYZ9IBpwJBVV95cUxNYzB4S3BWaGJRMVpCNWM5YjctSmtJUFRkZVdnNkFvYXFXbWh4bmdiblNOa21YRk05cWxnX3lRRTJ0M1YwMkFaYW5JZDVfWjF1RE4xbUlhOUJyRVJleVJYeExoOVV2ZGdMamFzRXFUckUtMU1HUkNweFpCVzlacGhCZjVjbU1VcldsNGFaQTNxQUw2dDdmRFl0MTFSN0l3Wkl1YzlrSzdOVkRMZ2lpRFFHMk1GRFdVdjJyYzJTUHRScWZ4ZGpfVEtNTHI3ZFFRV1ZxUVZ0SjVBUzd1cFZjSEp2MUNHckQ2Y213YzExRHFuZ1J2R2J6ZjM4dmE3NlR5TjZlS3BtakEyX2tEN0xHRDNzaTNLSC1WQ1dxWElkYi1rckxTNlViZEQw?oc=5",
-      "published": "Wed, 18 Nov 2026 14:16:35 GMT",
-      "source": "The Manila Times",
-      "query": "Model Context Protocol"
+      "title": "Brands Must Sharpen Their Storytelling For Agentic Commerce - ADWEEK",
+      "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPU1V5UGc5eFpiYUFvMlNRdUZWS1RHMmFma3UxVlpyTnZQdEVvYmJWeDZWWGZXZFJ2Y21waUR5cXJUaVFtM1loU0c1dmZ2ZVVSUTBoOHp2RG4wUk15LUNSQ1FUbjg4bVltcW9CdWlQUGhJT2ViRE45Zkg4NV9aNEwxVnhDMWhXcVhmeTN5UnFkd0FBandETW5R?oc=5",
+      "published": "Thu, 19 Nov 2026 14:24:12 GMT",
+      "source": "ADWEEK",
+      "query": "agentic commerce"
     },
     {
-      "title": "Genetec introduces Security Center MCP connector to accelerate physical security operations in large-scale deployments - markets.businessinsider.com",
-      "link": "https://news.google.com/rss/articles/CBMiiAJBVV95cUxNT2U1WnhhZkQ5Ujd5VmJUMHNyTXZHZ3JwUnJqMUxzbGsyT0VWcUNlc1I1NWhpVTh1UmppUEpEa1NnV25TRnhBTHlzeWxvMHNEeGhPUk9rc3RTWnJrWVBqUmdrWkxnWjZJMVhVbk1wYTMwNHhYSFVaMnRERWRqdjNzLTlUSms0RDU4MWNoSVBpd0IyRU9wb2VUNDcyeVlaMDNOVk5IWTBIRXdNcFZ3Yl8xYVhQeEJKeXpZWjdKLWVqNHkxazlESVVPWjBjZHktSGhZNkR6VllBQzNUR0hrenYwT0lQQ1BReUdtcTBYMExEN01rd0MxaEVTSGRiUnltV0lnT1VxQTRPQ2M?oc=5",
-      "published": "Wed, 18 Nov 2026 14:08:14 GMT",
-      "source": "markets.businessinsider.com",
-      "query": "Model Context Protocol"
-    },
-    {
-      "title": "Syndigo Helps Brands and Retailers Get Products to Market Faster with Microsoft Copilot - GlobeNewswire",
-      "link": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxQVi13Y2tmVWlnRUFwTUN1elJhaExPQkVJRUV0aEZJamM5ME1wWmpBSFNOcndSYWF4UUJaSUJMMnRHckVxMExma2hxa2NzeXZ1NWk2Vm1peFc2NkZOaDdpY0dMbEpoN1VSUmxwZmJwMTh4bEY1NndDcTJCc2xBMDZmSjVxRUlDZm1MQXVacUhvS3dwTmpPa1M1REtnRWF4UmJ1UTdmdjZhazVUU3ZTN01CZE1oUlpfbVo4ZjI4TERRUmdFWHUzN2J0eUVfM2VTTjNiNkF1akZDR3Y1UmVVN0pKS2FmcWJxQWhTRk1aTHNnRTI?oc=5",
-      "published": "Wed, 18 Nov 2026 14:01:00 GMT",
+      "title": "Arctera Makes Enterprise Information Accessible Through ChatGPT Without Compromising Governance - GlobeNewswire",
+      "link": "https://news.google.com/rss/articles/CBMi-wFBVV95cUxNaHcwcWFFX3B1aUVsYUFhU1hIVVNESUFJeS1ZMVc0aDJHaFpuYm1XcVUxc01sMTA3MzFkNlJGWDhOUGw2R2QxZ04wWWFlaW1GX0V5bklOSENoeGFqLW5oRDY2bWk5cmFSY0llUUo4RTl1cE1TM0RzSE90QmMtN1gzMThJelhnWXNMRzBRdnVwcDNkcFhQSGFkNVd4ZUlfMG9udlh1d2tPZnNJWmVkek9MZDZ6N2RWaF9HWmxQRUJIMEJJR2ZYaGpnU3JuMDVBcUIyZXlqZndZaEdRU0JXOFpBcGlGVko2VHJHanZTVkhMUmQzLUdDRTNJZjFPRQ?oc=5",
+      "published": "Thu, 19 Nov 2026 13:00:00 GMT",
       "source": "GlobeNewswire",
       "query": "Model Context Protocol"
     },
     {
-      "title": "LeanData Introduces MCP, Bringing Orchestration and Scheduling Into Claude and ChatGPT - Business Wire",
-      "link": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxPUzk2Z1R5LVMwWUV3WFBkQTF1UDlpbjVnNVVEWGpidW9MeWVrcVNuZVhLZmtIVktKaGxrWkJSR2R1MnhsYmpJSlZDRVZOdV8yNUw5Q09rTXB6U3FSLXU5Y1lOamtCbk9DeVNSc2hYeWwxUGw3RWVFeTJsTkFoWUFLb2w3YllENTlxcG5sUkh3TzlpbUVNRlM4Y0NoY2ZJRDNxa2lXTWo2eHJDQTVsTmFRT3NtUkJQMkdBTmQ1UWdiRXEzeTdLc3ZoVFZTSkhmTEs0LVhjWWNLY0RlQQ?oc=5",
-      "published": "Wed, 18 Nov 2026 14:00:00 GMT",
-      "source": "Business Wire",
+      "title": "Genetec launches MCP connector for applying artificial intelligence in physical security perimeters - Telecompaper",
+      "link": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxQRWU3ZncxNGstZ3lrbEI2Q2FzRUo5LW9rM0dwaFlmTGdwMnhSSU1wVFRvdi1HVTV2bVpfQkxOY01qXzhFZVEtYm1YaTg5bmtiejBiVzMxRXlwVi1LcWpsS3ZkWkhBTjBDTmlCTGhobTF0MEVGMm9WODFmNWROaTBRNnpWeGR2NXR6anh3LTh1VnlMR0t2NEJQRXhVSkVfMzlqTnpxdGxTNUZXV1drTWtfMnNGanpWQnZYWHRmUGxndE1HVzFXUlhEbElnMDE4MmN0QXNyNm1RTnhnQQ?oc=5",
+      "published": "Thu, 19 Nov 2026 12:56:55 GMT",
+      "source": "Telecompaper",
       "query": "Model Context Protocol"
     },
     {
-      "title": "Starburst Details Context Studio at Launch Point as Galaxy Preview Continues - www.tokenpost.com",
-      "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE94eUFtelVXZV9reFlfWkFab0lNMzUweS1NaWszUzVjWTZfZzByYk1jcjFNUklVWFdHWk1XZEpVNjgzcnZhdi1CSlpzX0h3WGlaX0J3bjNQcHJGaG8?oc=5",
-      "published": "Wed, 18 Nov 2026 13:21:10 GMT",
-      "source": "www.tokenpost.com",
-      "query": "Model Context Protocol"
+      "title": "I Found My Own Website Blocking ChatGPT. Then I Checked 640 Others. - HackerNoon",
+      "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPLTlMSkNxcDdFYjA4bUlQV1JlcGgtRWRVX09zRi1xWnZQUThHdXo3TjdGdW43U3JBNXprREVjbTg0Y3JubDA1c1lmMF9kZDlMcVZZdkt2aFBpUzFuXzM4dWpldmlQUzh5emdiTjNxaVNBV2NTQTdhSjZzWUx3YUF2TUpVaHRnczF2QkRXc3NZNnZ2QQ?oc=5",
+      "published": "Thu, 19 Nov 2026 12:52:32 GMT",
+      "source": "HackerNoon",
+      "query": "llms.txt"
     },
     {
-      "title": "Visa Expands Agentic Ready Programme to Scale AI-Powered Commerce Across Europe - FF News",
-      "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNMEwxS3kwVWJhN0tYN1NiMmctbFBZQW5vb1lRNGJacDBIQzNHQkVjZE5RNVVUN2xJbXJ3eXZTcW85dTNjOTJLWG9hbFFMSzlXcmgzUDlyN2YyV2pYNEV5ZkFwazU1VnNFYkw1U2VPS1ZkMFQtekpzMXZJV3pCb2VlWXhMbVh2WEJad2hoWEJ1T2ZGNE9tSzJFaHNZM05uT2xic0FVeTJhVkh2UQ?oc=5",
-      "published": "Wed, 18 Nov 2026 12:48:39 GMT",
-      "source": "FF News",
-      "query": "agentic commerce"
-    },
-    {
-      "title": "Visa adds acquirers to agentic programme - Business Travel News Europe",
-      "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxNSzNBYjJjRUNldWdDalR1YXlvSmVJTllzWE16dy1VT1dYUW50YmlwUzk1ODRZdXFGblpzd3dWWWlaRWxpbUhHMEx2UjBaNnVfRDVSRW1vQkIyTEx2MExRcEdnVmI4RTBudzBGNHN6ZXdkR0htUnctR0JGM1o3TDFwb0pfYzVoc2ZadndMOGtmRW54X2tiRlUwZm9nZ1h3QQ?oc=5",
-      "published": "Wed, 18 Nov 2026 12:19:40 GMT",
-      "source": "Business Travel News Europe",
-      "query": "agentic commerce"
-    },
-    {
-      "title": "What Is a Payment MCP Server? - shattered.io",
-      "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE1uR24yUlJuYTdiWUphTHIwUURVbC1Rc2FZMGhQNERsclZjRUZvYnVnSVZVclhIV3Z6OXNWNHVJcHNTbVlEZkx2NklWOFBQUGdOanRIckNjbHU2UzFBVHlJ?oc=5",
-      "published": "Wed, 18 Nov 2026 12:05:30 GMT",
-      "source": "shattered.io",
-      "query": "Model Context Protocol"
-    },
-    {
-      "title": "Visa Adds PayPal and Stripe to Agentic Ready Program - PYMNTS.com",
-      "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPeDFPdGtpdV9Xd3BzUVQ1czBwM2hNV2RtZHlRY1IxM2V3ZWJlazlyM2xyTGRoRlNpU3MyeTFaWUY4cWVJQmRFWUlFZWtwdklyQnR2eTQzS3dYVk1odW5obENKaWZKc0pzcnQtSWdwdUNtQ185TXFjbHlUbDhlV1YxM0xUTV83SkU3Wm5DTmhMNnZTUEFnaTJqUlNmbnl2c0UxYXJwR0VOM241UThFOHRn?oc=5",
-      "published": "Wed, 18 Nov 2026 12:03:25 GMT",
-      "source": "PYMNTS.com",
-      "query": "agentic commerce"
-    },
-    {
-      "title": "Who Owns Product Data for AI Shopping Agents: The Six Layers - FourWeekMBA",
-      "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFA0NGNZZnRkM2p2TlBtZDR3cUNDcUZsbGlFNXI5dmFTakpQZ0NSM0t6emdNYmctV2NjSzduMC1IZk8yS0ktR1dmQW9zb1ZiYURzc0xrQ2xjb29iR0sxLU11UWVGM196TGc?oc=5",
-      "published": "Wed, 18 Nov 2026 11:51:35 GMT",
-      "source": "FourWeekMBA",
-      "query": "AI shopping agent OR AI shopping agents"
-    },
-    {
-      "title": "Katanox partners with agentic commerce platform - The Business Travel Magazine",
-      "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQRXRnZXRhRm0waGJvYlRBUjZUaVlVYkVhY0JURjVmMUw0ZkE3dUNBaFBjdEk4czVmODRxQ1VxWkVGLW5aTTNGTGlPM3MtXzJJWTFIUnJXWVgzN3lwMHozSTl3bHFpc3MtYkExZkNLdUl1al9IMzBxV2V4azNDRmsweTJhVzdMdjlz?oc=5",
-      "published": "Wed, 18 Nov 2026 11:46:29 GMT",
-      "source": "The Business Travel Magazine",
-      "query": "agentic commerce"
-    },
-    {
-      "title": "How to Write AI Agent Tool Descriptions That Stop Wrong Tool Calls - Startup Fortune",
-      "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPMHozTktsbHdXYTgtZW1WVnluRGx4dTk5UEs1ZXlLSm81NVNRbm9yVFpUVTA3YWwwSWxPMWxIVmlQMTBOOXRkVmctakh3bzNZaXdmYkNBbGNUZWtQNXNEUkRJR080LW1rWGhfWF9scmJnSkxORm5sN2JOYWUxdkFFNFBWeERSYXNZMUJCV3ExVWpWT2ppUEVBVFpB?oc=5",
-      "published": "Wed, 18 Nov 2026 11:16:53 GMT",
-      "source": "Startup Fortune",
-      "query": "Model Context Protocol"
-    },
-    {
-      "title": "Pi Network Introduces Browser Console and AI Tools for Developers - www.tokenpost.com",
-      "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE00QTBvRmlZc3l6U1BxY0xZd0Y5dEJIQ0c2Nnd2dXhHaVB1dFZMMFZtQkNtY2c0QXBXa2drNDNzaFFXSmY3QTQ0Q3k5SkgxdmM0MVNRdGY0SDEwV28?oc=5",
-      "published": "Wed, 18 Nov 2026 11:12:17 GMT",
-      "source": "www.tokenpost.com",
-      "query": "Model Context Protocol"
-    },
-    {
-      "title": "Klarna Is Rebuilding Its App Around an AI Shopping Agent - AIM Media House",
-      "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxNVFZRN25TUllJUXJzWGVuSnRKemY5UkktSEVBbXRWOWlCNElUYURCRTFHajVjOWJmcHFreDhSWlVUR0hfUkxPVk1DSF9MZndzaEdiR0tLQmRld0gxOVFUYWZTYmZoUld6V3ptSUFLNkJjbFAweExlUm1DTmpPZ09mSFVnLVU3WVF6TXRxRWJqNTFia3M?oc=5",
-      "published": "Wed, 18 Nov 2026 10:43:18 GMT",
-      "source": "AIM Media House",
-      "query": "AI shopping agent OR AI shopping agents"
-    },
-    {
-      "title": "ProdPilot audits and repairs vibe coding projects before the first deployment - Foro3D",
-      "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPelMtZ2ljZVFhRlE2VzgzbkgxdFFEci1oQ19Tdnh1RGdLYjZmNHVONWJlMzAyd3hSODdtc3ptSFU0OW5TeU1Oc2NkalpfdlB4T0hucXhEWlMxa2dCc3hkY3VMVjhkWnJYSTR4ZDlyUFFHMGs1OERGQTU4MUdDdXpEemJWcW9rblRweFdoOHJQVWJoTy1GeGVLTnBVemt5WHliRHZ1ZGx0MlljQ004RnhLaElB?oc=5",
-      "published": "Wed, 18 Nov 2026 10:07:06 GMT",
+      "title": "MCP reaches hardware: AI agents that touch real sensors - Foro3D",
+      "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNWkZQTDdOeUZBNHY1OVNMWFVGV2dSaGNtajNkakJYMERnVDJDTXozX1ZRNnZoWUlEREg0M3hnaFFETjdSWGFxOUhYWTNCTF9teWFjQ09DV05VTkNwaWszUUdfRV9FblBIUC1Ea1RmYl9rLWFyUEdXNHlTeVFuWGYtSVdLNVpGQnhocmYxYWZZSGI5NS12R3lkcjg2d1I3NXRNeUY2eTJR?oc=5",
+      "published": "Thu, 19 Nov 2026 12:20:06 GMT",
       "source": "Foro3D",
       "query": "Model Context Protocol"
     },
     {
-      "title": "GenPPT Brings Presentation Creation Into AI Assistants, From Source Documents to PowerPoint - AiThority",
-      "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxPbk5fSVE3N2lqQkdQMUVidExyWlB3THdvQW54cHlQRUNEZmhGUms3ek9pMmsxVkhsVmdrSlpfRlpIN0NLWHkzSFhaTXlOSnRLejRVejV6UTNETHoyRFJ1R2dfYU1kaHlXZkpyTWtSWFVjSXpGUFBZWk94WGZlUkZpWGRUbFk5MldjZ09pczA4Mi13aEhNVlBNWkhvM2hOSXYzZk5XMzYxSks5clIwbEphN0syRWJTbWhmTVJjOGh5Ri1GbUpSX3BhcGN3?oc=5",
-      "published": "Wed, 18 Nov 2026 09:58:36 GMT",
+      "title": "MSQ launches ‘MSQ Signal,’ pairing human creativity with agentic AI across Asia - marketech apac",
+      "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNS2V1QjI0ZnJ4SHNzR3pndzJFeS1LdlZ0NHNwaU9leTA3NmlZU1dTOHF5Z2RZZnF3NEtfdWtPMUd1UmxaOHljRkY5eFVTMTY1VFJXbk5PTlFZUVVnMlJXNEo4cEJiU2lHMFdMRTd2ZmlnZlp2QVZ1SlNWMzB6TTV3dXRIX1p0VFZrQmIzcE1IM2VSd3J3S04zbkJwSTBtejRlYXE2VXpuUQ?oc=5",
+      "published": "Thu, 19 Nov 2026 12:00:00 GMT",
+      "source": "marketech apac",
+      "query": "agentic commerce"
+    },
+    {
+      "title": "Visa Agentic Ready Brings AI Agents Into European Payments - FinTech Magazine",
+      "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPbzlCS3ByYTl0SEIwM1pYYlNWdVFySjMxVV92c3hxWGZPVHpnaDE2OEpaa0pSdXFBRGZGUk9fTG5UbDVIV2VFNDl5clI3djZmNE9BZ0N3QklUY1NFTzNxeHI0RWJHQ3pXcTMxUFpkQm9JdkJTTVdiYkVhWVVHc0Itb2NqTHV3N1hhSThuUEVKazhUYklzU0E?oc=5",
+      "published": "Thu, 19 Nov 2026 11:47:58 GMT",
+      "source": "FinTech Magazine",
+      "query": "agentic commerce"
+    },
+    {
+      "title": "Transsion and Visa Partner to Expand Agentic Payments and Digital Acceptance in Emerging Markets - TechAfrica News",
+      "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxQbENaVWsxRTJPODd0dFRRUzYyUi1ERjQ5MGVXN040R3NMUk5DUHNpZTZmeURJM1JsYlEwNUVKSzM0eUZjSkhSNHhnaTY1RmpQNm5Qd1ZlRExlZjh6ano4cndGVnVScTNuZml0eVNRcFh2d08yTU1yOTBnRVNNbDdOMG1HUThiVUtfTm1JdXNJazZUeC1KemR4NTJMZGlBS3Z1enFld3BTd0phVm5QSXBoc3hZT3YwaElyNXRoNlBsWGFTbDlsM2U1V1k4emRJMVo1?oc=5",
+      "published": "Thu, 19 Nov 2026 11:41:41 GMT",
+      "source": "TechAfrica News",
+      "query": "agentic commerce"
+    },
+    {
+      "title": "Spreedly Named as a Partner for Visa Agentic Ready Programme - FinTech Magazine",
+      "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxOY0lUcFZZcVU0ZVpfM0Nxa25RYW8ybWpVVUkzUmZYUWtCRl9ka2R0OHBucFIxZnFCbnF0aTRGbU9sbXZCaVRkRnpNWjZjMmUzZGE1UmFUdjFQd3J0TXpVUjZTMU9HdzFlUVN6dzhMWWQ0RW8xdkxyTFZYVmdMUWpGc2t5QmdvNTBuOGp4MXUtcjlDR2ZXeE91cw?oc=5",
+      "published": "Thu, 19 Nov 2026 11:33:33 GMT",
+      "source": "FinTech Magazine",
+      "query": "agentic commerce"
+    },
+    {
+      "title": "Visa brings agentic, stablecoin solutions to Asia-Pacific - BusinessWorld Online",
+      "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxOSm80MlZ2LTBjMnBUWEN5T2tPZmttN3hFSEpwS0pkdE1UMldrRm9MZG5YR3BYSHhSNlk2dTEtUHRFVEhZeE9xZUZZc2FuMVJGZW90d3VrNjQ0Z05RUGtJX1FURS1ZcF9ZSWZOTkdJQlZrRTFNNEQzaVdlTWpvWU1TV0hEeTg0WmxnNmd5VUJUQ0FFYWtneWhIMzVBS1lCWUFEaHo5WWJDUkFVbllYWWQwWVJQRUdzWFk?oc=5",
+      "published": "Thu, 19 Nov 2026 11:23:02 GMT",
+      "source": "BusinessWorld Online",
+      "query": "agentic commerce"
+    },
+    {
+      "title": "Ant International: Building Trust Layers in Agentic Commerce - FinTech Magazine",
+      "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPMFB0U1UtUlc1NkVfVFY5YWs0QWJtVnRVZnlKMlJtZWVMN29jR3JVQWpNaG40b2kyX096MlZ6azlmRWt0S0ZYcDUxUDk0RkY1MEJJdVQ3aFhjNngybVBPUUhMYU1aMUdsQkRralJHQWxZd0stMmVzZl9ia29yRUplS1RweThXUWpsc2ROeW5EYVR4SUdpUnNF?oc=5",
+      "published": "Thu, 19 Nov 2026 11:11:54 GMT",
+      "source": "FinTech Magazine",
+      "query": "agentic commerce"
+    },
+    {
+      "title": "3 in 5 Philippine banks complete core tech for AI-initiated payments - Manila Bulletin",
+      "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxNc1hvUXhhczNDNWdKbWVNQ21IREZHXzl4V2VSRG1mcDR0ek4zYWhlM3JxUENTcjk1dWppMjFfRkYzZ3JVM1BzVktCTVk4ZHo3TzhwMEVUWkpyTEd1Z0FleFBLU1k0WDNKMW1Fc3hfZkpnS0VybG5KaGdjSWJUYUhuaGZvYm1tUnduOG9xb3BuRmlZUDdaZkt5Uzk4YjRudw?oc=5",
+      "published": "Thu, 19 Nov 2026 10:44:50 GMT",
+      "source": "Manila Bulletin",
+      "query": "agentic commerce"
+    },
+    {
+      "title": "Shopify: Unrestrained Growth Opportunity As Agentic Commerce Rises (NASDAQ:SHOP) - Seeking Alpha",
+      "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQYlVDTlRWaEFZdWZmZ0RlRnJXN2NKdkxjSTZydkg1SzJaOVhGQlQtT0hVUU9CQXR4Ui1XYTFGM0JFOHJQQ3YwWk1Pa0VvanR3aTlkMktsVUtyVUZoMXpmNUJSc3dzd1NTcm5OM2Eya1pmTzFqVXJ2UnRLRm12R2FMbm1rbkhEWjhFUjJUVHhLczFSU1lpdkFVNlUtbkI5UFUzUEZmX3RLOEN1VWVSRHF5akd3?oc=5",
+      "published": "Thu, 19 Nov 2026 10:31:45 GMT",
+      "source": "Seeking Alpha",
+      "query": "agentic commerce"
+    },
+    {
+      "title": "Proof launches its MCP in ChatGPT, starting with x401 so AI agents can prove who they act for and what that person approved - AiThority",
+      "link": "https://news.google.com/rss/articles/CBMi9AFBVV95cUxNVy1FbUdhdlFfM1psUTkwWnFKZG51N056NS16dGlYdEF2MlNxTmE4bVN1MW1YSE8tbWszTTJieldNYUdIZUVjSUhLZVBHVWlhbFRybXBZTkFfbjlVTGs3eVRkVnhOMGNUcVhCUWE5WEMyTmxTOGdSZC1KeTRldGNMaE5TQ2NuQ1E1RThXUzMzN0VqQURoMGRoLXF2UHpENFV5N25YVHBlU0p5Q0FKeUdiNVZBcnJEbWFDUTM2NVJhM0ppa0FxZUVqcFFrYm1CMFBEUmJxd0ZGd0pEUUtTdGYtdUVLR0lxVTRRSmFzRGpTbmJ6QWxB?oc=5",
+      "published": "Thu, 19 Nov 2026 10:27:27 GMT",
       "source": "AiThority",
       "query": "Model Context Protocol"
     },
     {
-      "title": "Visa is expanding its Agentic Ready programme to support the large-scale development of AI-powered commerce - Business Review",
-      "link": "https://news.google.com/rss/articles/CBMi6wFBVV95cUxQajlQM25ESUhJeElMYlF3U2RHSUd1Sk4wcDl1TG1VWkUwMm4xcl94bjFwbTYwUkpJQlUydk4wU3JEU1RFbFN4Q2oySFIyMENYaF9fR005TGdtSzJvbkJWS2oxNUs5bGdpd3RxOGFpOHpqUlN5cW1JWFBWQUI3V0UzMV9Bdmp3S05zc05RT001UlJQMnFETUZWX2pxY3NxeGNFWnJiQVhQMXBIdGVCRzZqeFlvZWo3T3dmaDdHNVdfWUJUWHN2VkVEdkpTYmpvUTRTdEpJQ2V2RFktT1RRX09KTE9Nc2tZakF4ZmJ3?oc=5",
-      "published": "Wed, 18 Nov 2026 09:48:20 GMT",
-      "source": "Business Review",
-      "query": "agentic commerce"
-    },
-    {
-      "title": "Lianlian DigiTech and Visa Advance Trusted B2B Agentic Commerce for Small and Medium-Sized Businesses - PR Newswire",
-      "link": "https://news.google.com/rss/articles/CBMi9AFBVV95cUxPNVZVcGRPeDRDaTZVYjJkWkxWWVlfZldEWXJoREFic3dfNk5rXzhHaVZZV3hsdHdOTklPZ2ZxVy1lbjNNMWlNdVNjdjVuWFRNN1lZMlJHY1A0LUlUZUdxS2hyREtFLU5fVUR5OWNzZUY4QV85eExsTWlITFVmQWJQZjNhNXBRdUU2TXBkVWlNQmtrYVNJSXVTd01jd3VKbWFNdDdwcF81LTBISVJpN1RVWFMwWmc2bWhVdDhUNXhOekZRWXpqaVhGekZ6eWpXRFNWRmV4YkxvWHlvcS1BOFBDOG55R2JyZ2trRmh5RTM4QkR2SXRI?oc=5",
-      "published": "Wed, 18 Nov 2026 09:47:10 GMT",
-      "source": "PR Newswire",
-      "query": "agentic commerce"
-    },
-    {
-      "title": "Hyundai tests AI agent commerce on JPMorgan’s Kinexys blockchain - CoinDesk",
-      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNUC1JUEtRekNVYUNPb19YQTRLakMzRnNXVTFUVE1zdjRQQjAxcHVPWDJPanBlUTBiN3VXUl9YZ3pjYjh6RXFMcHdKX19UTHZMazFKSkl0cklJNFZwaUhRcjdSRl9tNjROeWxsUTZNd1NpeVFTT2JaYUt1QnoxX2NrdEhEWUg4WjlfOHpVcWNQR2J3LUdMZUZfY3ZnTURibE1Mb1IzWGpkenFyOE10SWc?oc=5",
-      "published": "Wed, 18 Nov 2026 09:14:15 GMT",
-      "source": "CoinDesk",
-      "query": "agentic commerce"
-    },
-    {
-      "title": "Branviz Explains How robots.txt and llms.txt Help Brands Manage AI Crawler Access and Visibility - openPR.com",
-      "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOMDcwbHFQUGNUY2xoalpGQk93OFllTU9zOHlUNjd4NVlOQy1kMnRzdEpmMTZXcXZtc1NpV2c5S2xOd0Eya1V6YXlYYnhTRXZZcmZLd2RuX0dZcEVXV0hjeTFsdUpmelU3UUl0emY5aEVvQ210WDQxWnJqR3J2NWhJX09rVnpyaEhpMzFsZzRTd1B3Q1BZby1mZ2xRcml4TmVx?oc=5",
-      "published": "Wed, 18 Nov 2026 09:13:53 GMT",
-      "source": "openPR.com",
+      "title": "GEO FOMO: Dos and Don’ts for Marketers — LBB - LBB - Little Black Book",
+      "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE1xajRoRl9rdHp6bUFCbHVVZGFsd0k1bjVqZE83MWhnczh5dWg5cmRHZUl2eTJ4bWJoSHRHcHlianlOY0VsWEMtMHZxb0RwQWhDSUlTOUduTUc1azJPT0dZdFo2MnkzTUNrVnpJWno2eVo1Zw?oc=5",
+      "published": "Thu, 19 Nov 2026 10:24:48 GMT",
+      "source": "LBB - Little Black Book",
       "query": "llms.txt"
     },
     {
-      "title": "Amazon leaves door open to outside AI shopping agents - Traders Union",
-      "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxPUXVKRjN4TzQ3V0pXZkpTSnQ4TkhVUmFKMFZWaE95MVdCSFlfQ0tVQUVBUkZtRk5CaWRXVXVUbVFxQ2lLQzhpb3ZqZDhTeWg1NjhjZ3NzSXR2blEwT2owMUhHSVZxczFXWlBod1UzRHItbmpHdkNsa3JKa0w0cHpPN05tNXJyWDdDekZCMFA1VVQ?oc=5",
-      "published": "Wed, 18 Nov 2026 09:10:32 GMT",
-      "source": "Traders Union",
-      "query": "AI shopping agent OR AI shopping agents"
+      "title": "Delineate launches MCP - Research Live",
+      "link": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOMmNRRDQ1bnRDeGFOU2ktNVoyb2VYM0hHNzZBSy1VbnYxWjAtWEtOdDZXNTNuTzQ5VWFRbzVSaElzdVVtRXliaVZXd0VZMzN6TUJuQ1g5V0g4U21oSVVmTldMWkNhLTFHUVRZNTB2eUZZRXZfQUpRSjF3UDV3MGEyS3Fn?oc=5",
+      "published": "Thu, 19 Nov 2026 10:13:38 GMT",
+      "source": "Research Live",
+      "query": "Model Context Protocol"
     },
     {
-      "title": "Visa Expands Agentic Ready to Help Scale Trusted AI Commerce across Europe - Mynewsdesk",
-      "link": "https://news.google.com/rss/articles/CBMirgJBVV95cUxOVDE3UTZCRkVBMGxNY1J0dXpHNkhTdzhpeV9US3BfRm03VlJTN1hLbzc3Q296YzZXS3lpMXFrUWd6NUFFNTBaczN0eXJjekhYUHZfVkRzbk1UQXd2em9DdFgydUZJcF9TZENmZWFjc2I0ekY5emhEZW9MMk1vSjN1VEI2SzBrQUxNbkJNTi1hTkNXOVlGNlI2T2szTnBRTkVPcFgtZC1ZVFFycUlBdi1vMDNwZDVmZWpqRVJPVnBPUmRBSEx1N1RLcS05cVplU0pvNTc1TDFKTzhEWUZKWWxIU1dPdVhLdXRZMFEzcFFtZm04VV9SbXlxSXIwU05ibF8xVjhOQUtWWHRhdk9kMUlkcEhHQVJIY0MyNk9jVmlXRXhRS2pUVTh4TEsySl85dw?oc=5",
-      "published": "Wed, 18 Nov 2026 08:35:07 GMT",
-      "source": "Mynewsdesk",
+      "title": "Ivanti adds MCP connectivity to Autonomous Endpoint Management - UC Today",
+      "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxPam1qLVVOMF9kNmtacU05NXFnM21Zb2lnS0FnNDNhR3p3TXJYRzYzemY4dzd1elRFb0dKSFVaMW9zdHdJYmg3Q0EyX3p1c1JETGJldDFRa0h0TWh6WFZwNFFXOWU4anlIZV9iYXlLeFZ0OUNSWExoaFBVWk5NeXpVYWdVa0RkZVZpZnpJTlF0YmYxVzZDdlBOb1QxaElrVXVBRDZrdUlqSTd3cmJrQjdQSE44bGVBb2l1U04w?oc=5",
+      "published": "Thu, 19 Nov 2026 10:01:01 GMT",
+      "source": "UC Today",
+      "query": "Model Context Protocol"
+    },
+    {
+      "title": "AI Commerce Readiness: Perform.AI Helps Retailers Prepare for Automated Shopping Agents - Trend Hunter",
+      "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFAyajl1NzdDeHl5THlpTXVjSElhNW9fclhtNk1HOGRFTGQ1MEF6T01TV2IwNGJKcHhIcUdwbGUtZnZaV09RTkhnY1lNZVFSc3VJdC1aMmJxTHE3Zm9xbzAxSDdTaXplRGc?oc=5",
+      "published": "Thu, 19 Nov 2026 09:43:29 GMT",
+      "source": "Trend Hunter",
       "query": "agentic commerce"
     },
     {
-      "title": "AI agents made over 400M x402 payments worth $100M in a year - KuCoin",
-      "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE40QVZ0NHZKem5jNjJ2TnluYjJxc3I1ejY1MlgtQlYyZFVBSDVfc0U1VklvRWpBR2xISnNqT3l1QnYwa3pTNE5ZbHpNUnRUSVlmRGdpVFBNZDJBRlRJTS1MOFYydmhseUZweTJwbGN2NGNMUQ?oc=5",
-      "published": "Wed, 18 Nov 2026 08:24:29 GMT",
-      "source": "KuCoin",
-      "query": "x402"
+      "title": "Visa extends Agentic Ready to acceptance - The Paypers",
+      "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxNVm1Da2VZT0xnTUhKYTdQWDdQMWg1Y0xKRl8tcjlMb28yNEdLYlZZVEtJWXQzYTZ3RE5RYlp6WHFXeUdHQ0hkN0xoMnRXbnNpUExlcXNXdmNwVlA0TWVRaVMwMlo1b0VoTGdBZ1NoVGZNcHMxdnJoZXMzM2M1LUZlMzBYMnlxai1ZOGZid3AyZ2xXbDBHdFF5dWJZMnBmZw?oc=5",
+      "published": "Thu, 19 Nov 2026 09:26:22 GMT",
+      "source": "The Paypers",
+      "query": "agentic commerce"
     },
     {
-      "title": "GPT-5.4, Qwen3.7 Max and DeepSeek V3 Picked Copycat MCP Server Tool Over Real One in All 50 Trials - Tech Times",
-      "link": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxORzNYYUVGcGpiUnhBLWNkSjgtU3VJZGFvajJwQUFwYlQtRXJwOTAteXBuRGh3M3NQYXBvam5NOWNwdGZ2U2trRjJqc2pnWXpaWnZHaFNOX2JpU1JVa0ZWMEVuc0toTGl1bGQzb2VLa0k0SkpQV2hpVlRtYXJDTGthUG45b1pXelVXT19DRkJJVEFRNlJPaC1fdHNpZEpxYUc0V2haNHNmQWsyaDIzcE5JMXJESnVTbjRUS19wMl9SVndqV3JBS3pJU1FDczZCUG56cDZ2bl8xMDh1aUE?oc=5",
-      "published": "Wed, 18 Nov 2026 08:19:45 GMT",
-      "source": "Tech Times",
+      "title": "Graftcode moves integration platform to stable release - IT Brief UK",
+      "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxOX00yY0dESlRwSHFiU1Z3c0Mzd2xDTW5maHhaN0l0dTlqU3lJdVlfODRSQmRoU2NyTmlkM0J3NnhuZlh5QUpYdmtDVU5GNkMyX0tRaEJXbGw2XzlyOHBjTUFUOGE1NWVjaXE4ZVhVOFphcDlvSTF4UlBBeUo3NXVaTUtESFNrcGNaZ3c?oc=5",
+      "published": "Thu, 19 Nov 2026 09:15:00 GMT",
+      "source": "IT Brief UK",
+      "query": "Model Context Protocol"
+    },
+    {
+      "title": "Performativ Launches Next-Generation MCP, Bringing Governed AI to the Center of Client Work at Banks and Wealth Managers - The Manila Times",
+      "link": "https://news.google.com/rss/articles/CBMingJBVV95cUxON1V5QWo3QlhzY0FPTnBaamlxWnVaZlhnZzF1c0RTU1pVekZMRDhHc0p0eHlMWXJHanJYWXhIa0NNU3NxWXVPOW0tZk1xOFFBMnNlLU9BNWNKeDhWWFRtRGxsMVpjVVNMMlFxNXBwOXFWZExRRHFzemtWNnUtdWZUX2VCVW9DbDV1VWtRV0YxX3pVNGtnV25VOF9KMDJfN1lDVUhBR3NJNDhpZ1BudU03LVB3YVFxdmN1TURCMlNqMVk1ZGI5dmdLYjZnN3hQNEtfUnI2NXFWTVBjMTF1Zmkwd05GX0NMLTNIeXZLOGtWV3ViNVpFVU9maHNCcmNaaHl0MTkzUkdnemVWcXZ0MkJYR0wzbTQ1a2tVNU56aFF30gGjAkFVX3lxTFBGUTR1WWNuN2ZOVFlCOENjNzd5clIzWXlNMGNXQ0RrdGU3YzlyZk11M3AxQVA5b2pxbDIzdURGQmJHWWtIaHBxMUQyblp3c1VIQlVMZTJaNlNaWnI4ZFVQR28zVWY1S2hkZEd1QUVGd1Fvd1N6WDVqMi1UN01XS053eHd0eFdvMW5Dei1EdEg3SzlzcHlNeGsyb19abXphRWk4VlU1U05MOFR6d0F5eTJVWm9sTGl0VmUyUkU1d0V6dDJ5T0g5ejF3Mi1TZDJLd3ZfR2NEMmYtT051TDgzMVhaeE5rcGJ5aHBJZEszZ2RreXoyQS1IQUxKUnZySXZZN3lZUGdhdUlTZXZyN3I5UGtQalp0WkZfYVB4T3NwUWNyVjVmUQ?oc=5",
+      "published": "Thu, 19 Nov 2026 09:10:05 GMT",
+      "source": "The Manila Times",
+      "query": "Model Context Protocol"
+    },
+    {
+      "title": "The bottleneck just moved: why African startups should care about MCP - - Disrupt Africa",
+      "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNZnQtUFlfd3NUMVl2aC1lTEFNQWsxTHExa3Z4THNiRUdMMl9NRjMyNUR1Vkt5ZS1oNWRDaGhKZkl2S01vOElyb1c0ZTNtVkYwM25xVmwyamVSRWxWQmxuQ05ua2hFM1llem16S1pTSktZNmlrczhvdWxuamlBUmMycUxMZngya3dCTE9vdnk4aEJUNkd5Y3o3Z0x0b2x5YWdrSHg5TUd3WWlIUQ?oc=5",
+      "published": "Thu, 19 Nov 2026 09:00:30 GMT",
+      "source": "- Disrupt Africa",
+      "query": "Model Context Protocol"
+    },
+    {
+      "title": "Visa expands Agentic Ready to help scale AI commerce in Asia-Pacific - Vietnam Investment Review - VIR",
+      "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQUTdlVlBmenNTUFlnWGxvWHhaMnVlaFNEaThCUnZzNTBKUXVMclVVanNLY3RFbkxWYXN5RF9nMUVaQzJWdV9OTHpKUjVNYUE5WGx5bEJrRlZlekRkOFNTd0J5dWVpV3JPaGJ2MFpHS3VCVzNqRjd0eGxkeHpuVXpOa0dDc0pHSFlhRVptVHdyRFl2N2ZYWG5qTHVCcmZhOTgy?oc=5",
+      "published": "Thu, 19 Nov 2026 08:30:40 GMT",
+      "source": "Vietnam Investment Review - VIR",
+      "query": "agentic commerce"
+    },
+    {
+      "title": "MCP in travel: What it changes and why connectivity is only the beginning - PhocusWire",
+      "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxOOUFFRFBleGZ1UVpsVWZ0T1B3eU5HRk5mZnVKd0xPa1QwYXJ5T3kyTWRMT05HbHVkdHJOMFZZazcwZUJLY05lMjR5NGxVVWwtOVVJVnloeUh1Y1h5QkM2WGhvUmZLM2JUQ2laeXNBT3ktczY5OGRZTkE4MHZSQVBpaDFrckw2a0o0OGh2VFlDWTJlVTJ5bHJxcmhlOGxzVDFKc2x6eExn?oc=5",
+      "published": "Thu, 19 Nov 2026 08:03:32 GMT",
+      "source": "PhocusWire",
       "query": "Model Context Protocol"
     }
   ],
