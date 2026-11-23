@@ -1,18 +1,13 @@
 {
-  "updatedAt": "2026-11-16",
+  "updatedAt": "2026-11-23",
   "brandCount": 112,
   "candidateCount": 137,
   "averageScore": 75,
   "categories": [
     {
       "category": "Apparel",
-      "count": 17,
-      "averageScore": 80
-    },
-    {
-      "category": "Beauty",
-      "count": 17,
-      "averageScore": 75
+      "count": 18,
+      "averageScore": 79
     },
     {
       "category": "Home",
@@ -20,9 +15,14 @@
       "averageScore": 76
     },
     {
+      "category": "Beauty",
+      "count": 16,
+      "averageScore": 75
+    },
+    {
       "category": "Food & Beverage",
       "count": 13,
-      "averageScore": 74
+      "averageScore": 76
     },
     {
       "category": "Outdoor",
@@ -101,6 +101,26 @@
       ]
     },
     {
+      "name": "UNTUCKit",
+      "domain": "untuckit.com",
+      "category": "Apparel",
+      "score": 84,
+      "grade": "B",
+      "failing": [
+        "Product / Offer schema"
+      ]
+    },
+    {
+      "name": "True Classic",
+      "domain": "trueclassictees.com",
+      "category": "Apparel",
+      "score": 84,
+      "grade": "B",
+      "failing": [
+        "Product / Offer schema"
+      ]
+    },
+    {
       "name": "Bonobos",
       "domain": "bonobos.com",
       "category": "Apparel",
@@ -121,16 +141,6 @@
       ]
     },
     {
-      "name": "UNTUCKit",
-      "domain": "untuckit.com",
-      "category": "Apparel",
-      "score": 84,
-      "grade": "B",
-      "failing": [
-        "Product / Offer schema"
-      ]
-    },
-    {
       "name": "Marine Layer",
       "domain": "marinelayer.com",
       "category": "Apparel",
@@ -141,19 +151,9 @@
       ]
     },
     {
-      "name": "True Classic",
-      "domain": "trueclassictees.com",
+      "name": "Spanx",
+      "domain": "spanx.com",
       "category": "Apparel",
-      "score": 84,
-      "grade": "B",
-      "failing": [
-        "Product / Offer schema"
-      ]
-    },
-    {
-      "name": "Rothy's",
-      "domain": "rothys.com",
-      "category": "Footwear",
       "score": 84,
       "grade": "B",
       "failing": [
@@ -163,6 +163,16 @@
     {
       "name": "Tecovas",
       "domain": "tecovas.com",
+      "category": "Footwear",
+      "score": 84,
+      "grade": "B",
+      "failing": [
+        "Product / Offer schema"
+      ]
+    },
+    {
+      "name": "Rothy's",
+      "domain": "rothys.com",
       "category": "Footwear",
       "score": 84,
       "grade": "B",
@@ -191,8 +201,8 @@
       ]
     },
     {
-      "name": "Fenty Beauty",
-      "domain": "fentybeauty.com",
+      "name": "ColourPop",
+      "domain": "colourpop.com",
       "category": "Beauty",
       "score": 84,
       "grade": "B",
@@ -211,19 +221,9 @@
       ]
     },
     {
-      "name": "ColourPop",
-      "domain": "colourpop.com",
+      "name": "Fenty Beauty",
+      "domain": "fentybeauty.com",
       "category": "Beauty",
-      "score": 84,
-      "grade": "B",
-      "failing": [
-        "Product / Offer schema"
-      ]
-    },
-    {
-      "name": "Spanx",
-      "domain": "spanx.com",
-      "category": "Apparel",
       "score": 84,
       "grade": "B",
       "failing": [
@@ -233,16 +233,6 @@
     {
       "name": "Kosas",
       "domain": "kosas.com",
-      "category": "Beauty",
-      "score": 84,
-      "grade": "B",
-      "failing": [
-        "Product / Offer schema"
-      ]
-    },
-    {
-      "name": "Tatcha",
-      "domain": "tatcha.com",
       "category": "Beauty",
       "score": 84,
       "grade": "B",
@@ -261,16 +251,6 @@
       ]
     },
     {
-      "name": "Casper",
-      "domain": "casper.com",
-      "category": "Home",
-      "score": 84,
-      "grade": "B",
-      "failing": [
-        "Product / Offer schema"
-      ]
-    },
-    {
       "name": "Dollar Shave Club",
       "domain": "dollarshaveclub.com",
       "category": "Beauty",
@@ -281,8 +261,8 @@
       ]
     },
     {
-      "name": "HexClad",
-      "domain": "hexclad.com",
+      "name": "Casper",
+      "domain": "casper.com",
       "category": "Home",
       "score": 84,
       "grade": "B",
@@ -301,8 +281,8 @@
       ]
     },
     {
-      "name": "Floyd",
-      "domain": "floydhome.com",
+      "name": "HexClad",
+      "domain": "hexclad.com",
       "category": "Home",
       "score": 84,
       "grade": "B",
@@ -321,8 +301,8 @@
       ]
     },
     {
-      "name": "Made In",
-      "domain": "madeincookware.com",
+      "name": "Floyd",
+      "domain": "floydhome.com",
       "category": "Home",
       "score": 84,
       "grade": "B",
@@ -331,9 +311,9 @@
       ]
     },
     {
-      "name": "Cotopaxi",
-      "domain": "cotopaxi.com",
-      "category": "Outdoor",
+      "name": "Made In",
+      "domain": "madeincookware.com",
+      "category": "Home",
       "score": 84,
       "grade": "B",
       "failing": [
@@ -353,6 +333,16 @@
     {
       "name": "BioLite",
       "domain": "bioliteenergy.com",
+      "category": "Outdoor",
+      "score": 84,
+      "grade": "B",
+      "failing": [
+        "Product / Offer schema"
+      ]
+    },
+    {
+      "name": "Cotopaxi",
+      "domain": "cotopaxi.com",
       "category": "Outdoor",
       "score": 84,
       "grade": "B",
@@ -381,8 +371,8 @@
       ]
     },
     {
-      "name": "Fly By Jing",
-      "domain": "flybyjing.com",
+      "name": "Graza",
+      "domain": "graza.co",
       "category": "Food & Beverage",
       "score": 84,
       "grade": "B",
@@ -401,8 +391,8 @@
       ]
     },
     {
-      "name": "Graza",
-      "domain": "graza.co",
+      "name": "Fly By Jing",
+      "domain": "flybyjing.com",
       "category": "Food & Beverage",
       "score": 84,
       "grade": "B",
@@ -541,9 +531,9 @@
       ]
     },
     {
-      "name": "On Running",
-      "domain": "on.com",
-      "category": "Footwear",
+      "name": "Chubbies",
+      "domain": "chubbiesshorts.com",
+      "category": "Apparel",
       "score": 80,
       "grade": "B",
       "failing": [
@@ -551,9 +541,9 @@
       ]
     },
     {
-      "name": "Chubbies",
-      "domain": "chubbiesshorts.com",
-      "category": "Apparel",
+      "name": "On Running",
+      "domain": "on.com",
+      "category": "Footwear",
       "score": 80,
       "grade": "B",
       "failing": [
@@ -591,9 +581,9 @@
       ]
     },
     {
-      "name": "The Farmer's Dog",
-      "domain": "thefarmersdog.com",
-      "category": "Pets",
+      "name": "Nomad Goods",
+      "domain": "nomadgoods.com",
+      "category": "Electronics",
       "score": 80,
       "grade": "B",
       "failing": [
@@ -601,9 +591,9 @@
       ]
     },
     {
-      "name": "Nomad Goods",
-      "domain": "nomadgoods.com",
-      "category": "Electronics",
+      "name": "The Farmer's Dog",
+      "domain": "thefarmersdog.com",
+      "category": "Pets",
       "score": 80,
       "grade": "B",
       "failing": [
@@ -628,17 +618,6 @@
       "grade": "B",
       "failing": [
         "Product / Offer schema"
-      ]
-    },
-    {
-      "name": "Everlane",
-      "domain": "everlane.com",
-      "category": "Apparel",
-      "score": 79,
-      "grade": "B",
-      "failing": [
-        "Product / Offer schema",
-        "Descriptive <title>"
       ]
     },
     {
@@ -738,6 +717,16 @@
     {
       "name": "Cuts",
       "domain": "cutsclothing.com",
+      "category": "Apparel",
+      "score": 72,
+      "grade": "C",
+      "failing": [
+        "Product / Offer schema"
+      ]
+    },
+    {
+      "name": "Reformation",
+      "domain": "thereformation.com",
       "category": "Apparel",
       "score": 72,
       "grade": "C",
@@ -878,16 +867,6 @@
       ]
     },
     {
-      "name": "Drunk Elephant",
-      "domain": "drunkelephant.com",
-      "category": "Beauty",
-      "score": 69,
-      "grade": "C",
-      "failing": [
-        "Product / Offer schema"
-      ]
-    },
-    {
       "name": "Summer Fridays",
       "domain": "summerfridays.com",
       "category": "Beauty",
@@ -906,6 +885,16 @@
       "grade": "C",
       "failing": [
         "JSON-LD present",
+        "Product / Offer schema"
+      ]
+    },
+    {
+      "name": "Drunk Elephant",
+      "domain": "drunkelephant.com",
+      "category": "Beauty",
+      "score": 69,
+      "grade": "C",
+      "failing": [
         "Product / Offer schema"
       ]
     },
@@ -1031,6 +1020,17 @@
       ]
     },
     {
+      "name": "Nothing",
+      "domain": "nothing.tech",
+      "category": "Electronics",
+      "score": 66,
+      "grade": "C",
+      "failing": [
+        "JSON-LD present",
+        "Product / Offer schema"
+      ]
+    },
+    {
       "name": "Sundays for Dogs",
       "domain": "sundaysfordogs.com",
       "category": "Pets",
@@ -1042,14 +1042,15 @@
       ]
     },
     {
-      "name": "Nothing",
-      "domain": "nothing.tech",
-      "category": "Electronics",
-      "score": 66,
+      "name": "Everlane",
+      "domain": "everlane.com",
+      "category": "Apparel",
+      "score": 64,
       "grade": "C",
       "failing": [
         "JSON-LD present",
-        "Product / Offer schema"
+        "Product / Offer schema",
+        "Descriptive <title>"
       ]
     },
     {
@@ -1187,6 +1188,17 @@
       ]
     },
     {
+      "name": "Poppi",
+      "domain": "drinkpoppi.com",
+      "category": "Food & Beverage",
+      "score": 44,
+      "grade": "D",
+      "failing": [
+        "Product / Offer schema",
+        "Descriptive <title>"
+      ]
+    },
+    {
       "name": "Article",
       "domain": "article.com",
       "category": "Home",
@@ -1207,18 +1219,6 @@
       "failing": [
         "JSON-LD present",
         "Product / Offer schema"
-      ]
-    },
-    {
-      "name": "Poppi",
-      "domain": "drinkpoppi.com",
-      "category": "Food & Beverage",
-      "score": 24,
-      "grade": "F",
-      "failing": [
-        "JSON-LD present",
-        "Product / Offer schema",
-        "Descriptive <title>"
       ]
     }
   ]
